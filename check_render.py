@@ -7,7 +7,7 @@ CSS class the app emits actually has a rule in style.css.
 
     node snapshot.js && python3 check_render.py
 """
-import re, sys, os, collections
+import re, sys, os, json, collections
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 html = open(os.path.join(ROOT, "rendered-output-snapshot.html"), encoding="utf-8").read()
@@ -207,14 +207,14 @@ for i, c in enumerate(cards, 1):
 # =============================================================================
 shell = open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()
 
-TAB_LABELS = ["Build a Bed", "How it works", "Plant Database",
-              "Data Sources", "Before you plant"]
+TAB_LABELS = ["Build a Bed", "Help My Plant Keeps Dying", "How it works",
+              "Plant Database", "Data Sources", "Before you plant"]
 tabs   = re.findall(r'<button[^>]*id="tab-(\w+)"[^>]*role="tab"(.*?)>(.*?)</button>', shell, re.S)
 panels = re.findall(r'<section[^>]*id="panel-(\w+)"[^>]*role="tabpanel"([^>]*)>', shell)
 
 print("tabs in index.html: %d, panels: %d" % (len(tabs), len(panels)))
-ck(len(tabs) == 5,   "expected exactly 5 tabs, found %d" % len(tabs))
-ck(len(panels) == 5, "expected exactly 5 tab panels, found %d" % len(panels))
+ck(len(tabs) == 6,   "expected exactly 6 tabs, found %d" % len(tabs))
+ck(len(panels) == 6, "expected exactly 6 tab panels, found %d" % len(panels))
 
 tab_ids   = [t[0] for t in tabs]
 panel_ids = [p[0] for p in panels]
@@ -247,18 +247,21 @@ ck(sorted(roving) == sorted([t for t in tab_ids if t != "build"]),
    "unselected tabs must carry tabindex=-1, got %s" % roving)
 
 # the builder and the combinations must both live in the first panel
-build_panel = shell[shell.index('id="panel-build"'):shell.index('id="panel-how"')]
+build_panel = shell[shell.index('id="panel-build"'):shell.index('id="panel-dying"')]
 ck('id="bed"' in build_panel,        "the form is not inside the Build a Bed panel")
 ck('id="comboHost"' in build_panel,  "the combinations are not inside the Build a Bed panel")
 ck('id="results"' in build_panel,    "the results block is not inside the Build a Bed panel")
-for other in ("panel-how", "panel-plants", "panel-sources", "panel-before"):
+for other in ("panel-dying", "panel-how", "panel-plants", "panel-sources", "panel-before"):
     ck(other not in build_panel, "%s is nested inside the build panel" % other)
 
 # the other four panels must hold their own content and nothing else
 for pid, marker, what in (("plants",  'id="browseTable"', "plant database table"),
                           ("sources", 'id="srcCards"',    "source cards"),
                           ("before",  "Accuracy notice",  "accuracy notice"),
-                          ("how",     "habitat scorecard", "scorecard explanation")):
+                          ("how",     "habitat scorecard", "scorecard explanation"),
+                          ("dying",   'id="dxq"',         "plant search box"),
+                          ("dying",   'id="dxOut"',       "diagnosis output area"),
+                          ("dying",   'id="dxSources"',   "diagnostic source list")):
     i = shell.index('id="panel-%s"' % pid)
     j = shell.find("</section>", i)
     ck(marker in shell[i:j], "the %s is not inside the %s panel" % (what, pid))
@@ -282,11 +285,96 @@ navtag = shell[shell.index('<div class="combo-nav" id="comboNav"'):]
 navtag = navtag[:navtag.index(">")+1]
 ck("hidden" in navtag, "the navigation bar should start hidden until a bed is generated")
 
+# Per-panel div balance. A document can balance overall while one panel has an unclosed div
+# and another has a stray closing tag -- that exact bug occurred here and the whole-document
+# count could not see it, so each panel is balanced independently.
+panel_parts = re.split(r'<section class="panel-tab"[^>]*id="(panel-\w+)"[^>]*>', shell)
+for k in range(1, len(panel_parts), 2):
+    pid, seg = panel_parts[k], panel_parts[k+1]
+    end = seg.find("</section>")
+    if end >= 0: seg = seg[:end]
+    opened = len(re.findall(r"<div\b", seg))
+    closed = len(re.findall(r"</div>", seg))
+    ck(opened == closed,
+       "%s has unbalanced div tags: %d opened, %d closed" % (pid, opened, closed))
+
+# ---- the diagnostic tab's own requirements ----
+dying = shell[shell.index('id="panel-dying"'):shell.index('id="panel-how"')]
+# Prose in the markup is hard-wrapped, so a phrase can be split across a line break.
+# Phrase checks run against a whitespace-normalised copy.
+dying_flat = re.sub(r"\s+", " ", dying)
+ck('id="dxq"' in dying,       "no plant search box on the diagnosis tab")
+ck('id="dxResults"' in dying, "no search results container on the diagnosis tab")
+ck('id="dxGeneral"' in dying, "no fallback for a plant that is not in the database")
+ck('id="dxReset"' in dying,   "no way to start the diagnosis again")
+ck("diagnostic laboratory" in dying_flat or "plant diagnostic" in dying_flat,
+   "the diagnosis tab does not point the user at a laboratory as a last resort")
+ck("not a diagnosis" in dying_flat,
+   "the diagnosis tab does not state its own limits")
+ck("Change one thing at a time" in dying_flat,
+   "the diagnosis tab does not explain how to use the tests properly")
+# the search box must come before the output, so the flow reads top to bottom
+ck(dying.index('id="dxq"') < dying.index('id="dxOut"'),
+   "the search box must appear above the diagnosis output")
+
+# ---- the diagnostic content itself ----
+diagfile = os.path.join(ROOT, "diagnostics.json")
+ck(os.path.exists(diagfile), "diagnostics.json is missing")
+if os.path.exists(diagfile):
+    dj = json.load(open(diagfile, encoding="utf-8"))
+    tests, dsrc = dj.get("diagnostics", []), dj.get("sources", {})
+    print("diagnostic tests: %d across %d categories, %d sources"
+          % (len(tests), len(set(t["cat"] for t in tests)), len(dsrc)))
+    ck(len(tests) >= 35, "only %d diagnostic tests; the brief asked for as many as reasonable"
+       % len(tests))
+    ck(len(set(t["cat"] for t in tests)) >= 6,
+       "diagnostics cover only %d categories" % len(set(t["cat"] for t in tests)))
+    ids = [t["id"] for t in tests]
+    ck(len(ids) == len(set(ids)), "duplicate diagnostic ids")
+    # the specific causes the brief named must all be present
+    blob = json.dumps(tests).lower()
+    for phrase, what in (("pH", "soil pH"), ("caliche", "rock or hardpan near the surface"),
+                         ("hardpan", "hardpan"), ("overwater", "overwatering"),
+                         ("vole", "rodent damage"), ("herbicide", "herbicide injury"),
+                         ("compaction", "compaction"), ("planting depth", "planting depth")):
+        ck(phrase.lower() in blob, "no diagnostic covers %s" % what)
+    for t in tests:
+        ck(len(t.get("test","")) >= 80,
+           "diagnostic %r has no performable test" % t["id"])
+        ck(t.get("src"), "diagnostic %r cites no source" % t["id"])
+        for k2 in t.get("src", []):
+            ck(k2 in dsrc, "diagnostic %r cites unknown source %r" % (t["id"], k2))
+    for k2, v in dsrc.items():
+        ck(v.get("url","").startswith("http"), "source %r has no usable URL" % k2)
+        ck(len(v.get("note","")) > 40, "source %r has no explanation of why it is cited" % k2)
+    # abbreviated units were an explicit instruction for the whole site
+    ab = [t["id"] for t in tests
+          if re.search(r"\d+\s?(?:in|ft)\b", t["test"]+t["means"]+t["fix"])]
+    ck(not ab, "diagnostics use abbreviated units: %s" % ab[:3])
+
+# Every class emitted by the diagnostic UI must have a rule in the stylesheet. There is no
+# browser here to look at the result, so this is the substitute: an unstyled class is the most
+# likely way the new tab would come out visibly broken.
+DX_CLASSES = ["dxsearch","dxresults","dxhits","dxhit","dxh-info","dxh-need","dxhead","dxh-look",
+              "dxh-note","dxctx","dxrefine","dxr-hd","dxr-grid","dxlead","dxl-hd","dxactions",
+              "dxlist","dxcard","dx-hd","dx-rank","dx-title","dx-cat","dx-why","dx-lab",
+              "dx-test","dx-means","dx-fix","dx-src"]
+unstyled = [c for c in DX_CLASSES
+            if not re.search(r"(?:^|[\s,>+~{}(])\.%s\b" % re.escape(c), css)]
+ck(not unstyled, "diagnostic UI classes have no CSS rule: %s" % unstyled)
+# every category chip needs its own colour, or they are indistinguishable
+cats_used = sorted(set(t["cat"] for t in json.load(
+    open(os.path.join(ROOT,"diagnostics.json"), encoding="utf-8"))["diagnostics"]))
+nochip = [c for c in cats_used if ".dx-cat.c-%s" % c not in css]
+ck(not nochip, "diagnostic categories with no chip colour: %s" % nochip)
+print("diagnostic UI: %d classes styled, %d category chips coloured"
+      % (len(DX_CLASSES), len(cats_used)))
+
 # the old anchor-link navigation must be gone, or it will scroll instead of switching tabs
 ck("nav.top" not in shell and 'class="top"' not in shell,
    "the old in-header anchor navigation is still present")
 
-print("index.html shell: 5 tabs, aria wiring, one visible panel, carousel controls all present")
+print("index.html shell: 6 tabs, aria wiring, one visible panel, carousel controls all present")
 
 used = collections.Counter()
 for attr in re.findall(r'class="([^"]+)"', html):
@@ -336,6 +424,34 @@ wn(html.count("<div") == html.count("</div>"),
 print()
 for w in warns: print("  warn  " + w)
 for f in fails: print("  FAIL  " + f)
+# =============================================================================
+# Reproducibility: rebuilding must not change any generated file. A build that is not
+# byte-stable makes the CI staleness warning fire on every run and hides real drift.
+# =============================================================================
+import hashlib, subprocess
+GEN = ["plants.json","plants.csv","data.js","regions.json","templates.json",
+       "sources.json","diagnostics.json"]
+def _digest(f):
+    try: return hashlib.md5(open(os.path.join(ROOT,f),"rb").read()).hexdigest()
+    except OSError: return None
+before = {f:_digest(f) for f in GEN}
+for script in ("build_reference_data.py","build_diagnostics.py","build_data.py"):
+    r = subprocess.run([sys.executable, os.path.join(ROOT,script)],
+                       capture_output=True, text=True, cwd=ROOT)
+    ck(r.returncode == 0, "%s failed on re-run: %s" % (script, r.stderr.strip()[:200]))
+after = {f:_digest(f) for f in GEN}
+drifted = [f for f in GEN if before[f] != after[f]]
+ck(not drifted, "rebuilding changed these generated files, so the build is not reproducible: %s"
+   % drifted)
+# and mixed line endings in any generated text file
+mixed = []
+for f in GEN:
+    try: raw = open(os.path.join(ROOT,f),"rb").read()
+    except OSError: continue
+    if raw.count(b"\r\n") and raw.count(b"\n") != raw.count(b"\r\n"): mixed.append(f)
+ck(not mixed, "generated files mix line endings: %s" % mixed)
+print("build is reproducible: %d generated files byte-identical on rebuild" % len(GEN))
+
 print("\n%s%s" % ("FAILURES: %d" % len(fails) if fails else "ALL RENDER CHECKS PASSED",
                   "   warnings: %d" % len(warns) if warns else ""))
 sys.exit(1 if fails else 0)

@@ -70,15 +70,49 @@ for(const [label,zip,light,soil,w,l,take] of cases){
           comboNav(i,n,name,true)+'</section>';
   });
 }
+/* A real rendered diagnosis, so the new tab can be inspected rather than guessed at.
+   Five cases with deliberately different needs, to show the ranking actually changes. */
+function diagnosisSections(){
+  H.clickTab('dying');
+  let html = '';
+  const cases = [
+    ['agave',        null,        null,     'Agave \u2014 a rosette succulent: expect water and drainage first'],
+    ['maidenhair',   null,        null,     'Maidenhair fern \u2014 expect drying out and light first'],
+    ['lowbush',      null,        null,     'Lowbush blueberry \u2014 expect soil pH first'],
+    ['purple conef', 'distorted', null,     'Purple coneflower, reporting twisted new growth'],
+    ['wild bergam',  'vanished',  'winter', 'Wild bergamot, reporting it vanished over winter']
+  ];
+  for(const [q, symptom, timing, label] of cases){
+    byId.dxq.value = q; byId.dxq.dispatch('input');
+    const hits = H.dxHits();
+    if(!hits.length) continue;
+    hits[0].children[1].click();
+    if(symptom) H.dxSetAnswer('symptom', symptom);
+    if(timing)  H.dxSetAnswer('timing', timing);
+    html += '<section class="block"><div class="panel"><h2>'+esc(label)+'</h2></div></section>'+
+            '<section class="block">'+ser(byId.dxOut)+'</section>';
+  }
+  H.clickTab('build');
+  return html;
+}
+const diagBody = diagnosisSections();
+
 const html='<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">'+
  '<meta name="viewport" content="width=device-width,initial-scale=1">'+
  '<title>Botanical Bed Builder \u2014 rendered output snapshot</title>'+
  '<link rel="stylesheet" href="style.css"></head><body>'+
  '<header class="site"><div class="wrap"><h1>Botanical Bed Builder</h1>'+
- '<p class="lede">Rendered-output snapshot for inspection. The live site shows five tabs and '+
- 'one combination at a time; this file reproduces that chrome and then lays several '+
- 'combinations out in sequence so they can all be inspected on one page.</p></div></header>'+
+ '<p class="lede">Rendered-output snapshot for inspection. The live site shows six tabs, one '+
+ 'combination at a time; this file reproduces that chrome and then lays several combinations '+
+ 'out in sequence, followed by rendered diagnoses from the Help My Plant Keeps Dying tab, so '+
+ 'everything can be inspected on one page.</p></div></header>'+
  tabBar('build')+
- '<main><div class="wrap">'+body+'</div></main></body></html>';
+ '<main><div class="wrap">'+body+
+ '<section class="block"><div class="panel">'+
+ '<h2>Help My Plant Keeps Dying \u2014 rendered diagnoses</h2>'+
+ '<p class="muted">The ranking is recomputed for each plant, so the order of the tests '+
+ 'should differ between the cases below.</p></div></section>'+
+ diagBody+
+ '</div></main></body></html>';
 fs.writeFileSync(path.join(__dirname,'rendered-output-snapshot.html'), html);
 console.log('wrote rendered-output-snapshot.html ('+(html.length/1024).toFixed(0)+' KB)');

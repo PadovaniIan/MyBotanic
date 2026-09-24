@@ -39,8 +39,8 @@ class E {
 }
 
 const byId = {};
-const SELECTS = /^(region|zone|soil|maxh|deer|spread|breg|blay|blight|bsort|comboJump)$/;
-const INPUTS  = /^(zip|w|l|bq)$/;
+const SELECTS = /^(region|zone|soil|maxh|deer|spread|breg|blay|blight|bsort|comboJump|dxTiming|dxSymptom)$/;
+const INPUTS  = /^(zip|w|l|bq|dxq)$/;
 const IDS = ['zip','region','regionHint','zone','soil','w','l','maxh','deer','spread','zipOut',
  'bed','shuffle','printBtn','permalinkWrap','permalink','status','resultsHead','resultsSummary',
  'csvAll','results',
@@ -50,9 +50,12 @@ const IDS = ['zip','region','regionHint','zone','soil','w','l','maxh','deer','sp
  // plant database
  'bq','breg','blay','blight','bsort','browseCount','browseTable',
  'srcCards','footStats',
+ // diagnostics tab
+ 'dxq','dxResults','dxSearchBox','dxOut','dxGeneral','dxReset','dxSources',
+ 'dxTiming','dxSymptom',
  // tabs
- 'tab-build','tab-how','tab-plants','tab-sources','tab-before',
- 'panel-build','panel-how','panel-plants','panel-sources','panel-before'];
+ 'tab-build','tab-dying','tab-how','tab-plants','tab-sources','tab-before',
+ 'panel-build','panel-dying','panel-how','panel-plants','panel-sources','panel-before'];
 IDS.forEach(id => {
   const tag = id==='bed' ? 'form' : SELECTS.test(id) ? 'select' : INPUTS.test(id) ? 'input' : 'div';
   byId[id] = new E(tag); byId[id].id = id;
@@ -61,7 +64,7 @@ byId.zip.value=''; byId.soil.value='M'; byId.w.value='6'; byId.l.value='16';
 byId.maxh.value='999'; byId.deer.value='0'; byId.spread.value='1';
 byId.blight.value=''; byId.bsort.value='eco'; byId.breg.value=''; byId.blay.value='';
 // mirror the shipped markup: Build a Bed selected, the other four panels hidden
-['build','how','plants','sources','before'].forEach((n,i) => {
+['build','dying','how','plants','sources','before'].forEach((n,i) => {
   byId['tab-'+n].setAttribute('aria-selected', i===0 ? 'true' : 'false');
   byId['tab-'+n].setAttribute('tabindex', i===0 ? '0' : '-1');
   byId['panel-'+n].hidden = (i !== 0);
@@ -141,12 +144,67 @@ module.exports = {
   },
   comboCount, gotoCombo, currentCard, cards,
   clickTab(name){ byId['tab-'+name].dispatch('click'); },
+  /* diagnostics tab: type a query, read the hit list, click a Diagnose button */
+  dxSearch(q){
+    byId.dxq.value = q;
+    byId.dxq.dispatch('input');
+    return this.dxHits();
+  },
+  dxHits(){
+    const out = [];
+    (function walk(e){
+      if(e.className === 'dxhit') out.push(e);
+      (e.children||[]).forEach(walk);
+    })(byId.dxResults);
+    return out;
+  },
+  dxHitNames(){
+    return this.dxHits().map(h => {
+      const m = /<span class='cn'>(.*?)<\/span>/.exec(h.children[0].innerHTML);
+      return m ? m[1] : '?';
+    });
+  },
+  dxPick(i){
+    const hits = this.dxHits();
+    if(!hits[i]) return null;
+    hits[i].children[1].click();
+    return byId.dxOut;
+  },
+  dxTests(){
+    const out = [];
+    (function walk(e){
+      if(e.className && String(e.className).indexOf('dxcard') === 0) out.push(e);
+      (e.children||[]).forEach(walk);
+    })(byId.dxOut);
+    return out.map(card => {
+      const hd = card.children[0].innerHTML;
+      const t = /<span class='dx-title'>(.*?)<\/span>/.exec(hd);
+      const c = /<span class='dx-cat c-(\w+)'>/.exec(hd);
+      const why = card.children.find(x => x.className === 'dx-why');
+      return { title: t ? t[1] : '?', cat: c ? c[1] : '?',
+               why: why ? why.innerHTML.replace(/<[^>]*>/g,'') : '' };
+    });
+  },
+  /* The refinement selects are created by renderDiagnosis(), so they are not in the
+     static byId map: find the real element and drive its own change handler. */
+  dxSetAnswer(which, value){
+    const id = which === 'timing' ? 'dxTiming' : 'dxSymptom';
+    let found = null;
+    (function walk(e){
+      if(e.id === id) found = e;
+      (e.children||[]).forEach(walk);
+    })(byId.dxOut);
+    if(!found) throw new Error('refinement select '+id+' not rendered');
+    found.value = value;
+    found.dispatch('change');
+    return found;
+  },
   visibleTabs(){
-    return ['build','how','plants','sources','before']
+    return ['build','dying','how','plants','sources','before']
       .filter(n => byId['panel-'+n].hidden === false);
   },
   tabState(){
-    return ['build','how','plants','sources','before'].map(n => ({
+    return ['build','dying','how','plants','sources','before'].map(n => ({
       id: n,
       selected: byId['tab-'+n].getAttribute('aria-selected'),
       tabindex: byId['tab-'+n].getAttribute('tabindex'),

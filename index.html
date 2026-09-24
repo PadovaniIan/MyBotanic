@@ -15,7 +15,9 @@
     <h1>Botanical Bed Builder</h1>
     <p class="lede">Enter a ZIP code and how much sun the spot gets. You get back a set of complete
     planting combinations &mdash; layered the way a botanical garden lays out a bed, built only from
-    species native to your ecoregion, and scored on what they actually do for insects and birds.</p>
+    species native to your ecoregion, and scored on what they actually do for insects and birds.
+    Already lost something? The <strong>Help My Plant Keeps Dying</strong> tab works through 43
+    tests to find out why.</p>
   </div>
 </header>
 
@@ -24,6 +26,8 @@
     <div class="tabs" role="tablist" aria-label="Sections">
       <button type="button" class="tab" id="tab-build"   role="tab" aria-selected="true"
               aria-controls="panel-build">Build a Bed</button>
+      <button type="button" class="tab" id="tab-dying"   role="tab" aria-selected="false"
+              aria-controls="panel-dying" tabindex="-1">Help My Plant Keeps Dying</button>
       <button type="button" class="tab" id="tab-how"     role="tab" aria-selected="false"
               aria-controls="panel-how" tabindex="-1">How it works</button>
       <button type="button" class="tab" id="tab-plants"  role="tab" aria-selected="false"
@@ -174,7 +178,83 @@
     </div>
   </section>
 
-  <!-- ==================== TAB 2: HOW IT WORKS ==================== -->
+  <!-- ============ TAB 2: HELP MY PLANT KEEPS DYING ============ -->
+  <section class="panel-tab" id="panel-dying" role="tabpanel" aria-labelledby="tab-dying" hidden>
+
+    <div class="block">
+      <div class="panel">
+        <h2>Help, my plant keeps dying</h2>
+        <p class="muted" style="margin-top:-.3em;max-width:80ch">Find the plant, then work through
+        the tests. They are ordered by how likely each one is to be the answer <em>for that
+        species</em> &mdash; a lost agave leads with crown rot and drainage, a lost fern leads with
+        drying out, a lost blueberry leads with soil pH. Most tests need nothing more than a spade,
+        a screwdriver and a tin can.</p>
+
+        <div class="dxsearch">
+          <label class="f" for="dxq">Which plant died?</label>
+          <input type="text" id="dxq" placeholder="e.g. butterfly weed, or Asclepias"
+                 autocomplete="off">
+          <div class="hint">Common name, scientific name or family. 295 species in the database.</div>
+        </div>
+        <div id="dxResults" class="dxresults" aria-live="polite"></div>
+        <div class="row-actions" style="margin-top:14px">
+          <button type="button" class="btn ghost sm" id="dxGeneral">My plant is not listed
+            &mdash; show the general tests</button>
+          <button type="button" class="btn ghost sm" id="dxReset" hidden>Start again</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="block" id="dxSearchBox" hidden></div>
+    <div class="block" id="dxOut"></div>
+
+    <div class="block">
+      <div class="panel">
+        <h2>How to use this well</h2>
+        <ol class="steps">
+          <li><strong>Change one thing at a time.</strong> If you correct the watering, the drainage
+            and the pH all at once, you learn nothing about which of them was the problem, and you
+            will make the same mistake in the next bed.</li>
+          <li><strong>Test a living plant, not a dead one.</strong> Almost every test here is more
+            informative on the survivors beside the casualty than on the casualty itself. A
+            laboratory in particular can rarely do anything with a plant that has been dead for
+            weeks.</li>
+          <li><strong>Dig. Actually dig.</strong> Most of the causes on this list &mdash; buried
+            crowns, circling roots, a rock shelf a foot down, compaction, voles &mdash; are
+            completely invisible from the surface. A test pit beside the dead plant answers more
+            questions than any amount of looking at leaves.</li>
+          <li><strong>Suspect water first, in both directions.</strong> Too much and too little
+            produce almost identical wilting. The difference is what the soil feels like two inches
+            down, so check that before you reach for the hose.</li>
+          <li><strong>Two or more causes usually act together.</strong> Poor drainage plus a buried
+            crown plus a wet autumn is a far more typical story than a single clean cause.</li>
+          <li><strong>Accept that some losses have no findable cause.</strong> A proportion of
+            plants die of nursery stress, an unseen root defect or plain bad luck. If two out of
+            three of a species thrive in the same bed, replace the third and move on.</li>
+          <li><strong>Talk to your Extension office.</strong> A county horticulturist who knows your
+            soils and your weather will often identify in one minute what a checklist cannot, and
+            the service is usually free.</li>
+        </ol>
+        <div class="callout red">
+          <strong>What this tool is not.</strong> It is a structured list of things to test, not a
+          diagnosis. It cannot see your plant, and several causes here produce identical symptoms.
+          Where something matters &mdash; a valuable specimen, a whole planting failing, or a
+          suspected pathogen or herbicide &mdash; send a sample to your state plant diagnostic
+          laboratory rather than relying on this or any other checklist.
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>Where this information comes from</h2>
+      <p class="muted" style="max-width:78ch">Diagnostic procedures, thresholds and interpretations
+      are drawn from the following. Where sources differ, the more conservative reading is used, and
+      no test is included here that a gardener cannot actually carry out.</p>
+      <div class="cards" id="dxSources"></div>
+    </div>
+  </section>
+
+  <!-- ==================== TAB 3: HOW IT WORKS ==================== -->
   <section class="panel-tab" id="panel-how" role="tabpanel" aria-labelledby="tab-how" hidden>
     <div class="block">
       <div class="panel">
@@ -300,9 +380,10 @@
         </div>
       </div>
     </div>
+    </div>
   </section>
 
-  <!-- ==================== TAB 3: PLANT DATABASE ==================== -->
+  <!-- ==================== TAB 4: PLANT DATABASE ==================== -->
   <section class="panel-tab" id="panel-plants" role="tabpanel" aria-labelledby="tab-plants" hidden>
     <div class="block">
       <div class="panel">
@@ -325,7 +406,7 @@
     </div>
   </section>
 
-  <!-- ==================== TAB 4: DATA SOURCES ==================== -->
+  <!-- ==================== TAB 5: DATA SOURCES ==================== -->
   <section class="panel-tab" id="panel-sources" role="tabpanel" aria-labelledby="tab-sources" hidden>
     <div class="block">
       <h2>Data sources</h2>
@@ -338,7 +419,7 @@
     </div>
   </section>
 
-  <!-- ==================== TAB 5: BEFORE YOU PLANT ==================== -->
+  <!-- ==================== TAB 6: BEFORE YOU PLANT ==================== -->
   <section class="panel-tab" id="panel-before" role="tabpanel" aria-labelledby="tab-before" hidden>
     <div class="block">
       <div class="panel">

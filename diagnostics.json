@@ -1,0 +1,1887 @@
+{
+ "sources": {
+  "extension": {
+   "name": "Your state Cooperative Extension Service",
+   "url": "https://www.nifa.usda.gov/about-nifa/how-we-work/extension/cooperative-extension-system",
+   "note": "The single most useful resource for diagnosis, because the advice is written for your climate and soils. Most run a free or low-cost plant diagnostic clinic and will look at a sample in person."
+  },
+  "soiltest": {
+   "name": "Land-grant university soil testing laboratory",
+   "url": "https://www.nrcs.usda.gov/resources/education-and-teaching-materials/soil-testing",
+   "note": "A lab test through your Extension office costs roughly 15 to 30 US dollars and reports pH, organic matter, texture and nutrients. Vastly more reliable than a hardware-store probe, and the only way to settle a pH question."
+  },
+  "websoil": {
+   "name": "USDA NRCS Web Soil Survey",
+   "url": "https://websoilsurvey.nrcs.usda.gov/",
+   "note": "Free mapped soil data for almost every address in the United States, including depth to a restrictive layer, drainage class, texture and pH range. Tells you what is under your garden before you dig."
+  },
+  "ucipm": {
+   "name": "UC Statewide Integrated Pest Management Program",
+   "url": "https://ipm.ucanr.edu/",
+   "note": "The most rigorous free pest, disease and abiotic-disorder diagnostic material in the United States, with photographic keys. Written for California but the biology and the diagnostic logic apply nationally."
+  },
+  "ncsu": {
+   "name": "NC State Extension Plant Toolbox",
+   "url": "https://plants.ces.ncsu.edu/",
+   "note": "Detailed per-species culture and problem notes for several thousand plants, with a usefully blunt list of what commonly goes wrong."
+  },
+  "mobot": {
+   "name": "Missouri Botanical Garden Plant Finder",
+   "url": "https://www.missouribotanicalgarden.org/plantfinder/plantfindersearch.aspx",
+   "note": "Per-species culture notes with an explicit 'Problems' section. Strong on the difference between a plant that is unhappy and a plant that is in the wrong place."
+  },
+  "cornell": {
+   "name": "Cornell Comprehensive Assessment of Soil Health",
+   "url": "https://soilhealth.cals.cornell.edu/",
+   "note": "The standard protocols for measuring compaction, aggregate stability and infiltration, including the field tests you can do with a spade and a tin can."
+  },
+  "morton": {
+   "name": "The Morton Arboretum plant health care resources",
+   "url": "https://mortonarb.org/plant-and-protect/tree-plant-care/plant-care-resources/",
+   "note": "Excellent on planting depth, girdling roots, mulch practice and construction damage, which are the installation faults that kill the most woody plants."
+  },
+  "wsu_bioassay": {
+   "name": "Washington State University: bioassay for herbicide residue in compost",
+   "url": "https://s3.wp.wsu.edu/uploads/sites/2073/2015/03/persistent-herbicides.pdf",
+   "note": "The published protocol for the pea or bean bioassay that detects clopyralid, aminopyralid and picloram carryover in compost, manure or straw."
+  },
+  "purdue": {
+   "name": "Purdue Plant and Pest Diagnostic Laboratory",
+   "url": "https://ag.purdue.edu/department/btny/ppdl/index.html",
+   "note": "Clear guidance on abiotic versus biotic injury, and on how to collect and submit a sample so that a laboratory can actually work with it."
+  },
+  "xerces": {
+   "name": "Xerces Society: neonicotinoids in nursery plants",
+   "url": "https://www.xerces.org/pesticides/neonicotinoids-and-bees",
+   "note": "Why systemic insecticides applied during production persist in plant tissue, and what to ask a nursery before buying."
+  },
+  "phzm": {
+   "name": "USDA Plant Hardiness Zone Map",
+   "url": "https://planthardiness.ars.usda.gov/",
+   "note": "Cold hardiness by ZIP code. Note that it describes average annual extreme minimum temperature only, and says nothing about heat, humidity or drainage."
+  },
+  "aphis_walnut": {
+   "name": "Extension literature on juglone and black walnut allelopathy",
+   "url": "https://extension.psu.edu/black-walnut-toxicity",
+   "note": "Which plants are sensitive to juglone, how far the effect reaches, and how long it persists after a tree is removed."
+  },
+  "npic": {
+   "name": "National Pesticide Information Center",
+   "url": "http://npic.orst.edu/",
+   "note": "Independent, federally funded help on pesticide drift, residues and persistence, including a telephone service staffed by specialists."
+  }
+ },
+ "diagnostics": [
+  {
+   "id": "scratch",
+   "cat": "FIRST",
+   "base": 99,
+   "title": "Confirm the plant is actually dead before anything else",
+   "test": "Scrape a fingernail or a knife blade along a stem, starting near the base and working upward. Live tissue is green and slightly moist just under the bark or skin; dead tissue is brown and dry all the way through. Then bend a stem: live wood flexes, dead wood snaps cleanly. Finally scrape the soil away from the crown with your fingers and look for white or pale roots and any firm buds at the base.",
+   "means": "Green under the skin anywhere, or firm white roots, means the plant is alive and the top growth only has died back. Brown and dry throughout, with roots that are brown, soft or absent, means it has died.",
+   "fix": "If any live tissue remains, cut back only to it, water once deeply, and wait a full growing season before deciding. Many perennials rebuild from the crown after losing all their top growth, and a great many plants are dug up in April that would have appeared in June.",
+   "src": [
+    "extension",
+    "mobot"
+   ],
+   "when": []
+  },
+  {
+   "id": "dormancy",
+   "cat": "FIRST",
+   "base": 70,
+   "title": "Rule out normal seasonal dormancy",
+   "test": "Note the month, then check this plant's habit: does it die back completely at some point in the year? Mark the crown with a labelled stake and leave it undisturbed for one full year, checking monthly. In the meantime, dig gently 3 to 4 inches to one side of the crown and feel for firm roots or a solid resting bud.",
+   "means": "Firm roots with no top growth in the dormant season is a healthy plant, not a dead one. Summer-dormant species look dead in August and are simply asleep.",
+   "fix": "Do nothing, and above all do not water a dormant crown: that is what actually kills it. Keep a permanent label so the bare patch is not weeded, dug or replanted while the plant is out of sight.",
+   "when": [
+    {
+     "if": {
+      "care": [
+       "ephemeral"
+      ]
+     },
+     "boost": 30,
+     "why": "this species is recorded as going dormant, so a bare patch for part of the year is expected behaviour rather than a symptom"
+    },
+    {
+     "if": {
+      "flags": [
+       "no_summer_water"
+      ]
+     },
+     "boost": 22,
+     "why": "summer-dry natives often shut down completely in the heat and look dead by August"
+    },
+    {
+     "if": {
+      "region": [
+       "CA"
+      ]
+     },
+     "boost": 18,
+     "why": "much of the California flora is summer dormant, which is routinely mistaken for death"
+    },
+    {
+     "if": {
+      "timing": [
+       "never_came_up"
+      ]
+     },
+     "boost": 25,
+     "why": "you reported that it never appeared, which is the classic dormancy misdiagnosis"
+    }
+   ],
+   "src": [
+    "mobot",
+    "ncsu"
+   ]
+  },
+  {
+   "id": "late",
+   "cat": "FIRST",
+   "base": 55,
+   "title": "Rule out simple late emergence",
+   "test": "Check the date against your frost-free date, then wait. Some perennials do not break ground until soil temperature reaches about 60 degrees Fahrenheit, which can be six weeks after the first crocus. Push a soil thermometer 4 inches down at mid-morning to see where you actually are.",
+   "means": "Cold soil and no shoots in early spring proves nothing at all. If a plant has not appeared by midsummer with warm soil and adequate moisture, it has genuinely failed.",
+   "fix": "Label late risers permanently. Never cultivate, plant or apply a pre-emergent herbicide over a spot where a late perennial is expected.",
+   "when": [
+    {
+     "if": {
+      "flags": [
+       "late_emerger"
+      ]
+     },
+     "boost": 35,
+     "why": "this species is specifically recorded as slow to appear in spring"
+    },
+    {
+     "if": {
+      "timing": [
+       "never_came_up"
+      ]
+     },
+     "boost": 30,
+     "why": "you reported that it never appeared this year"
+    }
+   ],
+   "src": [
+    "mobot",
+    "extension"
+   ]
+  },
+  {
+   "id": "lifespan",
+   "cat": "FIRST",
+   "base": 40,
+   "title": "Check whether the plant simply reached the end of its natural life",
+   "test": "Work out how long you have had it, and compare that with the plant's expected lifespan. Look for seedlings nearby: a short-lived species that has seeded around it has succeeded, not failed.",
+   "means": "Some of the best garden natives are biennial or live only three to five years. Losing one after several good seasons, especially with seedlings around it, is the normal life cycle.",
+   "fix": "Let a few seedlings stand where you can tolerate them, or resow. Plan on replacing short-lived species on a cycle rather than treating each loss as a problem.",
+   "when": [
+    {
+     "if": {
+      "care": [
+       "selfsower"
+      ]
+     },
+     "boost": 40,
+     "why": "this is a short-lived, self-sowing species by design: it is meant to die and reseed"
+    },
+    {
+     "if": {
+      "layer": [
+       "FILLER"
+      ]
+     },
+     "boost": 25,
+     "why": "it sits in the dynamic filler layer, which is deliberately made of short-lived plants"
+    },
+    {
+     "if": {
+      "care": [
+       "subshrub"
+      ]
+     },
+     "boost": 18,
+     "why": "woody-based subshrubs typically go open and woody, then fail, after five to eight years"
+    },
+    {
+     "if": {
+      "timing": [
+       "gradual"
+      ]
+     },
+     "boost": 20,
+     "why": "you reported a slow decline over several years, which fits natural senescence"
+    }
+   ],
+   "src": [
+    "mobot",
+    "ncsu"
+   ]
+  },
+  {
+   "id": "overwater",
+   "cat": "WATER",
+   "base": 88,
+   "title": "Test for overwatering and root rot",
+   "test": "Dig up the plant, or a neighbour of the same species, and look at the roots. Healthy roots are firm, pale and hold together; drowned roots are brown or black, soft, and the outer layer slides off between your fingers leaving a bare thread. They often smell sour. Before you dig, push a finger two inches into the soil beside the crown: if it is damp, and it has been damp every time you have checked, you have your answer.",
+   "means": "Soft dark roots with a sour smell, in soil that is persistently damp, is root rot from too much water. Roots die first, which is why the top wilts even though the soil is wet.",
+   "fix": "Stop watering completely and let the soil dry until it is dry two inches down. Remove any irrigation emitter aimed at the plant. If the bed as a whole stays wet, fix the drainage or move the plant onto a raised mound. Wilting is not automatically a signal to water: check the soil first, every time.",
+   "when": [
+    {
+     "if": {
+      "care": [
+       "rosette"
+      ]
+     },
+     "boost": 10,
+     "why": "agaves, yuccas and similar rosettes are killed by excess water far more often than by drought, and they rot from the centre outward"
+    },
+    {
+     "if": {
+      "flags": [
+       "no_summer_water"
+      ]
+     },
+     "boost": 10,
+     "why": "this species is recorded as needing no summer water at all once established"
+    },
+    {
+     "if": {
+      "flags": [
+       "sharp_drainage"
+      ]
+     },
+     "boost": 9,
+     "why": "this species is recorded as requiring sharp drainage and rotting in damp soil"
+    },
+    {
+     "if": {
+      "moistOnly": [
+       "D"
+      ]
+     },
+     "boost": 9,
+     "why": "it tolerates dry soil only, so ordinary garden watering is too much for it"
+    },
+    {
+     "if": {
+      "care": [
+       "subshrub"
+      ]
+     },
+     "boost": 6,
+     "why": "woody-based subshrubs rot at the crown in soil that stays moist"
+    },
+    {
+     "if": {
+      "symptom": [
+       "wilt_damp"
+      ]
+     },
+     "boost": 11,
+     "why": "you reported wilting in damp soil, which is the signature of root death rather than of thirst"
+    },
+    {
+     "if": {
+      "symptom": [
+       "mushy_base"
+      ]
+     },
+     "boost": 11,
+     "why": "a soft or mushy base is direct evidence of crown or root rot"
+    },
+    {
+     "if": {
+      "soil": "W"
+     },
+     "boost": 5,
+     "why": "you described the site as moist to wet"
+    }
+   ],
+   "src": [
+    "ucipm",
+    "extension",
+    "purdue"
+   ]
+  },
+  {
+   "id": "underwater",
+   "cat": "WATER",
+   "base": 84,
+   "title": "Test for underwatering during establishment",
+   "test": "Dig a small hole 6 to 8 inches deep beside the plant and look at the profile. Dry and crumbly all the way down means the water never got there. Also check the root ball itself: lift a failed plant and see whether the original root ball is dry and still the shape of the pot while the soil around it is damp. Calibrate your watering by standing a straight-sided tin in the bed and timing how long your hose takes to put an inch in it.",
+   "means": "A dry profile, or a dry root ball inside damp soil, means the water was applied too lightly or too briefly to reach the roots. This kills more new plants than anything else.",
+   "fix": "Water deeply and less often: a long slow soak that wets the soil 6 to 8 inches down, rather than a daily sprinkle that wets the top inch. In the first season aim for the equivalent of about an inch of water a week, counting rainfall, and check the soil before each watering.",
+   "when": [
+    {
+     "if": {
+      "care": [
+       "fern_deciduous",
+       "fern_evergreen"
+      ]
+     },
+     "boost": 12,
+     "why": "ferns have almost no ability to hold water and crisp irreversibly once they dry out"
+    },
+    {
+     "if": {
+      "moistOnly": [
+       "W"
+      ]
+     },
+     "boost": 11,
+     "why": "this species tolerates only moist to wet soil and has no drought reserve"
+    },
+    {
+     "if": {
+      "moistHas": [
+       "W"
+      ],
+      "moistOnly": [
+       "M",
+       "W"
+      ]
+     },
+     "boost": 8,
+     "why": "it wants consistently moist soil"
+    },
+    {
+     "if": {
+      "timing": [
+       "first_year"
+      ]
+     },
+     "boost": 12,
+     "why": "first-season losses are most often establishment failure"
+    },
+    {
+     "if": {
+      "timing": [
+       "summer"
+      ]
+     },
+     "boost": 10,
+     "why": "you reported a midsummer loss"
+    },
+    {
+     "if": {
+      "symptom": [
+       "crisp_dry"
+      ]
+     },
+     "boost": 13,
+     "why": "dry, crisp, brown tissue points to water stress rather than rot"
+    }
+   ],
+   "src": [
+    "extension",
+    "morton"
+   ]
+  },
+  {
+   "id": "drainage",
+   "cat": "WATER",
+   "base": 80,
+   "title": "Percolation test: does this spot actually drain?",
+   "test": "Dig a hole 12 inches across and 12 inches deep where the plant died. Fill it with water and let it drain completely, then fill it a second time and time how far the level drops per hour. Under 1 inch an hour is poorly drained; 1 to 4 inches an hour is moderate; over 4 inches an hour is fast and free-draining.",
+   "means": "Under about an inch an hour means water sits around the roots after rain, which suffocates them. This is the commonest reason a drought-loving native dies in an ordinary garden bed.",
+   "fix": "Do not dig a deeper hole and backfill it with compost: in heavy soil that creates a sump that fills and holds water. Either plant on a raised mound or berm 8 to 12 inches high, build a gravel bed, or choose species that tolerate the drainage you actually have.",
+   "when": [
+    {
+     "if": {
+      "flags": [
+       "sharp_drainage"
+      ]
+     },
+     "boost": 14,
+     "why": "this species is recorded as demanding sharp drainage"
+    },
+    {
+     "if": {
+      "care": [
+       "rosette"
+      ]
+     },
+     "boost": 13,
+     "why": "rosette succulents cannot survive standing water around the crown"
+    },
+    {
+     "if": {
+      "moistOnly": [
+       "D"
+      ]
+     },
+     "boost": 12,
+     "why": "it tolerates dry soil only"
+    },
+    {
+     "if": {
+      "flags": [
+       "no_summer_water"
+      ]
+     },
+     "boost": 8,
+     "why": "summer-dry species are the least tolerant of a wet root zone"
+    },
+    {
+     "if": {
+      "symptom": [
+       "wilt_damp",
+       "mushy_base"
+      ]
+     },
+     "boost": 10,
+     "why": "your symptom points at waterlogging"
+    }
+   ],
+   "src": [
+    "cornell",
+    "websoil",
+    "extension"
+   ]
+  },
+  {
+   "id": "hydrophobic",
+   "cat": "WATER",
+   "base": 58,
+   "title": "Check whether the root ball was ever wetted through",
+   "test": "If the plant is still in place, lift it and squeeze the original root ball. Peat-based potting mix that has once dried out repels water, so it can stay bone dry inside while the surrounding soil is wet, and watering simply runs around it. On a plant you are about to install, weigh it in your hand: a dry root ball is startlingly light.",
+   "means": "A dry, hard root ball with live but shrivelled roots means the plant died of thirst while being watered, because the water never entered the root ball.",
+   "fix": "Before planting anything, stand the pot in a bucket of water until bubbles stop rising, which may take twenty minutes. At planting, tease the outer half inch of the root ball apart so roots make direct contact with garden soil, and water the first few times directly onto the root ball rather than the surrounding bed.",
+   "when": [
+    {
+     "if": {
+      "timing": [
+       "first_year"
+      ]
+     },
+     "boost": 16,
+     "why": "this is a first-season failure mode, and you reported a first-year loss"
+    }
+   ],
+   "src": [
+    "morton",
+    "extension"
+   ]
+  },
+  {
+   "id": "timer",
+   "cat": "WATER",
+   "base": 52,
+   "title": "Audit any automatic irrigation",
+   "test": "Run each zone for its normal cycle with straight-sided tins spread through the bed, and measure what actually lands in each one. Note whether the controller has a rain sensor, and check whether it ran during the last wet week. Look for an emitter pointing straight at the crown of the plant that died.",
+   "means": "Timers water on a schedule rather than on demand, so they keep watering through rain and through autumn. Uneven output means part of a bed drowns while part stays dry.",
+   "fix": "Move the controller to manual, or fit a working rain sensor or soil-moisture sensor. Aim emitters at the soil between plants rather than at crowns, and use drip or soaker line instead of overhead spray. Turn the system off entirely once plants are established.",
+   "when": [
+    {
+     "if": {
+      "flags": [
+       "no_summer_water"
+      ]
+     },
+     "boost": 18,
+     "why": "an irrigation system running through summer is lethal to this species"
+    },
+    {
+     "if": {
+      "care": [
+       "rosette"
+      ]
+     },
+     "boost": 14,
+     "why": "water landing in the centre of a rosette rots it"
+    },
+    {
+     "if": {
+      "symptom": [
+       "wilt_damp",
+       "mushy_base"
+      ]
+     },
+     "boost": 8,
+     "why": "your symptom is consistent with too much water"
+    }
+   ],
+   "src": [
+    "ucipm",
+    "extension"
+   ]
+  },
+  {
+   "id": "overhead",
+   "cat": "WATER",
+   "base": 40,
+   "title": "Look for disease caused by wetting the foliage",
+   "test": "Think back to how the plant was watered and at what time of day. Then look at the leaves that are left: powdery white coating, dark leaf spots with yellow halos, or a grey fuzz in humid weather all point to a foliar pathogen. Check whether the plant was crowded with poor air movement.",
+   "means": "Overhead watering, especially in the evening, keeps leaves wet for hours and invites mildew and leaf-spot fungi. These rarely kill a plant outright but weaken it enough that something else finishes the job.",
+   "fix": "Water at the soil surface, early in the morning, never over the top of the plant. Improve spacing and air movement. For mildew-prone genera such as beebalm and garden phlox, choose resistant selections and thin the stems by a third in spring.",
+   "when": [
+    {
+     "if": {
+      "genus": [
+       "Monarda",
+       "Phlox"
+      ]
+     },
+     "boost": 22,
+     "why": "beebalm and phlox are the classic mildew-prone natives"
+    },
+    {
+     "if": {
+      "symptom": [
+       "yellowing"
+      ]
+     },
+     "boost": 8,
+     "why": "yellowing and spotting can be foliar disease"
+    }
+   ],
+   "src": [
+    "ucipm",
+    "ncsu"
+   ]
+  },
+  {
+   "id": "ph",
+   "cat": "SOIL",
+   "base": 76,
+   "title": "Measure soil pH, and do it properly",
+   "test": "Take a composite sample: eight to ten small cores from 4 to 6 inches deep, spread across the bed, mixed together in a clean plastic bucket, air dried, then sent to your Extension soil testing laboratory. It costs roughly 15 to 30 US dollars and comes back with pH, organic matter, texture and nutrients. A hardware-store probe is better than nothing for a rough check but is often out by a full pH unit, which is enough to mislead you completely.",
+   "means": "Most natives are content anywhere from about pH 6.0 to 7.5. Outside that, nutrients become chemically unavailable even though they are present in the soil, so the plant starves in fertile ground. Yellowing between green veins on new growth is the classic sign of iron lockout in soil that is too alkaline.",
+   "fix": "Match the plant to the soil rather than fighting the soil. Lowering pH with sulphur is slow, partial and must be repeated forever; raising it with lime is easier but equally ongoing. If your pH is far from what a species needs, substitute a different species. Never use aluminium sulphate near natives.",
+   "when": [
+    {
+     "if": {
+      "flags": [
+       "acid_soil"
+      ]
+     },
+     "boost": 22,
+     "why": "this species specifically requires acid soil, so pH is the first thing to rule out"
+    },
+    {
+     "if": {
+      "family": [
+       "Ericaceae"
+      ]
+     },
+     "boost": 22,
+     "why": "the heath family needs roughly pH 4.5 to 5.5 and fails visibly above about 6.0, often dying slowly over two or three seasons"
+    },
+    {
+     "if": {
+      "genus": [
+       "Vaccinium",
+       "Gaultheria",
+       "Arctostaphylos",
+       "Rhododendron"
+      ]
+     },
+     "boost": 12,
+     "why": "this genus is strongly acid-demanding"
+    },
+    {
+     "if": {
+      "symptom": [
+       "yellowing"
+      ]
+     },
+     "boost": 14,
+     "why": "yellowing with green veins is the signature of a pH-driven nutrient lockout"
+    },
+    {
+     "if": {
+      "timing": [
+       "gradual"
+      ]
+     },
+     "boost": 10,
+     "why": "pH problems usually kill slowly over several seasons rather than suddenly"
+    }
+   ],
+   "src": [
+    "soiltest",
+    "extension",
+    "websoil"
+   ]
+  },
+  {
+   "id": "restrictive",
+   "cat": "SOIL",
+   "base": 72,
+   "title": "Dig a test pit: is there rock, hardpan or caliche just under the surface?",
+   "test": "Dig a pit 18 inches deep, or as deep as you can get, right beside where the plant died. Work with a spade and then a hand trowel, and note exactly where you meet resistance. Push a long screwdriver or a stiff wire flag into the floor of the pit at several points and measure how far it goes before it stops. Look at the roots of the dead plant: roots that turn sharply sideways at a particular depth, or mat into a flat plate, are telling you precisely where the obstruction is. Cross-check your address on the USDA Web Soil Survey, which reports depth to a restrictive layer for most of the country.",
+   "means": "Stone, a cemented hardpan, caliche, or a compacted construction layer within 12 to 18 inches leaves the plant a shallow pan of soil that dries out in days and drowns after rain. Flattened or right-angled roots confirm it. A plant may live for a season on the water in its own root ball and then fail in the first dry spell, which is why this so often looks like sudden death for no reason.",
+   "fix": "You have three honest options. Break through the layer if it is thin: a pickaxe or a rock bar through a 6-inch caliche crust can be enough to let roots and water pass. Build upward instead, with a raised bed or berm 12 to 18 inches deep, which is usually the most reliable answer. Or plant species with shallow, fibrous roots that suit the depth you actually have, and give up on anything with a taproot.",
+   "when": [
+    {
+     "if": {
+      "flags": [
+       "taproot"
+      ]
+     },
+     "boost": 20,
+     "why": "this species makes a deep taproot, so it is stopped dead by a shallow restrictive layer and cannot recover once its root tip is blocked"
+    },
+    {
+     "if": {
+      "hmaxGte": 48
+     },
+     "boost": 10,
+     "why": "a plant this tall needs real rooting depth for both water and anchorage"
+    },
+    {
+     "if": {
+      "region": [
+       "SW",
+       "TX",
+       "MTN"
+      ]
+     },
+     "boost": 14,
+     "why": "caliche, a cemented calcium-carbonate hardpan, is widespread in your region and routinely sits within a foot of the surface"
+    },
+    {
+     "if": {
+      "layer": [
+       "STRUCT",
+       "SHRUB"
+      ]
+     },
+     "boost": 8,
+     "why": "structural plants and shrubs are the most sensitive to restricted rooting depth"
+    },
+    {
+     "if": {
+      "symptom": [
+       "stunted"
+      ]
+     },
+     "boost": 12,
+     "why": "a plant that never grew away is the classic symptom of a blocked root zone"
+    },
+    {
+     "if": {
+      "timing": [
+       "summer"
+      ]
+     },
+     "boost": 8,
+     "why": "a shallow soil pan runs out of water first in midsummer"
+    }
+   ],
+   "src": [
+    "websoil",
+    "cornell",
+    "morton"
+   ]
+  },
+  {
+   "id": "compaction",
+   "cat": "SOIL",
+   "base": 68,
+   "title": "Test for compaction",
+   "test": "Push a screwdriver, a stiff wire flag or a length of rebar vertically into moist soil using steady hand pressure, and measure how far it goes before it stops. Do it in the bed and then in an undisturbed area such as a woodland edge, and compare. Also dig out a spade-sized block and look at its structure: healthy soil breaks into crumbs, compacted soil comes out in dense plates or slabs and often smells stale.",
+   "means": "If you cannot push a screwdriver more than 4 to 6 inches into moist soil, roots cannot get through either. Plate-like structure, grey or blue-grey colour and a stale smell all indicate a lack of oxygen. Compaction is the usual legacy of building work, vehicle traffic or years of foot traffic, and it is invisible from the surface.",
+   "fix": "Do not rotary till, which destroys structure and creates a new pan just below the tines. Break the layer with a fork or a broadfork, working the tines in and levering without turning the soil over. Then leave it alone: keep off it when wet, mulch the surface, and let deep-rooted plants and earthworms continue the work. Deep-rooted natives are among the best long-term remedies, but they need a way in first.",
+   "when": [
+    {
+     "if": {
+      "flags": [
+       "taproot"
+      ]
+     },
+     "boost": 14,
+     "why": "a taprooted species cannot establish at all if it cannot drive downward"
+    },
+    {
+     "if": {
+      "symptom": [
+       "stunted"
+      ]
+     },
+     "boost": 13,
+     "why": "a plant that sits still and never grows away is usually root-restricted"
+    },
+    {
+     "if": {
+      "timing": [
+       "first_year",
+       "gradual"
+      ]
+     },
+     "boost": 8,
+     "why": "compaction typically shows as failure to establish or a slow decline"
+    }
+   ],
+   "src": [
+    "cornell",
+    "morton",
+    "extension"
+   ]
+  },
+  {
+   "id": "fill",
+   "cat": "SOIL",
+   "base": 50,
+   "title": "Look for construction fill and buried rubble",
+   "test": "Dig wider as well as deeper, and sieve what comes out. Look for mortar, brick, plaster, gravel bedding, plastic sheet, roofing grit or an abrupt change in soil colour and texture at a flat, level depth. A sharp horizontal boundary is almost always man-made. If you find mortar or concrete, test pH as well, because lime leaching from buried rubble drives it up sharply.",
+   "means": "Builders routinely bury spoil and rubble and spread 3 to 6 inches of topsoil over it. Roots reach the boundary and stop. Buried concrete or mortar can hold local pH above 8, which no amount of feeding will fix.",
+   "fix": "Excavate and remove the rubble if the area is small enough to make that practical. Otherwise build a raised bed over the top with at least 12 to 18 inches of decent soil. Where lime leaching has raised pH, choose plants that tolerate alkaline conditions rather than fighting it.",
+   "when": [
+    {
+     "if": {
+      "flags": [
+       "taproot"
+      ]
+     },
+     "boost": 12,
+     "why": "a taproot is stopped by a fill boundary just as it is by rock"
+    },
+    {
+     "if": {
+      "symptom": [
+       "stunted"
+      ]
+     },
+     "boost": 10,
+     "why": "consistent with a root zone that has nowhere to go"
+    }
+   ],
+   "src": [
+    "morton",
+    "websoil",
+    "soiltest"
+   ]
+  },
+  {
+   "id": "toorich",
+   "cat": "SOIL",
+   "base": 62,
+   "title": "Consider whether the soil is too good for the plant",
+   "test": "Ask what went into the bed: bagged topsoil, mushroom compost, manure, a spring feed, or several years of compost mulch. Then look at how the plant behaved before it died. Soft, lush, dark green growth that flopped, stems that rotted at the base, or a short-lived explosion of growth followed by collapse all point the same way. A soil test reporting organic matter above roughly 8 to 10 percent in a bed intended for dry-land species confirms it.",
+   "means": "A great many of the best natives evolved on lean, mineral, low-nitrogen soil. In enriched ground they grow fast and soft, flop, rot at the crown, lose their compact habit, and die young. This is the least intuitive failure in native gardening, because everything in general garden advice tells you to improve the soil.",
+   "fix": "Stop adding anything. No fertiliser, no compost mulch, no manure. Switch to a mineral mulch of gravel or coarse grit for dry-land species, which also keeps the crown dry. When replanting a gravel garden or hellstrip, remove enriched soil rather than adding to it: these plantings are built on deliberately poor ground.",
+   "when": [
+    {
+     "if": {
+      "flags": [
+       "sharp_drainage",
+       "no_summer_water"
+      ]
+     },
+     "boost": 16,
+     "why": "this species comes from lean, sharply drained ground and is actively harmed by rich soil"
+    },
+    {
+     "if": {
+      "moistOnly": [
+       "D"
+      ]
+     },
+     "boost": 14,
+     "why": "a dry-soil specialist grown in enriched soil goes soft and rots"
+    },
+    {
+     "if": {
+      "care": [
+       "subshrub",
+       "rosette"
+      ]
+     },
+     "boost": 10,
+     "why": "woody-based subshrubs and rosettes need lean ground to stay firm and compact"
+    },
+    {
+     "if": {
+      "region": [
+       "SW",
+       "CA",
+       "MTN",
+       "GP"
+      ]
+     },
+     "boost": 8,
+     "why": "the flora of your region is overwhelmingly adapted to low-fertility mineral soils"
+    },
+    {
+     "if": {
+      "symptom": [
+       "mushy_base",
+       "flopped"
+      ]
+     },
+     "boost": 11,
+     "why": "flopping and basal rot are the signature of over-rich soil"
+    }
+   ],
+   "src": [
+    "mobot",
+    "ncsu",
+    "extension"
+   ]
+  },
+  {
+   "id": "texture",
+   "cat": "SOIL",
+   "base": 48,
+   "title": "Jar test: find out what your soil actually is",
+   "test": "Half fill a straight-sided jar with soil, top it up with water, add a drop of dish soap, shake hard for two minutes and set it down. Sand settles within a minute, silt over a couple of hours, clay over a day or two. Mark each layer with tape and work out the rough percentages. Alongside that, do the ribbon test: wet a walnut-sized lump and squeeze it between thumb and finger; a long smooth ribbon means high clay, a gritty lump that will not hold means sand.",
+   "means": "Texture governs how much water the soil holds and how fast it drains, and it cannot be changed in any practical way. Knowing you have heavy clay or pure sand tells you immediately whether a given species was ever going to work in that spot.",
+   "fix": "Choose plants to suit the texture you have. In clay, raise the planting rather than digging a hole and backfilling with compost. In sand, choose species adapted to it and resist the urge to add water-retaining amendments, which decay away within a couple of years.",
+   "when": [
+    {
+     "if": {
+      "moistOnly": [
+       "D"
+      ]
+     },
+     "boost": 10,
+     "why": "dry-soil species are the ones most often lost to unrecognised heavy clay"
+    },
+    {
+     "if": {
+      "moistOnly": [
+       "W"
+      ]
+     },
+     "boost": 10,
+     "why": "moisture-loving species are the ones most often lost to unrecognised sand"
+    }
+   ],
+   "src": [
+    "cornell",
+    "soiltest",
+    "websoil"
+   ]
+  },
+  {
+   "id": "salt",
+   "cat": "SOIL",
+   "base": 42,
+   "title": "Check for salt accumulation",
+   "test": "Ask your soil test for soluble salts or electrical conductivity. Meanwhile look for the pattern: damage worst on the side facing a road or driveway, a white crust on the soil surface, leaf margins scorched brown while the middle of the leaf stays green, and worst injury on the plants nearest a downspout, a softener discharge or a de-icing route.",
+   "means": "Salt draws water out of roots, so the plant shows drought symptoms in moist soil. Sources are de-icing salt, water-softener backwash, dog urine, over-fertilisation, and irrigation with hard or reclaimed water. Marginal leaf scorch in a directional pattern is the giveaway.",
+   "fix": "Cut off the source first. Leach the soil with repeated deep irrigation using clean water if drainage allows. Never discharge a water softener into a planting bed. Use sand or grit instead of salt near beds, and choose salt-tolerant species along roads and paths.",
+   "when": [
+    {
+     "if": {
+      "zoneLte": 6
+     },
+     "boost": 12,
+     "why": "de-icing salt is a routine hazard in your climate"
+    },
+    {
+     "if": {
+      "symptom": [
+       "crisp_dry",
+       "yellowing"
+      ]
+     },
+     "boost": 8,
+     "why": "marginal scorch and yellowing are typical of salt injury"
+    }
+   ],
+   "src": [
+    "extension",
+    "ucipm",
+    "morton"
+   ]
+  },
+  {
+   "id": "juglone",
+   "cat": "SOIL",
+   "base": 38,
+   "title": "Look overhead for a black walnut",
+   "test": "Identify any large trees within about 60 feet, and look specifically for black walnut or butternut: compound leaves with 11 to 23 leaflets, deeply furrowed dark bark, and green husked nuts on the ground in autumn. Note whether losses form a rough circle around one tree, and whether one group of species fails there while others are untroubled. Remember to consider trees on a neighbouring property, and stumps of trees removed in the last few years.",
+   "means": "Black walnut releases juglone from roots, husks and leaf litter, and juglone is toxic to many plants. Affected plants wilt suddenly, yellow and die back even with adequate water, often over just a few days. The root zone reaches well beyond the canopy, and juglone persists for several years after a tree is felled.",
+   "fix": "Plant juglone-tolerant species in that zone, and do not compost walnut leaves or husks into beds. Raised beds with a physical root barrier help but are not a complete answer. Keep sensitive species well outside the root zone rather than trying to treat the soil.",
+   "when": [
+    {
+     "if": {
+      "symptom": [
+       "wilt_damp"
+      ]
+     },
+     "boost": 14,
+     "why": "sudden wilting in moist soil, with no root rot, is the classic juglone picture"
+    }
+   ],
+   "src": [
+    "aphis_walnut",
+    "extension"
+   ]
+  },
+  {
+   "id": "deep",
+   "cat": "ROOT",
+   "base": 86,
+   "title": "Check the planting depth: is the crown buried?",
+   "test": "Scrape the soil and mulch away from the base of a surviving plant of the same species until you find the crown, the point where stems meet roots. It should sit at or very slightly above the surrounding soil level. On a woody plant, find the root flare, the place where the stem widens outward into the roots: it must be visible. If you have to dig to find either, the plant is too deep.",
+   "means": "A buried crown stays wet and airless and rots, usually in the first year, and the plant dies from the base upward while the soil looks perfectly normal from above. This is the single most common installation error in gardens, and it is completely invisible unless you go and look.",
+   "fix": "Lift the plant and replant it higher, so the crown sits level with or a little above the soil surface, remembering that a new planting settles. On plants already established, simply pull the excess soil and mulch back from the crown to expose it. When planting into heavy soil, deliberately set plants an inch high.",
+   "when": [
+    {
+     "if": {
+      "care": [
+       "rosette"
+      ]
+     },
+     "boost": 12,
+     "why": "burying the centre of a rosette is fatal, and often kills within weeks"
+    },
+    {
+     "if": {
+      "layer": [
+       "SHRUB",
+       "STRUCT"
+      ]
+     },
+     "boost": 8,
+     "why": "woody plants are especially sensitive to a buried root flare"
+    },
+    {
+     "if": {
+      "care": [
+       "evergreen_perennial",
+       "perennial_low"
+      ]
+     },
+     "boost": 9,
+     "why": "plants with a basal rosette of leaves rot quickly if the crown is covered"
+    },
+    {
+     "if": {
+      "timing": [
+       "first_year"
+      ]
+     },
+     "boost": 12,
+     "why": "you reported a first-year loss, which is when depth errors show"
+    },
+    {
+     "if": {
+      "symptom": [
+       "mushy_base"
+      ]
+     },
+     "boost": 14,
+     "why": "a soft base is exactly what a buried crown produces"
+    }
+   ],
+   "src": [
+    "morton",
+    "extension",
+    "purdue"
+   ]
+  },
+  {
+   "id": "circling",
+   "cat": "ROOT",
+   "base": 64,
+   "title": "Examine the roots for circling and girdling",
+   "test": "Lift the dead plant and wash the soil off the root ball. Look for roots that spiral round the outside in the shape of the pot, a dense mat at the bottom, or a thick root wrapped around the stem. Then check whether the roots ever left the original root ball at all: if the ball still has straight pot-shaped sides after a full season, they did not.",
+   "means": "Roots that circle keep circling after planting. They strangle the stem as they thicken, and the plant never anchors or reaches water in the surrounding soil. A plant can sit unchanged for a year or two and then fail suddenly in a dry or windy spell.",
+   "fix": "At planting, tease the outer half inch of every root ball apart with your fingers, and cut any root that circles rather than trying to straighten it. On badly pot-bound stock, slice the root ball vertically in three or four places, or shave the outer layer off entirely: plants recover from that far better than from being planted intact. Refuse stock with a thick root already spiralling at the stem.",
+   "when": [
+    {
+     "if": {
+      "layer": [
+       "SHRUB",
+       "STRUCT"
+      ]
+     },
+     "boost": 13,
+     "why": "woody plants are the most often lost to girdling roots, sometimes years later"
+    },
+    {
+     "if": {
+      "symptom": [
+       "stunted"
+      ]
+     },
+     "boost": 12,
+     "why": "a plant that never grew away commonly never left its root ball"
+    }
+   ],
+   "src": [
+    "morton",
+    "purdue"
+   ]
+  },
+  {
+   "id": "mulch_volcano",
+   "cat": "ROOT",
+   "base": 56,
+   "title": "Check the mulch depth and where it sits",
+   "test": "Measure the mulch with a ruler, then pull it back from the crown with your hand. Note whether it was piled against the stems, how deep it is, and whether the layer beneath is matted, water-repellent or growing fungal threads. Mulch deeper than about 3 inches, or touching the stems at all, is the problem.",
+   "means": "Mulch against a crown or stem holds moisture there, keeps it airless, and invites rot and bark-feeding rodents. Too deep, it sheds water rather than absorbing it, so rain never reaches the roots, and it can rob nitrogen as it decays.",
+   "fix": "Keep mulch to 1 to 2 inches in a perennial bed and pull it back to leave a clear space around every crown. On dry-land and gravel plantings use grit or gravel rather than bark, and keep the crown entirely clear. Once the groundcover layer has closed, stop mulching altogether: annual re-mulching smothers self-sowers and is a common reason native beds never fill in.",
+   "when": [
+    {
+     "if": {
+      "care": [
+       "rosette",
+       "subshrub"
+      ]
+     },
+     "boost": 14,
+     "why": "these rot at the crown and must be kept entirely clear of organic mulch"
+    },
+    {
+     "if": {
+      "flags": [
+       "sharp_drainage"
+      ]
+     },
+     "boost": 10,
+     "why": "this species needs a dry crown and sharp drainage"
+    },
+    {
+     "if": {
+      "symptom": [
+       "mushy_base"
+      ]
+     },
+     "boost": 10,
+     "why": "a soft base is consistent with mulch held against the crown"
+    }
+   ],
+   "src": [
+    "morton",
+    "extension"
+   ]
+  },
+  {
+   "id": "airpocket",
+   "cat": "ROOT",
+   "base": 34,
+   "title": "Check for air pockets from careless backfilling",
+   "test": "On a comparable planting, push a thin rod down beside the root ball and feel for voids, or simply lift one plant and look at how well the soil is in contact with the roots. Look for settling or a visible depression around the stem, which shows the backfill was never firmed.",
+   "means": "Air pockets leave roots hanging in space where they dry out and die, and they let water run straight past the root ball. A plant can look fine for weeks and then wilt suddenly in warm weather.",
+   "fix": "Firm the backfill in layers as you plant, with your hands or a light foot pressure rather than stamping, and water in generously to settle the soil around the roots. Water again the following day and top up any depression that appears.",
+   "src": [
+    "morton",
+    "extension"
+   ],
+   "when": []
+  },
+  {
+   "id": "season",
+   "cat": "ROOT",
+   "base": 60,
+   "title": "Check when it was planted against the right window for your region",
+   "test": "Work out the planting date and compare it with your frost dates and your region's rainfall pattern. Note whether the plant went in during summer heat, in the last few weeks before the ground froze, or in spring in a summer-dry climate.",
+   "means": "Planting time decides whether a plant meets its first summer with roots or without them. A midsummer planting has to grow roots while losing water fast; a late autumn planting in a cold zone has not rooted enough to resist frost heave; a spring planting in a Mediterranean climate faces the dry season with no root system and commits you to irrigating all summer, which is what usually kills it.",
+   "fix": "In most regions plant in autumn, about six weeks before the first hard frost, so roots grow while the top is dormant. In zones 2 to 4 plant in spring instead, because unrooted autumn plantings get heaved out of the ground. In California and the Pacific Northwest plant with the first autumn rains and never in spring. In the desert Southwest plant in autumn or into the summer monsoon.",
+   "when": [
+    {
+     "if": {
+      "region": [
+       "CA",
+       "PNW"
+      ]
+     },
+     "boost": 18,
+     "why": "in a summer-dry climate the planting season is the single biggest factor in survival, and a spring planting is very often the whole explanation"
+    },
+    {
+     "if": {
+      "zoneLte": 4
+     },
+     "boost": 14,
+     "why": "in your cold zone an autumn planting can be heaved out of the ground over winter"
+    },
+    {
+     "if": {
+      "region": [
+       "SW"
+      ]
+     },
+     "boost": 12,
+     "why": "an April to June planting in the desert cannot take up water fast enough to survive"
+    },
+    {
+     "if": {
+      "timing": [
+       "first_year"
+      ]
+     },
+     "boost": 10,
+     "why": "you reported a first-year loss"
+    }
+   ],
+   "src": [
+    "extension",
+    "mobot",
+    "phzm"
+   ]
+  },
+  {
+   "id": "taproot_moved",
+   "cat": "ROOT",
+   "base": 46,
+   "title": "Ask whether a taprooted plant was moved or disturbed",
+   "test": "Recall whether the plant was transplanted, divided, or dug around, and whether it was bought in a deep pot or a shallow one. Then look at the root you have: a taprooted species that has been moved often shows a blunt, cut or forked main root instead of a single descending one.",
+   "means": "Species with a deep taproot rarely survive being lifted, and frequently sulk for a year before dying. The same species grown from seed in place is often trouble-free, which is why these plants have a reputation for being both tough and difficult at the same time.",
+   "fix": "Buy taprooted species as small plugs or bare-root dormant stock and plant them in their final position. Never divide them, never move them, and do not cultivate within their root zone. Mark them so they are not disturbed.",
+   "when": [
+    {
+     "if": {
+      "flags": [
+       "taproot"
+      ]
+     },
+     "boost": 30,
+     "why": "this species is specifically recorded as making a taproot and resenting being moved"
+    }
+   ],
+   "src": [
+    "mobot",
+    "ncsu"
+   ]
+  },
+  {
+   "id": "light",
+   "cat": "SITE",
+   "base": 74,
+   "title": "Measure the light the spot actually gets",
+   "test": "Observe the spot every hour through one clear day in midsummer and write down when it is in direct sun, and add up the total. Do not estimate from memory, and do not judge in early spring before the trees have leafed out, which is the commonest way people overestimate light in a bed under deciduous trees. Six hours or more of direct summer sun is full sun; three to six is part shade; under three is shade. Note also whether it is morning or afternoon sun, which matters more than the total in hot regions.",
+   "means": "Too little light gives drawn, leaning, weak growth that flowers poorly and eventually fails. Too much gives scorch, bleaching and permanent wilting in the afternoon. A shade plant in full sun in a hot region can die within a single afternoon.",
+   "fix": "Move the plant to match the light rather than trying to change the light. Where the total is right but the exposure is wrong, remember that a species wanting part shade usually means morning sun with afternoon shade, especially in the south.",
+   "when": [
+    {
+     "if": {
+      "lightOnly": [
+       "H"
+      ]
+     },
+     "boost": 14,
+     "why": "this species tolerates deep shade only and scorches quickly in sun"
+    },
+    {
+     "if": {
+      "lightOnly": [
+       "H",
+       "P"
+      ]
+     },
+     "boost": 10,
+     "why": "it needs shade or part shade and will not take full sun"
+    },
+    {
+     "if": {
+      "lightOnly": [
+       "S"
+      ]
+     },
+     "boost": 10,
+     "why": "it needs full sun and grows weak and leaning in shade"
+    },
+    {
+     "if": {
+      "care": [
+       "fern_deciduous",
+       "fern_evergreen"
+      ]
+     },
+     "boost": 10,
+     "why": "ferns scorch irreversibly in direct sun"
+    },
+    {
+     "if": {
+      "symptom": [
+       "crisp_dry"
+      ]
+     },
+     "boost": 9,
+     "why": "scorching is consistent with too much sun"
+    },
+    {
+     "if": {
+      "symptom": [
+       "stunted",
+       "flopped"
+      ]
+     },
+     "boost": 8,
+     "why": "drawn, weak growth is consistent with too little light"
+    }
+   ],
+   "src": [
+    "mobot",
+    "ncsu",
+    "extension"
+   ]
+  },
+  {
+   "id": "reflected",
+   "cat": "SITE",
+   "base": 52,
+   "title": "Check for reflected and radiated heat",
+   "test": "Put a cheap thermometer at plant height in the spot on a hot afternoon and compare it with an open part of the garden. Note any south or west-facing wall, pale paving, gravel, metal fence, parked car or air-conditioning unit within a few feet, and look at whether damage is worst on the side facing it.",
+   "means": "A south or west wall can add 10 to 20 degrees Fahrenheit at plant height and keep radiating heat after sunset. That raises the effective heat zone by a full step, dries the soil far faster than open ground, and is enough to kill a plant that would be perfectly hardy ten feet away.",
+   "fix": "Treat a hot wall as a different climate: use species from hotter, drier places there, and keep anything marginal away from it. Shade the soil with a groundcover layer or a gravel mulch, and water more deeply there than elsewhere in the same bed.",
+   "when": [
+    {
+     "if": {
+      "lightOnly": [
+       "H",
+       "P"
+      ]
+     },
+     "boost": 13,
+     "why": "a shade plant against a hot wall is being cooked as well as burnt"
+    },
+    {
+     "if": {
+      "moistOnly": [
+       "W"
+      ]
+     },
+     "boost": 10,
+     "why": "a moisture-loving species cannot keep up with the evaporation in a hot reflective spot"
+    },
+    {
+     "if": {
+      "timing": [
+       "summer"
+      ]
+     },
+     "boost": 12,
+     "why": "you reported a midsummer loss, which is when reflected heat does its damage"
+    }
+   ],
+   "src": [
+    "ucipm",
+    "extension"
+   ]
+  },
+  {
+   "id": "heave",
+   "cat": "SITE",
+   "base": 58,
+   "title": "Look for frost heave",
+   "test": "In late winter, look at the crowns in the bed: a heaved plant sits proud of the soil with roots exposed to the air, often lifted half an inch to two inches, and may be lying on its side. Look for cracked or lifted soil around the crown, and for needle ice in the surface on a frosty morning.",
+   "means": "Repeated freezing and thawing expands the soil and physically pushes shallow-rooted or recently planted crowns upward, exposing roots to drying wind and cold. It is a mechanical failure, not a hardiness failure, and it mostly affects plants that went in late.",
+   "fix": "Firm heaved plants straight back down as soon as you see them and water them in. Prevent it by planting early enough to root before the ground freezes, and by mulching after the ground has frozen rather than before, which keeps the soil temperature steady instead of letting it cycle. In the coldest zones, plant in spring instead.",
+   "when": [
+    {
+     "if": {
+      "zoneLte": 5
+     },
+     "boost": 20,
+     "why": "frost heave is a routine winter hazard in your zone"
+    },
+    {
+     "if": {
+      "hmaxLt": 18
+     },
+     "boost": 8,
+     "why": "low, shallow-rooted plants are lifted most easily"
+    },
+    {
+     "if": {
+      "timing": [
+       "winter",
+       "never_came_up"
+      ]
+     },
+     "boost": 16,
+     "why": "you reported a loss over winter or a failure to reappear, which fits heaving"
+    }
+   ],
+   "src": [
+    "extension",
+    "mobot"
+   ]
+  },
+  {
+   "id": "desiccation",
+   "cat": "SITE",
+   "base": 50,
+   "title": "Check for winter desiccation of evergreen foliage",
+   "test": "Look at the pattern of browning on evergreen leaves in late winter: uniform browning or bleaching, worst on the windward and sunniest side, with the sheltered side still green. Scratch a stem to confirm the wood beneath is still alive. Note whether the plant went into winter with dry soil.",
+   "means": "Evergreen leaves keep losing water all winter while frozen soil prevents roots replacing it, so the foliage dries out and browns. Sun and wind make it much worse. The roots are usually still alive, which is why these plants often recover if left alone.",
+   "fix": "Water evergreens deeply in autumn and again during any long winter thaw while the ground is unfrozen. Provide a windbreak on the exposed side, and keep them out of spots that combine winter sun with wind. Do not cut damaged foliage off until new growth appears in spring.",
+   "when": [
+    {
+     "if": {
+      "evergreen": true
+     },
+     "boost": 22,
+     "why": "this species holds living leaves through winter, so it is exposed to desiccation"
+    },
+    {
+     "if": {
+      "care": [
+       "fern_evergreen",
+       "evergreen_perennial"
+      ]
+     },
+     "boost": 12,
+     "why": "evergreen ferns and perennials are particularly prone to winter burn"
+    },
+    {
+     "if": {
+      "timing": [
+       "winter"
+      ]
+     },
+     "boost": 18,
+     "why": "you reported a loss over winter"
+    },
+    {
+     "if": {
+      "symptom": [
+       "crisp_dry"
+      ]
+     },
+     "boost": 10,
+     "why": "uniform crisp browning fits winter desiccation"
+    }
+   ],
+   "src": [
+    "extension",
+    "mobot",
+    "morton"
+   ]
+  },
+  {
+   "id": "zone",
+   "cat": "SITE",
+   "base": 62,
+   "title": "Verify hardiness and heat tolerance against your actual conditions",
+   "test": "Confirm your zone from the USDA map by ZIP code rather than from a plant label, and compare it with the range given for the species. Then look for the microclimate you are actually planting into: a low spot, a north side, an exposed corner or a hot wall can shift the effective zone by a full step in either direction. Check whether last winter brought an unusual low, and what the plant's summer night temperatures were.",
+   "means": "A plant outside its cold range dies in winter. A plant outside its heat range declines through summer, often over two or three years, because it never gets the cool nights it needs. Cold hardiness is necessary but not sufficient, and published upper limits are only a rough proxy for heat and humidity tolerance.",
+   "fix": "Match the species to the zone you actually have, and treat marginal plants as experiments placed in the most favourable microclimate you can find. Where a plant is at the warm edge of its range, put it where it gets afternoon shade and good air movement.",
+   "when": [
+    {
+     "if": {
+      "timing": [
+       "winter"
+      ]
+     },
+     "boost": 16,
+     "why": "you reported a loss over winter, so cold hardiness must be ruled out"
+    },
+    {
+     "if": {
+      "timing": [
+       "summer"
+      ]
+     },
+     "boost": 10,
+     "why": "a midsummer decline can mean the plant is past its heat limit"
+    },
+    {
+     "if": {
+      "timing": [
+       "gradual"
+      ]
+     },
+     "boost": 8,
+     "why": "heat-limited plants usually decline slowly rather than dying at once"
+    }
+   ],
+   "src": [
+    "phzm",
+    "mobot",
+    "extension"
+   ]
+  },
+  {
+   "id": "frostpocket",
+   "cat": "SITE",
+   "base": 36,
+   "title": "Look for a frost pocket",
+   "test": "On a still, clear, frosty morning, walk the garden early and note where frost lies longest and where it has already gone. Cold air flows downhill and pools behind walls, hedges and fences, so a hollow or the uphill side of a solid barrier can be several degrees colder than ground twenty feet away. A minimum-reading thermometer left in the spot for a fortnight settles it.",
+   "means": "A frost pocket can be a full zone colder than the rest of the garden, and it also holds late spring frosts that catch new growth. Plants there fail while the same species thrives elsewhere on the same property.",
+   "fix": "Use the coldest spots for the hardiest species. Where a solid fence or wall is damming cold air, opening a gap at the bottom lets it drain away. Avoid planting anything marginal, or anything that breaks dormancy early, in a hollow.",
+   "when": [
+    {
+     "if": {
+      "timing": [
+       "winter",
+       "never_came_up"
+      ]
+     },
+     "boost": 14,
+     "why": "your timing fits cold injury"
+    }
+   ],
+   "src": [
+    "extension",
+    "phzm"
+   ]
+  },
+  {
+   "id": "competition",
+   "cat": "SITE",
+   "base": 64,
+   "title": "Test for tree root competition and rain shadow",
+   "test": "Dig a hole 8 inches deep within a few feet of where the plant died and count the tree roots you cut through. Then check moisture after rain: dig in the bed and in an open area at the same time and compare how damp each is 4 inches down. Look up, too, and note whether a dense canopy or a building eave is shedding rain away from the spot.",
+   "means": "A mature tree can fill the top foot of soil with fibrous roots and remove hundreds of gallons of water a week, and a dense canopy or an eave can keep normal rain off the ground entirely. Plants there die of drought in a season that was wet everywhere else. Dry shade is the hardest site in any garden.",
+   "fix": "Do not till or dig extensively under a tree, which damages the tree and rarely helps the planting. Plant small plugs into slits between roots, at higher density than usual, water deeply for a full establishment season, and use species that genuinely tolerate dry shade. Leave the tree's own leaf litter in place as mulch.",
+   "when": [
+    {
+     "if": {
+      "lightHas": [
+       "H",
+       "P"
+      ]
+     },
+     "boost": 10,
+     "why": "a shade plant is usually under something, so competition should be checked"
+    },
+    {
+     "if": {
+      "moistOnly": [
+       "W"
+      ],
+      "lightHas": [
+       "H",
+       "P"
+      ]
+     },
+     "boost": 12,
+     "why": "a moisture-loving shade plant under a tree is in direct competition for water"
+    },
+    {
+     "if": {
+      "symptom": [
+       "crisp_dry",
+       "stunted"
+      ]
+     },
+     "boost": 10,
+     "why": "your symptom fits drought and root competition"
+    }
+   ],
+   "src": [
+    "morton",
+    "extension",
+    "mobot"
+   ]
+  },
+  {
+   "id": "downspout",
+   "cat": "SITE",
+   "base": 34,
+   "title": "Trace where roof and hard-surface water actually goes",
+   "test": "Go outside during heavy rain, or run a hose into the gutter, and watch. Note where water discharges, which way it flows across the bed, and where it stands afterwards. Look for scoured soil, exposed roots, silt fans, or a crust of fine sediment over crowns.",
+   "means": "A downspout can deliver the runoff from hundreds of square feet of roof onto a few square feet of bed. That either drowns the plants, scours soil off their roots, or buries their crowns in silt. Damage is usually confined to a narrow path, which is the clue.",
+   "fix": "Extend the downspout past the bed, or build a proper rain garden with a stone-armoured inlet and a level basin designed for the volume, and plant species that tolerate periodic inundation. Do not simply plant moisture lovers in the scour path: the mechanical damage is as much the problem as the water.",
+   "when": [
+    {
+     "if": {
+      "soil": "W"
+     },
+     "boost": 10,
+     "why": "you described the site as moist to wet, so it is worth finding out why"
+    },
+    {
+     "if": {
+      "symptom": [
+       "mushy_base"
+      ]
+     },
+     "boost": 8,
+     "why": "burial by silt and standing water both produce crown rot"
+    }
+   ],
+   "src": [
+    "extension",
+    "cornell"
+   ]
+  },
+  {
+   "id": "vole",
+   "cat": "PEST",
+   "base": 66,
+   "title": "Tug test for voles and pocket gophers",
+   "test": "Take hold of the dead plant and pull gently. If it lifts away with no roots at all, or with roots neatly severed, something ate them. Then look for the evidence: voles leave narrow surface runways about 1 to 2 inches wide under mulch or matted grass, with clean-cut stems and gnawed bark at the base showing small parallel tooth marks. Pocket gophers leave fan-shaped soil mounds with a plugged hole off to one side, and pull plants down from below. Both are worst under deep mulch and in winter under snow.",
+   "means": "A plant that lifts out with no roots has been girdled or eaten from below. This is one of the few causes that genuinely looks like sudden, inexplicable death, and it is very often the answer when a healthy plant vanishes over winter.",
+   "fix": "Pull mulch back 6 inches from every crown, which removes the cover voles need. Keep grass short around the bed. Hardware cloth baskets under the root ball protect individual valuable plants, and a gravel mulch is much less attractive to voles than bark. Encourage predators rather than poisoning, which moves up the food chain.",
+   "when": [
+    {
+     "if": {
+      "timing": [
+       "winter",
+       "never_came_up"
+      ]
+     },
+     "boost": 20,
+     "why": "vole damage happens mostly under winter cover and is discovered in spring"
+    },
+    {
+     "if": {
+      "symptom": [
+       "vanished"
+      ]
+     },
+     "boost": 24,
+     "why": "a plant that simply disappeared has very often been eaten from below"
+    },
+    {
+     "if": {
+      "layer": [
+       "SHRUB"
+      ]
+     },
+     "boost": 8,
+     "why": "woody stems are girdled at the base under snow"
+    }
+   ],
+   "src": [
+    "extension",
+    "ucipm"
+   ]
+  },
+  {
+   "id": "browse",
+   "cat": "PEST",
+   "base": 58,
+   "title": "Look for browsing damage and identify the animal",
+   "test": "Look at how the stems were cut. Deer have no upper incisors, so they tear: the cut is ragged and usually 2 to 6 feet up. Rabbits have sharp incisors and leave a clean 45 degree cut within about 2 feet of the ground, often with pellets nearby. Groundhogs take whole plants off at ground level. Look for tracks, droppings and rubbed bark, and check whether damage appeared overnight.",
+   "means": "Repeated browsing kills a plant even when each individual loss looks survivable, because the plant never builds reserves. New plantings are targeted first, since the foliage is soft and the scent of disturbed soil attracts attention.",
+   "fix": "Physical exclusion is the only reliable answer: a cage of wire mesh over each new plant for its first season, or a fence for the bed. Repellents work briefly and must be rotated and reapplied after rain. Deer-resistant species are only relatively resistant, and a hungry deer in late winter will eat almost anything.",
+   "when": [
+    {
+     "if": {
+      "symptom": [
+       "chewed"
+      ]
+     },
+     "boost": 26,
+     "why": "you reported chewed or stripped foliage"
+    },
+    {
+     "if": {
+      "symptom": [
+       "vanished"
+      ]
+     },
+     "boost": 12,
+     "why": "a plant taken off at ground level can look as though it vanished"
+    },
+    {
+     "if": {
+      "timing": [
+       "first_year"
+      ]
+     },
+     "boost": 8,
+     "why": "new plantings are browsed first"
+    }
+   ],
+   "src": [
+    "extension",
+    "ucipm"
+   ]
+  },
+  {
+   "id": "phytophthora",
+   "cat": "PEST",
+   "base": 54,
+   "title": "Look for Phytophthora and other crown and root rots",
+   "test": "Cut into the stem at and just below soil level and look at the tissue under the bark. A dark, water-soaked or reddish-brown discoloration with a fairly distinct margin against healthy cream tissue indicates a crown rot. Check whether the plant wilted from one side or all at once, and whether the site is poorly drained or was recently flooded. A laboratory test through your Extension diagnostic clinic gives a definite answer.",
+   "means": "Phytophthora and related water moulds need wet soil to spread, so they are the consequence of a drainage problem as much as a cause in themselves. They kill the tissue at the base, so the plant wilts and dies while the soil stays wet. They persist in the soil for years.",
+   "fix": "There is no practical cure once a plant is infected: remove it along with the soil around the root ball, and do not replant the same genus in that spot. Fix the drainage first, plant high on a mound, and avoid moving soil or water from the affected area to healthy parts of the garden. Clean tools between plants.",
+   "when": [
+    {
+     "if": {
+      "symptom": [
+       "wilt_damp",
+       "mushy_base"
+      ]
+     },
+     "boost": 16,
+     "why": "wilting in wet soil with a soft base is the classic crown-rot picture"
+    },
+    {
+     "if": {
+      "soil": "W"
+     },
+     "boost": 10,
+     "why": "the disease needs wet soil, and you described the site as moist to wet"
+    },
+    {
+     "if": {
+      "flags": [
+       "sharp_drainage",
+       "no_summer_water"
+      ]
+     },
+     "boost": 10,
+     "why": "species from sharply drained ground have little resistance to water moulds"
+    },
+    {
+     "if": {
+      "family": [
+       "Ericaceae",
+       "Rosaceae"
+      ]
+     },
+     "boost": 8,
+     "why": "this family is notably susceptible"
+    }
+   ],
+   "src": [
+    "ucipm",
+    "purdue",
+    "extension"
+   ]
+  },
+  {
+   "id": "grubs",
+   "cat": "PEST",
+   "base": 46,
+   "title": "Dig and sift for root-feeding grubs and weevil larvae",
+   "test": "Cut and lift a square foot of soil 4 inches deep beside the dead plant and break it apart by hand over a tray or a sheet. Count what you find: white C-shaped beetle grubs, or legless white weevil larvae with brown heads. More than about five grubs per square foot is enough to damage roots. Also look for notched leaf margins, which are the adult weevil's signature.",
+   "means": "Root-feeding larvae chew away the fine roots, so the plant wilts in warm weather no matter how much you water and can be lifted with almost no root system left. Damage is usually patchy rather than uniform across a bed.",
+   "fix": "Accept a low population, which is normal and harmless. For real infestations, beneficial nematodes applied to warm moist soil at the right point in the larval cycle are the option least harmful to everything else. Do not apply a broad-spectrum soil insecticide in a habitat planting: it will kill the ground-nesting bees, which are most of the pollinators you planted for.",
+   "when": [
+    {
+     "if": {
+      "symptom": [
+       "wilt_damp",
+       "stunted"
+      ]
+     },
+     "boost": 12,
+     "why": "wilting with adequate moisture, or a plant that never grew, can mean roots are being eaten"
+    },
+    {
+     "if": {
+      "care": [
+       "grass_warm",
+       "grass_cool",
+       "sedge"
+      ]
+     },
+     "boost": 8,
+     "why": "grass and sedge roots are a preferred food for beetle grubs"
+    }
+   ],
+   "src": [
+    "ucipm",
+    "extension",
+    "purdue"
+   ]
+  },
+  {
+   "id": "slugs",
+   "cat": "PEST",
+   "base": 38,
+   "title": "Check for slugs and snails on soft new growth",
+   "test": "Go out after dark with a torch, two hours after watering or rain, and look at the plants and the ground around them. Look for irregular holes with no clean edge, slime trails on leaves and soil, and seedlings grazed off at ground level. A board or a grapefruit half laid on the soil overnight gives you somewhere to find them in the morning.",
+   "means": "Slugs and snails can remove a seedling or a soft new shoot completely overnight, which looks exactly like a plant that never came up. They are most damaging in damp shade, under mulch and in spring.",
+   "fix": "Hand collect at night, which is genuinely the most effective method. Iron phosphate baits are the least harmful chemical option; metaldehyde is toxic to pets and wildlife. Reduce daytime shelter by pulling mulch back from crowns, and water in the morning rather than the evening so the surface is dry at night.",
+   "when": [
+    {
+     "if": {
+      "symptom": [
+       "chewed",
+       "vanished",
+       "never_came_up"
+      ]
+     },
+     "boost": 14,
+     "why": "your symptom fits grazing on soft growth"
+    },
+    {
+     "if": {
+      "lightHas": [
+       "H"
+      ]
+     },
+     "boost": 10,
+     "why": "damp shade is prime slug habitat"
+    },
+    {
+     "if": {
+      "care": [
+       "fern_deciduous"
+      ]
+     },
+     "boost": 8,
+     "why": "emerging fern fiddleheads are heavily grazed"
+    }
+   ],
+   "src": [
+    "ucipm",
+    "extension"
+   ]
+  },
+  {
+   "id": "herbicide_drift",
+   "cat": "CHEM",
+   "base": 60,
+   "title": "Look for herbicide drift or misapplication",
+   "test": "Look at the pattern and the shape. Drift affects everything on one side of the garden regardless of species, is worst nearest the source, and produces twisted, cupped, strapped or fern-like distorted new growth rather than plain browning. Ask whether anyone treated a lawn nearby, whether a weed killer was used on a windy day, and whether a sprayer previously used for herbicide was later used for something else without being cleaned.",
+   "means": "Growth-regulator herbicides such as 2,4-D and dicamba cause distortion at doses far too low to see on the label, and they drift much further than people expect, particularly as vapour in warm weather. A sprayer that once held herbicide is effectively contaminated for good.",
+   "fix": "Identify and stop the source, which usually matters more than treating the plant. Affected plants sometimes grow out of a light exposure over a season. Keep a separate sprayer for herbicide and label it. Spray only in still conditions, and never use a weed-and-feed lawn product anywhere near a planting bed.",
+   "when": [
+    {
+     "if": {
+      "symptom": [
+       "distorted"
+      ]
+     },
+     "boost": 30,
+     "why": "twisted or cupped growth is the diagnostic sign of a growth-regulator herbicide"
+    },
+    {
+     "if": {
+      "symptom": [
+       "stunted"
+      ]
+     },
+     "boost": 8,
+     "why": "stunting can follow a sub-lethal herbicide exposure"
+    }
+   ],
+   "src": [
+    "npic",
+    "ucipm",
+    "purdue"
+   ]
+  },
+  {
+   "id": "compost_contam",
+   "cat": "CHEM",
+   "base": 44,
+   "title": "Bioassay your compost, manure or straw for persistent herbicide",
+   "test": "Fill three pots with the suspect compost, mulch or manure and three with a known clean potting mix, and sow three pea or bean seeds in each. Grow them side by side with the same water and light for two to three weeks. Compare germination and growth, and look closely at the leaves.",
+   "means": "Cupped, twisted, fern-like or parsley-like leaves and stunted roots in the suspect pots, with healthy plants in the clean mix, means the material contains a persistent growth-regulator herbicide such as clopyralid, aminopyralid or picloram. These pass through an animal's gut and through hot composting unchanged and stay active for months to years. Legumes are the most sensitive indicator, which is why peas are used.",
+   "fix": "Do not use the material anywhere in the garden, including on paths, and do not compost it further. Ask suppliers of manure, hay and straw whether those herbicides were used on the pasture. Where contaminated material is already spread, remove it if you can; otherwise expect to wait and retest, because there is no way to neutralise it.",
+   "when": [
+    {
+     "if": {
+      "symptom": [
+       "distorted"
+      ]
+     },
+     "boost": 26,
+     "why": "distorted growth in a bed that was recently mulched or composted points straight here"
+    },
+    {
+     "if": {
+      "symptom": [
+       "stunted"
+      ]
+     },
+     "boost": 10,
+     "why": "stunting with poor root growth is a typical carryover symptom"
+    }
+   ],
+   "src": [
+    "wsu_bioassay",
+    "npic",
+    "extension"
+   ]
+  },
+  {
+   "id": "preemergent",
+   "cat": "CHEM",
+   "base": 36,
+   "title": "Ask whether a pre-emergent herbicide was applied",
+   "test": "Find out whether any weed preventer, crabgrass preventer or weed-and-feed was used on the bed or the adjacent lawn, and when. Then look at what failed: seed that never germinated, plugs that never rooted away, and self-sown seedlings entirely absent while established plants are untouched.",
+   "means": "Pre-emergent herbicides work by killing seedlings as they germinate and by inhibiting root initiation. They do not distinguish between weed seed and the self-sowing natives that are meant to fill your bed, and they can stop a newly planted plug from rooting out into the soil at all. Residues last weeks to months.",
+   "fix": "Do not use pre-emergent products in a planting designed to self-sow. Weed by hand, and let the groundcover layer close up, which is the real weed control in this kind of bed. If a product has been applied, wait out the label's replanting interval before sowing or planting.",
+   "when": [
+    {
+     "if": {
+      "care": [
+       "selfsower"
+      ]
+     },
+     "boost": 20,
+     "why": "this species is meant to reseed itself, and a pre-emergent prevents exactly that"
+    },
+    {
+     "if": {
+      "timing": [
+       "never_came_up"
+      ]
+     },
+     "boost": 14,
+     "why": "seed or plugs that never came away fits pre-emergent injury"
+    }
+   ],
+   "src": [
+    "npic",
+    "extension",
+    "ucipm"
+   ]
+  },
+  {
+   "id": "neonic",
+   "cat": "CHEM",
+   "base": 30,
+   "title": "Ask the nursery what the plant was treated with",
+   "test": "Telephone or email the nursery and ask directly whether the plant was treated with a neonicotinoid such as imidacloprid, dinotefuran, thiamethoxam or clothianidin, and whether any plant growth regulator was used. Big-box stock is often grown by contract producers who treat routinely. Keep the label and the receipt.",
+   "means": "This will not usually explain why a plant died, but it explains a related failure that matters: a plant bought for pollinators that is quietly poisoning them. Systemic insecticides persist in nectar and pollen for a season or more. Growth regulators, used to keep nursery stock compact, also make a plant look artificially dense on the bench and then grow oddly for a year once the effect wears off.",
+   "fix": "Buy from a genuine native plant nursery that can answer the question, and ask before you buy rather than after. Where you cannot get an answer, growing from seed avoids the problem entirely. Never treat a habitat planting with a systemic insecticide yourself.",
+   "src": [
+    "xerces",
+    "npic"
+   ],
+   "when": []
+  },
+  {
+   "id": "fertburn",
+   "cat": "CHEM",
+   "base": 32,
+   "title": "Check for fertiliser burn and excess nutrients",
+   "test": "Ask what was applied and at what rate, then look at the pattern: scorched leaf margins and tips, a white crust on the soil surface, and damage worst where granules landed or where a liquid feed pooled. A soil test reporting high soluble salts confirms it. Look also for abundant soft green growth with no flowers, which is nitrogen excess rather than burn.",
+   "means": "Fertiliser salts pull water out of roots, producing drought symptoms in moist soil. Beyond that, most natives do not want feeding at all: excess nitrogen gives soft, floppy, disease-prone growth, shortens their life, and favours weeds over the plants you want.",
+   "fix": "Stop fertilising. Water deeply several times to leach the salts if drainage allows. As a rule, a native planting in ordinary soil never needs fertiliser, and a lean-soil planting is actively harmed by it.",
+   "when": [
+    {
+     "if": {
+      "moistOnly": [
+       "D"
+      ]
+     },
+     "boost": 12,
+     "why": "dry-soil species are the most easily damaged by fertiliser salts"
+    },
+    {
+     "if": {
+      "symptom": [
+       "crisp_dry",
+       "flopped"
+      ]
+     },
+     "boost": 9,
+     "why": "marginal scorch and floppy growth both fit excess nutrients"
+    }
+   ],
+   "src": [
+    "soiltest",
+    "extension",
+    "mobot"
+   ]
+  },
+  {
+   "id": "lab",
+   "cat": "LAST",
+   "base": 95,
+   "title": "If you still cannot tell, send a sample to a diagnostic laboratory",
+   "test": "Collect a sample while the plant is dying rather than after it is dead: a laboratory can rarely work with a plant that has been dead for weeks. Take the whole plant including roots and the soil around them, wrap the roots in a plastic bag and the top in dry newspaper, keep it cool, and deliver it the same day if you can. Send photographs of the whole bed as well as the plant, and write down the full history: when planted, what from, how watered, what was applied, what the weather did.",
+   "means": "Most Cooperative Extension services run a plant diagnostic clinic that will identify pathogens, nematodes and abiotic injury, usually for a small fee. They can distinguish things you cannot see, particularly root pathogens and herbicide injury.",
+   "fix": "Contact your county Extension office for submission instructions before you collect, because each laboratory has its own requirements. Bring the history with you: a good diagnostician solves most cases from the pattern and the history rather than from the specimen.",
+   "src": [
+    "extension",
+    "purdue",
+    "ucipm"
+   ],
+   "when": []
+  }
+ ]
+}

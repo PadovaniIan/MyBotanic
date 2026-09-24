@@ -148,3 +148,95 @@ the Lady Bird Johnson Wildflower Center's how-to articles. Per-species exception
 - Trees are out of scope. The keystone woody genera that matter most for caterpillar production
   — *Quercus*, *Prunus*, *Salix*, *Betula*, *Populus* — are canopy decisions rather than bed
   decisions, so the Keystone Host Nursery template works with the shrub-scale members of that group.
+
+---
+
+## Diagnostic sources (Help My Plant Keeps Dying)
+
+The 43 diagnostic tests draw their procedures, thresholds and interpretations from the following. Where sources disagree, the more conservative reading is used. No test is included that a gardener cannot carry out with ordinary tools, other than the laboratory soil test and the diagnostic-clinic referral, both of which are identified as paid services.
+
+Each test in `diagnostics.json` carries a `src` list naming the sources it rests on; `build_data.py` refuses to build if any of those names does not resolve.
+
+### Extension literature on juglone and black walnut allelopathy
+
+<https://extension.psu.edu/black-walnut-toxicity>
+
+Which plants are sensitive to juglone, how far the effect reaches, and how long it persists after a tree is removed.
+
+### Cornell Comprehensive Assessment of Soil Health
+
+<https://soilhealth.cals.cornell.edu/>
+
+The standard protocols for measuring compaction, aggregate stability and infiltration, including the field tests you can do with a spade and a tin can.
+
+### Your state Cooperative Extension Service
+
+<https://www.nifa.usda.gov/about-nifa/how-we-work/extension/cooperative-extension-system>
+
+The single most useful resource for diagnosis, because the advice is written for your climate and soils. Most run a free or low-cost plant diagnostic clinic and will look at a sample in person.
+
+### Missouri Botanical Garden Plant Finder
+
+<https://www.missouribotanicalgarden.org/plantfinder/plantfindersearch.aspx>
+
+Per-species culture notes with an explicit 'Problems' section. Strong on the difference between a plant that is unhappy and a plant that is in the wrong place.
+
+### The Morton Arboretum plant health care resources
+
+<https://mortonarb.org/plant-and-protect/tree-plant-care/plant-care-resources/>
+
+Excellent on planting depth, girdling roots, mulch practice and construction damage, which are the installation faults that kill the most woody plants.
+
+### NC State Extension Plant Toolbox
+
+<https://plants.ces.ncsu.edu/>
+
+Detailed per-species culture and problem notes for several thousand plants, with a usefully blunt list of what commonly goes wrong.
+
+### National Pesticide Information Center
+
+<http://npic.orst.edu/>
+
+Independent, federally funded help on pesticide drift, residues and persistence, including a telephone service staffed by specialists.
+
+### USDA Plant Hardiness Zone Map
+
+<https://planthardiness.ars.usda.gov/>
+
+Cold hardiness by ZIP code. Note that it describes average annual extreme minimum temperature only, and says nothing about heat, humidity or drainage.
+
+### Purdue Plant and Pest Diagnostic Laboratory
+
+<https://ag.purdue.edu/department/btny/ppdl/index.html>
+
+Clear guidance on abiotic versus biotic injury, and on how to collect and submit a sample so that a laboratory can actually work with it.
+
+### Land-grant university soil testing laboratory
+
+<https://www.nrcs.usda.gov/resources/education-and-teaching-materials/soil-testing>
+
+A lab test through your Extension office costs roughly 15 to 30 US dollars and reports pH, organic matter, texture and nutrients. Vastly more reliable than a hardware-store probe, and the only way to settle a pH question.
+
+### UC Statewide Integrated Pest Management Program
+
+<https://ipm.ucanr.edu/>
+
+The most rigorous free pest, disease and abiotic-disorder diagnostic material in the United States, with photographic keys. Written for California but the biology and the diagnostic logic apply nationally.
+
+### USDA NRCS Web Soil Survey
+
+<https://websoilsurvey.nrcs.usda.gov/>
+
+Free mapped soil data for almost every address in the United States, including depth to a restrictive layer, drainage class, texture and pH range. Tells you what is under your garden before you dig.
+
+### Washington State University: bioassay for herbicide residue in compost
+
+<https://s3.wp.wsu.edu/uploads/sites/2073/2015/03/persistent-herbicides.pdf>
+
+The published protocol for the pea or bean bioassay that detects clopyralid, aminopyralid and picloram carryover in compost, manure or straw.
+
+### Xerces Society: neonicotinoids in nursery plants
+
+<https://www.xerces.org/pesticides/neonicotinoids-and-bees>
+
+Why systemic insecticides applied during production persist in plant tissue, and what to ask a nursery before buying.

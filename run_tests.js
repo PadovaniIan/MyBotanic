@@ -9,10 +9,11 @@ const statusText = ()=> byId.status.innerHTML.replace(/<[^>]*>/g,' ').replace(/\
 
 console.log('=== tabs ===');
 (function(){
-  const NAMES = ['build','how','plants','sources','before'];
-  const LABELS = {build:'Build a Bed', how:'How it works', plants:'Plant Database',
+  const NAMES = ['build','dying','how','plants','sources','before'];
+  const LABELS = {build:'Build a Bed', dying:'Help My Plant Keeps Dying',
+                  how:'How it works', plants:'Plant Database',
                   sources:'Data Sources', before:'Before you plant'};
-  ok(NAMES.length === 5, 'there must be exactly 5 tabs, found '+NAMES.length);
+  ok(NAMES.length === 6, 'there must be exactly 6 tabs, found '+NAMES.length);
   // exactly one panel visible at any time, and it must match the selected tab
   NAMES.forEach(name => {
     H.clickTab(name);
@@ -31,8 +32,8 @@ console.log('=== tabs ===');
   // keyboard: arrows move between tabs and wrap
   H.clickTab('build');
   byId['tab-build'].dispatch('keydown', {key:'ArrowRight', preventDefault(){}});
-  ok(H.visibleTabs()[0] === 'how', 'ArrowRight from Build should open How it works');
-  byId['tab-how'].dispatch('keydown', {key:'ArrowLeft', preventDefault(){}});
+  ok(H.visibleTabs()[0] === 'dying', 'ArrowRight from Build should open the diagnosis tab');
+  byId['tab-dying'].dispatch('keydown', {key:'ArrowLeft', preventDefault(){}});
   ok(H.visibleTabs()[0] === 'build', 'ArrowLeft should go back to Build');
   byId['tab-build'].dispatch('keydown', {key:'ArrowLeft', preventDefault(){}});
   ok(H.visibleTabs()[0] === 'before', 'ArrowLeft from the first tab should wrap to the last');
@@ -40,7 +41,7 @@ console.log('=== tabs ===');
   ok(H.visibleTabs()[0] === 'before', 'End should select the last tab');
   byId['tab-before'].dispatch('keydown', {key:'Home', preventDefault(){}});
   ok(H.visibleTabs()[0] === 'build', 'Home should select the first tab');
-  console.log('  5 tabs, one panel at a time, arrow/Home/End keys all work');
+  console.log('  6 tabs, one panel at a time, arrow/Home/End keys all work');
   H.clickTab('build');
 })();
 
@@ -98,6 +99,112 @@ console.log('\n=== one combination at a time ===');
   for(let i=0;i<n;i++){ H.gotoCombo(i); titles.add(cardTitle(byId.comboHost.children[0])); }
   ok(titles.size === n, 'only '+titles.size+' distinct combinations reachable out of '+n);
   console.log('  '+n+' combinations, one in the page at a time, '+titles.size+' distinct, wrap both ways');
+})();
+
+console.log('\n=== Help My Plant Keeps Dying ===');
+(function(){
+  H.clickTab('dying');
+  const DIAG = require('./diagnostics.json');
+  const N = DIAG.diagnostics.length;
+  ok(N >= 35, 'expected a substantial test list, found '+N);
+
+  // every test must be complete and cite a source
+  let bad = [];
+  DIAG.diagnostics.forEach(d => {
+    ['id','cat','title','test','means','fix'].forEach(k => {
+      if(!d[k]) bad.push(d.id+' missing '+k);
+    });
+    if(String(d.title).length < 12) bad.push(d.id+': title too terse');
+    if(String(d.test).length < 80)  bad.push(d.id+': test too vague to perform');
+    if(String(d.means).length < 60) bad.push(d.id+': no interpretation given');
+    if(String(d.fix).length < 60)   bad.push(d.id+': no remedy given');
+    if(!d.src || !d.src.length)     bad.push(d.id+': no source cited');
+    (d.src||[]).forEach(k => { if(!DIAG.sources[k]) bad.push(d.id+': unknown source '+k); });
+  });
+  ok(bad.length === 0, 'incomplete diagnostics: '+bad.slice(0,4).join('; '));
+  // no abbreviated units, to match the rest of the site
+  const abbr = [];
+  DIAG.diagnostics.forEach(d => {
+    const t = d.test+' '+d.means+' '+d.fix;
+    const m = t.match(/\d+\s?(?:in|ft)\b/g);
+    if(m) abbr.push(d.id+': '+m[0]);
+  });
+  ok(abbr.length === 0, 'abbreviated units in diagnostics: '+abbr.slice(0,3).join(', '));
+
+  // search
+  const hits = H.dxSearch('butterfly');
+  ok(hits.length >= 1, 'searching for butterfly weed returned nothing');
+  ok(H.dxHitNames().indexOf('Butterfly Weed') >= 0, 'Butterfly Weed not in the results');
+  ok(H.dxSearch('a').length === 0, 'a one-letter query should not run a search');
+  ok(H.dxSearch('Asclepias').length >= 3, 'searching by genus should match several species');
+  ok(H.dxSearch('Asteraceae').length >= 20, 'searching by family should work');
+  ok(H.dxSearch('zzzznotaplant').length === 0, 'a nonsense query should return no hits');
+
+  // selecting a plant produces the full ranked list
+  H.dxSearch('butterfly'); H.dxPick(0);
+  let tests = H.dxTests();
+  ok(tests.length === N, 'expected all '+N+' tests rendered, got '+tests.length);
+  ok(tests[tests.length-1].cat === 'LAST',
+     'the laboratory referral must be last, found '+tests[tests.length-1].cat);
+  ok(tests.filter(t => t.why).length >= 3,
+     'at least a few tests should explain why they matter for this plant');
+
+  // the ranking must actually differ between plants with different needs
+  function topFor(q){ H.dxSearch(q); H.dxPick(0); return H.dxTests().map(t => t.title); }
+  const agave = topFor('agave'), fern = topFor('maidenhair'), blue = topFor('lowbush');
+  const rank = (list, frag) => list.findIndex(t => t.toLowerCase().indexOf(frag) >= 0);
+  ok(rank(agave,'overwatering') < 3,
+     'overwatering should lead for an agave, ranked '+(rank(agave,'overwatering')+1));
+  ok(rank(fern,'underwatering') < rank(fern,'overwatering'),
+     'drying out should outrank overwatering for a fern');
+  ok(rank(blue,'soil ph') === 0,
+     'soil pH should lead for an acid-soil blueberry, ranked '+(rank(blue,'soil ph')+1));
+  ok(rank(agave,'overwatering') !== rank(fern,'overwatering') ||
+     rank(agave,'soil ph') !== rank(fern,'soil ph'),
+     'the ranking is identical for an agave and a fern, so it is not plant-specific');
+  const taproot = topFor('prairie dock');
+  ok(rank(taproot,'test pit') < 6,
+     'the test pit should rank high for a deep-taprooted species, ranked '+(rank(taproot,'test pit')+1));
+  const filler = topFor('black-eyed');
+  ok(rank(filler,'natural life') < 3,
+     'natural lifespan should lead for a short-lived self-sower');
+
+  // symptom answers must re-rank
+  H.dxSearch('purple conef'); H.dxPick(0);
+  const before = H.dxTests().map(t => t.title);
+  H.dxSetAnswer('symptom','distorted');
+  const afterDistort = H.dxTests().map(t => t.title);
+  ok(rank(afterDistort,'herbicide drift') < rank(before,'herbicide drift'),
+     'reporting distorted growth should promote herbicide drift');
+  ok(rank(afterDistort,'herbicide drift') < 4,
+     'herbicide drift should be near the top for distorted growth, ranked '+
+     (rank(afterDistort,'herbicide drift')+1));
+  H.dxSetAnswer('symptom','vanished'); H.dxSetAnswer('timing','winter');
+  const afterVole = H.dxTests().map(t => t.title);
+  ok(rank(afterVole,'vole') < 3,
+     'a plant that vanished over winter should promote voles, ranked '+(rank(afterVole,'vole')+1));
+  ok(H.dxTests().length === N, 'the answers must not drop tests from the list');
+  // answers must survive the re-render they trigger
+  H.dxSetAnswer('timing','summer');
+  ok(H.dxTests().length === N, 'list broken after changing an answer');
+
+  // the general fallback for a plant that is not in the database
+  byId.dxGeneral.dispatch('click');
+  const gen = H.dxTests();
+  ok(gen.length === N, 'the general list should still offer every test, got '+gen.length);
+  ok(byId.dxOut.textContent.indexOf('General diagnosis') >= 0,
+     'the general path should say so rather than naming a plant');
+
+  // reset
+  byId.dxReset.dispatch('click');
+  ok(byId.dxOut.children.length === 0, 'Start again should clear the diagnosis');
+
+  // source cards
+  ok(byId.dxSources.children.length === Object.keys(DIAG.sources).length,
+     'expected '+Object.keys(DIAG.sources).length+' source cards, got '+byId.dxSources.children.length);
+  console.log('  '+N+' tests, search and selection work, ranking is plant-specific, '+
+              'symptom answers re-rank, '+Object.keys(DIAG.sources).length+' sources cited');
+  H.clickTab('build');
 })();
 
 console.log('\n=== ZIP resolution ===');

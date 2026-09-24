@@ -264,3 +264,85 @@ table.ref .plinks{display:block;margin-top:3px;white-space:normal}
 .wb-note b,.wb-warn b{color:var(--ink)}
 .caregroup p.wt{margin-top:8px;padding-top:8px;border-top:1px dotted #d8ded2;font-size:.83rem}
 .caregroup p.wt b{color:#2b5570}
+
+/* ======================= Help My Plant Keeps Dying ======================= */
+.dxsearch{max-width:520px}
+.dxresults{margin-top:14px}
+.dxhits{display:grid;gap:8px;margin-top:10px;max-height:460px;overflow-y:auto;padding-right:4px}
+.dxhit{display:flex;align-items:center;justify-content:space-between;gap:14px;
+  background:#fcfcf8;border:1px solid var(--line);border-radius:9px;padding:10px 13px}
+.dxhit:hover{border-color:var(--green);background:var(--green-lt)}
+.dxh-info{min-width:0;flex:1 1 auto}
+.dxh-need{font-size:.77rem;color:var(--ink-soft);margin-top:3px}
+.dxhit .btn{flex:0 0 auto}
+@media(max-width:560px){
+  .dxhit{flex-direction:column;align-items:stretch}
+  .dxhit .btn{width:100%}
+}
+
+.dxhead{background:linear-gradient(105deg,#f2f6ee,#fbfaf5);border:1px solid var(--line);
+  border-radius:12px;box-shadow:var(--sh);padding:18px 22px;margin-bottom:14px}
+.dxhead h3{font-size:1.32rem;margin-bottom:.35em}
+.dxhead h3 .sci{font-style:italic;font-weight:400;font-size:.82em;color:var(--ink-soft)}
+.dxhead .dxh-need,.dxhead .dxh-look{font-size:.87rem;color:var(--ink-soft);margin-bottom:4px}
+.dxhead .dxh-need b,.dxhead .dxh-look b{color:var(--ink)}
+.dxh-note{font-size:.86rem;color:var(--ink);background:#fff;border-left:3px solid var(--gold);
+  border-radius:0 6px 6px 0;padding:8px 12px;margin:9px 0}
+.dxctx{font-size:.85rem;color:var(--ink-soft);background:#f7f9f4;border:1px solid #e2e8dc;
+  border-radius:9px;padding:10px 14px;margin-bottom:14px}
+.dxctx b{color:var(--ink)}
+
+.dxrefine{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  box-shadow:var(--sh);padding:15px 18px;margin-bottom:16px}
+.dxr-hd{font:700 .74rem var(--sans);text-transform:uppercase;letter-spacing:.06em;
+  color:var(--ink-soft);margin-bottom:9px}
+.dxr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.dxrefine p{margin:9px 0 0}
+
+.dxlead{background:#fdf9ec;border:1px solid #ecdcb4;border-left:4px solid var(--gold);
+  border-radius:0 10px 10px 0;padding:14px 18px;margin-bottom:14px}
+.dxl-hd{font:700 .74rem var(--sans);text-transform:uppercase;letter-spacing:.06em;
+  color:#8a6512;margin-bottom:7px}
+.dxlead ol{margin:0;padding-left:20px;font-size:.9rem}
+.dxlead li{margin-bottom:5px}
+.dxactions{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:16px}
+
+.dxlist{display:grid;gap:14px}
+.dxcard{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  box-shadow:var(--sh);padding:16px 20px;break-inside:avoid}
+.dxcard.lead{border-color:#cbbc8a;box-shadow:0 1px 2px rgba(20,30,20,.06),0 4px 16px rgba(160,130,40,.13)}
+.dx-hd{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:9px}
+.dx-rank{font:700 .78rem var(--mono);background:var(--green);color:#fff;border-radius:5px;
+  padding:3px 8px;flex:0 0 auto}
+.dxcard.lead .dx-rank{background:var(--accent)}
+.dx-title{font:600 1.08rem var(--serif);color:var(--ink);flex:1 1 auto;line-height:1.28}
+.dx-cat{font:600 .68rem var(--sans);text-transform:uppercase;letter-spacing:.05em;
+  padding:3px 8px;border-radius:20px;background:#eef1ea;color:var(--ink-soft);
+  border:1px solid var(--line);flex:0 0 auto}
+.dx-cat.c-FIRST{background:#e4efdf;color:#245c31;border-color:#c5ddbd}
+.dx-cat.c-WATER{background:#e4eef6;color:#26566f;border-color:#c3dbe9}
+.dx-cat.c-SOIL {background:#f2ebe0;color:#6b5330;border-color:#ddd0bb}
+.dx-cat.c-ROOT {background:#efe8d8;color:#6d5a1f;border-color:#dccfae}
+.dx-cat.c-SITE {background:#e6e9f6;color:#37447c;border-color:#c9cfea}
+.dx-cat.c-PEST {background:#f6e6ea;color:#7d2f45;border-color:#ebccd5}
+.dx-cat.c-CHEM {background:#f3e8f3;color:#6a2f6a;border-color:#e3cbe3}
+.dx-cat.c-LAST {background:#eceee8;color:#4a5545}
+.dx-why{font-size:.85rem;background:#f4f7f0;border-radius:7px;padding:9px 12px;
+  margin-bottom:11px;color:var(--ink-soft)}
+.dx-why b{color:var(--green-dk)}
+.dx-lab{font:700 .68rem var(--sans);text-transform:uppercase;letter-spacing:.07em;
+  color:var(--ink-soft);margin-bottom:2px}
+.dx-test,.dx-means,.dx-fix{margin-bottom:10px}
+.dx-test p,.dx-means p,.dx-fix p{margin:0;font-size:.88rem}
+.dx-test{background:#fcfcf8;border:1px solid #e8e8de;border-radius:8px;padding:10px 13px}
+.dx-test .dx-lab{color:var(--green-dk)}
+.dx-src{font-size:.76rem;color:var(--ink-soft);border-top:1px solid #edede4;padding-top:9px}
+.dx-src b{color:var(--ink)}
+.dx-src a{color:var(--green);text-decoration:none;border-bottom:1px dotted var(--green)}
+.dx-src a:hover{border-bottom-style:solid}
+
+@media print{
+  #panel-dying .dxsearch,#panel-dying .dxresults,#panel-dying .dxactions,
+  #panel-dying .dxrefine,#panel-dying .row-actions{display:none!important}
+  .dxcard{box-shadow:none;border-color:#999;page-break-inside:avoid}
+}

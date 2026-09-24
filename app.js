@@ -1705,12 +1705,359 @@ function copyText(txt, btn){
   else fallback();
 }
 
+/* =========================================================================
+   DIAGNOSTICS  --  "Help My Plant Keeps Dying"
+
+   Every test in data.js carries a base likelihood plus a list of `when` clauses.
+   A clause fires when its condition matches the selected plant (and, optionally,
+   the site details already entered on the Build a Bed tab and the symptom the user
+   reports), adding to the score and contributing a sentence explaining why that
+   test matters for this particular plant.
+
+   The result is a differential ranked for the plant in front of you: an agave
+   leads with crown rot and drainage, a fern leads with drying out, a blueberry
+   leads with soil pH. A flat checklist would be far less use.
+   ========================================================================= */
+var DIAG      = (D.diagnostics && D.diagnostics.diagnostics) || [];
+var DIAG_SRC  = (D.diagnostics && D.diagnostics.sources) || {};
+
+var DIAG_CATS = {
+  FIRST:{label:"Check first",       hint:"Rule these out before you spend money or effort"},
+  WATER:{label:"Water",             hint:"The commonest cause, in both directions"},
+  SOIL: {label:"Soil",              hint:"What is actually under the bed"},
+  ROOT: {label:"Roots and planting", hint:"Installation faults, which are invisible from above"},
+  SITE: {label:"Site and climate",  hint:"Light, heat, cold and competition"},
+  PEST: {label:"Animals and disease", hint:"Things that eat or infect the plant"},
+  CHEM: {label:"Chemicals",         hint:"Herbicide, fertiliser and treated stock"},
+  LAST: {label:"Still stuck",       hint:"When the garden tests have not settled it"}
+};
+
+var DIAG_TIMING = [
+  ["",              "Not sure, or I would rather see everything"],
+  ["first_year",    "In its first growing season"],
+  ["winter",        "Over the winter"],
+  ["never_came_up", "It never came up in spring"],
+  ["summer",        "In the heat of midsummer"],
+  ["gradual",       "It declined slowly over two or more years"]
+];
+var DIAG_SYMPTOM = [
+  ["",            "Not sure, or I would rather see everything"],
+  ["wilt_damp",   "Wilted even though the soil was damp"],
+  ["crisp_dry",   "Dry, crisp and brown"],
+  ["mushy_base",  "Soft, dark or mushy at the base"],
+  ["yellowing",   "Leaves yellowed, often between the veins"],
+  ["distorted",   "New growth twisted, cupped or strangely shaped"],
+  ["chewed",      "Leaves or stems chewed or stripped"],
+  ["vanished",    "It simply disappeared"],
+  ["stunted",     "It never grew away, just sat there"],
+  ["flopped",     "It grew soft and tall, then flopped over"]
+];
+
+/* one condition object; every key present must match */
+function diagMatch(c, p, ctx){
+  if(c.always) return true;
+  function anyIn(list, have){
+    for(var i=0;i<list.length;i++) if(have.indexOf(list[i]) >= 0) return true;
+    return false;
+  }
+  function allIn(have, list){
+    for(var i=0;i<have.length;i++) if(list.indexOf(have[i]) < 0) return false;
+    return true;
+  }
+  if(c.care      && c.care.indexOf(p.care) < 0)            return false;
+  if(c.flags     && !anyIn(c.flags, p.care_flags))         return false;
+  if(c.moistHas  && !anyIn(c.moistHas, p.moist))           return false;
+  if(c.moistOnly && !allIn(p.moist, c.moistOnly))          return false;
+  if(c.lightHas  && !anyIn(c.lightHas, p.light))           return false;
+  if(c.lightOnly && !allIn(p.light, c.lightOnly))          return false;
+  if(c.family    && c.family.indexOf(p.family) < 0)        return false;
+  if(c.genus     && c.genus.indexOf(genus(p)) < 0)         return false;
+  if(c.layer     && c.layer.indexOf(p.layer) < 0)          return false;
+  if(c.evergreen !== undefined &&
+     (p.wildlife.indexOf("evergreen") >= 0) !== c.evergreen) return false;
+  if(c.hmaxGte !== undefined && !(p.hmax >= c.hmaxGte))    return false;
+  if(c.hmaxLt  !== undefined && !(p.hmax <  c.hmaxLt))     return false;
+  if(c.region   && (!ctx.region || c.region.indexOf(ctx.region) < 0)) return false;
+  if(c.zoneLte !== undefined && !(ctx.zone && ctx.zone <= c.zoneLte)) return false;
+  if(c.zoneGte !== undefined && !(ctx.zone && ctx.zone >= c.zoneGte)) return false;
+  if(c.soil     && ctx.soil !== c.soil)                    return false;
+  if(c.timing   && (!ctx.timing  || c.timing.indexOf(ctx.timing) < 0))   return false;
+  if(c.symptom  && (!ctx.symptom || c.symptom.indexOf(ctx.symptom) < 0)) return false;
+  return true;
+}
+
+function scoreDiagnostics(p, ctx){
+  var out = DIAG.map(function(d){
+    var score = d.base, why = [], plantSpecific = false, userSpecific = false;
+    (d.when || []).forEach(function(w){
+      if(!diagMatch(w["if"], p, ctx)) return;
+      score += (w.boost || 0);
+      if(w.why) why.push(w.why);
+      if(w["if"].timing || w["if"].symptom) userSpecific = true;
+      else plantSpecific = true;
+    });
+    return {d:d, score:score, why:why, tailored:plantSpecific, fromAnswers:userSpecific};
+  });
+  /* The "send it to a laboratory" referral scores highly because it is always good advice,
+     but it belongs at the end of a list of things to try yourself, so it is pinned there. */
+  out.sort(function(a,b){
+    var al = a.d.cat === "LAST" ? 1 : 0, bl = b.d.cat === "LAST" ? 1 : 0;
+    if(al !== bl) return al - bl;
+    if(b.score !== a.score) return b.score - a.score;
+    return a.d.title.localeCompare(b.d.title);
+  });
+  return out;
+}
+
+/* what this plant needs, in one line, so the user can compare it with what it got */
+function needsLine(p){
+  var light = {S:"full sun", P:"part shade", H:"shade"};
+  var moist = {D:"dry", M:"average", W:"moist to wet"};
+  var l = p.light.map(function(x){ return light[x]; }).join(" or ");
+  var m = p.moist.map(function(x){ return moist[x]; }).join(" or ");
+  return l+", "+m+" soil, hardy in zones "+p.zmin+"\u2013"+p.zmax;
+}
+
+/* The user's answers live here rather than being read back out of the DOM, because
+   renderDiagnosis() rebuilds its own container and would otherwise discard them. */
+var DX_PLANT = null, DX_TIMING = "", DX_SYMPTOM = "";
+
+/* Site details are taken from the Build a Bed tab rather than asked for twice. */
+function diagContext(){
+  var zone = parseInt(el("zone").value, 10);
+  return {
+    region: el("region").value || null,
+    zone:   isNaN(zone) ? null : zone,
+    soil:   el("soil").value || null,
+    timing: DX_TIMING,
+    symptom:DX_SYMPTOM
+  };
+}
+
+function dxSearch(){
+  var q = el("dxq").value.toLowerCase().trim();
+  var host = el("dxResults");
+  host.innerHTML = "";
+  if(q.length < 2){
+    host.appendChild(mk("p","muted small",
+      "Type at least two letters of the plant's name. Common and scientific names both work, "+
+      "and so does a family name such as Asteraceae."));
+    return;
+  }
+  var hits = PLANTS.filter(function(p){
+    return (p.common+" "+p.sci+" "+p.family).toLowerCase().indexOf(q) >= 0;
+  }).sort(function(a,b){
+    /* names that start with the query first, then alphabetical */
+    var ai = a.common.toLowerCase().indexOf(q) === 0 ? 0 : 1;
+    var bi = b.common.toLowerCase().indexOf(q) === 0 ? 0 : 1;
+    if(ai !== bi) return ai - bi;
+    return a.common.localeCompare(b.common);
+  });
+
+  if(!hits.length){
+    host.appendChild(mk("p","muted small",
+      "No plant in the database matches that. The database holds 295 species, so it will not "+
+      "have everything \u2014 but the tests themselves apply to any plant, so pick the closest "+
+      "relative you can find, or scroll down and work through the general list."));
+    var b = mk("button","btn ghost sm","Show the general tests anyway");
+    b.onclick = function(){ dxSelect(null); };
+    host.appendChild(b);
+    return;
+  }
+
+  var note = mk("p","muted small",
+    hits.length+" match"+(hits.length===1?"":"es")+". Choose the plant that died.");
+  host.appendChild(note);
+
+  var list = mk("div","dxhits");
+  hits.slice(0,40).forEach(function(p){
+    var row = mk("div","dxhit");
+    var info = mk("div","dxh-info");
+    info.innerHTML = "<span class='cn'>"+esc(p.common)+"</span> "+
+      "<span class='layerTag "+p.layer+"'>"+LAYER_SHORT[p.layer]+"</span>"+
+      "<br><span class='sci muted'>"+esc(p.sci)+"</span>"+
+      "<div class='dxh-need'>"+esc(needsLine(p))+"</div>";
+    row.appendChild(info);
+    var btn = mk("button","btn sm","Diagnose this plant");
+    btn.onclick = function(){ dxSelect(p); };
+    row.appendChild(btn);
+    list.appendChild(row);
+  });
+  host.appendChild(list);
+  if(hits.length > 40)
+    host.appendChild(mk("p","muted small",
+      "Showing the first 40 of "+hits.length+" matches \u2014 type a little more to narrow it."));
+}
+
+function dxSelect(p){
+  DX_PLANT = p;
+  el("dxSearchBox").hidden = false;
+  if(el("dxReset")) el("dxReset").hidden = false;
+  renderDiagnosis();
+  if(el("dxOut").scrollIntoView) el("dxOut").scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+function renderDiagnosis(){
+  var host = el("dxOut");
+  host.innerHTML = "";
+  var p = DX_PLANT;
+  var ctx = diagContext();
+  /* a generic plant profile when the user could not find their species */
+  var subject = p || {common:"your plant", sci:"", family:"", layer:"SEASONAL", care:"perennial",
+    care_flags:[], moist:["M"], light:["S","P"], wildlife:[], hmax:24, zmin:1, zmax:13,
+    notes:"", form:"mound", colors:[], bloom_months:[], bloom_start:0, bloom_end:0,
+    spacing:18, hmin:12};
+
+  /* ---- header: the plant, what it needs, and where the site details came from ---- */
+  var head = mk("div","dxhead");
+  var title = p
+    ? "<h3>"+esc(p.common)+" <span class='sci'>"+esc(p.sci)+"</span></h3>"
+    : "<h3>General diagnosis</h3>";
+  var body = p
+    ? "<div class='dxh-need'><b>What it needs:</b> "+esc(needsLine(p))+"</div>"+
+      "<div class='dxh-look'><b>What it looks like:</b> "+esc(appearance(p))+"</div>"+
+      (p.notes ? "<div class='dxh-note'>"+esc(p.notes)+"</div>" : "")+
+      "<div class='plinks'>"+photoLinks(p)+"</div>"
+    : "<p class='muted small'>Working from the general list. Every test below still applies; "+
+      "they are simply not re-ranked for a particular species.</p>";
+  head.innerHTML = title + body;
+  host.appendChild(head);
+
+  /* ---- site context ---- */
+  var ctxBox = mk("div","dxctx");
+  /* Only claim to be using site details if a ZIP was actually resolved. The soil selector
+     has a default value, so it alone does not mean the user has told us anything. */
+  var known = [];
+  if(ctx.region || ctx.zone){
+    if(ctx.region) known.push(REGIONS[ctx.region].name);
+    if(ctx.zone)   known.push("zone "+ctx.zone);
+    if(ctx.soil)   known.push({D:"dry soil",M:"average soil",W:"moist to wet soil"}[ctx.soil]);
+  }
+  ctxBox.innerHTML = known.length
+    ? "<b>Using your site details:</b> "+esc(known.join(", "))+". These come from the "+
+      "<a href='#build' id='dxToBuild'>Build a Bed</a> tab and sharpen the ranking below."
+    : "<b>Tip:</b> enter a ZIP code on the <a href='#build' id='dxToBuild'>Build a Bed</a> tab "+
+      "and the ranking below will also account for your climate zone and region \u2014 which "+
+      "changes the answer, because frost heave, caliche and summer drought are regional problems.";
+  host.appendChild(ctxBox);
+
+  /* ---- optional refinement ---- */
+  var refine = mk("div","dxrefine");
+  refine.innerHTML = "<div class='dxr-hd'>Narrow it down (optional)</div>";
+  var grid = mk("div","dxr-grid");
+  function sel(id, label, opts, cur){
+    var wrap = mk("div");
+    var lab = mk("label","f",label); lab.setAttribute("for",id); wrap.appendChild(lab);
+    var s2 = mk("select"); s2.id = id;
+    opts.forEach(function(o){
+      var op = mk("option",null,o[1]); op.value = o[0]; s2.appendChild(op);
+    });
+    s2.value = cur || "";
+    s2.addEventListener("change", function(){
+      if(id === "dxTiming")  DX_TIMING  = s2.value;
+      if(id === "dxSymptom") DX_SYMPTOM = s2.value;
+      renderDiagnosis();
+    });
+    wrap.appendChild(s2);
+    return wrap;
+  }
+  grid.appendChild(sel("dxTiming","When did it fail?", DIAG_TIMING, ctx.timing));
+  grid.appendChild(sel("dxSymptom","What did it look like?", DIAG_SYMPTOM, ctx.symptom));
+  refine.appendChild(grid);
+  refine.appendChild(mk("p","muted small",
+    "Answering these re-ranks the tests. Leave them blank to see the full list in general order."));
+  host.appendChild(refine);
+
+  /* ---- ranked tests ---- */
+  var ranked = scoreDiagnostics(subject, ctx);
+  var top = ranked.filter(function(r){ return r.d.cat !== "LAST"; }).slice(0,3);
+
+  var lead = mk("div","dxlead");
+  lead.innerHTML = "<div class='dxl-hd'>Start with these three</div>"+
+    "<ol>"+top.map(function(r){
+      return "<li><b>"+esc(r.d.title)+"</b>"+
+        (r.why.length ? " <span class='muted'>\u2014 "+esc(r.why[0])+"</span>" : "")+"</li>";
+    }).join("")+"</ol>"+
+    "<p class='muted small' style='margin:.5em 0 0'>"+ranked.length+" tests follow, ordered by "+
+    "how likely each is to be the answer for "+(p ? "<em>"+esc(p.common)+"</em>" : "a plant")+
+    " on your site. Work down the list. Several causes often act together, and some losses "+
+    "genuinely cannot be pinned down \u2014 the aim is to find the ones you can still fix.</p>";
+  host.appendChild(lead);
+
+  var actions = mk("div","dxactions");
+  var bCopy = mk("button","btn ghost sm","Copy this checklist");
+  bCopy.onclick = function(){ copyText(diagText(p, ranked, ctx), bCopy); };
+  var bPrint = mk("button","btn ghost sm","Print this checklist");
+  bPrint.onclick = function(){ if(window.print) window.print(); };
+  actions.appendChild(bCopy); actions.appendChild(bPrint);
+  host.appendChild(actions);
+
+  var listHost = mk("div","dxlist");
+  ranked.forEach(function(r, i){
+    var d = r.d, cat = DIAG_CATS[d.cat] || {label:d.cat, hint:""};
+    var card = mk("div","dxcard"+(i<3 ? " lead" : ""));
+    var h = mk("div","dx-hd");
+    h.innerHTML = "<span class='dx-rank'>"+(i+1)+"</span>"+
+      "<span class='dx-title'>"+esc(d.title)+"</span>"+
+      "<span class='dx-cat c-"+d.cat+"'>"+esc(cat.label)+"</span>";
+    card.appendChild(h);
+
+    if(r.why.length){
+      var w = mk("div","dx-why");
+      w.innerHTML = "<b>Why this is high on your list:</b> "+
+        esc(r.why.slice(0,3).join("; "))+".";
+      card.appendChild(w);
+    }
+    var t = mk("div","dx-test");
+    t.innerHTML = "<div class='dx-lab'>The test</div><p>"+esc(d.test)+"</p>";
+    card.appendChild(t);
+    var m = mk("div","dx-means");
+    m.innerHTML = "<div class='dx-lab'>What the result tells you</div><p>"+esc(d.means)+"</p>";
+    card.appendChild(m);
+    var f = mk("div","dx-fix");
+    f.innerHTML = "<div class='dx-lab'>What to do about it</div><p>"+esc(d.fix)+"</p>";
+    card.appendChild(f);
+
+    if(d.src && d.src.length){
+      var sr = mk("div","dx-src");
+      sr.innerHTML = "<b>Sources:</b> "+d.src.map(function(k){
+        var src = DIAG_SRC[k];
+        return src ? "<a href='"+esc(src.url)+"' target='_blank' rel='noopener'>"+
+          esc(src.name)+"</a>" : esc(k);
+      }).join(" \u00b7 ");
+      card.appendChild(sr);
+    }
+    listHost.appendChild(card);
+  });
+  host.appendChild(listHost);
+}
+
+function diagText(p, ranked, ctx){
+  var out = (p ? p.common+" ("+p.sci+")" : "General plant diagnosis")+
+    "\n"+(p ? "Needs: "+needsLine(p)+"\n" : "");
+  if(ctx.region || ctx.zone)
+    out += "Site: "+[ctx.region ? REGIONS[ctx.region].name : "", ctx.zone ? "zone "+ctx.zone : ""]
+      .filter(Boolean).join(", ")+"\n";
+  out += "\nDIAGNOSTIC CHECKLIST, most likely first\n"+
+         "=======================================\n\n";
+  ranked.forEach(function(r,i){
+    out += (i+1)+". "+r.d.title+"  ["+((DIAG_CATS[r.d.cat]||{}).label||r.d.cat)+"]\n";
+    if(r.why.length) out += "   Why for this plant: "+r.why.slice(0,3).join("; ")+".\n";
+    out += "   TEST: "+r.d.test+"\n";
+    out += "   MEANS: "+r.d.means+"\n";
+    out += "   FIX: "+r.d.fix+"\n\n";
+  });
+  out += "Sources are listed on the Help My Plant Keeps Dying tab of the Botanical Bed Builder.\n";
+  return out;
+}
+
 /* ------------------------------------------------ tabs
    Five panels, one visible at a time. Wired by explicit id rather than a query
    selector so the same code runs under the Node test harness. The selected tab is
    mirrored into the URL hash so a tab can be linked to and survives a reload. */
 var TABS = [
   {id:"build",   label:"Build a Bed"},
+  {id:"dying",   label:"Help My Plant Keeps Dying"},
   {id:"how",     label:"How it works"},
   {id:"plants",  label:"Plant Database"},
   {id:"sources", label:"Data Sources"},
@@ -1936,6 +2283,39 @@ el("csvAll").addEventListener("click",function(){
   });
   downloadCSV(rows,"botanical-bed-combinations-"+LAST.zip+".csv");
 });
+
+/* ------------------------------------------------ diagnostics wiring */
+(function(){
+  var q = el("dxq");
+  if(q){
+    q.addEventListener("input", dxSearch);
+    q.addEventListener("keydown", function(ev){
+      if(ev.key === "Enter"){ if(ev.preventDefault) ev.preventDefault(); dxSearch(); }
+    });
+  }
+  var general = el("dxGeneral");
+  if(general) general.addEventListener("click", function(){ dxSelect(null); });
+  var reset = el("dxReset");
+  if(reset) reset.addEventListener("click", function(){
+    DX_PLANT = null; DX_TIMING = ""; DX_SYMPTOM = "";
+    el("dxq").value = "";
+    el("dxOut").innerHTML = "";
+    el("dxSearchBox").hidden = true;
+    el("dxReset").hidden = true;
+    dxSearch();
+  });
+  /* source list for this tab */
+  var host = el("dxSources");
+  if(host){
+    Object.keys(DIAG_SRC).forEach(function(k){
+      var src = DIAG_SRC[k], d = mk("div","src");
+      d.innerHTML = "<h4><a href='"+esc(src.url)+"' target='_blank' rel='noopener'>"+
+        esc(src.name)+"</a></h4><p>"+esc(src.note)+"</p>";
+      host.appendChild(d);
+    });
+  }
+  if(el("dxResults")) dxSearch();
+})();
 
 /* ------------------------------------------------ plant database browser */
 (function browse(){

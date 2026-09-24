@@ -18,6 +18,7 @@ every species is chosen for documented ecological function in the user's own eco
   carpet, monarch waystation, hummingbird corridor, four-season structural border, wet meadow,
   spring-ephemeral woodland, hellstrip, coastal, and more
 - **Up to 12 distinct combinations** per query, deterministic and shareable by URL
+- **43 sourced diagnostic tests** for plants that have died, ranked for the individual species
 - **Five tabs, one combination at a time** &mdash; no long scroll, and the first result is on
   screen in about 25&nbsp;ms because cards are built on demand
 - No build step, no framework, no runtime network calls, no tracking
@@ -66,6 +67,7 @@ Five tabs, with the builder and its results on the first one:
 | Tab | Contents |
 |---|---|
 | **Build a Bed** | the site form and the generated combinations |
+| **Help My Plant Keeps Dying** | 43 diagnostic tests, ranked for the species that died |
 | **How it works** | the method, from ZIP resolution through to how the plan is drawn |
 | **Plant Database** | all 295 species, searchable and filterable |
 | **Data Sources** | every cited source, with direct download links |
@@ -89,6 +91,45 @@ about 25&nbsp;ms for one card instead of about 240&nbsp;ms for twelve. Revisitin
 have already seen is instant. `Download all as CSV` still exports every combination, not just the
 visible one, and `Print this combination` prints the one on screen.
 
+## Help My Plant Keeps Dying
+
+Search for the plant that died, click **Diagnose this plant**, and get 43 tests ordered by how
+likely each one is to be the answer *for that species*. Each test says what to do, what the result
+means, and what to do about it, and cites its sources.
+
+The ranking is the point. Every test carries a base likelihood plus a set of rules that fire on the
+selected plant's own attributes &mdash; its moisture and light tolerance, maintenance class, care
+flags, family, layer, mature height &mdash; and on your region and zone if you have entered a ZIP
+code on the Build a Bed tab. A matching rule raises the score *and* contributes a sentence explaining
+why that test matters for this plant, shown under **Why this is high on your list**. There are 124
+such rules across the 43 tests.
+
+The result is a genuine differential rather than a checklist:
+
+| Plant | Leads with | Because |
+|---|---|---|
+| Agave | overwatering, buried crown, drainage | rosette succulent; rots from the centre |
+| Maidenhair fern | drying out, then light | no water reserve; scorches in sun |
+| Lowbush blueberry | soil pH | Ericaceae, needs roughly pH 4.5&ndash;5.5 |
+| Prairie dock | test pit for rock or hardpan | deep taproot, stopped dead by a restrictive layer |
+| Black-eyed Susan | natural lifespan | short-lived self-sower; dying is its life cycle |
+
+Two optional questions &mdash; *when did it fail* and *what did it look like* &mdash; re-rank the
+list. Reporting twisted new growth promotes herbicide drift to the top; reporting that a plant
+vanished over winter promotes the vole tug test to number one.
+
+Coverage, by category: check first (4), water (6), soil (8), roots and planting (6), site and
+climate (8), animals and disease (5), chemicals (5), and a laboratory referral pinned to the end.
+That includes the causes most likely to be missed &mdash; a rock shelf or caliche layer a foot down,
+compaction, a buried crown, circling roots, frost heave, voles, juglone from a black walnut, soil
+that is *too* rich for a lean-soil native, and persistent herbicide carryover in compost, with the
+published pea bioassay for detecting it.
+
+Every test is one a gardener can actually perform with a spade, a screwdriver, a jar and a tin can.
+Nothing is included that requires equipment you would not own, except the laboratory soil test, which
+is named as such and priced. The tab states plainly that it is a list of things to test rather than a
+diagnosis, and it points at state Extension diagnostic clinics for anything that matters.
+
 ## Files
 
 | File | Role |
@@ -108,6 +149,8 @@ visible one, and `Print this combination` prints the one on screen.
 | `zip_regions.json` | optional output of the above; the site detects and uses it automatically |
 | `test_harness.js` | minimal DOM shim so `app.js` can run under Node |
 | `run_tests.js` | the test suite |
+| `build_diagnostics.py` | writes `diagnostics.json`: the 43 tests, their ranking rules and their sources |
+| `diagnostics.json` | generated; the diagnostic content, CC0 |
 | `geometry_check.js` | asserts plan coverage, height ordering and that every species is drawn |
 | `check_render.py` | also validates the tab shell in `index.html`: five tabs, aria wiring, one visible panel, carousel controls above the card |
 | `ascii_plan.js` | prints a planting plan as an ASCII map, to eyeball layouts without a browser |
@@ -301,8 +344,12 @@ node diversity_check.js                  # distinct species used across the desi
 node snapshot.js && python3 check_render.py   # verify the rendered markup
 ```
 
-`run_tests.js` covers the tab behaviour (exactly one panel visible, `aria-selected` and roving
-`tabindex` correct for every tab, arrow/`Home`/`End` keys including wrap-around), the carousel
+`run_tests.js` covers the diagnostic tab (every test complete, performable and sourced; no
+abbreviated units; search by common name, scientific name, genus and family; that the ranking really
+does differ between an agave, a fern and a blueberry and puts the right cause first for each; that
+symptom answers re-rank and survive the re-render they trigger; the not-in-database fallback; and the
+reset), the tab behaviour (exactly one panel visible, `aria-selected` and roving `tabindex` correct
+for every tab, arrow/`Home`/`End` keys including wrap-around), the carousel
 (paging forward and back, wrapping in both directions, the footer buttons, the jump list, arrow keys,
 that exactly one card is ever in the page, that cards are reused rather than rebuilt, and that all
 twelve combinations are reachable and distinct), ZIP resolution for 18 locations (including the
@@ -311,10 +358,16 @@ hard-filter stress cases, and structural invariants on the rendered cards: layer
 present, plan present, calendar present, quantities within range, determinism, shuffle actually
 changing the result, and no `undefined` or `NaN` anywhere in the output.
 
+`check_render.py` also confirms the build is **reproducible**: it re-runs all three generators and asserts every generated file is byte-identical, and that none of them mixes line endings. That caught `plants.csv` being written with CRLF while everything else used LF, which would have made the CI staleness warning fire on every single run and masked real drift.
+
 `check_render.py` validates the static tab shell in `index.html` separately &mdash; tab count and
 order, labels, `aria-controls` and `aria-labelledby` pairing, exactly one tab selected and one panel
 visible on load, the builder and the results both inside the first panel, and the navigation bar
-positioned above the card rather than below it. It also flags a subtle CSS trap: a class that is
+positioned above the card rather than below it. It balances `div` tags **per panel**, because a
+document can balance overall while one panel has an unclosed tag and another has a stray closing one
+&mdash; that exact bug occurred here and the whole-document count could not see it. It also confirms
+that every class the diagnostic interface emits has a CSS rule and that every diagnostic category has
+its own chip colour, since there is no browser in the build environment to look at the result. It also flags a subtle CSS trap: a class that is
 styled only through a different element type, such as `section.block` failing to match
 `<div class="block">`. That was a real bug introduced while building the tabs, and it is now caught
 automatically.
