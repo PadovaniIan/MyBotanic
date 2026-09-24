@@ -122,24 +122,65 @@ for i, c in enumerate(cards, 1):
 
         fs = [float(x) for x in re.findall(r'font-size="([\d.]+)"', svg)]
         wn(all(f >= 8.5 for f in fs), tag+": plan text under 8.5px %s" % sorted(set(fs))[:3])
+        # Numbers are the only way to identify a species now that colour encodes function,
+        # so they must stay legible even in the smallest patch.
+        nums = [float(x) for x in
+                re.findall(r'<text [^>]*font-size="([\d.]+)"[^>]*font-weight="700"', svg)]
+        ck(bool(nums), tag+": no numbered region labels found")
+        ck(all(f >= 12 for f in nums),
+           tag+": region numbers below 12px %s" % sorted(set(nums))[:4])
 
-        legend = re.findall(r"<span><i style='background:[^']+'></i>(.*?)</span>", after)
-        ck(len(legend) == len(body_rows),
-           tag+": legend has %d entries for %d plants" % (len(legend), len(body_rows)))
-        ck(all(x.strip() for x in legend), tag+": blank legend entry")
-        ck(all(re.search(r"(inches|feet)", x) for x in legend),
-           tag+": legend entries do not all carry a mature height")
+        # Legend entries now nest spans (layer tag, size), so split on the swatch rather
+        # than trying to match a single non-nested span.
+        lm = re.search(r'<div class="legend">(.*?)</div>\s*<div class="plankey">', after, re.S)
+        ck(bool(lm), tag+": legend or colour key missing")
+        if lm:
+            entries = [x for x in re.split(r"<span><i style=", lm.group(1)) if x.strip()]
+            ck(len(entries) == len(body_rows),
+               tag+": legend has %d entries for %d plants" % (len(entries), len(body_rows)))
+            ck(all(re.search(r"(inches|feet)", x) for x in entries),
+               tag+": legend entries do not all carry a mature height")
+            ck(all(re.search(r"class=.layerTag \w+.", x) for x in entries),
+               tag+": legend entries do not all carry a layer tag")
+            # Swatches must come from the LAYER palette, i.e. be identical to plan fills.
+            swatches = re.findall(r"<span><i style='background:(#[0-9a-f]{6})'", lm.group(1))
+            ck(len(swatches) == len(body_rows),
+               tag+": %d legend swatches for %d plants" % (len(swatches), len(body_rows)))
+            fills = set(re.findall(r'<path d="[^"]+" fill="(#[0-9a-f]{6})"', svg))
+            missing_fill = set(swatches) - fills
+            ck(not missing_fill,
+               tag+": legend swatches %s are not plan fills" % sorted(missing_fill))
 
     # --- the instructions must be specific and free of abbreviations ---
     dm = re.search(r'<details class="notes">(.*?)$', c, re.S)
     ck(bool(dm), tag+": missing instructions block")
     if dm:
         det = dm.group(1)
+        groups = len(re.findall(r"class=['\"]caregroup['\"]", det))
         txt = re.sub(r"<[^>]*>", " ", det)
         for phrase in ("Step by step", "centre to centre", "Your calendar",
                        "Main cut-back window", "frost dates", "The first three years",
-                       "no bare soil is left anywhere"):
+                       "no bare soil is left anywhere",
+                       "When to plant", "Best window", "Second choice",
+                       "How much to water", "gallons", "straight-sided tin",
+                       "Look each plant up before you buy"):
             ck(phrase in txt, tag+": instructions missing %r" % phrase)
+        # Watering advice must appear per maintenance group, not only once globally.
+        wt = len(re.findall(r"class=['\"]wt['\"]", det))
+        ck(wt >= 1, tag+": no per-group watering advice")
+        ck(wt == groups,
+           tag+": %d watering lines for %d maintenance groups" % (wt, groups))
+        # Planting season must be resolved to the user's zone.
+        ck(re.search(r"When to plant\s*\S*\s*zone \d+", txt),
+           tag+": planting season is not zone-specific")
+        # Appearance: outbound photo links per species, plus a generated description.
+        wcs  = len(re.findall(r"wildflower\.org/plants/search", det))
+        inat = len(re.findall(r"inaturalist\.org/search", det))
+        ck(wcs >= len(body_rows),
+           tag+": %d Wildflower Center links for %d plants" % (wcs, len(body_rows)))
+        ck(inat >= len(body_rows),
+           tag+": %d iNaturalist links for %d plants" % (inat, len(body_rows)))
+        ck("Looks like:" in det, tag+": per-plant notes carry no appearance description")
         # abbreviations the brief specifically called out
         for pat, label in ((r"\d+\s?in\b", "abbreviated inches"),
                            (r"\d+\s?ft\b", "abbreviated feet"),
@@ -148,8 +189,7 @@ for i, c in enumerate(cards, 1):
             hits = re.findall(pat, txt)
             ck(not hits, tag+": instructions contain %s (%s)" % (label, hits[:3]))
         # maintenance must name the species it applies to, grouped by type
-        groups = len(re.findall(r'''class=['"]caregroup['"]''', det))
-        named  = len(re.findall(r'''class=['"]cs['"]''', det))
+        named  = len(re.findall(r"class=['\"]cs['\"]", det))
         ck(groups >= 1, tag+": maintenance is not grouped by plant type")
         ck(named == groups,
            tag+": %d maintenance groups but %d name their species" % (groups, named))
@@ -169,6 +209,11 @@ missing = sorted(cl for cl in used if cl not in defined)
 print("distinct CSS classes emitted: %d" % len(used))
 wn(not missing, "classes with no stylesheet rule: %s" % missing)
 
+# Load time was an explicit requirement: plant appearance is conveyed by generated text
+# plus outbound links, so the page must contain no raster images or data URIs at all.
+imgs = re.findall(r"<img\b", html)
+ck(not imgs, "page embeds %d <img> tags; appearance must be text plus outbound links" % len(imgs))
+ck("url(data:" not in html, "page embeds a data-URI image")
 ck(html.count("<svg") == html.count("</svg>"), "unbalanced svg tags")
 ck(html.count("<table") == html.count("</table>"), "unbalanced table tags")
 ck(html.count("<details") == html.count("</details>"), "unbalanced details tags")

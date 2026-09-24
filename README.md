@@ -12,6 +12,8 @@ every species is chosen for documented ecological function in the user's own eco
 
 - **295 species**, each native to at least one of ten US ecoregions
 - **295 species classified into 15 maintenance groups**, so the advice fits the plant
+- **Zone- and region-aware planting season, and watering in gallons for your bed**
+- **No stored images** &mdash; appearance comes from generated text plus outbound photo links
 - **20 design templates** — prairie matrix, gravel garden, rain garden, dry shade, fern-and-sedge
   carpet, monarch waystation, hummingbird corridor, four-season structural border, wet meadow,
   spring-ephemeral woodland, hellstrip, coastal, and more
@@ -178,6 +180,14 @@ details matter: an earlier implementation used a capacity-constrained weighted V
 it failed to converge — in testing it left up to six species per plan with *no area at all*, which
 is precisely the bug where a plant appears in the legend with no zone on the drawing.
 
+**Colour encodes function, not flower colour.** The plan uses the same palette as the Layer column
+in the plant table, so a glance tells you which plants are structural, which are the seasonal
+display, which are groundcover and so on. Species sharing a layer share a hue and are separated
+along an HSL lightness ramp with a slight hue drift, which keeps six amber seasonal species
+distinguishable (worst consecutive contrast ratio 1.23) while still reading as one family. The
+numbers identify individual species and are held at 12.5&ndash;15&nbsp;px regardless of patch size,
+because a number that scales down with its area is unreadable exactly where you most need it.
+
 Placement is governed by mature height. Each species gets a preferred depth (tallest at the back
 edge, shortest at the front) and a tolerance band that widens with the area it must cover; leaving
 that band is so expensive that a large drift spreads sideways along the bed rather than bleeding
@@ -206,7 +216,33 @@ the plants actually in the bed:
 - **Timing** comes from a per-zone calendar giving the cut-back window and typical frost dates, with
   links to a ZIP-code frost-date lookup, NOAA climate normals and the user's Cooperative Extension.
 - **Species-specific jobs** (the June cut-back, pinching, coppicing, "never move this taproot",
-  "do not water this in summer") are extracted from the notes as flags and listed by plant name.
+  "do not water this in summer", "must have sharp drainage") are extracted from the notes as flags
+  and listed by plant name.
+- **When to plant** is resolved from zone *and* ecoregion, because the correct answer differs in
+  kind, not just in date: autumn almost everywhere, spring in zones 2&ndash;4 where frost heave lifts
+  unrooted plants out of the ground over winter, and strictly autumn in California and the Pacific
+  Northwest, where planting in spring commits you to irrigating summer-dormant plants through the dry
+  season &mdash; which kills more drought-adapted natives than drought does.
+- **Watering** is given per maintenance group and again as a section with real quantities: an inch of
+  water for *your* bed area converted to gallons, how to measure it with a straight-sided tin, a
+  schedule that steps down across three years for your soil type, the species that must never be
+  watered in summer, and the species that will wilt first and can be used as indicators.
+
+### Showing what a plant looks like, without images
+
+No images are stored or hot-linked, which keeps the entire site under 400&nbsp;KB and means it loads
+instantly on a phone in a garden centre. Appearance is conveyed two ways instead:
+
+1. A **generated description** from the `form`, `colors`, height and bloom fields, phrased naturally
+   and aware that grasses and sedges have seedheads rather than flowers &mdash; for example
+   *"4&ndash;7 feet tall, a stiff, erect clump, with bronze and purple seedheads in August and
+   September."* This is instant and works offline.
+2. Two **outbound links** per species: the Lady Bird Johnson Wildflower Center for curated
+   photographs with a full horticultural profile, and iNaturalist for photographs of the plant
+   growing wild, which shows honestly how it will look rather than how a catalogue stages it.
+
+`check_render.py` asserts that the rendered page contains zero `<img>` tags and zero data URIs, so
+this cannot silently regress.
 
 ### A deliberate softness in the hardiness filter
 

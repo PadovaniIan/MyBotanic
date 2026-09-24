@@ -3541,7 +3541,9 @@
   "density_per_10sqft": 7.4,
   "eco_score": 10,
   "care": "subshrub",
-  "care_flags": []
+  "care_flags": [
+   "sharp_drainage"
+  ]
  },
  {
   "id": "physostegia_virginiana",
@@ -3853,7 +3855,9 @@
   "density_per_10sqft": 5.1,
   "eco_score": 24,
   "care": "perennial",
-  "care_flags": []
+  "care_flags": [
+   "sharp_drainage"
+  ]
  },
  {
   "id": "penstemon_grandiflorus",
@@ -6033,7 +6037,9 @@
   "density_per_10sqft": 2.9,
   "eco_score": 10,
   "care": "grass_warm",
-  "care_flags": []
+  "care_flags": [
+   "sharp_drainage"
+  ]
  },
  {
   "id": "muhlenbergia_reverchonii",
@@ -6898,7 +6904,9 @@
   "density_per_10sqft": 16.6,
   "eco_score": 20,
   "care": "sedge",
-  "care_flags": []
+  "care_flags": [
+   "no_summer_water"
+  ]
  },
  {
   "id": "festuca_idahoensis",
@@ -9943,7 +9951,9 @@
   "density_per_10sqft": 7.4,
   "eco_score": 12,
   "care": "subshrub",
-  "care_flags": []
+  "care_flags": [
+   "sharp_drainage"
+  ]
  },
  {
   "id": "zinnia_grandiflora",
@@ -10918,7 +10928,9 @@
   "density_per_10sqft": 2.9,
   "eco_score": 16,
   "care": "perennial",
-  "care_flags": []
+  "care_flags": [
+   "no_summer_water"
+  ]
  },
  {
   "id": "rivina_humilis",
@@ -11283,6 +11295,7 @@
   "eco_score": 7,
   "care": "selfsower",
   "care_flags": [
+   "no_summer_water",
    "reseeds"
   ]
  },

@@ -72,7 +72,11 @@ CARE_FLAG_PATTERNS = [
     ("taproot",     r"taproot|place it once|never move it"),
     ("late_emerger",r"emerges late"),
     ("cut_after_flower", r"cut back after flowering"),
-    ("no_summer_water",  r"no summer (?:water|irrigation)|no overhead irrigation"),
+    ("no_summer_water",  r"no summer (?:water|irrigation)|no overhead irrigation|"
+                         r"never (?:fertilise|fertilize)[^.]{0,24}water|with no irrigation|"
+                         r"needs no water|no summer water"),
+    ("sharp_drainage",   r"sharp drainage|perfect drainage|very well drained|"
+                         r"well drained soil|requires? lean|rots? (?:at|in)"),
     ("acid_soil",   r"acid soil"),
     ("aggressive",  r"rhizomatous|suckers|spreads|coloni|runner|aggressiv|freely"),
     ("reseeds",     r"self-sow|reseed|seeds? into|sows"),

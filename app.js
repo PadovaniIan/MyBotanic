@@ -27,13 +27,73 @@ var FALLBACK = {FERN:["MATRIX","SHRUB"], GRASS:["MATRIX"], MATRIX:["GRASS","FILL
                 SEASONAL:["FILLER","MATRIX"]};
 var GROUND_LAYERS = {MATRIX:1, GRASS:1, FERN:1};
 
-var HEX = {yellow:"#d9a72a",gold:"#c9911f",golden:"#c9a227",orange:"#d2802c",apricot:"#dd9a5e",
-  coral:"#e07a5f",red:"#b8412c",scarlet:"#b8342a",maroon:"#6d3345",magenta:"#b03a78",
-  rose:"#c4577e",pink:"#d98aa6",purple:"#7a4f9c",violet:"#6f4f9e",lavender:"#9b8fc4",
-  blue:"#4f6fb5",sky:"#6f9bd1",light:"#8fb0d9",pale:"#a8c0dd",deep:"#3d5ba9",white:"#c9cdbe",
-  cream:"#d8cfa8",greenish:"#9aab7f",green:"#7b9a5c",silver:"#b0b3a8",tan:"#bda878",
-  bronze:"#a5793f",rust:"#b5773a",dusty:"#c99aa6",inconspicuous:"#a8ad9a",none:"#9fae93",
-  brown:"#a08a6a",smoke:"#c9a3ad"};
+/* Plan fills come from the plant's FUNCTIONAL LAYER, so the drawing uses the same
+   colour code as the Layer column in the plant table. Species sharing a layer share a
+   hue and are separated by lightness and by their numbers, which is the intent: the
+   colour tells you what a plant is for, the number tells you which plant it is. */
+var LAYER_BASE = {
+  STRUCT:  "#5c72a8",   /* slate blue   - matches .layerTag.STRUCT   */
+  SEASONAL:"#cf9440",   /* amber        - matches .layerTag.SEASONAL */
+  MATRIX:  "#5f9257",   /* leaf green   - matches .layerTag.MATRIX   */
+  GRASS:   "#93a054",   /* olive        - matches .layerTag.GRASS    */
+  FERN:    "#4c8f83",   /* teal         - matches .layerTag.FERN     */
+  SHRUB:   "#8574ad",   /* violet       - matches .layerTag.SHRUB    */
+  FILLER:  "#bd7186"    /* rose         - matches .layerTag.FILLER   */
+};
+
+function hexToRgb(h){
+  var m = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(h);
+  return m ? [parseInt(m[1],16), parseInt(m[2],16), parseInt(m[3],16)] : [150,160,140];
+}
+function rgbToHex(r,g,b){
+  function c(v){ v = Math.max(0, Math.min(255, Math.round(v))); return ("0"+v.toString(16)).slice(-2); }
+  return "#"+c(r)+c(g)+c(b);
+}
+/* Step a layer's base colour toward white or black. Used to separate species that
+   share a layer while keeping them recognisably the same family. */
+function tint(hex, amt){
+  var c = hexToRgb(hex);
+  if(amt >= 0) return rgbToHex(c[0]+(255-c[0])*amt, c[1]+(255-c[1])*amt, c[2]+(255-c[2])*amt);
+  return rgbToHex(c[0]*(1+amt), c[1]*(1+amt), c[2]*(1+amt));
+}
+function rgbToHsl(r,g,b){
+  r/=255; g/=255; b/=255;
+  var mx = Math.max(r,g,b), mn = Math.min(r,g,b), h, sl, l = (mx+mn)/2, d = mx-mn;
+  if(!d){ h = 0; sl = 0; }
+  else {
+    sl = l > 0.5 ? d/(2-mx-mn) : d/(mx+mn);
+    if(mx === r)      h = ((g-b)/d + (g < b ? 6 : 0));
+    else if(mx === g) h = ((b-r)/d + 2);
+    else              h = ((r-g)/d + 4);
+    h *= 60;
+  }
+  return [h, sl, l];
+}
+function hslToHex(h, sl, l){
+  h = ((h%360)+360)%360; sl = Math.max(0, Math.min(1, sl)); l = Math.max(0, Math.min(1, l));
+  var c = (1-Math.abs(2*l-1))*sl, x = c*(1-Math.abs((h/60)%2-1)), m = l-c/2, r, g, b;
+  if(h < 60)       { r=c; g=x; b=0; }
+  else if(h < 120) { r=x; g=c; b=0; }
+  else if(h < 180) { r=0; g=c; b=x; }
+  else if(h < 240) { r=0; g=x; b=c; }
+  else if(h < 300) { r=x; g=0; b=c; }
+  else             { r=c; g=0; b=x; }
+  return rgbToHex((r+m)*255, (g+m)*255, (b+m)*255);
+}
+/* Spread the species of one layer along a ramp, darkest first, so the layer reads as a
+   single family while its members stay tellable apart. Lightness does most of the work;
+   a small hue and saturation drift widens the separation when a layer holds five or six
+   species, where lightness alone would put neighbouring shades too close together. */
+function layerShade(layer, idx, count){
+  var base = LAYER_BASE[layer] || "#9aa48f";
+  if(count <= 1) return base;
+  var c = hexToRgb(base), hsl = rgbToHsl(c[0], c[1], c[2]);
+  var t = idx/(count-1);                       /* 0 darkest .. 1 lightest */
+  var l = 0.30 + 0.46*t;                       /* wide lightness ramp */
+  var sat = hsl[1]*(1 - 0.30*t);               /* lighter shades a little softer */
+  var hue = hsl[0] + (t-0.5)*16;               /* gentle hue drift, stays in family */
+  return hslToHex(hue, sat, l);
+}
 
 function el(id){ return document.getElementById(id); }
 function mk(t,c,txt){ var e=document.createElement(t); if(c)e.className=c;
@@ -42,12 +102,11 @@ function esc(s){ return String(s).replace(/[&<>"']/g,function(m){
   return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]; }); }
 function genus(p){ return p.sci.split(" ")[0]; }
 function slug(s){ return s.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""); }
-function colorHex(colors){
-  for(var i=0;i<colors.length;i++){
-    var words = colors[i].toLowerCase().split(/[\s-]+/);
-    for(var j=0;j<words.length;j++) if(HEX[words[j]]) return HEX[words[j]];
-  }
-  return "#9fae93";
+/* Flower colour, in words. Used in the legend and the plant notes so the colour
+   information is not lost now that the plan is coded by function instead. */
+function flowerWords(p){
+  if(!p.colors.length || p.colors[0] === "none") return "";
+  return p.colors.join(" and ").replace(/-/g, " ");
 }
 
 /* deterministic RNG: the same inputs always produce the same designs */
@@ -65,7 +124,6 @@ PLANTS.forEach(function(p){
   p.winterInt = p.wildlife.indexOf("winter_seedhead")>=0 || p.wildlife.indexOf("winter_structure")>=0;
   p.hummer    = p.wildlife.indexOf("hummingbird")>=0;
   p.evergreen = p.wildlife.indexOf("evergreen")>=0;
-  p.chex      = colorHex(p.colors);
 });
 
 /* ------------------------------------------------ ZIP resolution */
@@ -430,6 +488,16 @@ function layoutBed(combo, c){
 
   /* ---- quotas: whole cells summing to exactly n, so the bed is fully covered
           and every species is guaranteed a visible patch ---- */
+  /* Colour by functional layer. Within a layer, species are ranked tallest first and
+     spread along a lightness ramp, so a layer reads as one family on the plan while
+     its members stay tellable apart. */
+  var perLayer = {};
+  ent.forEach(function(e){ (perLayer[e.row.layer] = perLayer[e.row.layer] || []).push(e); });
+  Object.keys(perLayer).forEach(function(lay){
+    var grp = perLayer[lay].slice().sort(function(a,b){ return b.p.hmax-a.p.hmax; });
+    grp.forEach(function(e,k){ e.col = layerShade(lay, k, grp.length); });
+  });
+
   var tot = 0; ent.forEach(function(e){ tot += e.share; });
   var MINQ = Math.max(4, Math.round(n*0.004));
   ent.forEach(function(e){ e.quota = Math.max(MINQ, Math.floor(e.share*n/tot)); });
@@ -668,13 +736,6 @@ function plantDots(e, geo){
   return out;
 }
 
-function shade(hex, amt){
-  var m = /^#?([0-9a-f]{6})$/i.exec(hex); if(!m) return "#4a5545";
-  var v = parseInt(m[1],16), r=(v>>16)&255, g=(v>>8)&255, b=v&255;
-  r = Math.round(r*(1-amt)); g = Math.round(g*(1-amt)); b = Math.round(b*(1-amt));
-  return "#"+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);
-}
-
 function renderPlan(combo, c){
   var geo = layoutBed(combo, c);
   var NS = "http://www.w3.org/2000/svg";
@@ -709,7 +770,7 @@ function renderPlan(combo, c){
         }
       }
     }
-    if(d) g.appendChild(n("path", {d:d, fill:e.p.chex, "fill-opacity":.80,
+    if(d) g.appendChild(n("path", {d:d, fill:e.col, "fill-opacity":.86,
       "data-sp":e.num, "data-hmax":e.p.hmax, "data-cells":e.area,
       "data-ground":e.ground?1:0}));
   });
@@ -733,7 +794,7 @@ function renderPlan(combo, c){
   geo.ent.forEach(function(e){
     var dots = plantDots(e, geo);
     if(!dots.length) return;
-    var col = shade(e.p.chex, .42), d = "";
+    var col = tint(e.col, -0.45), d = "";
     dots.forEach(function(pt){
       var x = pt[0]*cw, y = pt[1]*ch;
       d += "M"+x.toFixed(1)+","+y.toFixed(1)+"m-1.9,0a1.9,1.9 0 1,0 3.8,0a1.9,1.9 0 1,0 -3.8,0";
@@ -757,15 +818,19 @@ function renderPlan(combo, c){
     stroke:"#8d9685", "stroke-width":1.6, rx:3}));
 
   /* ---- numbers ---- */
+  /* Numbers must stay legible in the smallest patch, so the size has a floor and only
+     grows a little with area. A cramped number is useless, and slight overflow of a tiny
+     drift is much less of a problem than a number nobody can read. */
   geo.labels.forEach(function(cp){
     var e = geo.ent[cp.owner], x = cp.cx*cw, y = cp.cy*ch;
-    var big = cp.size >= geo.n*0.03;
-    var r = big ? 9 : 7.5;
+    var frac = cp.size/geo.n;
+    var fs = frac >= 0.06 ? 15 : frac >= 0.02 ? 13.5 : 12.5;
+    var r = fs*0.76;
     g.appendChild(n("circle", {cx:x.toFixed(1), cy:y.toFixed(1), r:r,
-      fill:"#fffdf7", "fill-opacity":.86, stroke:shade(e.p.chex,.35), "stroke-width":.9}));
-    var t = n("text", {x:x.toFixed(1), y:(y+3.2).toFixed(1), "text-anchor":"middle",
-      "font-size": big ? 10.5 : 9, "font-weight":"700", "font-family":"sans-serif",
-      fill:"#23291f"});
+      fill:"#fffdf7", "fill-opacity":.93, stroke:tint(e.col,-0.35), "stroke-width":1.1}));
+    var t = n("text", {x:x.toFixed(1), y:(y+fs*0.35).toFixed(1), "text-anchor":"middle",
+      "font-size": fs.toFixed(1), "font-weight":"700", "font-family":"sans-serif",
+      fill:"#1b2017"});
     t.textContent = String(e.num);
     g.appendChild(t);
   });
@@ -798,13 +863,24 @@ function renderPlan(combo, c){
   wrap.appendChild(svg);
 
   var lg = mk("div","legend");
-  geo.ent.slice().sort(function(a,b){ return b.p.hmax-a.p.hmax; }).forEach(function(e){
+  var ORD = {STRUCT:0,SHRUB:1,SEASONAL:2,FERN:3,GRASS:4,MATRIX:5,FILLER:6};
+  geo.ent.slice().sort(function(a,b){
+    if(ORD[a.row.layer] !== ORD[b.row.layer]) return ORD[a.row.layer]-ORD[b.row.layer];
+    return b.p.hmax-a.p.hmax;
+  }).forEach(function(e){
+    var fw = flowerWords(e.p);
     var sp = mk("span");
-    sp.innerHTML = "<i style='background:"+e.p.chex+"'></i><b>"+e.num+".</b> "+
-      esc(e.p.common)+" <span class='lh'>"+heightPhrase(e.p)+"</span>";
+    sp.innerHTML = "<i style='background:"+e.col+"'></i><b>"+e.num+".</b> "+esc(e.p.common)+
+      " <span class='layerTag "+e.row.layer+"'>"+LAYER_SHORT[e.row.layer]+"</span>"+
+      " <span class='lh'>"+heightPhrase(e.p)+(fw? ", "+esc(fw):"")+"</span>";
     lg.appendChild(sp);
   });
   wrap.appendChild(lg);
+  var key = mk("div","plankey");
+  key.innerHTML = "<b>Colours show what each plant is for</b>, and match the Layer column in the "+
+    "table above. Plants doing the same job share a colour, so the numbers are what identify an "+
+    "individual species.";
+  wrap.appendChild(key);
 
   var note = mk("div","muted small");
   note.innerHTML = "Every part of the bed is assigned to a species, so there is no bare ground to "+
@@ -816,6 +892,70 @@ function renderPlan(combo, c){
   note.style.marginTop = "7px";
   wrap.appendChild(note);
   return wrap;
+}
+
+/* =========================================================================
+   WHAT THE PLANT LOOKS LIKE
+   Two complementary answers, neither of which costs anything to load.
+
+   1. A generated one-line description of habit, height, flower colour and season.
+      This is instant, works offline, and is often more useful than a photograph
+      for deciding whether a plant suits a position.
+   2. Outbound links to two photo libraries. No images are stored or hot-linked by
+      this site, so the page weight is unchanged: the Wildflower Center gives
+      curated horticultural photographs alongside a full profile, and iNaturalist
+      gives many photographs of the plant growing in the wild, which is a more
+      honest picture of how it will actually look.
+   ========================================================================= */
+var FORM_TEXT = {
+  mound:"a rounded, bushy mound", spike:"an upright plant carrying flower spikes",
+  mat:"a flat, ground-hugging mat", upright:"a stiff, erect clump",
+  daisy:"a bushy clump topped with daisy flowers",
+  arching:"an arching, fountain-like clump",
+  bold:"a big, coarse-textured plant with large leaves",
+  airy:"an airy, see-through plant on fine stems",
+  tuft:"a small grassy tuft", fountain:"a fountain of fine foliage",
+  fine:"a finely textured, almost ferny plant",
+  spreading:"a low, wide-spreading plant",
+  umbel:"upright stems topped with flat clusters of tiny flowers",
+  vase:"a vase-shaped clump of fronds",
+  flat:"upright stems with flat-topped flower heads",
+  strappy:"a fan of strap-like leaves", spiky:"a stiff, spiky architectural rosette",
+  trailing:"a trailing plant that sprawls over the ground",
+  rosette:"a symmetrical rosette", thimble:"slender stems with thimble-shaped flower heads",
+  haze:"a low plant that flowers in a fine coloured haze",
+  palm:"a fan-leaved palm", stiff:"a stiff, erect clump",
+  panicle:"an upright clump with broad flower clusters",
+  spire:"a tall flowering spire", tubular:"a clump carrying tubular flowers",
+  coarse:"a coarse-textured, spreading plant", tussock:"a dense grassy tussock",
+  mallow:"a low plant with open, cup-shaped flowers"
+};
+/* Bloom season in full words, because "Aug-Sep" reads as an abbreviation. */
+function bloomWords(p){
+  if(!p.bloom_months.length) return "";
+  var a = MONTHNAMES[p.bloom_start-1], b = MONTHNAMES[p.bloom_end-1];
+  if(a === b) return "in "+a;
+  if(p.bloom_end - p.bloom_start === 1) return "in "+a+" and "+b;
+  if(p.bloom_months.length >= 10) return "for most of the year";
+  return "from "+a+" to "+b;
+}
+function appearance(p){
+  var form = FORM_TEXT[p.form] || "a clump-forming plant";
+  var out = heightPhrase(p)+" tall, "+form;
+  var fw = flowerWords(p), when = bloomWords(p);
+  /* grasses and sedges are grown for their seedheads, not for flowers */
+  var grassy = (p.family === "Poaceae" || p.family === "Cyperaceae");
+  if(fw && when) out += ", with "+fw+" "+(grassy ? "seedheads" : "flowers")+" "+when;
+  else if(p.wildlife.indexOf("evergreen") >= 0) out += ", grown for its evergreen foliage";
+  else out += ", grown for its foliage";
+  return out+".";
+}
+function photoLinks(p){
+  var q = encodeURIComponent(p.sci);
+  return "<a href='https://www.wildflower.org/plants/search.php?search_field="+q+
+    "' target='_blank' rel='noopener'>photos &amp; full profile</a> \u00b7 "+
+    "<a href='https://www.inaturalist.org/search?q="+q+
+    "' target='_blank' rel='noopener'>photos in the wild</a>";
 }
 
 /* Heights, always with the unit spelled out. Small plants stay in inches;
@@ -844,19 +984,76 @@ function spacingPhrase(p){
    frost-date lookup for their own ZIP code rather than relying on these.
    ========================================================================= */
 var ZONE_CAL = {
- 2:{cut:"early to mid May",          last:"late May to early June", first:"early September"},
- 3:{cut:"late April to mid May",     last:"mid to late May",        first:"mid September"},
- 4:{cut:"mid to late April",         last:"mid May",                first:"late September"},
- 5:{cut:"early to mid April",        last:"early May",              first:"early October"},
- 6:{cut:"late March to mid April",   last:"late April",             first:"mid October"},
- 7:{cut:"mid to late March",         last:"mid April",              first:"late October"},
- 8:{cut:"early to mid March",        last:"late March",             first:"mid November"},
- 9:{cut:"late February to early March", last:"late February",       first:"early December"},
-10:{cut:"February",                  last:"frost is rare",          first:"frost is rare"},
-11:{cut:"January to February",       last:"essentially frost-free", first:"essentially frost-free"},
-12:{cut:"January",                   last:"frost-free",             first:"frost-free"},
-13:{cut:"January",                   last:"frost-free",             first:"frost-free"}
+ 2:{cut:"early to mid May",          last:"late May to early June", first:"early September",
+    fall:"late July to mid August",  spring:"late May to late June"},
+ 3:{cut:"late April to mid May",     last:"mid to late May",        first:"mid September",
+    fall:"early to late August",     spring:"mid May to late June"},
+ 4:{cut:"mid to late April",         last:"mid May",                first:"late September",
+    fall:"mid August to mid September", spring:"mid May to mid June"},
+ 5:{cut:"early to mid April",        last:"early May",              first:"early October",
+    fall:"late August to early October", spring:"early May to early June"},
+ 6:{cut:"late March to mid April",   last:"late April",             first:"mid October",
+    fall:"September to mid October", spring:"mid April to late May"},
+ 7:{cut:"mid to late March",         last:"mid April",              first:"late October",
+    fall:"September to late October", spring:"early April to mid May"},
+ 8:{cut:"early to mid March",        last:"late March",             first:"mid November",
+    fall:"October to late November", spring:"March to mid April"},
+ 9:{cut:"late February to early March", last:"late February",       first:"early December",
+    fall:"October to December",      spring:"February to March"},
+10:{cut:"February",                  last:"frost is rare",          first:"frost is rare",
+    fall:"November to January",      spring:"January to February"},
+11:{cut:"January to February",       last:"essentially frost-free", first:"essentially frost-free",
+    fall:"November to February",     spring:"February"},
+12:{cut:"January",                   last:"frost-free",             first:"frost-free",
+    fall:"November to February",     spring:"February"},
+13:{cut:"January",                   last:"frost-free",             first:"frost-free",
+    fall:"November to February",     spring:"February"}
 };
+
+/* When to plant. Autumn beats spring nearly everywhere, because roots grow while the top
+   is dormant and the plant meets its first summer already anchored. The exceptions are
+   real, though, and they run in opposite directions: in the coldest zones an unrooted
+   autumn planting gets heaved out of the ground by frost, while in the summer-dry West
+   a spring planting commits you to irrigating all summer. */
+function plantSeason(c){
+  var cal = zoneCal(c.zone), z = c.zone || 6, reg = c.region;
+  var medit = (reg === "CA" || reg === "PNW");
+  var desert = (reg === "SW");
+  var cold = z <= 4;
+
+  if(medit) return {
+    best:"Autumn, as soon as the first steady rains arrive \u2014 roughly "+cal.fall+".",
+    alt:"Late winter is a workable second choice. Avoid spring and summer entirely.",
+    why:"This is the single most important decision you will make with these plants. The "+
+      "native flora here grows through the wet winter and sleeps through the dry summer, so "+
+      "autumn planting lets the winter rains do the establishment watering for you. Plant in "+
+      "spring and you commit yourself to irrigating all summer, which is what kills "+
+      "drought-adapted natives more often than drought ever does."};
+  if(desert) return {
+    best:"Autumn, about "+cal.fall+", once the worst heat has broken.",
+    alt:"The summer monsoon, if your area gets one, is the other good window: plant into moist "+
+      "ground in July or August and the rains establish it for you.",
+    why:"Autumn planting gives roots the whole cool season to grow before the first brutal "+
+      "summer. Avoid planting from April to June, when a new plant cannot take up water fast "+
+      "enough to replace what the heat pulls out of it."};
+  if(cold) return {
+    best:"Spring, after the last hard frost \u2014 roughly "+cal.spring+".",
+    alt:"Late summer, around "+cal.fall+", also works, but it must be early enough that roots "+
+      "grow in before the ground freezes.",
+    why:"In a zone this cold, spring is the safer choice. A plant put in late in autumn has not "+
+      "rooted enough to resist frost heave, and repeated freeze-and-thaw physically lifts the "+
+      "crown out of the soil over winter. If you do plant in autumn, mulch after the ground "+
+      "freezes, not before, to keep the soil temperature steady."};
+  return {
+    best:"Autumn, roughly "+cal.fall+" \u2014 about six weeks before your first hard frost, "+
+      "which here is typically "+cal.first+".",
+    alt:"Spring, around "+cal.spring+", is the good second choice and is when nurseries have "+
+      "the widest selection.",
+    why:"Autumn planting is better because the soil is still warm while the air is cooling, so "+
+      "roots keep growing after the top has stopped, and the plant faces its first summer "+
+      "already anchored. Avoid planting in midsummer heat unless you can commit to watering "+
+      "every few days."};
+}
 function zoneCal(z){ return ZONE_CAL[Math.max(2, Math.min(13, z||6))]; }
 
 /* --------------------------------------------------------------------------
@@ -870,90 +1067,133 @@ var CARE_TEXT = {
     body:"Leave every stem standing all winter. In "+cal.cut+", cut the dead stems down to "+
          "8\u201312 inches and leave those stubs in place: native bees nest inside hollow stems, "+
          "and the new growth hides them within a month. Rake the cut material into a loose pile "+
-         "in a corner for a few weeks so anything still inside can get out, then compost it."}; },
+         "in a corner for a few weeks so anything still inside can get out, then compost it.",
+    water:"Average. Through the first season give the equivalent of about an inch of water a week when "+
+           "it has not rained. Once established most need nothing in an ordinary summer, and a deep soak "+
+           "every two or three weeks carries them through a drought."}; },
   evergreen_perennial: function(cal){ return {
     title:"Evergreen perennials \u2014 tidy only, do not cut to the ground",
     body:"These hold living leaves through winter and will be slow to recover if sheared hard. "+
          "In "+cal.cut+", pull or snip out only the dead and blackened leaves. Cut the spent "+
          "flower stems off at the base. Every third year you can shear the top third to force "+
-         "fresh growth from the crown."}; },
+         "fresh growth from the crown.",
+    water:"Average, but do not let them go bone dry in winter. Evergreen leaves keep losing water in "+
+           "cold weather, so in a long dry winter spell give them one soak while the ground is unfrozen."}; },
   grass_warm: function(cal){ return {
     title:"Warm-season grasses \u2014 one hard cut a year",
     body:"These are the plants the phrase \u201ccut the bed back\u201d really applies to. Leave "+
          "them standing all winter for structure and seed, then in "+cal.cut+", before the new "+
          "shoots are more than an inch or two high, cut the whole clump to 4\u20136 inches. "+
          "Hedge shears or a string trimmer are fine. Cutting after growth starts leaves the "+
-         "clump with brown tips all season."}; },
+         "clump with brown tips all season.",
+    water:"Low. Water weekly through the first summer only. After that these are among the most "+
+           "drought-proof plants in the bed, and watering them does more harm than good: it makes the "+
+           "clumps grow soft and flop open by late summer."}; },
   grass_cool: function(cal){ return {
     title:"Cool-season grasses \u2014 comb, do not cut hard",
     body:"These start growing while it is still cold and resent hard cutting. Do not shear them "+
          "to the ground. In late winter, rake your fingers up through the clump to comb out the "+
          "dead blades, and cut off the old flower stems. If a clump looks tired, take no more "+
-         "than the top third."}; },
+         "than the top third.",
+    water:"Low to average. These grow in the cool halves of the year, so water them in spring and "+
+           "autumn dry spells rather than in midsummer, when many are naturally semi-dormant and resent "+
+           "it."}; },
   sedge: function(cal){ return {
     title:"Sedges \u2014 leave alone most years",
     body:"The sedge carpet is the part of this planting that replaces mulch, so disturb it as "+
          "little as possible. Most years it needs nothing at all. If it accumulates brown "+
          "thatch, shear it to 3 inches in "+cal.cut+", or mow it on the highest mower setting, "+
-         "once every second or third year only."}; },
+         "once every second or third year only.",
+    water:"Average. Sedges are shallow-rooted, so they show stress before anything else and make a "+
+           "useful indicator for the whole bed. If the carpet starts to look dull or straw-tipped, the "+
+           "bed wants water."}; },
   fern_deciduous: function(cal){ return {
     title:"Deciduous ferns \u2014 remove old fronds before the new ones uncurl",
     body:"The fronds collapse over winter and protect the crown, so leave them. Cut them off at "+
          "the base in "+cal.cut+", before the new fiddleheads unroll. Once the fiddleheads are "+
-         "up, cutting anywhere near them damages the whole season's growth."}; },
+         "up, cutting anywhere near them damages the whole season's growth.",
+    water:"The highest need in the bed. Ferns have little ability to hold water and crisp irreversibly "+
+           "once they dry out. Keep the soil evenly damp but never waterlogged, and water in any dry "+
+           "spell longer than about ten days, even years later."}; },
   fern_evergreen: function(cal){ return {
     title:"Evergreen ferns \u2014 remove only the fronds that have actually died",
     body:"Do not cut these to the ground; the old fronds are still feeding the plant. When the "+
          "new fiddleheads appear in "+cal.cut+", snip off just the fronds that are flattened, "+
-         "brown or broken, cutting each one at the base."}; },
+         "brown or broken, cutting each one at the base.",
+    water:"Moderate to high, and continuing into winter, because they keep their fronds all year and "+
+           "still lose water in cold weather. A layer of leaf litter over the root zone does more for "+
+           "them than extra watering."}; },
   shrub_spring: function(cal){ return {
     title:"Spring-flowering shrubs \u2014 prune right after they bloom, or not at all",
     body:"Never cut these back with the perennials: the flower buds for next spring form on this "+
          "year's wood over summer, so a late-winter cut removes the entire display. Most need no "+
          "pruning at all. When one outgrows its space, prune within a few weeks of the flowers "+
-         "fading: remove whole stems at the base rather than shearing the outline."}; },
+         "fading: remove whole stems at the base rather than shearing the outline.",
+    water:"Deep and infrequent, for two full years. Give each shrub a long slow soak at the root ball "+
+           "once a week through its first two summers rather than a light sprinkle, so the water reaches "+
+           "the bottom of the roots. After that, only in real drought."}; },
   shrub_summer: function(cal){ return {
     title:"Summer and autumn-flowering shrubs \u2014 prune in late winter if at all",
     body:"These flower on growth they make in the same season, so any shaping is done in "+
          cal.cut+", before the buds break. Long-blooming subshrubs such as autumn sage can be "+
          "cut back by a third to a half then to keep them dense rather than woody and open. "+
-         "Take out dead wood at the base whenever you see it."}; },
+         "Take out dead wood at the base whenever you see it.",
+    water:"Deep and infrequent for two full years, then rarely. Water at the base, not over the "+
+           "foliage. Shrubs are lost to shallow, frequent watering more often than to too little: the "+
+           "roots stay in the top inch or two and never anchor."}; },
   rosette: function(cal){ return {
     title:"Agaves, yuccas and other rosettes \u2014 never cut back",
     body:"There is no cutting back, ever. Cutting the leaves destroys the shape permanently, "+
          "because each rosette grows from a single central point. Pull off only the dry, papery "+
          "lower leaves, and saw the spent flower stalk off near the base once it has dried. Keep "+
-         "mulch and groundcover pulled back from the crown so water drains away from it."}; },
+         "mulch and groundcover pulled back from the crown so water drains away from it.",
+    water:"Almost none, and overwatering is the real danger. Water once a month in the first summer "+
+           "only, then leave them to the rain. Never let water stand in the centre of a rosette, and "+
+           "never run an irrigation line to one."}; },
   palm: function(cal){ return {
     title:"Palms and cycads \u2014 remove dead fronds only",
     body:"Never cut into the crown or remove green fronds; the plant cannot regrow a damaged "+
          "growing point. Cut off fully brown fronds close to the trunk at any time of year. Leave "+
-         "the fruit for wildlife."}; },
+         "the fruit for wildlife.",
+    water:"Moderate while young, then low. Water weekly through the first two summers to establish "+
+           "them, after which they are largely self-sufficient. Water the root zone, never into the "+
+           "crown."}; },
   ephemeral: function(cal){ return {
     title:"Plants that go dormant \u2014 leave them alone and mark where they are",
     body:"These disappear completely for part of the year. That is normal and does not mean they "+
          "have died. Push a labelled stake in beside each one before it fades, so you do not "+
          "weed, dig or plant into the crown while it is invisible. Never water a summer-dormant "+
-         "plant to try to revive it."}; },
+         "plant to try to revive it.",
+    water:"Only while they are visibly in growth. Once the leaves yellow and the plant goes dormant, "+
+           "stop completely, because watering a dormant crown rots it. This is why everything planted "+
+           "around them has to tolerate the same dry rest."}; },
   subshrub: function(cal){ return {
     title:"Woody-based subshrubs \u2014 trim, never cut into the old wood",
     body:"These look like perennials but are built like tiny shrubs, and they regrow from their "+
          "woody stems rather than from the crown. Cutting them to the ground usually kills them. "+
          "In "+cal.cut+", shorten the previous year's growth by about a third, always leaving "+
          "green growth or live buds below your cut. Replace them every five to eight years as "+
-         "they go woody and open at the base."}; },
+         "they go woody and open at the base.",
+    water:"Low, and sharp drainage matters more than water ever does. Soak once a week through the "+
+           "first summer, then stop almost completely. These rot at the crown in soil that stays damp, "+
+           "which is the usual way they are killed."}; },
   perennial_low: function(cal){ return {
     title:"Low perennials and mats \u2014 a light shear, not a cut-back",
     body:"These are too short to have stems worth leaving, so the stem-nesting advice does not "+
          "apply. In "+cal.cut+", run hand shears over them to take off the dead top growth, down "+
          "to roughly 2\u20133 inches, and pull out any flattened brown leaves by hand. Never cut "+
-         "into the woody centre of a mat-former, and never bury the crown in mulch."}; },
+         "into the woody centre of a mat-former, and never bury the crown in mulch.",
+    water:"Low to average, but check these first in hot weather. Small root systems near the surface "+
+           "dry out before anything else in the bed. Water the soil rather than the foliage, and keep "+
+           "mulch off the crowns so they do not rot."}; },
   selfsower: function(cal){ return {
     title:"Self-sowing fillers \u2014 decide where the seedlings go",
     body:"These are short-lived by design and carry the bed while the slower plants fill in. Let "+
          "the seedheads stand through winter for the birds. In "+cal.cut+", shake the stems over "+
          "any gap you want colonised, then cut them down. Through the season, pull seedlings out "+
-         "of the places you do not want them while they are still small."}; }
+         "of the places you do not want them while they are still small.",
+    water:"Low. Water enough in the first few weeks to get them going, then leave them alone. Plants "+
+           "kept slightly lean set more seed, which for this layer is the whole point."}; }
 };
 var CARE_ORDER = ["rosette","palm","shrub_spring","shrub_summer","subshrub","fern_evergreen",
   "fern_deciduous","sedge","grass_cool","grass_warm","evergreen_perennial","perennial",
@@ -978,6 +1218,10 @@ var FLAG_JOBS = {
     "position with a stake so the bare patch is not weeded, dug or replanted before it wakes up."; },
   cut_after_flower: function(list){ return "<b>Cut back to the basal leaves after flowering:</b> "+
     list+". The foliage goes shabby once the flowers finish, and it regrows cleanly."; },
+  sharp_drainage: function(list){ return "<b>Must have sharp drainage \u2014 these rot in damp "+
+    "soil:</b> "+list+". If your bed holds water after rain, plant these on a slight mound or mix "+
+    "a few inches of grit into their planting holes. Keep mulch off their crowns entirely, and "+
+    "water them less often than the rest of the bed."; },
   no_summer_water: function(list){ return "<b>Do not water in summer once established:</b> "+list+
     ". Summer irrigation causes root rot in these species. This is the single most common way "+
     "they are killed in gardens."; },
@@ -1002,6 +1246,30 @@ function renderLayout(combo, c){
   wrap.appendChild(mk("h5", null, "Design intent"));
   wrap.appendChild(mk("p", null, combo.t.design));
 
+  /* Timing comes first: it is the one decision that cannot be corrected later. */
+  var ps = plantSeason(c), cal = zoneCal(c.zone);
+  wrap.appendChild(mk("h5", null, "When to plant \u2014 zone "+c.zone+", "+
+    REGIONS[c.region].name));
+  var seasonBox = mk("div","seasonbox");
+  seasonBox.innerHTML =
+    "<div class='sb-row'><span class='sb-k'>Best window</span><span class='sb-v'>"+
+      ps.best+"</span></div>"+
+    "<div class='sb-row'><span class='sb-k'>Second choice</span><span class='sb-v'>"+
+      ps.alt+"</span></div>"+
+    "<div class='sb-row'><span class='sb-k'>Why it matters</span><span class='sb-v'>"+
+      ps.why+"</span></div>"+
+    "<div class='sb-row'><span class='sb-k'>Your frost dates</span><span class='sb-v'>"+
+      "Last spring frost is typically <b>"+cal.last+"</b> and first autumn frost <b>"+cal.first+
+      "</b> in zone "+c.zone+". These are regional averages \u2014 look up your own at "+
+      "<a href='https://www.almanac.com/gardening/frostdates' target='_blank' rel='noopener'>"+
+      "frost dates by ZIP code</a>, and treat your state Cooperative Extension planting "+
+      "calendar as the final word.</span></div>"+
+    "<div class='sb-row'><span class='sb-k'>Buying</span><span class='sb-v'>Order plugs or "+
+      "quart pots in late winter for autumn delivery, since good native nurseries sell out of "+
+      "the better species months ahead. Small plants establish faster than large ones and cost "+
+      "a fraction as much \u2014 resist buying the biggest pot available.</span></div>";
+  wrap.appendChild(seasonBox);
+
   wrap.appendChild(mk("h5", null, "Step by step"));
   var ol = mk("ol","steps"); ol.style.paddingLeft = "20px";
   function step(html){ var li = mk("li"); li.innerHTML = html; ol.appendChild(li); }
@@ -1021,6 +1289,13 @@ function renderLayout(combo, c){
             "and flop.")+
     " This bed is "+c.l+" feet by "+c.w+" feet, which is "+area+" square feet and takes <b>"+
     total+" plants</b> of "+combo.rows.length+" species, "+density+".");
+
+  step("<b>Look each plant up before you buy it.</b> Every species in the table above carries "+
+    "two photo links \u2014 one to the Lady Bird Johnson Wildflower Center for curated "+
+    "photographs and a full profile, one to iNaturalist for photographs of the plant growing "+
+    "wild, which shows you honestly how it will look rather than how a catalogue stages it. "+
+    "Check the habit and the mature size against the space you have, because the commonest "+
+    "regret with a native bed is a plant that turns out twice the size the label implied.");
 
   step("<b>Mark the front edge.</b> Everything below depends on knowing which side you look at "+
     "the bed from. Lay a hose or string along that edge; the plan above is drawn with the front "+
@@ -1161,7 +1436,8 @@ function renderCare(combo, c){
     var t = CARE_TEXT[cls](cal), box = mk("div","caregroup");
     var names = groups[cls].map(function(p){ return esc(p.common); }).join(", ");
     box.innerHTML = "<div class='ct'>"+t.title+"</div>"+
-      "<div class='cs'>"+names+"</div><p>"+t.body+"</p>";
+      "<div class='cs'>"+names+"</div><p>"+t.body+"</p>"+
+      (t.water ? "<p class='wt'><b>Watering:</b> "+t.water+"</p>" : "");
     dl.appendChild(box);
   });
   wrap.appendChild(dl);
@@ -1185,6 +1461,79 @@ function renderCare(combo, c){
     });
     wrap.appendChild(ul);
   }
+
+  /* --- watering: the question the maintenance notes cannot answer on their own --- */
+  wrap.appendChild(mk("h5", null, "How much to water"));
+  var area = c.l*c.w;
+  var galPerInch = Math.round(area*0.623);
+  var dry = (c.soil === "D"), wet = (c.soil === "W");
+  var wbox = mk("div","waterbox");
+  var noSummer = combo.rows.filter(function(r){
+    return r.p.care_flags.indexOf("no_summer_water") >= 0; })
+    .map(function(r){ return esc(r.p.common); });
+  var thirsty = combo.rows.filter(function(r){
+    return r.p.moist.indexOf("W") >= 0 && r.p.moist.indexOf("D") < 0; })
+    .map(function(r){ return esc(r.p.common); });
+
+  wbox.innerHTML =
+    "<div class='wb-hd'>The rule of thumb, in real numbers</div>"+
+    "<ul>"+
+    "<li><b>\u201cAn inch of water\u201d for this bed is about "+galPerInch+" gallons.</b> "+
+      "One inch over one square foot is 0.62 gallons, and your bed is "+area+" square feet. "+
+      "That is the figure to aim at in a week with no rain during the first season.</li>"+
+    "<li><b>Measure it, do not guess.</b> Stand a straight-sided tin \u2014 a tuna or cat-food "+
+      "can is ideal \u2014 in the bed while you water, and stop when it has an inch in it. That "+
+      "tells you how long your hose or sprinkler needs, and you only have to do it once. A $5 "+
+      "rain gauge then tells you how much of the week's inch the weather already supplied.</li>"+
+    "<li><b>Check before watering.</b> Push a finger two inches into the soil. Damp means wait. "+
+      "This single habit prevents most of the losses in a new bed, because "+
+      "<b>overwatering kills more native plants than drought does</b> \u2014 constantly damp "+
+      "soil suffocates and rots the roots.</li>"+
+    "<li><b>Water deeply and rarely, never lightly and often.</b> One long soak drives roots "+
+      "down; daily sprinkling keeps them in the top inch, where they die the first time you go "+
+      "away for a fortnight. Water early in the morning, at the soil, not over the leaves.</li>"+
+    "</ul>"+
+    "<div class='wb-hd'>Schedule for "+
+      (dry?"a dry bed":wet?"a moist or wet bed":"average soil")+"</div>"+
+    "<ul>"+
+    "<li><b>Weeks 1 to 2:</b> water every second or third day, whatever the season. Nothing has "+
+      "roots outside its own root ball yet.</li>"+
+    "<li><b>Weeks 3 to 8:</b> twice a week if it has not rained.</li>"+
+    "<li><b>Rest of year 1:</b> "+(dry
+        ? "one deep soak a week in hot weather, and skip it whenever the soil is damp two inches "+
+          "down. Err on the dry side from the start."
+        : wet
+        ? "only when the low spot actually dries out. If the site holds water naturally, you may "+
+          "never need to water at all."
+        : "roughly that inch a week, counting rainfall, tapering off as autumn cools.")+"</li>"+
+    "<li><b>Year 2:</b> "+(dry
+        ? "a deep soak every three or four weeks during a heat wave, and otherwise nothing."
+        : "a deep soak every two or three weeks during drought only. The bed should be largely "+
+          "self-sufficient by now.")+"</li>"+
+    "<li><b>Year 3 onward:</b> "+(dry
+        ? "<b>stop watering entirely.</b> Continued summer irrigation is the main way "+
+          "established dry-soil plantings are lost."
+        : "water only in an exceptional drought, and even then only the ferns and the "+
+          "moisture-lovers. Everything else should be on its own.")+"</li>"+
+    "<li><b>New plants added later</b> start this schedule again from week one, even if the rest "+
+      "of the bed needs nothing.</li>"+
+    "</ul>"+
+    (noSummer.length
+      ? "<div class='wb-warn'><b>Never water these in summer once established:</b> "+
+        noSummer.join(", ")+". Summer irrigation causes root rot in these species. If they share "+
+        "the bed with thirstier plants, water the others by hand at the base rather than running "+
+        "a sprinkler over the whole bed.</div>"
+      : "")+
+    (thirsty.length
+      ? "<div class='wb-note'><b>These will want water first and show it soonest:</b> "+
+        thirsty.join(", ")+". Use them as your indicator plants \u2014 when they wilt in the "+
+        "evening rather than perking back up, the bed needs a soak.</div>"
+      : "")+
+    "<div class='wb-note'><b>If you install irrigation,</b> use drip line or soaker hose under "+
+      "the planting rather than overhead spray. Overhead watering wets foliage, encourages "+
+      "mildew on beebalm and phlox, and wastes most of the water to evaporation. Put it on a "+
+      "manual valve, not a timer: a timer waters during rain, which is how beds drown.</div>";
+  wrap.appendChild(wbox);
 
   /* --- establishment and long run --- */
   wrap.appendChild(mk("h5", null, "The first three years"));
@@ -1250,7 +1599,9 @@ function renderCombo(combo, idx, c){
     row.appendChild(c1);
     var c2=mk("td");
     c2.innerHTML="<span class='cn'>"+esc(p.common)+"</span><br><span class='sci muted'>"+
-      esc(p.sci)+"</span><div class='why'>"+esc(whyText(p))+"</div>";
+      esc(p.sci)+"</span> <span class='plinks'>"+photoLinks(p)+"</span>"+
+      "<div class='look'>"+esc(appearance(p))+"</div>"+
+      "<div class='why'>"+esc(whyText(p))+"</div>";
     row.appendChild(c2);
     row.appendChild(mk("td",null,bloomStr(p)));
     row.appendChild(mk("td",null,heightPhrase(p)));
@@ -1278,9 +1629,10 @@ function renderCombo(combo, idx, c){
     var li=mk("li"); li.style.marginBottom="6px";
     var edge = c.zone > r.p.zmax ? " <strong>Zone "+c.zone+" is one step above its published limit "+
       "of "+r.p.zmax+": workable in most cases, but site it in the coolest part of the bed.</strong>" : "";
-    li.innerHTML="<em>"+esc(r.p.sci)+"</em> (<b>"+esc(r.p.common)+"</b>) \u2014 "+esc(r.p.notes)+
-      " <span class='muted'>Hardy in zones "+r.p.zmin+"\u2013"+r.p.zmax+"; family "+
-      esc(r.p.family)+".</span>"+edge;
+    li.innerHTML="<em>"+esc(r.p.sci)+"</em> (<b>"+esc(r.p.common)+"</b>) \u2014 "+
+      esc(r.p.notes)+" <span class='muted'>Looks like: "+esc(appearance(r.p))+
+      " Hardy in zones "+r.p.zmin+"\u2013"+r.p.zmax+"; family "+esc(r.p.family)+".</span> "+
+      "<span class='plinks'>"+photoLinks(r.p)+"</span>"+edge;
     ul.appendChild(li);
   });
   inner.appendChild(ul); det.appendChild(inner); body.appendChild(det);
@@ -1508,7 +1860,8 @@ el("csvAll").addEventListener("click",function(){
     rows.slice(0,400).forEach(function(p){
       var tr=mk("tr"), c1=mk("td");
       c1.innerHTML="<span class='cn'>"+esc(p.common)+"</span><br><span class='sci muted'>"+
-        esc(p.sci)+"</span> <span class='layerTag "+p.layer+"'>"+LAYER_SHORT[p.layer]+"</span>";
+        esc(p.sci)+"</span> <span class='layerTag "+p.layer+"'>"+LAYER_SHORT[p.layer]+"</span>"+
+        "<div class='plinks'>"+photoLinks(p)+"</div>";
       tr.appendChild(c1);
       tr.appendChild(mk("td",null,p.family));
       tr.appendChild(mk("td",null,p.regions.join(" ")));

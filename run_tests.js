@@ -85,6 +85,21 @@ list.forEach((card,i)=>{
   // the brief called these out specifically: no abbreviated units anywhere
   var abbr = txt.match(/\d+\s?(?:in|ft)\b|\bo\.c\./g);
   ok(!abbr, tag+': abbreviated units in output ('+(abbr?abbr.slice(0,3).join(','):'')+')');
+  // planting time, watering and appearance were all explicit requirements
+  ok(/When to plant/.test(txt), tag+': no planting-season guidance');
+  ok(/Best window/.test(txt), tag+': planting season has no recommended window');
+  ok(/How much to water/.test(txt), tag+': no watering section');
+  ok(/gallons/.test(txt), tag+': watering gives no actual quantity');
+  ok(/Watering:/.test(txt), tag+': maintenance groups carry no watering advice');
+  ok(/Looks like:/.test(txt), tag+': no appearance description');
+  var allHtml = '';
+  (function collect(e){ allHtml += (e._html||''); (e.children||[]).forEach(collect); })(card);
+  var nrows = plantTable(card).children.length - 1;
+  var wcs = (allHtml.match(/wildflower\.org\/plants\/search/g)||[]).length;
+  var inat = (allHtml.match(/inaturalist\.org\/search/g)||[]).length;
+  ok(wcs >= nrows, tag+': '+wcs+' Wildflower Center photo links for '+nrows+' plants');
+  ok(inat >= nrows, tag+': '+inat+' iNaturalist photo links for '+nrows+' plants');
+  ok(!/<img/.test(allHtml), tag+': embeds an image instead of linking out');
   const bad = txt.match(/undefined|NaN|\[object \w+/);
   ok(!bad, tag+': output contains '+(bad?bad[0]:''));
   const rows = plantTable(card).children.length-1;
@@ -93,6 +108,74 @@ list.forEach((card,i)=>{
 });
 console.log('  '+list.length+' cards, '+titles.size+' distinct design templates');
 ok(titles.size>=6,'at least 6 distinct templates appear, got '+titles.size);
+
+console.log('\n=== plan colours follow the layer code ===');
+(function(){
+  // Collect region fills and the layer of each species; every species sharing a layer must
+  // share a hue family, and no two layers may collide on a colour.
+  function walk(e, fn){ fn(e); (e.children||[]).forEach(function(c){ walk(c, fn); }); }
+  var LAYER_OF = {};
+  var problems = 0, checkedCards = 0;
+  list.forEach(function(card){
+    var rows = plantTable(card).children.slice(1);
+    var layerByNum = {};
+    rows.forEach(function(tr, i){
+      layerByNum[i+1] = tr.children[1].innerHTML.replace(/<[^>]*>/g, '');
+    });
+    var fills = {};
+    walk(card, function(e){
+      if(e.tag === 'path' && e.attrs && e.attrs['data-sp'])
+        fills[+e.attrs['data-sp']] = e.attrs.fill;
+    });
+    if(!Object.keys(fills).length) return;
+    checkedCards++;
+    // hue of each fill
+    function hue(hex){
+      var m = /#(..)(..)(..)/.exec(hex);
+      var r = parseInt(m[1],16)/255, g = parseInt(m[2],16)/255, b = parseInt(m[3],16)/255;
+      var mx = Math.max(r,g,b), mn = Math.min(r,g,b), d = mx-mn, h;
+      if(!d) return -1;
+      if(mx===r) h = ((g-b)/d + (g<b?6:0)); else if(mx===g) h = ((b-r)/d+2); else h = ((r-g)/d+4);
+      return h*60;
+    }
+    var hueByLayer = {};
+    Object.keys(fills).forEach(function(num){
+      var lay = layerByNum[num];
+      (hueByLayer[lay] = hueByLayer[lay] || []).push(hue(fills[num]));
+    });
+    Object.keys(hueByLayer).forEach(function(lay){
+      var hs = hueByLayer[lay].filter(function(h){ return h >= 0; });
+      if(hs.length < 2) return;
+      var spread = Math.max.apply(null, hs) - Math.min.apply(null, hs);
+      if(spread > 40){ problems++; console.log('  FAIL  layer '+lay+' hue spread '+spread.toFixed(0)+' degrees'); }
+    });
+    // layers must not collide
+    var layHue = {};
+    Object.keys(hueByLayer).forEach(function(lay){
+      var hs = hueByLayer[lay].filter(function(h){ return h>=0; });
+      if(hs.length) layHue[lay] = hs.reduce(function(a,b){return a+b;},0)/hs.length;
+    });
+    var keys = Object.keys(layHue);
+    for(var i=0;i<keys.length;i++) for(var j=i+1;j<keys.length;j++){
+      if(Math.abs(layHue[keys[i]]-layHue[keys[j]]) < 12){
+        problems++;
+        console.log('  FAIL  layers '+keys[i]+' and '+keys[j]+' share a hue');
+      }
+    }
+  });
+  console.log('  checked '+checkedCards+' plans, hue problems: '+problems);
+  ok(problems === 0, problems+' plan colour problems');
+  // number legibility
+  var small = [];
+  list.forEach(function(card){
+    walk(card, function(e){
+      if(e.tag === 'text' && e.attrs && e.attrs['font-weight'] === '700' && /^\d+$/.test(e._text||''))
+        if(+e.attrs['font-size'] < 12) small.push(+e.attrs['font-size']);
+    });
+  });
+  ok(small.length === 0, small.length+' region numbers under 12px');
+  console.log('  region numbers all >= 12px: '+(small.length===0));
+})();
 
 console.log('\n=== quantities are sane ===');
 let qtyIssues=0, totalPlants=0;

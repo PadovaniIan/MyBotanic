@@ -90,6 +90,40 @@ to give a starting month. The interface always links the user to
 and their state Cooperative Extension, and states that the Extension calendar is the most locally
 accurate of the three.
 
+## Photograph sources
+
+No images are stored or hot-linked by this project, to keep the page weight down. Each species links
+out to two libraries, chosen to be complementary:
+
+| Source | Why |
+|---|---|
+| [Lady Bird Johnson Wildflower Center](https://www.wildflower.org/plants/) | Curated horticultural photographs alongside the full profile already used as this project's source for cultural requirements. Best for judging garden appearance. |
+| [iNaturalist](https://www.inaturalist.org/) | Large volumes of research-grade observation photographs of the plant growing wild, across its whole range. Best for an honest view of habit and of how the plant actually looks outside a nursery. |
+
+Both are hit as search URLs built from the accepted scientific name, so they keep working as those
+sites reorganise their internal identifiers. The generated appearance description is derived from the
+`form`, `colors`, `hmin`/`hmax` and bloom fields in `plants_source.txt`.
+
+## Planting-season guidance
+
+Derived from the per-zone frost calendar plus the ecoregion, not from a single national rule:
+
+| Situation | Recommended window | Reason |
+|---|---|---|
+| Most regions, zones 5 and warmer | Autumn, about six weeks before first hard frost | Soil is still warm while air cools, so roots grow after the top stops; the plant meets its first summer anchored |
+| Zones 2&ndash;4 | Spring, after the last hard frost | Autumn plantings have not rooted enough to resist frost heave, which physically lifts crowns out of the soil |
+| California and Pacific Northwest | Autumn, with the first steady rains | The flora grows in the wet winter and sleeps in the dry summer; spring planting commits the gardener to summer irrigation, which rots drought-adapted natives |
+| Southwest deserts | Autumn, or into the summer monsoon | Gives roots a full cool season before the first extreme summer; April to June planting cannot keep up with transpiration |
+
+## Watering guidance
+
+Quantities are arithmetic, not estimates: one inch of water over one square foot is 0.623 US gallons,
+so the figure quoted for a bed is its area multiplied by 0.623. The step-down schedule across three
+years, the deep-and-infrequent principle, and the emphasis that overwatering kills more native plants
+than drought does all follow the Xerces Society habitat guidelines and the establishment guidance in
+the Lady Bird Johnson Wildflower Center's how-to articles. Per-species exceptions come from the
+`no_summer_water` and `sharp_drainage` flags derived from the notes.
+
 ## What is deliberately excluded
 
 - Double-flowered and sterile cultivars, which offer little or no accessible pollen and nectar. This
