@@ -1,0 +1,43 @@
+MIT License (code) and CC0 1.0 (data)
+
+===========================================================================
+CODE: index.html, style.css, app.js, and all .py / .js tooling
+===========================================================
+Copyright (c) 2025 Botanical Bed Builder contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+IN THE SOFTWARE.
+
+===========================================================================
+DATA: plants_source.txt, plants.json, plants.csv, regions.json,
+      templates.json, sources.json, data.js
+================================================================
+To the extent possible under law, the contributors have dedicated the
+compiled plant, region and template data to the public domain worldwide
+under the CC0 1.0 Universal Public Domain Dedication.
+https://creativecommons.org/publicdomain/zero/1.0/
+
+The underlying government datasets -- USDA PLANTS, the USDA Plant Hardiness
+Zone Map, EPA Ecoregions of the Continental United States, and the US Census
+Gazetteer files -- are United States Government works in the public domain.
+
+Third-party compilations cited in DATA_SOURCES.md, including the NWF and
+Tallamy Lepidoptera host dataset, the Fowler and Droege pollen-specialist bee
+lists, the Xerces Society regional guides, BONAP's North American Plant Atlas
+and the Lady Bird Johnson Wildflower Center Native Plant Database, retain
+their own terms. They are cited and referenced here, not redistributed.

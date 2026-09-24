@@ -1,0 +1,140 @@
+[
+ {
+  "id": "usda_phzm",
+  "name": "USDA Plant Hardiness Zone Map (2023)",
+  "org": "USDA-ARS with the PRISM Climate Group, Oregon State University",
+  "url": "https://planthardiness.ars.usda.gov/",
+  "download": "https://prism.oregonstate.edu/projects/plant_hardiness_zones.php",
+  "use": "The authoritative cold-hardiness zone. The 2023 revision uses 1991-2020 climate normals at 800 m resolution and offers both a ZIP-code lookup and a downloadable raster.",
+  "format": "GeoTIFF raster and web ZIP lookup",
+  "license": "Public domain (US Government work)"
+ },
+ {
+  "id": "epa_ecoregions",
+  "name": "Level III and IV Ecoregions of the Continental United States",
+  "org": "US Environmental Protection Agency (Omernik framework)",
+  "url": "https://www.epa.gov/eco-research/level-iii-and-iv-ecoregions-continental-united-states",
+  "download": "https://gaftp.epa.gov/EPADataCommons/ORD/Ecoregions/us/us_eco_l3.zip",
+  "use": "The ecological zone framework itself. Level III and IV polygons delimit areas of similar geology, soils, hydrology and potential natural vegetation, which is far more biologically meaningful than a hardiness zone alone.",
+  "format": "Shapefile and geodatabase",
+  "license": "Public domain"
+ },
+ {
+  "id": "usda_plants",
+  "name": "USDA PLANTS Database",
+  "org": "USDA Natural Resources Conservation Service",
+  "url": "https://plants.usda.gov/",
+  "download": "https://plants.usda.gov/csvdownload?plantLst=completePLANTSChecklist",
+  "use": "Accepted nomenclature, native or introduced status by state, growth habit, duration and wetland indicator status. The naming backbone of the plant table.",
+  "format": "CSV",
+  "license": "Public domain"
+ },
+ {
+  "id": "bonap",
+  "name": "North American Plant Atlas",
+  "org": "Biota of North America Program (BONAP)",
+  "url": "http://bonap.net/napa",
+  "use": "County-level native distribution maps. The correct tool for confirming whether a species is genuinely native to the user's own county rather than merely to their state.",
+  "format": "Web maps",
+  "license": "Free for non-commercial use; check terms before redistributing"
+ },
+ {
+  "id": "nwf_npf",
+  "name": "Native Plant Finder and the Lepidoptera host dataset",
+  "org": "National Wildlife Federation with Douglas Tallamy, University of Delaware",
+  "url": "https://nativeplantfinder.nwf.org/",
+  "use": "County-level counts of butterfly and moth species hosted by each native plant genus. The source of the keystone-genus concept and of every Lepidoptera figure in this database.",
+  "format": "Web lookup by ZIP code",
+  "license": "Free public tool; data derived from Tallamy's published host records"
+ },
+ {
+  "id": "fowler_specialist_bees",
+  "name": "Pollen Specialist Bees of the Eastern, Central and Western United States",
+  "org": "Jarrod Fowler and Sam Droege",
+  "url": "https://jarrodfowler.com/specialist_bees.html",
+  "use": "Documented host-plant genera for pollen-specialist (oligolectic) native bees, which cannot substitute another plant. The source of the specialist-bee flags.",
+  "format": "HTML and PDF tables",
+  "license": "Freely published research compilation"
+ },
+ {
+  "id": "xerces",
+  "name": "Regional Pollinator Plant Lists and Habitat Guidelines",
+  "org": "Xerces Society for Invertebrate Conservation",
+  "url": "https://www.xerces.org/pollinator-conservation/pollinator-friendly-plant-lists",
+  "use": "Region-by-region plant lists vetted for pollinator value, plus nesting-habitat and pesticide guidance.",
+  "format": "Regional PDF guides",
+  "license": "Free to download; cite Xerces"
+ },
+ {
+  "id": "pollinator_partnership",
+  "name": "Ecoregional Planting Guides",
+  "org": "Pollinator Partnership and NAPPC",
+  "url": "https://www.pollinator.org/guides",
+  "use": "Planting guides keyed directly to ZIP code and to Bailey and Omernik ecoregions, with bloom-period charts. A direct precedent for the ZIP-to-ecoregion approach used here.",
+  "format": "PDF by ecoregion",
+  "license": "Free to download"
+ },
+ {
+  "id": "wildflower_center",
+  "name": "Native Plant Database and Recommended Species Lists",
+  "org": "Lady Bird Johnson Wildflower Center, University of Texas at Austin",
+  "url": "https://www.wildflower.org/plants/",
+  "use": "Detailed horticultural and ecological profiles for roughly 9,000 North American natives plus state-by-state recommended species lists. The primary source for cultural requirements.",
+  "format": "Web database with downloadable state lists",
+  "license": "Free for personal and educational use"
+ },
+ {
+  "id": "audubon",
+  "name": "Native Plants Database",
+  "org": "National Audubon Society",
+  "url": "https://www.audubon.org/native-plants",
+  "use": "A ZIP-searchable native plant database ranked by the bird species each plant supports, with listings of local native-plant nurseries.",
+  "format": "Web lookup by ZIP code",
+  "license": "Free public tool"
+ },
+ {
+  "id": "census_gazetteer",
+  "name": "Gazetteer Files: ZIP Code Tabulation Areas",
+  "org": "US Census Bureau",
+  "url": "https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.html",
+  "use": "ZCTA centroid latitude and longitude. Converts a ZIP code into a point that can be intersected with ecoregion polygons and sampled against the hardiness raster.",
+  "format": "Pipe-delimited text",
+  "license": "Public domain"
+ },
+ {
+  "id": "powo",
+  "name": "Plants of the World Online",
+  "org": "Royal Botanic Gardens, Kew",
+  "url": "https://powo.science.kew.org/",
+  "use": "The global nomenclatural authority used to resolve synonyms and recent genus transfers, such as Aster to Symphyotrichum, Eupatorium to Eutrochium and Mahonia to Berberis.",
+  "format": "Web interface and API",
+  "license": "CC BY for data"
+ },
+ {
+  "id": "rainer_west",
+  "name": "Planting in a Post-Wild World",
+  "org": "Thomas Rainer and Claudia West, Timber Press, 2015",
+  "url": "https://www.timberpress.com/books/planting_post-wild_world/rainer/9781604695533",
+  "use": "The layered design framework the generator implements: structural, seasonal-theme, groundcover and filler layers, and the principle of designed plant communities rather than object planting.",
+  "format": "Book",
+  "license": "Copyrighted; the methodology is referenced, no text is reproduced"
+ },
+ {
+  "id": "monarch_watch",
+  "name": "Monarch Waystation Program",
+  "org": "Monarch Watch, University of Kansas",
+  "url": "https://monarchwatch.org/waystations/",
+  "use": "The certification criteria applied by the Monarch Waystation template: minimum area, milkweed species count and continuous nectar requirements.",
+  "format": "Web pages and PDF",
+  "license": "Free public program"
+ },
+ {
+  "id": "invasive_check",
+  "name": "Invasive Plant Atlas of the United States",
+  "org": "USDA National Invasive Species Information Center and UGA EDDMapS",
+  "url": "https://www.invasiveplantatlas.org/",
+  "use": "Cross-checked before including any regionally aggressive species, and used to confirm that no recommended taxon is listed as invasive anywhere within its recommended range.",
+  "format": "Web database",
+  "license": "Public domain and free to use"
+ }
+]

@@ -1,0 +1,6 @@
+# Only needed for fetch_authoritative.py (the optional exact per-ZIP lookup).
+# The website itself has no dependencies at all.
+geopandas>=0.14
+shapely>=2.0
+pyogrio>=0.7          # fast shapefile reader used by geopandas
+rasterio>=1.3         # optional: sampling the USDA hardiness raster

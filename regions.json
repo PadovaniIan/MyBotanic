@@ -1,0 +1,10114 @@
+{
+ "regions": {
+  "CA": {
+   "blurb": "Chaparral, oak woodland, coastal sage scrub and valley grassland. A summer-dormant, winter-growing flora: the cardinal rule is no summer irrigation once established.",
+   "epa_l1": "Mediterranean California",
+   "epa_l2": "Mediterranean California",
+   "name": "California Floristic Province",
+   "zones": [
+    5,
+    11
+   ]
+  },
+  "FL": {
+   "blurb": "Pine rockland, scrub, flatwoods and hardwood hammock. Bloom is nearly year-round, so designs emphasise evergreen structure and continuous nectar rather than one summer peak.",
+   "epa_l1": "Tropical Wet Forests / Eastern Temperate Forests",
+   "epa_l2": "Everglades, Southern Florida Coastal Plain",
+   "name": "Florida & Subtropical Gulf",
+   "zones": [
+    8,
+    11
+   ]
+  },
+  "GP": {
+   "blurb": "Mixed-grass and shortgrass prairie. Wind, cold and drought select for low, fine-textured, deeply taprooted plants; blue grama and little bluestem form the matrix.",
+   "epa_l1": "Great Plains",
+   "epa_l2": "West-Central Semi-Arid Prairies, South Central Semi-Arid Prairies",
+   "name": "Great Plains",
+   "zones": [
+    3,
+    7
+   ]
+  },
+  "MTN": {
+   "blurb": "Sagebrush steppe, pinyon-juniper woodland and montane meadow. Intense sun, cold winters and lean alkaline soils; gravel-garden technique outperforms conventional beds.",
+   "epa_l1": "North American Deserts / Northwestern Forested Mountains",
+   "epa_l2": "Cold Deserts, Western Cordillera",
+   "name": "Rocky Mountains & Intermountain West",
+   "zones": [
+    2,
+    8
+   ]
+  },
+  "MW": {
+   "blurb": "Tallgrass prairie, oak savanna and beech-maple forest. The richest palette in North America for sunny matrix planting: deep-rooted composites and warm-season bunchgrasses.",
+   "epa_l1": "Eastern Temperate Forests / Great Plains",
+   "epa_l2": "Central USA Plains, Temperate Prairies, Mixed Wood Plains",
+   "name": "Midwest & Great Lakes",
+   "zones": [
+    3,
+    7
+   ]
+  },
+  "NE": {
+   "blurb": "Oak-hickory and northern hardwood forest, coastal plain and Appalachian uplands. Quercus, Prunus, Salix, Betula and Vaccinium are the keystone woody genera; Solidago and Symphyotrichum carry the late season.",
+   "epa_l1": "Northern Forests / Eastern Temperate Forests",
+   "epa_l2": "Mixed Wood Plains, Atlantic Highlands, Northeastern Coastal Zone",
+   "name": "Northeast & Mid-Atlantic",
+   "zones": [
+    3,
+    8
+   ]
+  },
+  "PNW": {
+   "blurb": "Douglas-fir and western hemlock forest with Willamette and Puget prairie remnants. Wet winters and dry summers: evergreen shade layers plus summer-dry meadow species.",
+   "epa_l1": "Marine West Coast Forest",
+   "epa_l2": "Marine West Coast Forest",
+   "name": "Pacific Northwest (west of the Cascades)",
+   "zones": [
+    4,
+    9
+   ]
+  },
+  "SE": {
+   "blurb": "Longleaf pine savanna, oak-hickory-pine and bottomland hardwood. A fire-adapted grassland flora with exceptional late-summer and autumn bloom; heat and humidity tolerance is the limiting design factor.",
+   "epa_l1": "Eastern Temperate Forests",
+   "epa_l2": "Southeastern USA Plains, Mississippi Alluvial & SE Coastal Plains, Ozark/Ouachita",
+   "name": "Southeast (Piedmont, Coastal Plain, Gulf)",
+   "zones": [
+    6,
+    9
+   ]
+  },
+  "SW": {
+   "blurb": "Sonoran, Chihuahuan and Mojave desert scrub. Design around evergreen structure, silver foliage and monsoon-timed bloom; irrigation beyond establishment usually kills these plants.",
+   "epa_l1": "North American Deserts",
+   "epa_l2": "Warm Deserts (Sonoran, Chihuahuan, Mojave), Southern Semi-Arid Highlands",
+   "name": "Southwest Deserts",
+   "zones": [
+    5,
+    11
+   ]
+  },
+  "TX": {
+   "blurb": "Limestone Hill Country, blackland prairie and coastal prairie. Alkaline soils and violent summer heat favour salvias, penstemons, daleas and muhly grasses.",
+   "epa_l1": "Great Plains / Eastern Temperate Forests",
+   "epa_l2": "Edwards Plateau, Cross Timbers, Texas Blackland Prairies, Tamaulipan Plains",
+   "name": "Texas & South-Central",
+   "zones": [
+    6,
+    10
+   ]
+  }
+ },
+ "state_regions": {
+  "AK": [],
+  "AL": [
+   "SE"
+  ],
+  "AR": [
+   "SE",
+   "MW"
+  ],
+  "AZ": [
+   "SW",
+   "MTN"
+  ],
+  "CA": [
+   "CA",
+   "SW",
+   "MTN",
+   "PNW"
+  ],
+  "CO": [
+   "MTN",
+   "GP"
+  ],
+  "CT": [
+   "NE"
+  ],
+  "DC": [
+   "NE"
+  ],
+  "DE": [
+   "NE"
+  ],
+  "FL": [
+   "FL",
+   "SE"
+  ],
+  "GA": [
+   "SE"
+  ],
+  "HI": [],
+  "IA": [
+   "MW",
+   "GP"
+  ],
+  "ID": [
+   "MTN",
+   "PNW"
+  ],
+  "IL": [
+   "MW"
+  ],
+  "IN": [
+   "MW"
+  ],
+  "KS": [
+   "GP",
+   "MW"
+  ],
+  "KY": [
+   "SE",
+   "MW",
+   "NE"
+  ],
+  "LA": [
+   "SE"
+  ],
+  "MA": [
+   "NE"
+  ],
+  "MD": [
+   "NE",
+   "SE"
+  ],
+  "ME": [
+   "NE"
+  ],
+  "MI": [
+   "MW",
+   "NE"
+  ],
+  "MN": [
+   "MW",
+   "GP"
+  ],
+  "MO": [
+   "MW",
+   "SE"
+  ],
+  "MS": [
+   "SE"
+  ],
+  "MT": [
+   "MTN",
+   "GP"
+  ],
+  "NC": [
+   "SE",
+   "NE"
+  ],
+  "ND": [
+   "GP",
+   "MW"
+  ],
+  "NE": [
+   "GP",
+   "MW"
+  ],
+  "NH": [
+   "NE"
+  ],
+  "NJ": [
+   "NE"
+  ],
+  "NM": [
+   "SW",
+   "MTN",
+   "GP"
+  ],
+  "NV": [
+   "MTN",
+   "SW",
+   "CA"
+  ],
+  "NY": [
+   "NE",
+   "MW"
+  ],
+  "OH": [
+   "MW",
+   "NE"
+  ],
+  "OK": [
+   "GP",
+   "TX",
+   "MW"
+  ],
+  "OR": [
+   "PNW",
+   "MTN",
+   "CA"
+  ],
+  "PA": [
+   "NE",
+   "MW"
+  ],
+  "PR": [],
+  "RI": [
+   "NE"
+  ],
+  "SC": [
+   "SE"
+  ],
+  "SD": [
+   "GP",
+   "MW"
+  ],
+  "TN": [
+   "SE",
+   "MW",
+   "NE"
+  ],
+  "TX": [
+   "TX",
+   "SE",
+   "GP",
+   "SW"
+  ],
+  "UT": [
+   "MTN",
+   "SW"
+  ],
+  "VA": [
+   "NE",
+   "SE"
+  ],
+  "VI": [],
+  "VT": [
+   "NE"
+  ],
+  "WA": [
+   "PNW",
+   "MTN"
+  ],
+  "WI": [
+   "MW",
+   "NE"
+  ],
+  "WV": [
+   "NE",
+   "SE"
+  ],
+  "WY": [
+   "MTN",
+   "GP"
+  ]
+ },
+ "state_zips": {
+  "AK": [
+   [
+    99500,
+    99999
+   ]
+  ],
+  "AL": [
+   [
+    35000,
+    36999
+   ]
+  ],
+  "AR": [
+   [
+    71600,
+    72999
+   ]
+  ],
+  "AZ": [
+   [
+    85000,
+    86599
+   ]
+  ],
+  "CA": [
+   [
+    90000,
+    96199
+   ]
+  ],
+  "CO": [
+   [
+    80000,
+    81699
+   ]
+  ],
+  "CT": [
+   [
+    6000,
+    6999
+   ]
+  ],
+  "DC": [
+   [
+    20000,
+    20099
+   ],
+   [
+    20200,
+    20599
+   ]
+  ],
+  "DE": [
+   [
+    19700,
+    19999
+   ]
+  ],
+  "FL": [
+   [
+    32000,
+    34999
+   ]
+  ],
+  "GA": [
+   [
+    30000,
+    31999
+   ],
+   [
+    39800,
+    39999
+   ]
+  ],
+  "HI": [
+   [
+    96700,
+    96899
+   ]
+  ],
+  "IA": [
+   [
+    50000,
+    52899
+   ]
+  ],
+  "ID": [
+   [
+    83200,
+    83899
+   ]
+  ],
+  "IL": [
+   [
+    60000,
+    62999
+   ]
+  ],
+  "IN": [
+   [
+    46000,
+    47999
+   ]
+  ],
+  "KS": [
+   [
+    66000,
+    67999
+   ]
+  ],
+  "KY": [
+   [
+    40000,
+    42799
+   ]
+  ],
+  "LA": [
+   [
+    70000,
+    71499
+   ]
+  ],
+  "MA": [
+   [
+    1000,
+    2799
+   ]
+  ],
+  "MD": [
+   [
+    20600,
+    21999
+   ]
+  ],
+  "ME": [
+   [
+    3900,
+    4999
+   ]
+  ],
+  "MI": [
+   [
+    48000,
+    49999
+   ]
+  ],
+  "MN": [
+   [
+    55000,
+    56799
+   ]
+  ],
+  "MO": [
+   [
+    63000,
+    65899
+   ]
+  ],
+  "MS": [
+   [
+    38600,
+    39799
+   ]
+  ],
+  "MT": [
+   [
+    59000,
+    59999
+   ]
+  ],
+  "NC": [
+   [
+    27000,
+    28999
+   ]
+  ],
+  "ND": [
+   [
+    58000,
+    58899
+   ]
+  ],
+  "NE": [
+   [
+    68000,
+    69399
+   ]
+  ],
+  "NH": [
+   [
+    3000,
+    3899
+   ]
+  ],
+  "NJ": [
+   [
+    7000,
+    8999
+   ]
+  ],
+  "NM": [
+   [
+    87000,
+    88499
+   ]
+  ],
+  "NV": [
+   [
+    88900,
+    89899
+   ]
+  ],
+  "NY": [
+   [
+    10000,
+    14999
+   ],
+   [
+    6390,
+    6390
+   ]
+  ],
+  "OH": [
+   [
+    43000,
+    45999
+   ]
+  ],
+  "OK": [
+   [
+    73000,
+    74999
+   ]
+  ],
+  "OR": [
+   [
+    97000,
+    97999
+   ]
+  ],
+  "PA": [
+   [
+    15000,
+    19699
+   ]
+  ],
+  "PR": [
+   [
+    600,
+    799
+   ],
+   [
+    900,
+    999
+   ]
+  ],
+  "RI": [
+   [
+    2800,
+    2999
+   ]
+  ],
+  "SC": [
+   [
+    29000,
+    29999
+   ]
+  ],
+  "SD": [
+   [
+    57000,
+    57799
+   ]
+  ],
+  "TN": [
+   [
+    37000,
+    38599
+   ]
+  ],
+  "TX": [
+   [
+    75000,
+    79999
+   ],
+   [
+    88500,
+    88599
+   ],
+   [
+    73301,
+    73301
+   ]
+  ],
+  "UT": [
+   [
+    84000,
+    84799
+   ]
+  ],
+  "VA": [
+   [
+    20100,
+    20199
+   ],
+   [
+    22000,
+    24699
+   ]
+  ],
+  "VI": [
+   [
+    800,
+    899
+   ]
+  ],
+  "VT": [
+   [
+    5000,
+    5999
+   ]
+  ],
+  "WA": [
+   [
+    98000,
+    99499
+   ]
+  ],
+  "WI": [
+   [
+    53000,
+    54999
+   ]
+  ],
+  "WV": [
+   [
+    24700,
+    26899
+   ]
+  ],
+  "WY": [
+   [
+    82000,
+    83199
+   ]
+  ]
+ },
+ "state_zone_range": {
+  "AK": [
+   1,
+   8
+  ],
+  "AL": [
+   7,
+   9
+  ],
+  "AR": [
+   6,
+   8
+  ],
+  "AZ": [
+   5,
+   10
+  ],
+  "CA": [
+   5,
+   11
+  ],
+  "CO": [
+   3,
+   7
+  ],
+  "CT": [
+   5,
+   7
+  ],
+  "DC": [
+   7,
+   8
+  ],
+  "DE": [
+   7,
+   8
+  ],
+  "FL": [
+   8,
+   11
+  ],
+  "GA": [
+   6,
+   9
+  ],
+  "HI": [
+   10,
+   13
+  ],
+  "IA": [
+   4,
+   6
+  ],
+  "ID": [
+   3,
+   7
+  ],
+  "IL": [
+   5,
+   7
+  ],
+  "IN": [
+   5,
+   7
+  ],
+  "KS": [
+   5,
+   7
+  ],
+  "KY": [
+   6,
+   7
+  ],
+  "LA": [
+   8,
+   10
+  ],
+  "MA": [
+   5,
+   7
+  ],
+  "MD": [
+   6,
+   8
+  ],
+  "ME": [
+   3,
+   6
+  ],
+  "MI": [
+   4,
+   6
+  ],
+  "MN": [
+   3,
+   5
+  ],
+  "MO": [
+   5,
+   7
+  ],
+  "MS": [
+   7,
+   9
+  ],
+  "MT": [
+   3,
+   6
+  ],
+  "NC": [
+   6,
+   8
+  ],
+  "ND": [
+   3,
+   4
+  ],
+  "NE": [
+   4,
+   6
+  ],
+  "NH": [
+   3,
+   6
+  ],
+  "NJ": [
+   6,
+   7
+  ],
+  "NM": [
+   4,
+   9
+  ],
+  "NV": [
+   4,
+   10
+  ],
+  "NY": [
+   3,
+   7
+  ],
+  "OH": [
+   5,
+   7
+  ],
+  "OK": [
+   6,
+   8
+  ],
+  "OR": [
+   4,
+   9
+  ],
+  "PA": [
+   5,
+   7
+  ],
+  "PR": [
+   12,
+   13
+  ],
+  "RI": [
+   6,
+   7
+  ],
+  "SC": [
+   7,
+   9
+  ],
+  "SD": [
+   3,
+   5
+  ],
+  "TN": [
+   6,
+   8
+  ],
+  "TX": [
+   6,
+   10
+  ],
+  "UT": [
+   4,
+   9
+  ],
+  "VA": [
+   5,
+   8
+  ],
+  "VI": [
+   12,
+   13
+  ],
+  "VT": [
+   3,
+   5
+  ],
+  "WA": [
+   4,
+   9
+  ],
+  "WI": [
+   3,
+   6
+  ],
+  "WV": [
+   5,
+   7
+  ],
+  "WY": [
+   2,
+   6
+  ]
+ },
+ "zip3_overrides": {
+  "010": {
+   "place": "Central & western Massachusetts",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "011": {
+   "place": "Central & western Massachusetts",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "012": {
+   "place": "Central & western Massachusetts",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "013": {
+   "place": "Central & western Massachusetts",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "014": {
+   "place": "Central & western Massachusetts",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "015": {
+   "place": "Central & western Massachusetts",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "016": {
+   "place": "Central & western Massachusetts",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "017": {
+   "place": "Central & western Massachusetts",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "018": {
+   "place": "Central & western Massachusetts",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "019": {
+   "place": "Central & western Massachusetts",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "020": {
+   "place": "Eastern Massachusetts & Rhode Island",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "021": {
+   "place": "Eastern Massachusetts & Rhode Island",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "022": {
+   "place": "Eastern Massachusetts & Rhode Island",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "023": {
+   "place": "Eastern Massachusetts & Rhode Island",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "024": {
+   "place": "Eastern Massachusetts & Rhode Island",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "025": {
+   "place": "Eastern Massachusetts & Rhode Island",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "026": {
+   "place": "Eastern Massachusetts & Rhode Island",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "027": {
+   "place": "Eastern Massachusetts & Rhode Island",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "028": {
+   "place": "Eastern Massachusetts & Rhode Island",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "029": {
+   "place": "Eastern Massachusetts & Rhode Island",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "030": {
+   "place": "New Hampshire",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    6
+   ]
+  },
+  "031": {
+   "place": "New Hampshire",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    6
+   ]
+  },
+  "032": {
+   "place": "New Hampshire",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    6
+   ]
+  },
+  "033": {
+   "place": "New Hampshire",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    6
+   ]
+  },
+  "034": {
+   "place": "New Hampshire",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    6
+   ]
+  },
+  "035": {
+   "place": "New Hampshire",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    6
+   ]
+  },
+  "036": {
+   "place": "New Hampshire",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    6
+   ]
+  },
+  "037": {
+   "place": "New Hampshire",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    6
+   ]
+  },
+  "038": {
+   "place": "New Hampshire",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    6
+   ]
+  },
+  "039": {
+   "place": "Southern Maine",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "040": {
+   "place": "Southern Maine",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "041": {
+   "place": "Central & northern Maine",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "042": {
+   "place": "Central & northern Maine",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "043": {
+   "place": "Central & northern Maine",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "044": {
+   "place": "Central & northern Maine",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "045": {
+   "place": "Central & northern Maine",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "046": {
+   "place": "Central & northern Maine",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "047": {
+   "place": "Central & northern Maine",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "048": {
+   "place": "Central & northern Maine",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "049": {
+   "place": "Central & northern Maine",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "050": {
+   "place": "Vermont",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "051": {
+   "place": "Vermont",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "052": {
+   "place": "Vermont",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "053": {
+   "place": "Vermont",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "054": {
+   "place": "Vermont",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "055": {
+   "place": "Vermont",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "056": {
+   "place": "Vermont",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "057": {
+   "place": "Vermont",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "058": {
+   "place": "Vermont",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "059": {
+   "place": "Vermont",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "060": {
+   "place": "Connecticut",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "061": {
+   "place": "Connecticut",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "062": {
+   "place": "Connecticut",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "063": {
+   "place": "Connecticut",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "064": {
+   "place": "Connecticut",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "065": {
+   "place": "Connecticut",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "066": {
+   "place": "Connecticut",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "067": {
+   "place": "Connecticut",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "068": {
+   "place": "Connecticut",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "069": {
+   "place": "Connecticut",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "070": {
+   "place": "New Jersey",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "071": {
+   "place": "New Jersey",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "072": {
+   "place": "New Jersey",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "073": {
+   "place": "New Jersey",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "074": {
+   "place": "New Jersey",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "075": {
+   "place": "New Jersey",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "076": {
+   "place": "New Jersey",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "077": {
+   "place": "New Jersey",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "078": {
+   "place": "New Jersey",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "079": {
+   "place": "New Jersey",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "080": {
+   "place": "New Jersey",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "081": {
+   "place": "New Jersey",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "082": {
+   "place": "New Jersey",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "083": {
+   "place": "New Jersey",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "084": {
+   "place": "New Jersey",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "085": {
+   "place": "New Jersey",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "086": {
+   "place": "New Jersey",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "087": {
+   "place": "New Jersey",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "088": {
+   "place": "New Jersey",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "089": {
+   "place": "New Jersey",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "100": {
+   "place": "New York City",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "101": {
+   "place": "New York City",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "102": {
+   "place": "New York City",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "103": {
+   "place": "New York City",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "104": {
+   "place": "New York City",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "105": {
+   "place": "Hudson Valley & Long Island",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "106": {
+   "place": "Hudson Valley & Long Island",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "107": {
+   "place": "Hudson Valley & Long Island",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "108": {
+   "place": "Hudson Valley & Long Island",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "109": {
+   "place": "Hudson Valley & Long Island",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "110": {
+   "place": "Hudson Valley & Long Island",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "111": {
+   "place": "Hudson Valley & Long Island",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "112": {
+   "place": "Hudson Valley & Long Island",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "113": {
+   "place": "Hudson Valley & Long Island",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "114": {
+   "place": "Hudson Valley & Long Island",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "115": {
+   "place": "Hudson Valley & Long Island",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "116": {
+   "place": "Hudson Valley & Long Island",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "117": {
+   "place": "Hudson Valley & Long Island",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "118": {
+   "place": "Hudson Valley & Long Island",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "119": {
+   "place": "Hudson Valley & Long Island",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "120": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "121": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "122": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "123": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "124": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "125": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "126": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "127": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "128": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "129": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "130": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "131": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "132": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "133": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "134": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "135": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "136": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "137": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "138": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "139": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "140": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "141": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "142": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "143": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "144": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "145": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "146": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "147": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "148": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "149": {
+   "place": "Upstate New York",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "150": {
+   "place": "Pittsburgh & western Pennsylvania",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "151": {
+   "place": "Pittsburgh & western Pennsylvania",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "152": {
+   "place": "Pittsburgh & western Pennsylvania",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "153": {
+   "place": "Pittsburgh & western Pennsylvania",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "154": {
+   "place": "Pittsburgh & western Pennsylvania",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "155": {
+   "place": "Pittsburgh & western Pennsylvania",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "156": {
+   "place": "Pittsburgh & western Pennsylvania",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "157": {
+   "place": "Pittsburgh & western Pennsylvania",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "158": {
+   "place": "Pittsburgh & western Pennsylvania",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "159": {
+   "place": "Pittsburgh & western Pennsylvania",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "160": {
+   "place": "Northwestern Pennsylvania",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "161": {
+   "place": "Northwestern Pennsylvania",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "162": {
+   "place": "Northwestern Pennsylvania",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "163": {
+   "place": "Northwestern Pennsylvania",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "164": {
+   "place": "Northwestern Pennsylvania",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "165": {
+   "place": "Northwestern Pennsylvania",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "166": {
+   "place": "Northwestern Pennsylvania",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "167": {
+   "place": "Northwestern Pennsylvania",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "168": {
+   "place": "Northwestern Pennsylvania",
+   "regions": [
+    "NE",
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "169": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "170": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "171": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "172": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "173": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "174": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "175": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "176": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "177": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "178": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "179": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "180": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "181": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "182": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "183": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "184": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "185": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "186": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "187": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "188": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "189": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "190": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "191": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "192": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "193": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "194": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "195": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "196": {
+   "place": "Eastern Pennsylvania & Philadelphia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "197": {
+   "place": "Delaware",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "198": {
+   "place": "Delaware",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "199": {
+   "place": "Delaware",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "206": {
+   "place": "Maryland & the District of Columbia",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "207": {
+   "place": "Maryland & the District of Columbia",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "208": {
+   "place": "Maryland & the District of Columbia",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "209": {
+   "place": "Maryland & the District of Columbia",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "210": {
+   "place": "Maryland & the District of Columbia",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "211": {
+   "place": "Maryland & the District of Columbia",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "212": {
+   "place": "Maryland & the District of Columbia",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "213": {
+   "place": "Maryland & the District of Columbia",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "214": {
+   "place": "Maryland & the District of Columbia",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "215": {
+   "place": "Maryland & the District of Columbia",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "216": {
+   "place": "Maryland & the District of Columbia",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "217": {
+   "place": "Maryland & the District of Columbia",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "218": {
+   "place": "Maryland & the District of Columbia",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "219": {
+   "place": "Maryland & the District of Columbia",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "220": {
+   "place": "Northern Virginia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "221": {
+   "place": "Northern Virginia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "222": {
+   "place": "Northern Virginia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "223": {
+   "place": "Northern Virginia",
+   "regions": [
+    "NE"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "224": {
+   "place": "Shenandoah Valley",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "225": {
+   "place": "Shenandoah Valley",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "226": {
+   "place": "Shenandoah Valley",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "227": {
+   "place": "Shenandoah Valley",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "228": {
+   "place": "Shenandoah Valley",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "229": {
+   "place": "Shenandoah Valley",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "230": {
+   "place": "Richmond & Tidewater",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "231": {
+   "place": "Richmond & Tidewater",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "232": {
+   "place": "Richmond & Tidewater",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "233": {
+   "place": "Richmond & Tidewater",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "234": {
+   "place": "Richmond & Tidewater",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "235": {
+   "place": "Richmond & Tidewater",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "236": {
+   "place": "Richmond & Tidewater",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "237": {
+   "place": "Richmond & Tidewater",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "238": {
+   "place": "Richmond & Tidewater",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "244": {
+   "place": "Appalachian highlands",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "245": {
+   "place": "Appalachian highlands",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "246": {
+   "place": "Appalachian highlands",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "247": {
+   "place": "Appalachian highlands",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "248": {
+   "place": "Appalachian highlands",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "249": {
+   "place": "Appalachian highlands",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "258": {
+   "place": "Appalachian highlands",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "259": {
+   "place": "Appalachian highlands",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "267": {
+   "place": "Appalachian highlands",
+   "regions": [
+    "NE",
+    "SE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "270": {
+   "place": "North Carolina Piedmont & coast",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "271": {
+   "place": "North Carolina Piedmont & coast",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "272": {
+   "place": "North Carolina Piedmont & coast",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "273": {
+   "place": "North Carolina Piedmont & coast",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "274": {
+   "place": "North Carolina Piedmont & coast",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "275": {
+   "place": "North Carolina Piedmont & coast",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "276": {
+   "place": "North Carolina Piedmont & coast",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "277": {
+   "place": "North Carolina Piedmont & coast",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "278": {
+   "place": "North Carolina Piedmont & coast",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "279": {
+   "place": "North Carolina Piedmont & coast",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "280": {
+   "place": "Western North Carolina mountains",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "281": {
+   "place": "Western North Carolina mountains",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "282": {
+   "place": "Western North Carolina mountains",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "283": {
+   "place": "Western North Carolina mountains",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "284": {
+   "place": "Western North Carolina mountains",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "285": {
+   "place": "Western North Carolina mountains",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "286": {
+   "place": "Western North Carolina mountains",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "287": {
+   "place": "Western North Carolina mountains",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "288": {
+   "place": "Western North Carolina mountains",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "289": {
+   "place": "Western North Carolina mountains",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "290": {
+   "place": "South Carolina",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "291": {
+   "place": "South Carolina",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "292": {
+   "place": "South Carolina",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "293": {
+   "place": "South Carolina",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "294": {
+   "place": "South Carolina",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "295": {
+   "place": "South Carolina",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "296": {
+   "place": "South Carolina",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "297": {
+   "place": "South Carolina",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "298": {
+   "place": "South Carolina",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "299": {
+   "place": "South Carolina",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "300": {
+   "place": "Atlanta & north Georgia",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "301": {
+   "place": "Atlanta & north Georgia",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "302": {
+   "place": "Atlanta & north Georgia",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "303": {
+   "place": "Atlanta & north Georgia",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "304": {
+   "place": "Atlanta & north Georgia",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "305": {
+   "place": "Middle Georgia",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "306": {
+   "place": "Middle Georgia",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "307": {
+   "place": "Middle Georgia",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "308": {
+   "place": "Middle Georgia",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "309": {
+   "place": "Middle Georgia",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "310": {
+   "place": "Middle Georgia",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "311": {
+   "place": "Middle Georgia",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "312": {
+   "place": "Middle Georgia",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "313": {
+   "place": "South Georgia & coast",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "314": {
+   "place": "South Georgia & coast",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "315": {
+   "place": "South Georgia & coast",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "316": {
+   "place": "South Georgia & coast",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "317": {
+   "place": "South Georgia & coast",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "318": {
+   "place": "South Georgia & coast",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "319": {
+   "place": "South Georgia & coast",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "320": {
+   "place": "North Florida",
+   "regions": [
+    "SE",
+    "FL"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "321": {
+   "place": "North Florida",
+   "regions": [
+    "SE",
+    "FL"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "322": {
+   "place": "North Florida",
+   "regions": [
+    "SE",
+    "FL"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "323": {
+   "place": "North Florida",
+   "regions": [
+    "SE",
+    "FL"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "324": {
+   "place": "North Florida",
+   "regions": [
+    "SE",
+    "FL"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "325": {
+   "place": "North Florida",
+   "regions": [
+    "SE",
+    "FL"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "326": {
+   "place": "North Florida",
+   "regions": [
+    "SE",
+    "FL"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "327": {
+   "place": "North Florida",
+   "regions": [
+    "SE",
+    "FL"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "328": {
+   "place": "Central Florida",
+   "regions": [
+    "FL"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "329": {
+   "place": "Central Florida",
+   "regions": [
+    "FL"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "330": {
+   "place": "South Florida",
+   "regions": [
+    "FL"
+   ],
+   "zones": [
+    10,
+    11
+   ]
+  },
+  "331": {
+   "place": "South Florida",
+   "regions": [
+    "FL"
+   ],
+   "zones": [
+    10,
+    11
+   ]
+  },
+  "332": {
+   "place": "South Florida",
+   "regions": [
+    "FL"
+   ],
+   "zones": [
+    10,
+    11
+   ]
+  },
+  "333": {
+   "place": "South Florida",
+   "regions": [
+    "FL"
+   ],
+   "zones": [
+    10,
+    11
+   ]
+  },
+  "334": {
+   "place": "South Florida",
+   "regions": [
+    "FL"
+   ],
+   "zones": [
+    10,
+    11
+   ]
+  },
+  "335": {
+   "place": "Central Florida",
+   "regions": [
+    "FL"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "336": {
+   "place": "Central Florida",
+   "regions": [
+    "FL"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "337": {
+   "place": "Central Florida",
+   "regions": [
+    "FL"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "338": {
+   "place": "Central Florida",
+   "regions": [
+    "FL"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "339": {
+   "place": "South Florida",
+   "regions": [
+    "FL"
+   ],
+   "zones": [
+    10,
+    11
+   ]
+  },
+  "341": {
+   "place": "South Florida",
+   "regions": [
+    "FL"
+   ],
+   "zones": [
+    10,
+    11
+   ]
+  },
+  "342": {
+   "place": "Central Florida",
+   "regions": [
+    "FL"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "344": {
+   "place": "North Florida",
+   "regions": [
+    "SE",
+    "FL"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "346": {
+   "place": "Central Florida",
+   "regions": [
+    "FL"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "347": {
+   "place": "Central Florida",
+   "regions": [
+    "FL"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "349": {
+   "place": "Central Florida",
+   "regions": [
+    "FL"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "350": {
+   "place": "North Alabama",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "351": {
+   "place": "North Alabama",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "352": {
+   "place": "North Alabama",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "354": {
+   "place": "Central Alabama",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "355": {
+   "place": "Central Alabama",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "356": {
+   "place": "Central Alabama",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "357": {
+   "place": "Central Alabama",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "358": {
+   "place": "Central Alabama",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "359": {
+   "place": "Central Alabama",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "360": {
+   "place": "Central Alabama",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "361": {
+   "place": "Central Alabama",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "362": {
+   "place": "Central Alabama",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "363": {
+   "place": "South Alabama & the Gulf Coast",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "364": {
+   "place": "South Alabama & the Gulf Coast",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "365": {
+   "place": "South Alabama & the Gulf Coast",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "366": {
+   "place": "South Alabama & the Gulf Coast",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "367": {
+   "place": "South Alabama & the Gulf Coast",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "368": {
+   "place": "South Alabama & the Gulf Coast",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "369": {
+   "place": "South Alabama & the Gulf Coast",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "370": {
+   "place": "Middle & East Tennessee",
+   "regions": [
+    "SE",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "371": {
+   "place": "Middle & East Tennessee",
+   "regions": [
+    "SE",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "372": {
+   "place": "Middle & East Tennessee",
+   "regions": [
+    "SE",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "373": {
+   "place": "Middle & East Tennessee",
+   "regions": [
+    "SE",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "374": {
+   "place": "Middle & East Tennessee",
+   "regions": [
+    "SE",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "375": {
+   "place": "Middle & East Tennessee",
+   "regions": [
+    "SE",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "376": {
+   "place": "Middle & East Tennessee",
+   "regions": [
+    "SE",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "377": {
+   "place": "East Tennessee highlands",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "378": {
+   "place": "East Tennessee highlands",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "379": {
+   "place": "East Tennessee highlands",
+   "regions": [
+    "SE",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "380": {
+   "place": "West Tennessee & Memphis",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "381": {
+   "place": "West Tennessee & Memphis",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "382": {
+   "place": "West Tennessee & Memphis",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "383": {
+   "place": "West Tennessee & Memphis",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "384": {
+   "place": "West Tennessee & Memphis",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "385": {
+   "place": "West Tennessee & Memphis",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "386": {
+   "place": "Mississippi",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "387": {
+   "place": "Mississippi",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "388": {
+   "place": "Mississippi",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "389": {
+   "place": "Mississippi",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "390": {
+   "place": "Mississippi",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "391": {
+   "place": "Mississippi",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "392": {
+   "place": "Mississippi",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "393": {
+   "place": "Mississippi",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "394": {
+   "place": "Mississippi",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "395": {
+   "place": "Mississippi",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "396": {
+   "place": "Mississippi",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "397": {
+   "place": "Mississippi",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "398": {
+   "place": "South Georgia & coast",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "399": {
+   "place": "South Georgia & coast",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "400": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "401": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "402": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "403": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "404": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "405": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "406": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "407": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "408": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "409": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "410": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "411": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "412": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "413": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "414": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "415": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "416": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "417": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "418": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "419": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "420": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "421": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "422": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "423": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "424": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "425": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "426": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "427": {
+   "place": "Kentucky",
+   "regions": [
+    "SE",
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "430": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "431": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "432": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "433": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "434": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "435": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "436": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "437": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "438": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "439": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "440": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "441": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "442": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "443": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "444": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "445": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "446": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "447": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "448": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "449": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "450": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "451": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "452": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "453": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "454": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "455": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "456": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "457": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "458": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "459": {
+   "place": "Ohio",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "460": {
+   "place": "Indiana",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "461": {
+   "place": "Indiana",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "462": {
+   "place": "Indiana",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "463": {
+   "place": "Indiana",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "464": {
+   "place": "Indiana",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "465": {
+   "place": "Indiana",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "466": {
+   "place": "Indiana",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "467": {
+   "place": "Indiana",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "468": {
+   "place": "Indiana",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "469": {
+   "place": "Indiana",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "470": {
+   "place": "Indiana",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "471": {
+   "place": "Indiana",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "472": {
+   "place": "Indiana",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "473": {
+   "place": "Indiana",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "474": {
+   "place": "Indiana",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "475": {
+   "place": "Indiana",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "476": {
+   "place": "Indiana",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "477": {
+   "place": "Indiana",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "478": {
+   "place": "Indiana",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "479": {
+   "place": "Indiana",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    6,
+    6
+   ]
+  },
+  "480": {
+   "place": "Southeast Michigan",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "481": {
+   "place": "Southeast Michigan",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "482": {
+   "place": "Southeast Michigan",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "483": {
+   "place": "Southeast Michigan",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "484": {
+   "place": "Southeast Michigan",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "485": {
+   "place": "Southeast Michigan",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "486": {
+   "place": "Southeast Michigan",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "487": {
+   "place": "Southeast Michigan",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "488": {
+   "place": "Southeast Michigan",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "489": {
+   "place": "Southeast Michigan",
+   "regions": [
+    "MW",
+    "NE"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "490": {
+   "place": "Western & northern Michigan",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    6
+   ]
+  },
+  "491": {
+   "place": "Western & northern Michigan",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    6
+   ]
+  },
+  "492": {
+   "place": "Western & northern Michigan",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    6
+   ]
+  },
+  "493": {
+   "place": "Western & northern Michigan",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    6
+   ]
+  },
+  "494": {
+   "place": "Western & northern Michigan",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    6
+   ]
+  },
+  "495": {
+   "place": "Western & northern Michigan",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    6
+   ]
+  },
+  "496": {
+   "place": "Western & northern Michigan",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    6
+   ]
+  },
+  "497": {
+   "place": "Western & northern Michigan",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    6
+   ]
+  },
+  "498": {
+   "place": "Western & northern Michigan",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    6
+   ]
+  },
+  "499": {
+   "place": "Western & northern Michigan",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    6
+   ]
+  },
+  "500": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "501": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "502": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "503": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "504": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "505": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "506": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "507": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "508": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "509": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "510": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "511": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "512": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "513": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "514": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "515": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "516": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "517": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "518": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "519": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "520": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "521": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "522": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "523": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "524": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "525": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "526": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "527": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "528": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "529": {
+   "place": "Iowa",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    5
+   ]
+  },
+  "530": {
+   "place": "Wisconsin",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "531": {
+   "place": "Wisconsin",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "532": {
+   "place": "Wisconsin",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "533": {
+   "place": "Wisconsin",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "534": {
+   "place": "Wisconsin",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "535": {
+   "place": "Wisconsin",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "536": {
+   "place": "Wisconsin",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "537": {
+   "place": "Wisconsin",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "538": {
+   "place": "Wisconsin",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "539": {
+   "place": "Wisconsin",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "540": {
+   "place": "Wisconsin",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "541": {
+   "place": "Wisconsin",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "542": {
+   "place": "Wisconsin",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "543": {
+   "place": "Wisconsin",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "544": {
+   "place": "Wisconsin",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "545": {
+   "place": "Wisconsin",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "546": {
+   "place": "Wisconsin",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "547": {
+   "place": "Wisconsin",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "548": {
+   "place": "Wisconsin",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "549": {
+   "place": "Wisconsin",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "550": {
+   "place": "Twin Cities",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "551": {
+   "place": "Twin Cities",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "552": {
+   "place": "Twin Cities",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "553": {
+   "place": "Twin Cities",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "554": {
+   "place": "Twin Cities",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "555": {
+   "place": "Twin Cities",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "556": {
+   "place": "Twin Cities",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "557": {
+   "place": "Twin Cities",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "558": {
+   "place": "Twin Cities",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "559": {
+   "place": "Twin Cities",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "560": {
+   "place": "Northern & western Minnesota",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    3,
+    4
+   ]
+  },
+  "561": {
+   "place": "Northern & western Minnesota",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    3,
+    4
+   ]
+  },
+  "562": {
+   "place": "Northern & western Minnesota",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    3,
+    4
+   ]
+  },
+  "563": {
+   "place": "Northern & western Minnesota",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    3,
+    4
+   ]
+  },
+  "564": {
+   "place": "Northern & western Minnesota",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    3,
+    4
+   ]
+  },
+  "565": {
+   "place": "Northern & western Minnesota",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    3,
+    4
+   ]
+  },
+  "566": {
+   "place": "Northern & western Minnesota",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    3,
+    4
+   ]
+  },
+  "567": {
+   "place": "Northern & western Minnesota",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    3,
+    4
+   ]
+  },
+  "570": {
+   "place": "South Dakota",
+   "regions": [
+    "GP",
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "571": {
+   "place": "South Dakota",
+   "regions": [
+    "GP",
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "572": {
+   "place": "South Dakota",
+   "regions": [
+    "GP",
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "573": {
+   "place": "South Dakota",
+   "regions": [
+    "GP",
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "574": {
+   "place": "South Dakota",
+   "regions": [
+    "GP",
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "575": {
+   "place": "South Dakota",
+   "regions": [
+    "GP",
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "576": {
+   "place": "South Dakota",
+   "regions": [
+    "GP",
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "577": {
+   "place": "South Dakota",
+   "regions": [
+    "GP",
+    "MW"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "580": {
+   "place": "North Dakota",
+   "regions": [
+    "GP",
+    "MW"
+   ],
+   "zones": [
+    3,
+    4
+   ]
+  },
+  "581": {
+   "place": "North Dakota",
+   "regions": [
+    "GP",
+    "MW"
+   ],
+   "zones": [
+    3,
+    4
+   ]
+  },
+  "582": {
+   "place": "North Dakota",
+   "regions": [
+    "GP",
+    "MW"
+   ],
+   "zones": [
+    3,
+    4
+   ]
+  },
+  "583": {
+   "place": "North Dakota",
+   "regions": [
+    "GP",
+    "MW"
+   ],
+   "zones": [
+    3,
+    4
+   ]
+  },
+  "584": {
+   "place": "North Dakota",
+   "regions": [
+    "GP",
+    "MW"
+   ],
+   "zones": [
+    3,
+    4
+   ]
+  },
+  "585": {
+   "place": "North Dakota",
+   "regions": [
+    "GP",
+    "MW"
+   ],
+   "zones": [
+    3,
+    4
+   ]
+  },
+  "586": {
+   "place": "North Dakota",
+   "regions": [
+    "GP",
+    "MW"
+   ],
+   "zones": [
+    3,
+    4
+   ]
+  },
+  "587": {
+   "place": "North Dakota",
+   "regions": [
+    "GP",
+    "MW"
+   ],
+   "zones": [
+    3,
+    4
+   ]
+  },
+  "588": {
+   "place": "North Dakota",
+   "regions": [
+    "GP",
+    "MW"
+   ],
+   "zones": [
+    3,
+    4
+   ]
+  },
+  "590": {
+   "place": "Montana",
+   "regions": [
+    "MTN",
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "591": {
+   "place": "Montana",
+   "regions": [
+    "MTN",
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "592": {
+   "place": "Montana",
+   "regions": [
+    "MTN",
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "593": {
+   "place": "Montana",
+   "regions": [
+    "MTN",
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "594": {
+   "place": "Montana",
+   "regions": [
+    "MTN",
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "595": {
+   "place": "Montana",
+   "regions": [
+    "MTN",
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "596": {
+   "place": "Montana",
+   "regions": [
+    "MTN",
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "597": {
+   "place": "Montana",
+   "regions": [
+    "MTN",
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "598": {
+   "place": "Montana",
+   "regions": [
+    "MTN",
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "599": {
+   "place": "Montana",
+   "regions": [
+    "MTN",
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "600": {
+   "place": "Chicago & northern Illinois",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "601": {
+   "place": "Chicago & northern Illinois",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "602": {
+   "place": "Chicago & northern Illinois",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "603": {
+   "place": "Chicago & northern Illinois",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "604": {
+   "place": "Chicago & northern Illinois",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "605": {
+   "place": "Chicago & northern Illinois",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "606": {
+   "place": "Chicago & northern Illinois",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "607": {
+   "place": "Chicago & northern Illinois",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "608": {
+   "place": "Chicago & northern Illinois",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "609": {
+   "place": "Chicago & northern Illinois",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "610": {
+   "place": "Central Illinois",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "611": {
+   "place": "Central Illinois",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "612": {
+   "place": "Central Illinois",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "613": {
+   "place": "Central Illinois",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "614": {
+   "place": "Central Illinois",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "615": {
+   "place": "Central Illinois",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "616": {
+   "place": "Central Illinois",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "617": {
+   "place": "Central Illinois",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "618": {
+   "place": "Central Illinois",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "619": {
+   "place": "Central Illinois",
+   "regions": [
+    "MW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "620": {
+   "place": "Southern Illinois",
+   "regions": [
+    "MW",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "621": {
+   "place": "Southern Illinois",
+   "regions": [
+    "MW",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "622": {
+   "place": "Southern Illinois",
+   "regions": [
+    "MW",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "623": {
+   "place": "Southern Illinois",
+   "regions": [
+    "MW",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "624": {
+   "place": "Southern Illinois",
+   "regions": [
+    "MW",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "625": {
+   "place": "Southern Illinois",
+   "regions": [
+    "MW",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "626": {
+   "place": "Southern Illinois",
+   "regions": [
+    "MW",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "627": {
+   "place": "Southern Illinois",
+   "regions": [
+    "MW",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "628": {
+   "place": "Southern Illinois",
+   "regions": [
+    "MW",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "629": {
+   "place": "Southern Illinois",
+   "regions": [
+    "MW",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "630": {
+   "place": "St Louis region",
+   "regions": [
+    "MW",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "631": {
+   "place": "St Louis region",
+   "regions": [
+    "MW",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "632": {
+   "place": "St Louis region",
+   "regions": [
+    "MW",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "633": {
+   "place": "St Louis region",
+   "regions": [
+    "MW",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "634": {
+   "place": "St Louis region",
+   "regions": [
+    "MW",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "635": {
+   "place": "St Louis region",
+   "regions": [
+    "MW",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "636": {
+   "place": "St Louis region",
+   "regions": [
+    "MW",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "637": {
+   "place": "St Louis region",
+   "regions": [
+    "MW",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "638": {
+   "place": "St Louis region",
+   "regions": [
+    "MW",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "639": {
+   "place": "St Louis region",
+   "regions": [
+    "MW",
+    "SE"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "640": {
+   "place": "Kansas City metro",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "641": {
+   "place": "Kansas City metro",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "645": {
+   "place": "Central & southwest Missouri",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "646": {
+   "place": "Central & southwest Missouri",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "647": {
+   "place": "Central & southwest Missouri",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "648": {
+   "place": "Central & southwest Missouri",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "649": {
+   "place": "Central & southwest Missouri",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "650": {
+   "place": "Central & southwest Missouri",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "651": {
+   "place": "Central & southwest Missouri",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "652": {
+   "place": "Central & southwest Missouri",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "653": {
+   "place": "Central & southwest Missouri",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "654": {
+   "place": "Central & southwest Missouri",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "655": {
+   "place": "Central & southwest Missouri",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "656": {
+   "place": "Central & southwest Missouri",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "657": {
+   "place": "Central & southwest Missouri",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "658": {
+   "place": "Central & southwest Missouri",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "660": {
+   "place": "Kansas City metro",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "661": {
+   "place": "Kansas City metro",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "662": {
+   "place": "Kansas City metro",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "664": {
+   "place": "Kansas City metro",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "665": {
+   "place": "Kansas City metro",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "666": {
+   "place": "Kansas City metro",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "667": {
+   "place": "Western Kansas",
+   "regions": [
+    "GP"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "668": {
+   "place": "Western Kansas",
+   "regions": [
+    "GP"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "669": {
+   "place": "Western Kansas",
+   "regions": [
+    "GP"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "670": {
+   "place": "Western Kansas",
+   "regions": [
+    "GP"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "671": {
+   "place": "Western Kansas",
+   "regions": [
+    "GP"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "672": {
+   "place": "Western Kansas",
+   "regions": [
+    "GP"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "673": {
+   "place": "Western Kansas",
+   "regions": [
+    "GP"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "674": {
+   "place": "Western Kansas",
+   "regions": [
+    "GP"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "675": {
+   "place": "Western Kansas",
+   "regions": [
+    "GP"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "676": {
+   "place": "Western Kansas",
+   "regions": [
+    "GP"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "677": {
+   "place": "Western Kansas",
+   "regions": [
+    "GP"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "678": {
+   "place": "Western Kansas",
+   "regions": [
+    "GP"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "679": {
+   "place": "Western Kansas",
+   "regions": [
+    "GP"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "680": {
+   "place": "Omaha & eastern Nebraska",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "681": {
+   "place": "Omaha & eastern Nebraska",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "683": {
+   "place": "Omaha & eastern Nebraska",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "684": {
+   "place": "Omaha & eastern Nebraska",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "685": {
+   "place": "Omaha & eastern Nebraska",
+   "regions": [
+    "MW",
+    "GP"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "686": {
+   "place": "Western Nebraska",
+   "regions": [
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "687": {
+   "place": "Western Nebraska",
+   "regions": [
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "688": {
+   "place": "Western Nebraska",
+   "regions": [
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "689": {
+   "place": "Western Nebraska",
+   "regions": [
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "690": {
+   "place": "Western Nebraska",
+   "regions": [
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "691": {
+   "place": "Western Nebraska",
+   "regions": [
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "692": {
+   "place": "Western Nebraska",
+   "regions": [
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "693": {
+   "place": "Western Nebraska",
+   "regions": [
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "700": {
+   "place": "Louisiana",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "701": {
+   "place": "Louisiana",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "702": {
+   "place": "Louisiana",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "703": {
+   "place": "Louisiana",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "704": {
+   "place": "Louisiana",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "705": {
+   "place": "Louisiana",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "706": {
+   "place": "Louisiana",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "707": {
+   "place": "Louisiana",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "708": {
+   "place": "Louisiana",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "709": {
+   "place": "Louisiana",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "710": {
+   "place": "Louisiana",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "711": {
+   "place": "Louisiana",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "712": {
+   "place": "Louisiana",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "713": {
+   "place": "Louisiana",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "714": {
+   "place": "Louisiana",
+   "regions": [
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "716": {
+   "place": "Arkansas",
+   "regions": [
+    "SE",
+    "MW"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "717": {
+   "place": "Arkansas",
+   "regions": [
+    "SE",
+    "MW"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "718": {
+   "place": "Arkansas",
+   "regions": [
+    "SE",
+    "MW"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "719": {
+   "place": "Arkansas",
+   "regions": [
+    "SE",
+    "MW"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "720": {
+   "place": "Arkansas",
+   "regions": [
+    "SE",
+    "MW"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "721": {
+   "place": "Arkansas",
+   "regions": [
+    "SE",
+    "MW"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "722": {
+   "place": "Arkansas",
+   "regions": [
+    "SE",
+    "MW"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "723": {
+   "place": "Arkansas",
+   "regions": [
+    "SE",
+    "MW"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "724": {
+   "place": "Arkansas",
+   "regions": [
+    "SE",
+    "MW"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "725": {
+   "place": "Arkansas",
+   "regions": [
+    "SE",
+    "MW"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "726": {
+   "place": "Arkansas",
+   "regions": [
+    "SE",
+    "MW"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "727": {
+   "place": "Arkansas",
+   "regions": [
+    "SE",
+    "MW"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "728": {
+   "place": "Arkansas",
+   "regions": [
+    "SE",
+    "MW"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "729": {
+   "place": "Arkansas",
+   "regions": [
+    "SE",
+    "MW"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "730": {
+   "place": "Oklahoma",
+   "regions": [
+    "GP",
+    "TX",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "731": {
+   "place": "Oklahoma",
+   "regions": [
+    "GP",
+    "TX",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "732": {
+   "place": "Oklahoma",
+   "regions": [
+    "GP",
+    "TX",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "733": {
+   "place": "Oklahoma",
+   "regions": [
+    "GP",
+    "TX",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "734": {
+   "place": "Oklahoma",
+   "regions": [
+    "GP",
+    "TX",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "735": {
+   "place": "Oklahoma",
+   "regions": [
+    "GP",
+    "TX",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "736": {
+   "place": "Oklahoma",
+   "regions": [
+    "GP",
+    "TX",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "737": {
+   "place": "Oklahoma",
+   "regions": [
+    "GP",
+    "TX",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "738": {
+   "place": "Oklahoma",
+   "regions": [
+    "GP",
+    "TX",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "739": {
+   "place": "Oklahoma",
+   "regions": [
+    "GP",
+    "TX",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "740": {
+   "place": "Oklahoma",
+   "regions": [
+    "GP",
+    "TX",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "741": {
+   "place": "Oklahoma",
+   "regions": [
+    "GP",
+    "TX",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "742": {
+   "place": "Oklahoma",
+   "regions": [
+    "GP",
+    "TX",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "743": {
+   "place": "Oklahoma",
+   "regions": [
+    "GP",
+    "TX",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "744": {
+   "place": "Oklahoma",
+   "regions": [
+    "GP",
+    "TX",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "745": {
+   "place": "Oklahoma",
+   "regions": [
+    "GP",
+    "TX",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "746": {
+   "place": "Oklahoma",
+   "regions": [
+    "GP",
+    "TX",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "747": {
+   "place": "Oklahoma",
+   "regions": [
+    "GP",
+    "TX",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "748": {
+   "place": "Oklahoma",
+   "regions": [
+    "GP",
+    "TX",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "749": {
+   "place": "Oklahoma",
+   "regions": [
+    "GP",
+    "TX",
+    "MW"
+   ],
+   "zones": [
+    7,
+    7
+   ]
+  },
+  "750": {
+   "place": "Dallas-Fort Worth & Blackland Prairie",
+   "regions": [
+    "TX"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "751": {
+   "place": "Dallas-Fort Worth & Blackland Prairie",
+   "regions": [
+    "TX"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "752": {
+   "place": "Dallas-Fort Worth & Blackland Prairie",
+   "regions": [
+    "TX"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "753": {
+   "place": "Dallas-Fort Worth & Blackland Prairie",
+   "regions": [
+    "TX"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "754": {
+   "place": "Dallas-Fort Worth & Blackland Prairie",
+   "regions": [
+    "TX"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "755": {
+   "place": "Dallas-Fort Worth & Blackland Prairie",
+   "regions": [
+    "TX"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "756": {
+   "place": "East Texas & the Gulf Coast",
+   "regions": [
+    "TX",
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "757": {
+   "place": "East Texas & the Gulf Coast",
+   "regions": [
+    "TX",
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "758": {
+   "place": "East Texas & the Gulf Coast",
+   "regions": [
+    "TX",
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "759": {
+   "place": "East Texas & the Gulf Coast",
+   "regions": [
+    "TX",
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "760": {
+   "place": "Central Texas & Edwards Plateau",
+   "regions": [
+    "TX"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "761": {
+   "place": "Central Texas & Edwards Plateau",
+   "regions": [
+    "TX"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "762": {
+   "place": "Dallas-Fort Worth & Blackland Prairie",
+   "regions": [
+    "TX"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "763": {
+   "place": "Dallas-Fort Worth & Blackland Prairie",
+   "regions": [
+    "TX"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "764": {
+   "place": "Dallas-Fort Worth & Blackland Prairie",
+   "regions": [
+    "TX"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "765": {
+   "place": "Dallas-Fort Worth & Blackland Prairie",
+   "regions": [
+    "TX"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "766": {
+   "place": "Dallas-Fort Worth & Blackland Prairie",
+   "regions": [
+    "TX"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "767": {
+   "place": "Dallas-Fort Worth & Blackland Prairie",
+   "regions": [
+    "TX"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "768": {
+   "place": "Dallas-Fort Worth & Blackland Prairie",
+   "regions": [
+    "TX"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "769": {
+   "place": "Dallas-Fort Worth & Blackland Prairie",
+   "regions": [
+    "TX"
+   ],
+   "zones": [
+    8,
+    8
+   ]
+  },
+  "770": {
+   "place": "East Texas & the Gulf Coast",
+   "regions": [
+    "TX",
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "771": {
+   "place": "East Texas & the Gulf Coast",
+   "regions": [
+    "TX",
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "772": {
+   "place": "East Texas & the Gulf Coast",
+   "regions": [
+    "TX",
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "773": {
+   "place": "East Texas & the Gulf Coast",
+   "regions": [
+    "TX",
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "774": {
+   "place": "East Texas & the Gulf Coast",
+   "regions": [
+    "TX",
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "775": {
+   "place": "East Texas & the Gulf Coast",
+   "regions": [
+    "TX",
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "776": {
+   "place": "East Texas & the Gulf Coast",
+   "regions": [
+    "TX",
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "777": {
+   "place": "East Texas & the Gulf Coast",
+   "regions": [
+    "TX",
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "778": {
+   "place": "East Texas & the Gulf Coast",
+   "regions": [
+    "TX",
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "779": {
+   "place": "East Texas & the Gulf Coast",
+   "regions": [
+    "TX",
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "780": {
+   "place": "Central Texas & Edwards Plateau",
+   "regions": [
+    "TX"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "781": {
+   "place": "Central Texas & Edwards Plateau",
+   "regions": [
+    "TX"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "782": {
+   "place": "Central Texas & Edwards Plateau",
+   "regions": [
+    "TX"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "783": {
+   "place": "East Texas & the Gulf Coast",
+   "regions": [
+    "TX",
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "784": {
+   "place": "East Texas & the Gulf Coast",
+   "regions": [
+    "TX",
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "785": {
+   "place": "East Texas & the Gulf Coast",
+   "regions": [
+    "TX",
+    "SE"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "786": {
+   "place": "Central Texas & Edwards Plateau",
+   "regions": [
+    "TX"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "787": {
+   "place": "Central Texas & Edwards Plateau",
+   "regions": [
+    "TX"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "788": {
+   "place": "Central Texas & Edwards Plateau",
+   "regions": [
+    "TX"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "789": {
+   "place": "Central Texas & Edwards Plateau",
+   "regions": [
+    "TX"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "790": {
+   "place": "Texas Panhandle & Llano Estacado",
+   "regions": [
+    "TX",
+    "GP"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "791": {
+   "place": "Texas Panhandle & Llano Estacado",
+   "regions": [
+    "TX",
+    "GP"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "792": {
+   "place": "Texas Panhandle & Llano Estacado",
+   "regions": [
+    "TX",
+    "GP"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "793": {
+   "place": "Texas Panhandle & Llano Estacado",
+   "regions": [
+    "TX",
+    "GP"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "794": {
+   "place": "Texas Panhandle & Llano Estacado",
+   "regions": [
+    "TX",
+    "GP"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "795": {
+   "place": "Trans-Pecos & El Paso",
+   "regions": [
+    "SW",
+    "TX"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "797": {
+   "place": "Trans-Pecos & El Paso",
+   "regions": [
+    "SW",
+    "TX"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "798": {
+   "place": "Trans-Pecos & El Paso",
+   "regions": [
+    "SW",
+    "TX"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "799": {
+   "place": "Trans-Pecos & El Paso",
+   "regions": [
+    "SW",
+    "TX"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "800": {
+   "place": "Colorado Front Range",
+   "regions": [
+    "GP",
+    "MTN"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "801": {
+   "place": "Colorado Front Range",
+   "regions": [
+    "GP",
+    "MTN"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "802": {
+   "place": "Colorado Front Range",
+   "regions": [
+    "GP",
+    "MTN"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "803": {
+   "place": "Colorado Front Range",
+   "regions": [
+    "GP",
+    "MTN"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "804": {
+   "place": "Colorado Front Range",
+   "regions": [
+    "GP",
+    "MTN"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "805": {
+   "place": "Colorado Front Range",
+   "regions": [
+    "GP",
+    "MTN"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "806": {
+   "place": "Colorado Front Range",
+   "regions": [
+    "GP",
+    "MTN"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "807": {
+   "place": "Colorado Front Range",
+   "regions": [
+    "GP",
+    "MTN"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "808": {
+   "place": "Colorado Front Range",
+   "regions": [
+    "GP",
+    "MTN"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "809": {
+   "place": "Colorado Front Range",
+   "regions": [
+    "GP",
+    "MTN"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "810": {
+   "place": "Colorado mountains & Western Slope",
+   "regions": [
+    "MTN"
+   ],
+   "zones": [
+    3,
+    5
+   ]
+  },
+  "811": {
+   "place": "Colorado mountains & Western Slope",
+   "regions": [
+    "MTN"
+   ],
+   "zones": [
+    3,
+    5
+   ]
+  },
+  "812": {
+   "place": "Colorado mountains & Western Slope",
+   "regions": [
+    "MTN"
+   ],
+   "zones": [
+    3,
+    5
+   ]
+  },
+  "813": {
+   "place": "Colorado mountains & Western Slope",
+   "regions": [
+    "MTN"
+   ],
+   "zones": [
+    3,
+    5
+   ]
+  },
+  "814": {
+   "place": "Colorado mountains & Western Slope",
+   "regions": [
+    "MTN"
+   ],
+   "zones": [
+    3,
+    5
+   ]
+  },
+  "815": {
+   "place": "Colorado mountains & Western Slope",
+   "regions": [
+    "MTN"
+   ],
+   "zones": [
+    3,
+    5
+   ]
+  },
+  "816": {
+   "place": "Colorado mountains & Western Slope",
+   "regions": [
+    "MTN"
+   ],
+   "zones": [
+    3,
+    5
+   ]
+  },
+  "820": {
+   "place": "Wyoming",
+   "regions": [
+    "MTN",
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "821": {
+   "place": "Wyoming",
+   "regions": [
+    "MTN",
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "822": {
+   "place": "Wyoming",
+   "regions": [
+    "MTN",
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "823": {
+   "place": "Wyoming",
+   "regions": [
+    "MTN",
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "824": {
+   "place": "Wyoming",
+   "regions": [
+    "MTN",
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "825": {
+   "place": "Wyoming",
+   "regions": [
+    "MTN",
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "826": {
+   "place": "Wyoming",
+   "regions": [
+    "MTN",
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "827": {
+   "place": "Wyoming",
+   "regions": [
+    "MTN",
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "828": {
+   "place": "Wyoming",
+   "regions": [
+    "MTN",
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "829": {
+   "place": "Wyoming",
+   "regions": [
+    "MTN",
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "830": {
+   "place": "Wyoming",
+   "regions": [
+    "MTN",
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "831": {
+   "place": "Wyoming",
+   "regions": [
+    "MTN",
+    "GP"
+   ],
+   "zones": [
+    4,
+    5
+   ]
+  },
+  "832": {
+   "place": "Idaho",
+   "regions": [
+    "MTN",
+    "PNW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "833": {
+   "place": "Idaho",
+   "regions": [
+    "MTN",
+    "PNW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "834": {
+   "place": "Idaho",
+   "regions": [
+    "MTN",
+    "PNW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "835": {
+   "place": "Idaho",
+   "regions": [
+    "MTN",
+    "PNW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "836": {
+   "place": "Idaho",
+   "regions": [
+    "MTN",
+    "PNW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "837": {
+   "place": "Idaho",
+   "regions": [
+    "MTN",
+    "PNW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "838": {
+   "place": "Idaho",
+   "regions": [
+    "MTN",
+    "PNW"
+   ],
+   "zones": [
+    5,
+    6
+   ]
+  },
+  "840": {
+   "place": "Wasatch Front",
+   "regions": [
+    "MTN"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "841": {
+   "place": "Wasatch Front",
+   "regions": [
+    "MTN"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "842": {
+   "place": "Wasatch Front",
+   "regions": [
+    "MTN"
+   ],
+   "zones": [
+    6,
+    7
+   ]
+  },
+  "843": {
+   "place": "Southern & eastern Utah",
+   "regions": [
+    "MTN",
+    "SW"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "844": {
+   "place": "Southern & eastern Utah",
+   "regions": [
+    "MTN",
+    "SW"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "845": {
+   "place": "Southern & eastern Utah",
+   "regions": [
+    "MTN",
+    "SW"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "846": {
+   "place": "Southern & eastern Utah",
+   "regions": [
+    "MTN",
+    "SW"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "847": {
+   "place": "Southern & eastern Utah",
+   "regions": [
+    "MTN",
+    "SW"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "850": {
+   "place": "Phoenix & the Sonoran lowland",
+   "regions": [
+    "SW"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "851": {
+   "place": "Phoenix & the Sonoran lowland",
+   "regions": [
+    "SW"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "852": {
+   "place": "Phoenix & the Sonoran lowland",
+   "regions": [
+    "SW"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "853": {
+   "place": "Phoenix & the Sonoran lowland",
+   "regions": [
+    "SW"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "856": {
+   "place": "Tucson & the Sonoran Desert",
+   "regions": [
+    "SW"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "857": {
+   "place": "Tucson & the Sonoran Desert",
+   "regions": [
+    "SW"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "860": {
+   "place": "Northern Arizona highlands",
+   "regions": [
+    "MTN",
+    "SW"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "863": {
+   "place": "Northern Arizona highlands",
+   "regions": [
+    "MTN",
+    "SW"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "864": {
+   "place": "Northern Arizona highlands",
+   "regions": [
+    "MTN",
+    "SW"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "865": {
+   "place": "Northern Arizona highlands",
+   "regions": [
+    "MTN",
+    "SW"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "870": {
+   "place": "Albuquerque & the Rio Grande",
+   "regions": [
+    "SW",
+    "MTN"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "871": {
+   "place": "Albuquerque & the Rio Grande",
+   "regions": [
+    "SW",
+    "MTN"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "872": {
+   "place": "Albuquerque & the Rio Grande",
+   "regions": [
+    "SW",
+    "MTN"
+   ],
+   "zones": [
+    7,
+    8
+   ]
+  },
+  "875": {
+   "place": "Santa Fe & northern New Mexico",
+   "regions": [
+    "MTN",
+    "SW"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "877": {
+   "place": "Santa Fe & northern New Mexico",
+   "regions": [
+    "MTN",
+    "SW"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "879": {
+   "place": "Southern New Mexico",
+   "regions": [
+    "SW"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "880": {
+   "place": "Southern New Mexico",
+   "regions": [
+    "SW"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "881": {
+   "place": "Southern New Mexico",
+   "regions": [
+    "SW"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "882": {
+   "place": "Southern New Mexico",
+   "regions": [
+    "SW"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "883": {
+   "place": "Southern New Mexico",
+   "regions": [
+    "SW"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "884": {
+   "place": "Southern New Mexico",
+   "regions": [
+    "SW"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "885": {
+   "place": "Southern New Mexico",
+   "regions": [
+    "SW"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "889": {
+   "place": "Las Vegas & the Mojave",
+   "regions": [
+    "SW",
+    "MTN"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "890": {
+   "place": "Las Vegas & the Mojave",
+   "regions": [
+    "SW",
+    "MTN"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "891": {
+   "place": "Las Vegas & the Mojave",
+   "regions": [
+    "SW",
+    "MTN"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "893": {
+   "place": "Great Basin Nevada",
+   "regions": [
+    "MTN",
+    "SW"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "894": {
+   "place": "Great Basin Nevada",
+   "regions": [
+    "MTN",
+    "SW"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "895": {
+   "place": "Great Basin Nevada",
+   "regions": [
+    "MTN",
+    "SW"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "897": {
+   "place": "Great Basin Nevada",
+   "regions": [
+    "MTN",
+    "SW"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "898": {
+   "place": "Great Basin Nevada",
+   "regions": [
+    "MTN",
+    "SW"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "900": {
+   "place": "Los Angeles basin & South Coast",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    10,
+    11
+   ]
+  },
+  "901": {
+   "place": "Los Angeles basin & South Coast",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    10,
+    11
+   ]
+  },
+  "902": {
+   "place": "Los Angeles basin & South Coast",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    10,
+    11
+   ]
+  },
+  "903": {
+   "place": "Los Angeles basin & South Coast",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    10,
+    11
+   ]
+  },
+  "904": {
+   "place": "Los Angeles basin & South Coast",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    10,
+    11
+   ]
+  },
+  "905": {
+   "place": "Los Angeles basin & South Coast",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    10,
+    11
+   ]
+  },
+  "906": {
+   "place": "Los Angeles basin & South Coast",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    10,
+    11
+   ]
+  },
+  "907": {
+   "place": "Los Angeles basin & South Coast",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    10,
+    11
+   ]
+  },
+  "908": {
+   "place": "Los Angeles basin & South Coast",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    10,
+    11
+   ]
+  },
+  "909": {
+   "place": "Los Angeles basin & South Coast",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    10,
+    11
+   ]
+  },
+  "910": {
+   "place": "Los Angeles basin & South Coast",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    10,
+    11
+   ]
+  },
+  "911": {
+   "place": "Los Angeles basin & South Coast",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    10,
+    11
+   ]
+  },
+  "912": {
+   "place": "Los Angeles basin & South Coast",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    10,
+    11
+   ]
+  },
+  "913": {
+   "place": "Los Angeles basin & South Coast",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    10,
+    11
+   ]
+  },
+  "914": {
+   "place": "Los Angeles basin & South Coast",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    10,
+    11
+   ]
+  },
+  "915": {
+   "place": "Los Angeles basin & South Coast",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    10,
+    11
+   ]
+  },
+  "916": {
+   "place": "Los Angeles basin & South Coast",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    10,
+    11
+   ]
+  },
+  "917": {
+   "place": "Los Angeles basin & South Coast",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    10,
+    11
+   ]
+  },
+  "920": {
+   "place": "Inland Southern California",
+   "regions": [
+    "CA",
+    "SW"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "921": {
+   "place": "Inland Southern California",
+   "regions": [
+    "CA",
+    "SW"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "922": {
+   "place": "Colorado & Mojave Desert California",
+   "regions": [
+    "SW",
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "923": {
+   "place": "Colorado & Mojave Desert California",
+   "regions": [
+    "SW",
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "924": {
+   "place": "Inland Southern California",
+   "regions": [
+    "CA",
+    "SW"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "925": {
+   "place": "Colorado & Mojave Desert California",
+   "regions": [
+    "SW",
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "930": {
+   "place": "Central Coast California",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "931": {
+   "place": "Central Coast California",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "932": {
+   "place": "Colorado & Mojave Desert California",
+   "regions": [
+    "SW",
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "933": {
+   "place": "Colorado & Mojave Desert California",
+   "regions": [
+    "SW",
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "934": {
+   "place": "Central Coast California",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "935": {
+   "place": "Colorado & Mojave Desert California",
+   "regions": [
+    "SW",
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "936": {
+   "place": "Central Valley",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "937": {
+   "place": "Central Valley",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "938": {
+   "place": "Central Valley",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "939": {
+   "place": "Central Coast California",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "940": {
+   "place": "San Francisco Bay Area",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "941": {
+   "place": "San Francisco Bay Area",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "942": {
+   "place": "San Francisco Bay Area",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "943": {
+   "place": "San Francisco Bay Area",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "944": {
+   "place": "San Francisco Bay Area",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "945": {
+   "place": "San Francisco Bay Area",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "946": {
+   "place": "San Francisco Bay Area",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "947": {
+   "place": "San Francisco Bay Area",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "948": {
+   "place": "San Francisco Bay Area",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "949": {
+   "place": "San Francisco Bay Area",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "950": {
+   "place": "San Francisco Bay Area",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "951": {
+   "place": "San Francisco Bay Area",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "952": {
+   "place": "Central Valley",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "953": {
+   "place": "Central Valley",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "954": {
+   "place": "San Francisco Bay Area",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "955": {
+   "place": "San Francisco Bay Area",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "956": {
+   "place": "Sierra Nevada & foothills",
+   "regions": [
+    "MTN",
+    "CA"
+   ],
+   "zones": [
+    6,
+    8
+   ]
+  },
+  "957": {
+   "place": "Sierra Nevada & foothills",
+   "regions": [
+    "MTN",
+    "CA"
+   ],
+   "zones": [
+    6,
+    8
+   ]
+  },
+  "958": {
+   "place": "Central Valley",
+   "regions": [
+    "CA"
+   ],
+   "zones": [
+    9,
+    10
+   ]
+  },
+  "959": {
+   "place": "Sierra Nevada & foothills",
+   "regions": [
+    "MTN",
+    "CA"
+   ],
+   "zones": [
+    6,
+    8
+   ]
+  },
+  "960": {
+   "place": "Sierra Nevada & foothills",
+   "regions": [
+    "MTN",
+    "CA"
+   ],
+   "zones": [
+    6,
+    8
+   ]
+  },
+  "961": {
+   "place": "Sierra Nevada & foothills",
+   "regions": [
+    "MTN",
+    "CA"
+   ],
+   "zones": [
+    6,
+    8
+   ]
+  },
+  "970": {
+   "place": "Willamette Valley & Oregon Coast",
+   "regions": [
+    "PNW"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "971": {
+   "place": "Willamette Valley & Oregon Coast",
+   "regions": [
+    "PNW"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "972": {
+   "place": "Willamette Valley & Oregon Coast",
+   "regions": [
+    "PNW"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "973": {
+   "place": "Willamette Valley & Oregon Coast",
+   "regions": [
+    "PNW"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "974": {
+   "place": "Willamette Valley & Oregon Coast",
+   "regions": [
+    "PNW"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "975": {
+   "place": "Willamette Valley & Oregon Coast",
+   "regions": [
+    "PNW"
+   ],
+   "zones": [
+    8,
+    9
+   ]
+  },
+  "976": {
+   "place": "Central & Eastern Oregon",
+   "regions": [
+    "MTN",
+    "PNW"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "977": {
+   "place": "Central & Eastern Oregon",
+   "regions": [
+    "MTN",
+    "PNW"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "978": {
+   "place": "Central & Eastern Oregon",
+   "regions": [
+    "MTN",
+    "PNW"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "979": {
+   "place": "Central & Eastern Oregon",
+   "regions": [
+    "MTN",
+    "PNW"
+   ],
+   "zones": [
+    5,
+    7
+   ]
+  },
+  "980": {
+   "place": "Western Washington",
+   "regions": [
+    "PNW"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "981": {
+   "place": "Western Washington",
+   "regions": [
+    "PNW"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "982": {
+   "place": "Western Washington",
+   "regions": [
+    "PNW"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "983": {
+   "place": "Western Washington",
+   "regions": [
+    "PNW"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "984": {
+   "place": "Western Washington",
+   "regions": [
+    "PNW"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "985": {
+   "place": "Western Washington",
+   "regions": [
+    "PNW"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "986": {
+   "place": "Western Washington",
+   "regions": [
+    "PNW"
+   ],
+   "zones": [
+    7,
+    9
+   ]
+  },
+  "988": {
+   "place": "Eastern Washington",
+   "regions": [
+    "MTN",
+    "PNW"
+   ],
+   "zones": [
+    4,
+    7
+   ]
+  },
+  "989": {
+   "place": "Eastern Washington",
+   "regions": [
+    "MTN",
+    "PNW"
+   ],
+   "zones": [
+    4,
+    7
+   ]
+  },
+  "990": {
+   "place": "Eastern Washington",
+   "regions": [
+    "MTN",
+    "PNW"
+   ],
+   "zones": [
+    4,
+    7
+   ]
+  },
+  "991": {
+   "place": "Eastern Washington",
+   "regions": [
+    "MTN",
+    "PNW"
+   ],
+   "zones": [
+    4,
+    7
+   ]
+  },
+  "992": {
+   "place": "Eastern Washington",
+   "regions": [
+    "MTN",
+    "PNW"
+   ],
+   "zones": [
+    4,
+    7
+   ]
+  },
+  "993": {
+   "place": "Eastern Washington",
+   "regions": [
+    "MTN",
+    "PNW"
+   ],
+   "zones": [
+    4,
+    7
+   ]
+  },
+  "994": {
+   "place": "Eastern Washington",
+   "regions": [
+    "MTN",
+    "PNW"
+   ],
+   "zones": [
+    4,
+    7
+   ]
+  }
+ }
+}

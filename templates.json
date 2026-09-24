@@ -1,0 +1,934 @@
+[
+ {
+  "id": "prairie_tapestry",
+  "name": "Sunlit Prairie Tapestry",
+  "tagline": "A matrix of fine bunchgrass with drifts of composites rising through it \u2014 the look of a curated meadow, not a weed patch.",
+  "light": [
+   "S"
+  ],
+  "moist": [
+   "D",
+   "M"
+  ],
+  "regions": [
+   "NE",
+   "SE",
+   "MW",
+   "GP",
+   "TX",
+   "MTN"
+  ],
+  "area": {
+   "GRASS": 0.45,
+   "MATRIX": 0.1,
+   "SEASONAL": 0.3,
+   "STRUCT": 0.12,
+   "FILLER": 0.03
+  },
+  "counts": {
+   "GRASS": [
+    2,
+    2
+   ],
+   "MATRIX": [
+    1,
+    2
+   ],
+   "SEASONAL": [
+    4,
+    5
+   ],
+   "STRUCT": [
+    2,
+    2
+   ],
+   "FILLER": [
+    1,
+    1
+   ]
+  },
+  "max_height": 84,
+  "palette": "warm",
+  "design": "Plant one dominant grass as a continuous matrix at 18 in centres, then interrupt it with long tapering drifts of five to nine plants of each flowering species. Repeat two structural species at least three times each across the bed to create rhythm.",
+  "care": "Cut or mow the whole bed to 4 in once a year in late March, after overwintering insects have emerged. No staking, no deadheading, no fertiliser.",
+  "eco": "Warm-season bunchgrasses give skipper larvae host material, overwintering stems for cavity-nesting bees, and winter seed for sparrows."
+ },
+ {
+  "id": "pollinator_mosaic",
+  "name": "Pollinator Meadow Mosaic",
+  "tagline": "Engineered for unbroken bloom from April to hard frost, with a documented specialist-bee and larval-host backbone.",
+  "light": [
+   "S",
+   "P"
+  ],
+  "moist": [
+   "M",
+   "W"
+  ],
+  "regions": null,
+  "area": {
+   "GRASS": 0.3,
+   "MATRIX": 0.2,
+   "SEASONAL": 0.35,
+   "STRUCT": 0.1,
+   "FILLER": 0.05
+  },
+  "counts": {
+   "GRASS": [
+    1,
+    2
+   ],
+   "MATRIX": [
+    2,
+    2
+   ],
+   "SEASONAL": [
+    5,
+    6
+   ],
+   "STRUCT": [
+    1,
+    2
+   ],
+   "FILLER": [
+    1,
+    1
+   ]
+  },
+  "max_height": 72,
+  "palette": "any",
+  "require_bloom_coverage": true,
+  "design": "Sequence the seasonal layer so at least three species overlap in every month of the growing season. Group in odd-numbered drifts and let one colour repeat through the whole bed to hold it together.",
+  "care": "Leave all stems standing through winter. Cut back in spring in two passes a fortnight apart, so late-emerging insects are not destroyed all at once.",
+  "eco": "Prioritises plants documented as hosts for pollen-specialist native bees and as larval hosts for named butterflies and moths."
+ },
+ {
+  "id": "gravel_jewels",
+  "name": "Gravel Garden Jewels",
+  "tagline": "Lean soil, sharp drainage and a 3 in mineral mulch: low, jewel-like plants that never need irrigation once rooted.",
+  "light": [
+   "S"
+  ],
+  "moist": [
+   "D"
+  ],
+  "regions": null,
+  "area": {
+   "GRASS": 0.25,
+   "MATRIX": 0.35,
+   "SEASONAL": 0.28,
+   "STRUCT": 0.1,
+   "FILLER": 0.02
+  },
+  "counts": {
+   "GRASS": [
+    1,
+    2
+   ],
+   "MATRIX": [
+    3,
+    4
+   ],
+   "SEASONAL": [
+    3,
+    4
+   ],
+   "STRUCT": [
+    1,
+    2
+   ],
+   "FILLER": [
+    1,
+    1
+   ]
+  },
+  "max_height": 42,
+  "palette": "cool",
+  "design": "Excavate 4 in and backfill with clean 3/8 in crushed gravel, planting into the gravel with roots in the soil beneath. Keep everything low and let two or three spiky or rosette forms stand as punctuation.",
+  "care": "Water only to establish, then stop entirely. Never mulch with compost or bark, which destroys the effect and rots the crowns.",
+  "eco": "Bare mineral ground between plants is prime nesting habitat for the roughly 70 percent of native bee species that nest in the soil."
+ },
+ {
+  "id": "rain_basin",
+  "name": "Rain Garden Basin",
+  "tagline": "A shallow depression that absorbs roof and driveway runoff, planted in three moisture bands.",
+  "light": [
+   "S",
+   "P"
+  ],
+  "moist": [
+   "W"
+  ],
+  "regions": null,
+  "area": {
+   "GRASS": 0.3,
+   "MATRIX": 0.15,
+   "SEASONAL": 0.35,
+   "STRUCT": 0.15,
+   "FILLER": 0.05
+  },
+  "counts": {
+   "GRASS": [
+    1,
+    2
+   ],
+   "MATRIX": [
+    1,
+    2
+   ],
+   "SEASONAL": [
+    4,
+    5
+   ],
+   "STRUCT": [
+    2,
+    2
+   ],
+   "FILLER": [
+    1,
+    1
+   ]
+  },
+  "max_height": 84,
+  "palette": "any",
+  "design": "Set the basin 6 to 9 in below grade with a level bottom and a stone-armoured inlet. Put the wettest-tolerant species in the bottom, mid-moisture species on the side slopes, and drought-tolerant species on the rim.",
+  "care": "The basin should drain within 24 to 48 hours. Pull silt and debris off the inlet each spring and cut the planting back in late winter.",
+  "eco": "Intercepts the first flush of stormwater, cools and filters it, and supplies the moist-soil nectar plants that many wetland specialist bees and flies require."
+ },
+ {
+  "id": "woodland_edge",
+  "name": "Woodland Edge Layers",
+  "tagline": "The richest habitat on any property: a tiered transition from shade into sun, built from shrubs, ferns, sedges and spring bloom.",
+  "light": [
+   "P"
+  ],
+  "moist": [
+   "M",
+   "D"
+  ],
+  "regions": null,
+  "area": {
+   "SHRUB": 0.25,
+   "FERN": 0.15,
+   "MATRIX": 0.35,
+   "SEASONAL": 0.2,
+   "FILLER": 0.05
+  },
+  "counts": {
+   "SHRUB": [
+    2,
+    2
+   ],
+   "FERN": [
+    1,
+    2
+   ],
+   "MATRIX": [
+    3,
+    4
+   ],
+   "SEASONAL": [
+    2,
+    3
+   ],
+   "FILLER": [
+    1,
+    2
+   ]
+  },
+  "max_height": 96,
+  "palette": "any",
+  "design": "Work in three tiers: a shrub backbone, a knee-high layer of ferns and broad-leaved perennials, and a continuous sedge or groundcover carpet underneath. Feather the edge irregularly rather than drawing a straight line.",
+  "care": "Replace bark mulch with a living green mulch of sedge within two seasons. Leave leaf litter in place: it is where most moth pupae overwinter.",
+  "eco": "Layered edges provide nesting cover, fruit, and the leaf-litter habitat that the majority of Lepidoptera need to complete their life cycle."
+ },
+ {
+  "id": "fern_sedge_carpet",
+  "name": "Fern & Sedge Shade Carpet",
+  "tagline": "Deep shade solved without a single bag of mulch: a textural green floor with flashes of spring and autumn bloom.",
+  "light": [
+   "H",
+   "P"
+  ],
+  "moist": [
+   "M"
+  ],
+  "regions": null,
+  "area": {
+   "FERN": 0.3,
+   "MATRIX": 0.5,
+   "SEASONAL": 0.15,
+   "STRUCT": 0.05
+  },
+  "counts": {
+   "FERN": [
+    2,
+    3
+   ],
+   "MATRIX": [
+    3,
+    4
+   ],
+   "SEASONAL": [
+    2,
+    3
+   ],
+   "STRUCT": [
+    1,
+    1
+   ]
+  },
+  "max_height": 60,
+  "palette": "cool",
+  "design": "Choose one sedge as a unifying carpet and plant it at 10 in centres across the whole bed, then set ferns in loose groups of three to seven and drop clumps of shade perennials into the gaps. Texture does the work that flower colour does in sun.",
+  "care": "No mulch and no leaf removal. Cut deciduous ferns down in late winter; shear evergreen sedges to 3 in in early spring every second or third year.",
+  "eco": "Carex is among the most important larval host genera for skippers and satyrs, and a dense sedge carpet outcompetes garlic mustard and stiltgrass."
+ },
+ {
+  "id": "dry_shade",
+  "name": "Dry Shade Understory",
+  "tagline": "For the hardest site in the garden \u2014 under mature trees, in root-filled soil that never gets watered.",
+  "light": [
+   "H",
+   "P"
+  ],
+  "moist": [
+   "D"
+  ],
+  "regions": null,
+  "area": {
+   "FERN": 0.2,
+   "MATRIX": 0.55,
+   "SEASONAL": 0.15,
+   "SHRUB": 0.1
+  },
+  "counts": {
+   "FERN": [
+    1,
+    2
+   ],
+   "MATRIX": [
+    4,
+    5
+   ],
+   "SEASONAL": [
+    2,
+    2
+   ],
+   "SHRUB": [
+    1,
+    1
+   ]
+  },
+  "max_height": 48,
+  "palette": "any",
+  "design": "Never till under a tree. Plant small plugs into slits between roots, at higher density than usual, and accept two seasons of establishment. Let the drifts follow the gaps between major roots.",
+  "care": "Water deeply once a week for the first full season only. Let the tree's own leaves stay as mulch every autumn.",
+  "eco": "Restores the herbaceous layer beneath keystone trees such as oaks, which is where caterpillars that drop from the canopy complete pupation."
+ },
+ {
+  "id": "monarch_waystation",
+  "name": "Monarch Waystation",
+  "tagline": "Milkweed host plants plus the high-octane autumn nectar that fuels the migration, assembled to Monarch Watch standards.",
+  "light": [
+   "S"
+  ],
+  "moist": [
+   "D",
+   "M",
+   "W"
+  ],
+  "regions": null,
+  "area": {
+   "GRASS": 0.2,
+   "MATRIX": 0.15,
+   "SEASONAL": 0.5,
+   "STRUCT": 0.1,
+   "FILLER": 0.05
+  },
+  "counts": {
+   "GRASS": [
+    1,
+    1
+   ],
+   "MATRIX": [
+    1,
+    2
+   ],
+   "SEASONAL": [
+    5,
+    6
+   ],
+   "STRUCT": [
+    1,
+    2
+   ],
+   "FILLER": [
+    1,
+    1
+   ]
+  },
+  "max_height": 72,
+  "palette": "warm",
+  "require_host": "Monarch",
+  "min_host_species": 2,
+  "design": "Include at least two milkweed species so host plants are available over a longer window, plus heavy late-season nectar. Site it in full sun out of the wind, with a shallow damp patch of bare mineral soil for puddling.",
+  "care": "Do not spray anything, ever, including organic Bt or spinosad. Leave milkweed stalks standing over winter.",
+  "eco": "Monarch Watch certifies waystations of 100 sq ft or larger carrying at least ten milkweed plants of two or more species plus continuous nectar."
+ },
+ {
+  "id": "hummingbird_corridor",
+  "name": "Hummingbird Corridor",
+  "tagline": "Red and coral tubular flowers staged in sequence so there is nectar from the first arrival to the last departure.",
+  "light": [
+   "S",
+   "P"
+  ],
+  "moist": [
+   "D",
+   "M"
+  ],
+  "regions": null,
+  "area": {
+   "GRASS": 0.2,
+   "MATRIX": 0.2,
+   "SEASONAL": 0.4,
+   "STRUCT": 0.1,
+   "SHRUB": 0.1
+  },
+  "counts": {
+   "GRASS": [
+    1,
+    1
+   ],
+   "MATRIX": [
+    1,
+    2
+   ],
+   "SEASONAL": [
+    4,
+    5
+   ],
+   "STRUCT": [
+    1,
+    1
+   ],
+   "SHRUB": [
+    1,
+    2
+   ]
+  },
+  "max_height": 72,
+  "palette": "hot",
+  "require_tag": "hummingbird",
+  "min_tag_species": 4,
+  "design": "Plant in vertical layers with clear flight lines between clumps, and give the birds a perch: a bare twiggy branch or shrub top within 10 ft. Long narrow beds along a fence read as a corridor and get defended as territory.",
+  "care": "Never use pesticides, which remove the small insects that make up most of a hummingbird's diet. Deadhead salvias to extend bloom.",
+  "eco": "Bridges the nectar gap in late summer, when migrating hummingbirds need the most fuel and most garden flowers have finished."
+ },
+ {
+  "id": "four_season_border",
+  "name": "Four-Season Structural Border",
+  "tagline": "The formal botanical-garden look: strong repeated forms, disciplined colour, and a silhouette that is best in February.",
+  "light": [
+   "S",
+   "P"
+  ],
+  "moist": [
+   "M",
+   "D"
+  ],
+  "regions": null,
+  "area": {
+   "STRUCT": 0.25,
+   "GRASS": 0.3,
+   "SEASONAL": 0.3,
+   "MATRIX": 0.13,
+   "FILLER": 0.02
+  },
+  "counts": {
+   "STRUCT": [
+    3,
+    3
+   ],
+   "GRASS": [
+    2,
+    2
+   ],
+   "SEASONAL": [
+    3,
+    4
+   ],
+   "MATRIX": [
+    1,
+    2
+   ],
+   "FILLER": [
+    1,
+    1
+   ]
+  },
+  "max_height": 96,
+  "palette": "restrained",
+  "require_tag": "winter_structure_or_seedhead",
+  "design": "Limit yourself to seven or eight species and repeat each at least three times in a regular rhythm. Choose plants for the shape of their skeleton, not their flower. Edge the bed crisply with steel, stone or mown turf to signal intent.",
+  "care": "Leave everything standing until early spring. Divide the grasses every four to five years to stop them going hollow in the centre.",
+  "eco": "Standing dead stems are overwintering habitat for stem-nesting bees and many moth pupae, and seedheads feed finches and juncos all winter."
+ },
+ {
+  "id": "keystone_nursery",
+  "name": "Keystone Host Nursery",
+  "tagline": "Built around the small number of plant genera that support the overwhelming majority of caterpillars \u2014 the base of the terrestrial food web.",
+  "light": [
+   "S",
+   "P"
+  ],
+  "moist": [
+   "D",
+   "M"
+  ],
+  "regions": null,
+  "area": {
+   "SHRUB": 0.3,
+   "SEASONAL": 0.3,
+   "MATRIX": 0.25,
+   "GRASS": 0.15
+  },
+  "counts": {
+   "SHRUB": [
+    2,
+    3
+   ],
+   "SEASONAL": [
+    4,
+    4
+   ],
+   "MATRIX": [
+    2,
+    3
+   ],
+   "GRASS": [
+    1,
+    1
+   ]
+  },
+  "max_height": 120,
+  "palette": "any",
+  "rank_by": "lep",
+  "design": "Allocate real space to the woody keystone genera, then fill around them with the top herbaceous hosts. This bed is designed to be eaten: place it where chewed leaves will not bother you.",
+  "care": "Tolerate defoliation. Never treat for caterpillars. Keep the ground beneath in leaf litter or low groundcover so larvae can pupate.",
+  "eco": "Follows the Tallamy and NWF finding that a small fraction of native plant genera support the large majority of Lepidoptera species in any given county."
+ },
+ {
+  "id": "hellstrip",
+  "name": "Hellstrip & Parking Verge",
+  "tagline": "Reflected heat, road salt, compaction and no irrigation \u2014 planted with the species that actually enjoy it.",
+  "light": [
+   "S"
+  ],
+  "moist": [
+   "D"
+  ],
+  "regions": null,
+  "area": {
+   "MATRIX": 0.45,
+   "GRASS": 0.25,
+   "SEASONAL": 0.25,
+   "STRUCT": 0.05
+  },
+  "counts": {
+   "MATRIX": [
+    3,
+    4
+   ],
+   "GRASS": [
+    2,
+    2
+   ],
+   "SEASONAL": [
+    3,
+    3
+   ],
+   "STRUCT": [
+    1,
+    1
+   ]
+  },
+  "max_height": 30,
+  "palette": "any",
+  "design": "Keep everything under 30 in for sight lines and to survive being stepped on. Leave an 18 in gravel or paved landing strip along the kerb where people get out of cars.",
+  "care": "Establish in autumn if you can. Shear the whole strip once in early spring. Expect to replace a few plants along the kerb each year.",
+  "eco": "Turns a sterile mown verge into connective habitat, and hot lean verges are exceptionally good ground-nesting bee habitat."
+ },
+ {
+  "id": "coastal_exposed",
+  "name": "Coastal & Exposed Site",
+  "tagline": "Salt spray, wind and sand: tough, low, silver-leaved and surprisingly beautiful.",
+  "light": [
+   "S"
+  ],
+  "moist": [
+   "D",
+   "M"
+  ],
+  "regions": [
+   "NE",
+   "SE",
+   "FL",
+   "CA",
+   "PNW",
+   "TX"
+  ],
+  "area": {
+   "GRASS": 0.35,
+   "MATRIX": 0.35,
+   "SEASONAL": 0.2,
+   "SHRUB": 0.1
+  },
+  "counts": {
+   "GRASS": [
+    2,
+    2
+   ],
+   "MATRIX": [
+    3,
+    4
+   ],
+   "SEASONAL": [
+    3,
+    3
+   ],
+   "SHRUB": [
+    1,
+    1
+   ]
+  },
+  "max_height": 48,
+  "palette": "cool",
+  "design": "Grade the planting so it rises away from the prevailing wind, with the shrub layer on the windward side acting as a filter. Low mats and grasses take the full exposure.",
+  "care": "No overhead irrigation with hard or salty water. Rinse foliage after severe salt-spray events if you can.",
+  "eco": "Coastal plantings support specialised sand-nesting bees and provide critical fuelling stops for migrating birds along the flyways."
+ },
+ {
+  "id": "cottage_naturalistic",
+  "name": "Naturalistic Cottage Border",
+  "tagline": "Loose, romantic and full of colour, but built on native species with a real ecological structure underneath.",
+  "light": [
+   "S",
+   "P"
+  ],
+  "moist": [
+   "M",
+   "W"
+  ],
+  "regions": null,
+  "area": {
+   "SEASONAL": 0.4,
+   "MATRIX": 0.25,
+   "GRASS": 0.2,
+   "STRUCT": 0.1,
+   "FILLER": 0.05
+  },
+  "counts": {
+   "SEASONAL": [
+    5,
+    6
+   ],
+   "MATRIX": [
+    2,
+    3
+   ],
+   "GRASS": [
+    1,
+    2
+   ],
+   "STRUCT": [
+    1,
+    2
+   ],
+   "FILLER": [
+    2,
+    2
+   ]
+  },
+  "max_height": 72,
+  "palette": "soft",
+  "design": "Intermingle rather than block-plant: scatter individuals of the seasonal layer through a continuous groundcover so the bed reads as a single fabric. Allow self-sowing fillers to move around from year to year.",
+  "care": "Edit rather than maintain: remove what has overstepped, move seedlings you like, and cut the whole bed back once in spring.",
+  "eco": "High floral diversity across a long season supports the broadest possible range of generalist pollinators."
+ },
+ {
+  "id": "shade_botanical_border",
+  "name": "Shaded Botanical Border",
+  "tagline": "Foliage does the work: bold leaves against fine ones, three shades of green, and flowers as a bonus.",
+  "light": [
+   "H",
+   "P"
+  ],
+  "moist": [
+   "M",
+   "D"
+  ],
+  "regions": null,
+  "area": {
+   "STRUCT": 0.2,
+   "FERN": 0.2,
+   "MATRIX": 0.4,
+   "SEASONAL": 0.15,
+   "SHRUB": 0.05
+  },
+  "counts": {
+   "STRUCT": [
+    1,
+    2
+   ],
+   "FERN": [
+    1,
+    2
+   ],
+   "MATRIX": [
+    3,
+    4
+   ],
+   "SEASONAL": [
+    2,
+    3
+   ],
+   "SHRUB": [
+    1,
+    1
+   ]
+  },
+  "max_height": 72,
+  "palette": "cool",
+  "design": "Build the composition from leaf shape, not flower colour: set one bold, broad-leaved or arching species against a fine-textured fern and a strappy sedge, then repeat that trio three or four times down the bed. Keep flowers pale so they read in low light.",
+  "care": "No mulch once the groundcover knits. Cut deciduous material down in late winter and top-dress with leaf mould, never bark.",
+  "eco": "Deep shade beds are where most caterpillars pupate. A closed herbaceous layer plus retained leaf litter completes a life cycle that a bare mulched bed interrupts."
+ },
+ {
+  "id": "spring_ephemeral",
+  "name": "Spring Ephemeral Woodland",
+  "tagline": "An explosion in April and May while the canopy is still bare, then a quiet green floor for the rest of the year.",
+  "light": [
+   "H",
+   "P"
+  ],
+  "moist": [
+   "M"
+  ],
+  "regions": null,
+  "area": {
+   "FILLER": 0.2,
+   "MATRIX": 0.45,
+   "FERN": 0.2,
+   "SEASONAL": 0.1,
+   "STRUCT": 0.05
+  },
+  "counts": {
+   "FILLER": [
+    2,
+    3
+   ],
+   "MATRIX": [
+    3,
+    4
+   ],
+   "FERN": [
+    1,
+    2
+   ],
+   "SEASONAL": [
+    1,
+    2
+   ],
+   "STRUCT": [
+    1,
+    1
+   ]
+  },
+  "max_height": 60,
+  "palette": "soft",
+  "design": "The critical trick is planning for the gap: ephemerals vanish by July, so interplant them with ferns and sedges that expand to fill the space exactly as the ephemerals retreat. Plant ephemerals in generous sweeps, never as single specimens.",
+  "care": "Mark ephemeral positions before they go dormant so you do not dig into them. Never clear the autumn leaf fall from this bed.",
+  "eco": "Spring ephemerals are the first substantial pollen and nectar of the year and sustain early-emerging mining bees and bumblebee queens weeks before garden flowers open."
+ },
+ {
+  "id": "evergreen_shade",
+  "name": "Evergreen Winter Shade Garden",
+  "tagline": "A bed that looks deliberate in February: evergreen leaves, persistent structure and winter fruit.",
+  "light": [
+   "H",
+   "P"
+  ],
+  "moist": [
+   "D",
+   "M"
+  ],
+  "regions": null,
+  "area": {
+   "SHRUB": 0.3,
+   "MATRIX": 0.4,
+   "FERN": 0.2,
+   "SEASONAL": 0.1
+  },
+  "counts": {
+   "SHRUB": [
+    1,
+    2
+   ],
+   "MATRIX": [
+    3,
+    4
+   ],
+   "FERN": [
+    1,
+    2
+   ],
+   "SEASONAL": [
+    1,
+    2
+   ]
+  },
+  "max_height": 84,
+  "palette": "restrained",
+  "require_tag": "evergreen",
+  "min_tag_species": 3,
+  "design": "Choose for leaf persistence and then vary leaf size sharply, since an all-evergreen bed can read as flat. Set the evergreen shrubs where they will be seen from indoors in winter.",
+  "care": "Shear evergreen sedges and hardy ferns to a few inches every second or third spring to refresh them. Water evergreens during winter dry spells in mild regions.",
+  "eco": "Evergreen understory gives ground-foraging birds cover and foraging habitat through the hardest weeks of the year, and persistent fruit is critical late-winter food."
+ },
+ {
+  "id": "wet_shade",
+  "name": "Streamside & Wet Shade",
+  "tagline": "Soggy shade \u2014 the site everyone gives up on \u2014 planted as a lush, deliberately tropical-looking sweep.",
+  "light": [
+   "H",
+   "P"
+  ],
+  "moist": [
+   "W"
+  ],
+  "regions": null,
+  "area": {
+   "FERN": 0.3,
+   "STRUCT": 0.2,
+   "MATRIX": 0.3,
+   "SEASONAL": 0.2
+  },
+  "counts": {
+   "FERN": [
+    1,
+    2
+   ],
+   "STRUCT": [
+    1,
+    2
+   ],
+   "MATRIX": [
+    2,
+    3
+   ],
+   "SEASONAL": [
+    2,
+    3
+   ]
+  },
+  "max_height": 84,
+  "palette": "any",
+  "design": "Exaggerate the lushness: big ferns and broad-leaved structure in generous masses, with the flowering layer concentrated where it will catch what light reaches the ground. Let the planting follow the wet line rather than a drawn edge.",
+  "care": "Do not attempt to drain the site. Keep the soil covered at all times; bare wet soil invites invasive wetland weeds.",
+  "eco": "Moist shade supports amphibians, fireflies whose larvae need damp litter, and the wetland-specialist bees and flies that dry gardens cannot host."
+ },
+ {
+  "id": "wet_meadow",
+  "name": "Wet Meadow & Pond Edge",
+  "tagline": "Full sun and permanently damp ground: the most productive habitat you can build, and the tallest and most theatrical.",
+  "light": [
+   "S",
+   "P"
+  ],
+  "moist": [
+   "W"
+  ],
+  "regions": null,
+  "area": {
+   "GRASS": 0.3,
+   "SEASONAL": 0.35,
+   "STRUCT": 0.2,
+   "MATRIX": 0.12,
+   "FILLER": 0.03
+  },
+  "counts": {
+   "GRASS": [
+    1,
+    2
+   ],
+   "SEASONAL": [
+    4,
+    5
+   ],
+   "STRUCT": [
+    2,
+    2
+   ],
+   "MATRIX": [
+    1,
+    2
+   ],
+   "FILLER": [
+    1,
+    1
+   ]
+  },
+  "max_height": 96,
+  "palette": "any",
+  "design": "Work with the height rather than against it: put the 6 to 8 ft species in a solid mass at the back or in the middle of an island bed, and use tussock-forming sedges to hold the transition to open water or lawn.",
+  "care": "Cut in late winter and remove the material, since wet meadows build thatch fast. Watch for cattail and reed canary grass invading from outside.",
+  "eco": "Wet meadows carry the highest insect biomass of any temperate planting and are primary habitat for the Baltimore checkerspot, bog fritillaries and many specialist bees."
+ },
+ {
+  "id": "shade_nectar_pocket",
+  "name": "Shade Nectar Pocket",
+  "tagline": "A shaded corner engineered for hummingbirds and long-tongued bees, where nectar is normally scarce.",
+  "light": [
+   "H",
+   "P"
+  ],
+  "moist": [
+   "D",
+   "M"
+  ],
+  "regions": null,
+  "area": {
+   "SEASONAL": 0.35,
+   "MATRIX": 0.35,
+   "FERN": 0.15,
+   "SHRUB": 0.15
+  },
+  "counts": {
+   "SEASONAL": [
+    3,
+    4
+   ],
+   "MATRIX": [
+    2,
+    3
+   ],
+   "FERN": [
+    1,
+    1
+   ],
+   "SHRUB": [
+    1,
+    1
+   ]
+  },
+  "max_height": 72,
+  "palette": "hot",
+  "require_tag": "hummingbird",
+  "min_tag_species": 2,
+  "design": "Concentrate the tubular flowers in a few bold groups at the light edge of the shade rather than scattering them, so a hummingbird can defend the patch. Keep a clear flight line in and out.",
+  "care": "Deadhead the salvias and monkeyflowers to extend bloom. Never spray: small insects are most of a hummingbird's actual diet.",
+  "eco": "Shaded nectar is genuinely rare, so a shade pocket extends the foraging range of hummingbirds and bumblebees into part of the garden that otherwise offers them nothing."
+ }
+]
