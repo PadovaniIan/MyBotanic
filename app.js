@@ -1705,8 +1705,104 @@ function copyText(txt, btn){
   else fallback();
 }
 
+/* ------------------------------------------------ tabs
+   Five panels, one visible at a time. Wired by explicit id rather than a query
+   selector so the same code runs under the Node test harness. The selected tab is
+   mirrored into the URL hash so a tab can be linked to and survives a reload. */
+var TABS = [
+  {id:"build",   label:"Build a Bed"},
+  {id:"how",     label:"How it works"},
+  {id:"plants",  label:"Plant Database"},
+  {id:"sources", label:"Data Sources"},
+  {id:"before",  label:"Before you plant"}
+];
+var CUR_TAB = "build";
+
+function selectTab(name, opts){
+  opts = opts || {};
+  if(!TABS.some(function(t){ return t.id === name; })) name = "build";
+  CUR_TAB = name;
+  TABS.forEach(function(t){
+    var btn = el("tab-"+t.id), pan = el("panel-"+t.id), on = (t.id === name);
+    if(btn){
+      btn.setAttribute("aria-selected", on ? "true" : "false");
+      btn.setAttribute("tabindex", on ? "0" : "-1");   /* roving tabindex */
+    }
+    if(pan) pan.hidden = !on;
+  });
+  if(opts.focus){ var b = el("tab-"+name); if(b && b.focus) b.focus(); }
+  if(!opts.silent && typeof history !== "undefined" && history.replaceState){
+    try { history.replaceState(null, "", (location.search||"") + "#" + name); } catch(e){}
+  }
+  if(opts.scroll !== false && typeof window !== "undefined" && window.scrollTo){
+    try { window.scrollTo({top:0, behavior:"smooth"}); } catch(e){}
+  }
+}
+
+TABS.forEach(function(t, i){
+  var btn = el("tab-"+t.id);
+  if(!btn) return;
+  btn.addEventListener("click", function(){ selectTab(t.id); });
+  btn.addEventListener("keydown", function(ev){
+    var k = ev.key, n = null;
+    if(k === "ArrowRight")     n = (i+1) % TABS.length;
+    else if(k === "ArrowLeft")  n = (i-1+TABS.length) % TABS.length;
+    else if(k === "Home")       n = 0;
+    else if(k === "End")        n = TABS.length-1;
+    if(n !== null){
+      if(ev.preventDefault) ev.preventDefault();
+      selectTab(TABS[n].id, {focus:true, scroll:false});
+    }
+  });
+});
+
 /* ------------------------------------------------ UI */
-var LAST=null;
+var LAST=null, CARDS=[], CUR=0;
+
+/* Show one combination. Cards are built on demand and cached, so opening a result costs
+   one card instead of twelve, paging back and forth is instant, and the document never
+   holds more than a single combination. That is what keeps the page short. */
+function showCombo(i, opts){
+  opts = opts || {};
+  if(!LAST || !LAST.res || !LAST.res.combos.length) return;
+  var n = LAST.res.combos.length;
+  CUR = ((i % n) + n) % n;                        /* wraps in both directions */
+  if(!CARDS[CUR]) CARDS[CUR] = renderCombo(LAST.res.combos[CUR], CUR, LAST);
+  var host = el("comboHost");
+  host.innerHTML = "";
+  host.appendChild(CARDS[CUR]);
+
+  var cb = LAST.res.combos[CUR];
+  var label = "Combination <b>"+(CUR+1)+"</b> of "+n+
+    "<span class='cp-name'>"+esc(cb.t.name)+
+    (cb.variant>1 ? " \u00b7 variation "+cb.variant : "")+"</span>";
+  el("comboCount").innerHTML  = label;
+  el("comboCount2").innerHTML = label;
+  el("comboJump").value = String(CUR);
+
+  if(opts.scroll !== false && el("comboNav").scrollIntoView)
+    el("comboNav").scrollIntoView({behavior:"smooth", block:"start"});
+}
+function stepCombo(d){ showCombo(CUR + d); }
+
+["prevCombo","prevCombo2"].forEach(function(id){
+  var b = el(id); if(b) b.addEventListener("click", function(){ stepCombo(-1); });
+});
+["nextCombo","nextCombo2"].forEach(function(id){
+  var b = el(id); if(b) b.addEventListener("click", function(){ stepCombo(1); });
+});
+(function(){
+  var j = el("comboJump");
+  if(j) j.addEventListener("change", function(){ showCombo(parseInt(j.value,10) || 0); });
+  /* Left and right arrows page through, but only while the navigation bar itself has
+     focus, so they can never hijack typing in the form. */
+  var nav = el("comboNav");
+  if(nav) nav.addEventListener("keydown", function(ev){
+    if(ev.key === "ArrowRight") stepCombo(1);
+    else if(ev.key === "ArrowLeft") stepCombo(-1);
+  });
+})();
+
 function readForm(){
   return {zip:el("zip").value.trim(), region:el("region").value,
     zone:parseInt(el("zone").value,10), soil:el("soil").value,
@@ -1776,9 +1872,13 @@ function run(){
   }
   c.key=[c.zip,c.region,c.zone,c.soil,c.light,c.w,c.l,c.maxh,c.deer,c.spread].join("~");
   LAST=c;
-  var res=generate(c), host=el("combos");
+  var res=generate(c), host=el("comboHost");
   host.innerHTML="";
-  el("resultsHead").hidden = !res.combos.length;
+  CARDS = []; CUR = 0;
+  LAST.res = res;                 /* set before anything can try to render a card */
+  el("resultsHead").hidden   = !res.combos.length;
+  el("comboNav").hidden      = !res.combos.length;
+  el("comboNavFoot").hidden  = !res.combos.length;
   if(!res.combos.length){
     el("status").innerHTML="<div class='callout red'><strong>No combination could be assembled "+
       "from the "+res.pool.length+" eligible species.</strong> The filters are probably too tight. "+
@@ -1794,22 +1894,39 @@ function run(){
     esc(REGIONS[c.region].name)+" that tolerate "+
     {S:"full sun",P:"part shade",H:"full shade"}[c.light]+" and "+
     {D:"dry",M:"average",W:"moist to wet"}[c.soil]+" soil in zone "+c.zone+
-    ". Bed area "+(c.w*c.l)+" sq ft.";
-  res.combos.forEach(function(cb,i){ host.appendChild(renderCombo(cb,i,c)); });
+    ". Bed area "+(c.w*c.l)+" square feet. They are shown one at a time \u2014 use the buttons "+
+    "to page through them.";
+
+  var jump = el("comboJump");
+  jump.innerHTML = "";
+  res.combos.forEach(function(cb,i){
+    var o = mk("option", null, "Combination "+(i+1)+" \u2014 "+cb.t.name+
+      (cb.variant>1 ? " (variation "+cb.variant+")" : ""));
+    o.value = String(i);
+    jump.appendChild(o);
+  });
+  showCombo(0, {scroll:false});
 
   var q="?zip="+c.zip+"&region="+c.region+"&zone="+c.zone+"&soil="+c.soil+"&light="+c.light+
     "&w="+c.w+"&l="+c.l+"&maxh="+c.maxh+"&deer="+(c.deer?1:0)+"&spread="+(c.spread?1:0)+
     "&seed="+c.seed;
-  var pl=el("permalink"); pl.href=q; el("permalinkWrap").hidden=false;
-  pl.onclick=function(e){ e.preventDefault(); copyText(location.origin+location.pathname+q, pl); };
-  LAST.res=res;
+  var pl=el("permalink"); pl.href=q+"#build"; el("permalinkWrap").hidden=false;
+  pl.onclick=function(e){ e.preventDefault();
+    copyText(location.origin+location.pathname+q+"&combo="+(CUR+1)+"#build", pl); };
   if(el("results").scrollIntoView) el("results").scrollIntoView({behavior:"smooth",block:"start"});
 }
 el("zip").addEventListener("input",function(){ updateZip(); });
 el("bed").addEventListener("submit",function(e){ e.preventDefault(); run(); });
 el("shuffle").addEventListener("click",function(){
-  if(!LAST){ run(); return; } LAST.seed=(LAST.seed||1)+1; run(); });
-el("printBtn").addEventListener("click",function(){ window.print(); });
+  if(!LAST){ run(); return; }
+  var was = CUR;                     /* stay on the same slot rather than jumping to 1 */
+  LAST.seed = (LAST.seed||1)+1;
+  run();
+  if(LAST.res && LAST.res.combos.length)
+    showCombo(Math.min(was, LAST.res.combos.length-1), {scroll:false});
+});
+el("printBtn").addEventListener("click",function(){
+  if(window.print) window.print(); });
 el("csvAll").addEventListener("click",function(){
   if(!LAST||!LAST.res) return;
   var rows=null;
@@ -1907,11 +2024,17 @@ el("csvAll").addEventListener("click",function(){
 function applyQuery(){
   var p;
   try { p = new URLSearchParams(location.search); } catch(e){ p = null; }
+
+  /* open the tab named in the hash, if any */
+  var hash = (location.hash || "").replace(/^#/, "");
+  if(hash) selectTab(hash, {silent:true, scroll:false});
+
   if(!p || !p.get("zip")){
     el("status").innerHTML="<span class='muted'>Enter a ZIP code and shade level above, then "+
       "press <strong>Generate combinations</strong>.</span>";
     return;
   }
+  selectTab("build", {silent:true, scroll:false});
   el("zip").value=p.get("zip"); updateZip();
   ["region","zone","soil","w","l","maxh","deer","spread"].forEach(function(k){
     var v=p.get(k); if(v!==null && el(k)) el(k).value=v; });
@@ -1919,6 +2042,8 @@ function applyQuery(){
   if(lt){ var r=document.querySelector('input[name=light][value="'+lt+'"]'); if(r) r.checked=true; }
   LAST={seed:parseInt(p.get("seed"),10)||1};
   run();
+  var want = parseInt(p.get("combo"),10);
+  if(want && LAST.res && LAST.res.combos.length) showCombo(want-1, {scroll:false});
 }
 if(typeof fetch === "function"){
   fetch("zip_regions.json").then(function(r){ return r.ok? r.json():null; })

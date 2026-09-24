@@ -18,6 +18,8 @@ every species is chosen for documented ecological function in the user's own eco
   carpet, monarch waystation, hummingbird corridor, four-season structural border, wet meadow,
   spring-ephemeral woodland, hellstrip, coastal, and more
 - **Up to 12 distinct combinations** per query, deterministic and shareable by URL
+- **Five tabs, one combination at a time** &mdash; no long scroll, and the first result is on
+  screen in about 25&nbsp;ms because cards are built on demand
 - No build step, no framework, no runtime network calls, no tracking
 
 ---
@@ -57,6 +59,36 @@ serves without any configuration.
 
 ---
 
+## Interface
+
+Five tabs, with the builder and its results on the first one:
+
+| Tab | Contents |
+|---|---|
+| **Build a Bed** | the site form and the generated combinations |
+| **How it works** | the method, from ZIP resolution through to how the plan is drawn |
+| **Plant Database** | all 295 species, searchable and filterable |
+| **Data Sources** | every cited source, with direct download links |
+| **Before you plant** | county-level verification, nurseries, neonicotinoids, local ordinances |
+
+The tab bar is sticky, so navigation is always one click away rather than a scroll away. Tabs are a
+real ARIA tablist: arrow keys, `Home` and `End` move between them, a roving `tabindex` keeps only the
+selected tab in the keyboard order, and the open tab is mirrored into the URL hash
+(`...#plants`) so it can be linked and survives a reload.
+
+**Combinations are shown one at a time.** A navigation bar sits directly above the combination with
+**Previous Combination** and **Next Combination** buttons, a counter (`Combination 3 of 12`) naming
+the design, and a *Jump to* list for going straight to any of them. The same two buttons repeat below
+the card so you do not have to scroll back up after reading one. Paging wraps in both directions.
+Left and right arrow keys also work, but only while the navigation bar itself has focus, so they can
+never hijack typing in the form.
+
+Cards are rendered on demand and cached, so only one combination is ever in the document. That is
+what keeps the page short, and it also made the first result roughly ten times faster to appear:
+about 25&nbsp;ms for one card instead of about 240&nbsp;ms for twelve. Revisiting a combination you
+have already seen is instant. `Download all as CSV` still exports every combination, not just the
+visible one, and `Print this combination` prints the one on screen.
+
 ## Files
 
 | File | Role |
@@ -77,6 +109,7 @@ serves without any configuration.
 | `test_harness.js` | minimal DOM shim so `app.js` can run under Node |
 | `run_tests.js` | the test suite |
 | `geometry_check.js` | asserts plan coverage, height ordering and that every species is drawn |
+| `check_render.py` | also validates the tab shell in `index.html`: five tabs, aria wiring, one visible panel, carousel controls above the card |
 | `ascii_plan.js` | prints a planting plan as an ASCII map, to eyeball layouts without a browser |
 | `sample_output.js` | prints real generated beds as text |
 | `diversity_check.js` | reports how many distinct species the design set uses |
@@ -268,13 +301,25 @@ node diversity_check.js                  # distinct species used across the desi
 node snapshot.js && python3 check_render.py   # verify the rendered markup
 ```
 
-`run_tests.js` covers ZIP resolution for 18 locations (including the out-of-scope and malformed
-cases), generates beds for 19 city / light / soil scenarios and 5 hard-filter stress cases, and
-asserts structural invariants on the rendered cards: layer tags present, spacing present, scorecard
+`run_tests.js` covers the tab behaviour (exactly one panel visible, `aria-selected` and roving
+`tabindex` correct for every tab, arrow/`Home`/`End` keys including wrap-around), the carousel
+(paging forward and back, wrapping in both directions, the footer buttons, the jump list, arrow keys,
+that exactly one card is ever in the page, that cards are reused rather than rebuilt, and that all
+twelve combinations are reachable and distinct), ZIP resolution for 18 locations (including the
+out-of-scope and malformed cases), bed generation for 19 city / light / soil scenarios and 5
+hard-filter stress cases, and structural invariants on the rendered cards: layer tags present, spacing present, scorecard
 present, plan present, calendar present, quantities within range, determinism, shuffle actually
 changing the result, and no `undefined` or `NaN` anywhere in the output.
 
-`check_render.py` goes further and checks the generated markup geometrically — that SVG plan blobs
+`check_render.py` validates the static tab shell in `index.html` separately &mdash; tab count and
+order, labels, `aria-controls` and `aria-labelledby` pairing, exactly one tab selected and one panel
+visible on load, the builder and the results both inside the first panel, and the navigation bar
+positioned above the card rather than below it. It also flags a subtle CSS trap: a class that is
+styled only through a different element type, such as `section.block` failing to match
+`<div class="block">`. That was a real bug introduced while building the tabs, and it is now caught
+automatically.
+
+`check_render.py` also checks the generated markup geometrically — that SVG plan blobs
 stay inside their viewBox, that plan labels are not smaller than 8.5 px, that legend entries match
 plant-table rows one to one, that every bloom-calendar row has exactly 13 cells, that scorecard
 progress bars stay within 0–100%, and that every CSS class the app emits actually has a rule in

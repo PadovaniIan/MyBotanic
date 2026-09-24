@@ -7,7 +7,100 @@ const ok   = (c,m)=>{ if(!c){ console.log('  FAIL  '+m); fails++; } };
 const warn = (c,m)=>{ if(!c){ console.log('  warn  '+m); warns++; } };
 const statusText = ()=> byId.status.innerHTML.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
 
-console.log('=== ZIP resolution ===');
+console.log('=== tabs ===');
+(function(){
+  const NAMES = ['build','how','plants','sources','before'];
+  const LABELS = {build:'Build a Bed', how:'How it works', plants:'Plant Database',
+                  sources:'Data Sources', before:'Before you plant'};
+  ok(NAMES.length === 5, 'there must be exactly 5 tabs, found '+NAMES.length);
+  // exactly one panel visible at any time, and it must match the selected tab
+  NAMES.forEach(name => {
+    H.clickTab(name);
+    const vis = H.visibleTabs();
+    ok(vis.length === 1, 'clicking '+name+' left '+vis.length+' panels visible');
+    ok(vis[0] === name, 'clicking '+name+' showed panel '+vis[0]);
+    const st = H.tabState();
+    const sel = st.filter(t => t.selected === 'true').map(t => t.id);
+    ok(sel.length === 1 && sel[0] === name,
+       'aria-selected is '+JSON.stringify(sel)+' after clicking '+name);
+    // roving tabindex: only the selected tab is reachable by Tab key
+    const focusable = st.filter(t => t.tabindex === '0').map(t => t.id);
+    ok(focusable.length === 1 && focusable[0] === name,
+       'tabindex=0 on '+JSON.stringify(focusable)+' after clicking '+name);
+  });
+  // keyboard: arrows move between tabs and wrap
+  H.clickTab('build');
+  byId['tab-build'].dispatch('keydown', {key:'ArrowRight', preventDefault(){}});
+  ok(H.visibleTabs()[0] === 'how', 'ArrowRight from Build should open How it works');
+  byId['tab-how'].dispatch('keydown', {key:'ArrowLeft', preventDefault(){}});
+  ok(H.visibleTabs()[0] === 'build', 'ArrowLeft should go back to Build');
+  byId['tab-build'].dispatch('keydown', {key:'ArrowLeft', preventDefault(){}});
+  ok(H.visibleTabs()[0] === 'before', 'ArrowLeft from the first tab should wrap to the last');
+  byId['tab-before'].dispatch('keydown', {key:'End', preventDefault(){}});
+  ok(H.visibleTabs()[0] === 'before', 'End should select the last tab');
+  byId['tab-before'].dispatch('keydown', {key:'Home', preventDefault(){}});
+  ok(H.visibleTabs()[0] === 'build', 'Home should select the first tab');
+  console.log('  5 tabs, one panel at a time, arrow/Home/End keys all work');
+  H.clickTab('build');
+})();
+
+console.log('\n=== one combination at a time ===');
+(function(){
+  setup('53703','S','M',{w:8,l:20});
+  const n = H.comboCount();
+  ok(n >= 4, 'expected several combinations, got '+n);
+  ok(byId.comboHost.children.length === 1,
+     'the page must hold exactly one combination, holds '+byId.comboHost.children.length);
+  ok(byId.comboNav.hidden === false, 'the navigation bar should be visible with results');
+  ok(byId.comboNavFoot.hidden === false, 'the footer navigation should be visible with results');
+  const label = () => byId.comboCount.innerHTML.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
+  ok(/Combination 1 of /.test(label()), 'counter should start at 1, reads '+label());
+
+  // forward, backward, and wrap in both directions
+  byId.nextCombo.dispatch('click');
+  ok(/Combination 2 of /.test(label()), 'Next Combination did not advance: '+label());
+  ok(byId.comboHost.children.length === 1, 'paging left more than one combination in the page');
+  byId.prevCombo.dispatch('click');
+  ok(/Combination 1 of /.test(label()), 'Previous Combination did not go back: '+label());
+  byId.prevCombo.dispatch('click');
+  ok(label().indexOf('Combination '+n+' of ') === 0,
+     'Previous from the first should wrap to the last, got '+label());
+  byId.nextCombo.dispatch('click');
+  ok(/Combination 1 of /.test(label()), 'Next from the last should wrap to the first: '+label());
+
+  // duplicate controls at the foot of the card
+  byId.nextCombo2.dispatch('click');
+  ok(/Combination 2 of /.test(label()), 'footer Next Combination does not work');
+  byId.prevCombo2.dispatch('click');
+  ok(/Combination 1 of /.test(label()), 'footer Previous Combination does not work');
+
+  // jump select
+  ok(byId.comboJump.children.length === n,
+     'jump list has '+byId.comboJump.children.length+' entries for '+n+' combinations');
+  byId.comboJump.value = String(n-1);
+  byId.comboJump.dispatch('change');
+  ok(label().indexOf('Combination '+n+' of ') === 0, 'jump select did not move: '+label());
+
+  // arrow keys on the nav
+  byId.comboJump.value = '0'; byId.comboJump.dispatch('change');
+  byId.comboNav.dispatch('keydown', {key:'ArrowRight'});
+  ok(/Combination 2 of /.test(label()), 'ArrowRight on the nav should advance');
+  byId.comboNav.dispatch('keydown', {key:'ArrowLeft'});
+  ok(/Combination 1 of /.test(label()), 'ArrowLeft on the nav should go back');
+
+  // cards are cached, not rebuilt
+  const a = byId.comboHost.children[0];
+  byId.nextCombo.dispatch('click'); byId.prevCombo.dispatch('click');
+  ok(byId.comboHost.children[0] === a, 'paging away and back should reuse the rendered card');
+
+  // every combination is reachable and distinct
+  const titles = new Set();
+  for(let i=0;i<n;i++){ H.gotoCombo(i); titles.add(cardTitle(byId.comboHost.children[0])); }
+  ok(titles.size === n, 'only '+titles.size+' distinct combinations reachable out of '+n);
+  console.log('  '+n+' combinations, one in the page at a time, '+titles.size+' distinct, wrap both ways');
+})();
+
+console.log('\n=== ZIP resolution ===');
 [['53703','WI'],['02138','MA'],['85719','AZ'],['97214','OR'],['94110','CA'],['33139','FL'],
  ['80304','CO'],['78704','TX'],['10025','NY'],['59801','MT'],['30306','GA'],['87501','NM'],
  ['98105','WA'],['67601','KS'],['89109','NV'],['99501','ZIP 99501 is in AK'],
@@ -36,7 +129,7 @@ const scenarios = [
 let zeros=0;
 scenarios.forEach(([label,zip,light,soil])=>{
   setup(zip,light,soil);
-  const n = cards().length;
+  const n = H.comboCount();   // counts the jump list, so it never renders 12 cards
   const summary = byId.resultsSummary.innerHTML.replace(/<[^>]*>/g,'');
   const pm = /from (\d+) species/.exec(summary);
   const pool = n ? (pm?+pm[1]:0) : (/the (\d+) eligible/.exec(statusText())||[0,0])[1];
@@ -54,7 +147,7 @@ console.log('\n=== hard-filter stress ===');
  ['under 4 ft, part shade','02138','P','M',{maxh:48}],
 ].forEach(([label,zip,light,soil,extra])=>{
   setup(zip,light,soil,extra);
-  const n=cards().length;
+  const n=H.comboCount();
   console.log('  '+label.padEnd(36)+' designs '+n);
   if(n===0) ok(/No combination could be assembled/.test(statusText()),
                label+' produced 0 designs without an explanatory message');

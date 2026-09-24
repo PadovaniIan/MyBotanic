@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Botanical Bed Builder &mdash; ecoregion-matched native planting combinations</title>
-<meta name="description" content="Enter a US ZIP code and shade level to get layered, ecologically functional native plant bed combinations, with planting plans, bloom calendars and habitat scorecards. Built on USDA, EPA, NWF and Xerces Society data.">
+<meta name="description" content="Enter a US ZIP code and shade level to get layered, ecologically functional native plant bed combinations, with planting plans, bloom calendars, watering schedules and habitat scorecards. Built on USDA, EPA, NWF and Xerces Society data.">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<a class="skip" href="#builder">Skip to the bed builder</a>
+<a class="skip" href="#panel-build">Skip to the bed builder</a>
 
 <header class="site">
   <div class="wrap">
@@ -16,320 +16,367 @@
     <p class="lede">Enter a ZIP code and how much sun the spot gets. You get back a set of complete
     planting combinations &mdash; layered the way a botanical garden lays out a bed, built only from
     species native to your ecoregion, and scored on what they actually do for insects and birds.</p>
-    <nav class="top" aria-label="Sections">
-      <a href="#builder">Build a bed</a>
-      <a href="#results">Combinations</a>
-      <a href="#method">How it works</a>
-      <a href="#browse">Plant database</a>
-      <a href="#refs">Data sources</a>
-      <a href="#caveats">Before you plant</a>
-    </nav>
   </div>
 </header>
+
+<div class="tabbar">
+  <div class="wrap">
+    <div class="tabs" role="tablist" aria-label="Sections">
+      <button type="button" class="tab" id="tab-build"   role="tab" aria-selected="true"
+              aria-controls="panel-build">Build a Bed</button>
+      <button type="button" class="tab" id="tab-how"     role="tab" aria-selected="false"
+              aria-controls="panel-how" tabindex="-1">How it works</button>
+      <button type="button" class="tab" id="tab-plants"  role="tab" aria-selected="false"
+              aria-controls="panel-plants" tabindex="-1">Plant Database</button>
+      <button type="button" class="tab" id="tab-sources" role="tab" aria-selected="false"
+              aria-controls="panel-sources" tabindex="-1">Data Sources</button>
+      <button type="button" class="tab" id="tab-before"  role="tab" aria-selected="false"
+              aria-controls="panel-before" tabindex="-1">Before you plant</button>
+    </div>
+  </div>
+</div>
 
 <main>
 <div class="wrap">
 
-  <section class="block" id="builder">
-    <div class="panel">
-      <h2>1. Describe the site</h2>
-      <p class="muted" style="margin-top:-.3em">Only the ZIP code and shade level are required.
-      Everything else narrows the results.</p>
-      <form id="bed">
-        <div class="grid">
-          <div>
-            <label class="f" for="zip">ZIP code</label>
-            <input type="text" id="zip" name="zip" inputmode="numeric" pattern="[0-9]{5}"
-                   maxlength="5" placeholder="e.g. 53703" autocomplete="postal-code" required>
-            <div class="hint">Used to resolve your ecoregion and hardiness zone.</div>
-          </div>
-          <div>
-            <label class="f" for="region">Ecoregion</label>
-            <select id="region" name="region"><option value="">Enter a ZIP code first</option></select>
-            <div class="hint" id="regionHint">Auto-filled. Change it if you are near a boundary.</div>
-          </div>
-          <div>
-            <label class="f" for="zone">USDA hardiness zone</label>
-            <select id="zone" name="zone"><option value="">Enter a ZIP code first</option></select>
-            <div class="hint"><a href="https://planthardiness.ars.usda.gov/" target="_blank" rel="noopener">Confirm
-              your exact zone &rarr;</a></div>
-          </div>
-          <div>
-            <label class="f" for="soil">Soil moisture</label>
-            <select id="soil" name="soil">
-              <option value="M" selected>Average &mdash; normal garden soil</option>
-              <option value="D">Dry &mdash; sand, gravel, slope, under eaves</option>
-              <option value="W">Moist to wet &mdash; low spot, downspout, pond edge</option>
-            </select>
-            <div class="hint">Dig a hole and fill it with water: if it drains in under an hour, choose dry.</div>
-          </div>
-        </div>
+  <!-- ==================== TAB 1: BUILD A BED ==================== -->
+  <section class="panel-tab" id="panel-build" role="tabpanel" aria-labelledby="tab-build">
 
-        <div class="grid" style="margin-top:20px">
-          <fieldset class="seg">
-            <legend class="f">Shade level</legend>
-            <div class="opts">
-              <label><input type="radio" name="light" value="S" checked>
-                <span><b>Full sun</b><i>6+ hrs direct</i></span></label>
-              <label><input type="radio" name="light" value="P">
-                <span><b>Part shade</b><i>3&ndash;6 hrs, or dappled</i></span></label>
-              <label><input type="radio" name="light" value="H">
-                <span><b>Full shade</b><i>under 3 hrs</i></span></label>
+    <div class="block">
+      <div class="panel">
+        <h2>1. Describe the site</h2>
+        <p class="muted" style="margin-top:-.3em">Only the ZIP code and shade level are required.
+        Everything else narrows the results.</p>
+        <form id="bed">
+          <div class="grid">
+            <div>
+              <label class="f" for="zip">ZIP code</label>
+              <input type="text" id="zip" name="zip" inputmode="numeric" pattern="[0-9]{5}"
+                     maxlength="5" placeholder="e.g. 53703" autocomplete="postal-code" required>
+              <div class="hint">Used to resolve your ecoregion and hardiness zone.</div>
             </div>
-          </fieldset>
-          <div>
-            <label class="f" for="w">Bed width (ft)</label>
-            <input type="number" id="w" name="w" value="6" min="2" max="60" step="1">
+            <div>
+              <label class="f" for="region">Ecoregion</label>
+              <select id="region" name="region"><option value="">Enter a ZIP code first</option></select>
+              <div class="hint" id="regionHint">Auto-filled. Change it if you are near a boundary.</div>
+            </div>
+            <div>
+              <label class="f" for="zone">USDA hardiness zone</label>
+              <select id="zone" name="zone"><option value="">Enter a ZIP code first</option></select>
+              <div class="hint"><a href="https://planthardiness.ars.usda.gov/" target="_blank" rel="noopener">Confirm
+                your exact zone &rarr;</a></div>
+            </div>
+            <div>
+              <label class="f" for="soil">Soil moisture</label>
+              <select id="soil" name="soil">
+                <option value="M" selected>Average &mdash; normal garden soil</option>
+                <option value="D">Dry &mdash; sand, gravel, slope, under eaves</option>
+                <option value="W">Moist to wet &mdash; low spot, downspout, pond edge</option>
+              </select>
+              <div class="hint">Dig a hole and fill it with water: if it drains in under an hour, choose dry.</div>
+            </div>
           </div>
-          <div>
-            <label class="f" for="l">Bed length (ft)</label>
-            <input type="number" id="l" name="l" value="16" min="2" max="200" step="1">
-          </div>
-          <div>
-            <label class="f" for="maxh">Height limit</label>
-            <select id="maxh" name="maxh">
-              <option value="999" selected>No limit</option>
-              <option value="30">Under 30 in &mdash; sight lines, kerbside</option>
-              <option value="48">Under 4 ft &mdash; below a window</option>
-              <option value="72">Under 6 ft</option>
-            </select>
-          </div>
-          <div>
-            <label class="f" for="deer">Deer pressure</label>
-            <select id="deer" name="deer">
-              <option value="0" selected>Low or none</option>
-              <option value="1">High &mdash; favour deer-resistant species</option>
-            </select>
-          </div>
-          <div>
-            <label class="f" for="spread">Spreading plants</label>
-            <select id="spread" name="spread">
-              <option value="1" selected>Allowed &mdash; informal bed</option>
-              <option value="0">Avoid &mdash; small or formal bed</option>
-            </select>
-            <div class="hint">Excludes species flagged as rhizomatous or freely self-sowing.</div>
-          </div>
-        </div>
 
-        <div id="zipOut" role="status" aria-live="polite"></div>
+          <div class="grid" style="margin-top:20px">
+            <fieldset class="seg">
+              <legend class="f">Shade level</legend>
+              <div class="opts">
+                <label><input type="radio" name="light" value="S" checked>
+                  <span><b>Full sun</b><i>6+ hrs direct</i></span></label>
+                <label><input type="radio" name="light" value="P">
+                  <span><b>Part shade</b><i>3&ndash;6 hrs, or dappled</i></span></label>
+                <label><input type="radio" name="light" value="H">
+                  <span><b>Full shade</b><i>under 3 hrs</i></span></label>
+              </div>
+            </fieldset>
+            <div>
+              <label class="f" for="w">Bed width (feet)</label>
+              <input type="number" id="w" name="w" value="6" min="2" max="60" step="1">
+            </div>
+            <div>
+              <label class="f" for="l">Bed length (feet)</label>
+              <input type="number" id="l" name="l" value="16" min="2" max="200" step="1">
+            </div>
+            <div>
+              <label class="f" for="maxh">Height limit</label>
+              <select id="maxh" name="maxh">
+                <option value="999" selected>No limit</option>
+                <option value="30">Under 30 inches &mdash; sight lines, kerbside</option>
+                <option value="48">Under 4 feet &mdash; below a window</option>
+                <option value="72">Under 6 feet</option>
+              </select>
+            </div>
+            <div>
+              <label class="f" for="deer">Deer pressure</label>
+              <select id="deer" name="deer">
+                <option value="0" selected>Low or none</option>
+                <option value="1">High &mdash; favour deer-resistant species</option>
+              </select>
+            </div>
+            <div>
+              <label class="f" for="spread">Spreading plants</label>
+              <select id="spread" name="spread">
+                <option value="1" selected>Allowed &mdash; informal bed</option>
+                <option value="0">Avoid &mdash; small or formal bed</option>
+              </select>
+              <div class="hint">Excludes species flagged as rhizomatous or freely self-sowing.</div>
+            </div>
+          </div>
 
-        <div class="row-actions">
-          <button type="submit" class="btn">Generate combinations</button>
-          <button type="button" class="btn ghost" id="shuffle">Shuffle variations</button>
-          <span class="muted small" id="permalinkWrap" hidden>
-            <a href="#" id="permalink">Copy a link to this result</a></span>
-        </div>
-      </form>
+          <div id="zipOut" role="status" aria-live="polite"></div>
+
+          <div class="row-actions">
+            <button type="submit" class="btn">Generate combinations</button>
+            <button type="button" class="btn ghost" id="shuffle">Shuffle variations</button>
+            <span class="muted small" id="permalinkWrap" hidden>
+              <a href="#" id="permalink">Copy a link to this result</a></span>
+          </div>
+        </form>
+      </div>
     </div>
-  </section>
 
-  <section class="block" id="results">
-    <div id="status"></div>
-    <div class="results-head" id="resultsHead" hidden>
-      <div>
-        <h2 style="margin:0">2. Your combinations</h2>
-        <p class="muted" style="margin:.2em 0 0" id="resultsSummary"></p>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button type="button" class="btn ghost sm" id="csvAll">Download all as CSV</button>
-        <button type="button" class="btn ghost sm" id="printBtn">Print</button>
-      </div>
-    </div>
-    <div id="combos"></div>
-  </section>
+    <div class="block" id="results">
+      <div id="status"></div>
 
-  <section class="block" id="method">
-    <div class="panel">
-      <h2>How the recommendations are built</h2>
-      <div class="cols">
-      <div>
-        <h3 style="font-size:1.05rem">Step 1 &mdash; ZIP code to ecological zone</h3>
-        <p class="small">A ZIP code is a postal object, not an ecological one, so it is resolved in
-        two passes. The ZIP is first matched against the published USPS state ranges. A table of 880
-        three-digit prefix overrides then splits states that straddle real ecological boundaries
-        &mdash; the Cascade crest, the Colorado Front Range, the Trans-Pecos, the Florida peninsula,
-        the Sierra Nevada, the Appalachian highlands &mdash; and narrows the plausible hardiness
-        span. You confirm both before anything is recommended. The ten regions map onto EPA
-        Level&nbsp;I and Level&nbsp;II ecoregions (the Omernik framework) rather than onto state
-        lines.</p>
-        <p class="small"><strong>For true ZIP-level precision</strong>, run
-        <code>fetch_authoritative.py</code>. With network access it downloads the Census ZCTA
-        centroids, the EPA Level&nbsp;III/IV ecoregion polygons and the 2023 USDA hardiness raster,
-        intersects them, and writes an exact per-ZIP lookup that this page picks up automatically.</p>
-
-        <h3 style="font-size:1.05rem;margin-top:22px">Step 2 &mdash; filtering the species pool</h3>
-        <p class="small">A species is kept only if it is native to the chosen ecoregion, its
-        hardiness range covers your zone, it tolerates your light level and it tolerates your soil
-        moisture. Height limit, deer pressure and the spreading-plants switch trim it further. Cold
-        hardiness is treated as a hard limit; the warm end is treated as a soft limit with one zone
-        of tolerance, because published upper zones are a rough proxy for heat tolerance rather than
-        a measurement. Any plant recommended above its published limit is flagged in that bed's
-        notes.</p>
-
-        <h3 style="font-size:1.05rem;margin-top:22px">Step 3 &mdash; layered design templates</h3>
-        <p class="small">Each combination comes from a design template built on the layered
-        plant-community model set out by Thomas Rainer and Claudia West in
-        <em>Planting in a Post-Wild World</em>. Every bed gets four functional layers, which is the
-        difference between a designed bed and a pile of plants:</p>
-        <ul class="small">
-          <li><strong>Structural</strong> (roughly 10&ndash;25% of area) &mdash; the tall, legible
-            forms that hold the composition together in every season.</li>
-          <li><strong>Seasonal theme</strong> (25&ndash;40%) &mdash; the flowering display, sequenced
-            so something is always coming into bloom.</li>
-          <li><strong>Groundcover matrix</strong> (up to 55%) &mdash; a continuous living carpet of
-            sedges, grasses and low perennials. This is the layer amateur beds omit, and it is what
-            suppresses weeds and replaces annual mulching.</li>
-          <li><strong>Dynamic filler</strong> (2&ndash;10%) &mdash; short-lived self-sowers that knit
-            a young planting together while the rest establishes.</li>
-        </ul>
-        <p class="small">Within a layer, species are chosen by a weighted draw that favours high
-        ecological value, never repeats a genus, honours the template's colour discipline and, where
-        the template demands it, guarantees continuous bloom or a minimum number of host plants. A
-        usage penalty across the whole result set stops the twelve designs converging on the same
-        six plants. The number of species is scaled to the size of the bed, because a small bed
-        planted with a dozen species becomes a row of single specimens rather than a composition.
-        Quantities come from each layer's share of your bed area divided by the species' spacing,
-        assuming triangular spacing, and nudged to odd numbers because odd-numbered drifts read
-        better.</p>
-
-        <h3 style="font-size:1.05rem;margin-top:22px">Step 4 &mdash; drawing the plan</h3>
-        <p class="small">The plan is not decoration; it is the planting instruction. The bed is
-        divided into a fine grid and <strong>every single cell is assigned to a species</strong>, so
-        there is never unexplained empty space on the drawing &mdash; the groundcover layer is shown
-        genuinely filling the gaps between the taller drifts, which is exactly how it has to be
-        planted. Each species grows outward from a few seed points, cheapest cell first, until it has
-        claimed precisely its designed share of the area, which guarantees that no species is ever
-        squeezed out of the drawing.</p>
-        <p class="small"><strong>Colour on the plan encodes what a plant is for</strong>, using the
-        same palette as the Layer column in the plant table &mdash; slate blue for structural
-        plants, amber for the seasonal display, green for groundcover, olive for matrix grasses,
-        teal for ferns, violet for shrubs, rose for fillers. Species sharing a layer share a hue and
-        are separated along a lightness ramp, so a layer reads as one family while its members stay
-        tellable apart. The numbers, not the colours, identify an individual species, and they are
-        held at a legible size even in the smallest patch rather than being scaled down with it.</p>
-        <p class="small">Placement is governed by <strong>mature height</strong>. Each species is
-        given a preferred depth &mdash; tallest against the back edge, shortest at the front &mdash;
-        and a band around it that widens with the area it has to cover. Straying outside that band
-        costs so much that a large drift spreads sideways along the bed instead of bleeding forward
-        out of its tier, and the front few inches are reserved for genuinely low plants so nothing
-        short ends up hidden behind something tall. Within those constraints the shapes are
-        deliberately irregular, because drifts that look surveyed look wrong.</p>
-      </div>
-      <div>
-        <div class="score">
-          <h4>What the habitat scorecard measures</h4>
-          <table class="ref small" style="margin-top:8px">
-            <tr><th>Caterpillar capacity</th><td>Lepidoptera species supported by the genera in the
-              bed, from the National Wildlife Federation and Tallamy host dataset, summed per genus
-              so three asters do not count three times. Caterpillars are the primary food of most
-              North American terrestrial birds &mdash; a single chickadee brood needs somewhere
-              between 6,000 and 9,000 of them.</td></tr>
-            <tr><th>Specialist bees</th><td>Species documented by Fowler and Droege as pollen hosts
-              for oligolectic native bees, which cannot substitute another plant.</td></tr>
-            <tr><th>Bloom continuity</th><td>Months with at least one species in flower, plus the
-              count of months with three or more &mdash; the measure that matters for sustaining a
-              pollinator community rather than merely attracting visitors.</td></tr>
-            <tr><th>Ground coverage</th><td>Share of the bed held by the living groundcover layer.
-              Above roughly 50% you can stop mulching.</td></tr>
-            <tr><th>Winter habitat</th><td>Species with standing stems or persistent seedheads, which
-              shelter overwintering bees and moth pupae and feed finches and juncos.</td></tr>
-          </table>
+      <div class="results-head" id="resultsHead" hidden>
+        <div>
+          <h2 style="margin:0">2. Your combinations</h2>
+          <p class="muted" style="margin:.2em 0 0" id="resultsSummary"></p>
         </div>
-        <h3 style="font-size:1.05rem;margin-top:22px">Step 5 &mdash; instructions for your bed</h3>
-        <p class="small">The layout steps and the maintenance schedule are written from the plants
-        actually chosen, not copied from the template. That includes <strong>when to plant</strong>
-        &mdash; resolved from your zone and ecoregion, because the right answer genuinely differs
-        (autumn nearly everywhere, but spring in the coldest zones where frost heave lifts unrooted
-        plants, and strictly autumn in California and the Pacific Northwest where a spring planting
-        commits you to irrigating all summer) &mdash; and <strong>how much to water</strong>, in
-        gallons for your actual bed area, with a schedule that steps down over three years and names
-        the species that must never be watered in summer.</p>
-        <p class="small"><strong>To show what a plant looks like</strong> the site stores no images
-        at all, which keeps the whole page under 400&nbsp;KB and means it loads instantly on a phone
-        in a garden centre. Instead each species carries a generated one-line description of habit,
-        height, flower colour and season, plus two outbound links: one to the Lady Bird Johnson
-        Wildflower Center for curated photographs and a full profile, and one to iNaturalist for
-        photographs of the plant growing in the wild, which is a more honest guide to how it will
-        actually look than a catalogue photograph.</p>
-
-        <div class="callout">
-          <strong>Deliberate omissions.</strong> No double-flowered cultivars, which are often
-          sterile or nectarless; no dark-foliage nativars where anthocyanin load is associated with
-          reduced caterpillar survival; and no species listed as invasive anywhere in the range it is
-          recommended for. Where a named cultivar genuinely outperforms the species &mdash; sturdier
-          stems, better mildew resistance &mdash; it is named in the plant notes instead.
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button type="button" class="btn ghost sm" id="csvAll">Download all as CSV</button>
+          <button type="button" class="btn ghost sm" id="printBtn">Print this combination</button>
         </div>
       </div>
+
+      <!-- one combination at a time -->
+      <div class="combo-nav" id="comboNav" hidden>
+        <button type="button" class="btn nav" id="prevCombo">
+          <span class="arw" aria-hidden="true">&#8592;</span>Previous Combination</button>
+        <div class="combo-pos">
+          <div class="cp-count" id="comboCount"></div>
+          <label class="cp-jump"><span class="cp-jl">Jump to</span>
+            <select id="comboJump" aria-label="Jump to a combination"></select></label>
+        </div>
+        <button type="button" class="btn nav" id="nextCombo">
+          Next Combination<span class="arw" aria-hidden="true">&#8594;</span></button>
+      </div>
+
+      <div id="comboHost" aria-live="polite"></div>
+
+      <div class="combo-nav foot" id="comboNavFoot" hidden>
+        <button type="button" class="btn nav" id="prevCombo2">
+          <span class="arw" aria-hidden="true">&#8592;</span>Previous Combination</button>
+        <div class="combo-pos"><div class="cp-count" id="comboCount2"></div></div>
+        <button type="button" class="btn nav" id="nextCombo2">
+          Next Combination<span class="arw" aria-hidden="true">&#8594;</span></button>
       </div>
     </div>
   </section>
 
-  <section class="block" id="browse">
-    <div class="panel">
-      <h2>Plant database</h2>
-      <p class="muted" style="margin-top:-.3em" id="browseCount"></p>
-      <div class="browse-filters">
-        <div><label class="f" for="bq">Search</label>
-          <input type="text" id="bq" placeholder="name, family, host, note"></div>
-        <div><label class="f" for="breg">Region</label><select id="breg"></select></div>
-        <div><label class="f" for="blay">Layer</label><select id="blay"></select></div>
-        <div><label class="f" for="blight">Light</label><select id="blight">
-          <option value="">Any</option><option value="S">Full sun</option>
-          <option value="P">Part shade</option><option value="H">Full shade</option></select></div>
-        <div><label class="f" for="bsort">Sort by</label><select id="bsort">
-          <option value="eco">Ecological value</option><option value="lep">Caterpillars hosted</option>
-          <option value="name">Scientific name</option><option value="h">Height</option></select></div>
+  <!-- ==================== TAB 2: HOW IT WORKS ==================== -->
+  <section class="panel-tab" id="panel-how" role="tabpanel" aria-labelledby="tab-how" hidden>
+    <div class="block">
+      <div class="panel">
+        <h2>How the recommendations are built</h2>
+        <div class="cols">
+        <div>
+          <h3 style="font-size:1.05rem">Step 1 &mdash; ZIP code to ecological zone</h3>
+          <p class="small">A ZIP code is a postal object, not an ecological one, so it is resolved in
+          two passes. The ZIP is first matched against the published USPS state ranges. A table of 880
+          three-digit prefix overrides then splits states that straddle real ecological boundaries
+          &mdash; the Cascade crest, the Colorado Front Range, the Trans-Pecos, the Florida peninsula,
+          the Sierra Nevada, the Appalachian highlands &mdash; and narrows the plausible hardiness
+          span. You confirm both before anything is recommended. The ten regions map onto EPA
+          Level&nbsp;I and Level&nbsp;II ecoregions (the Omernik framework) rather than onto state
+          lines.</p>
+          <p class="small"><strong>For true ZIP-level precision</strong>, run
+          <code>fetch_authoritative.py</code>. With network access it downloads the Census ZCTA
+          centroids, the EPA Level&nbsp;III/IV ecoregion polygons and the 2023 USDA hardiness raster,
+          intersects them, and writes an exact per-ZIP lookup that this page picks up automatically.</p>
+
+          <h3 style="font-size:1.05rem;margin-top:22px">Step 2 &mdash; filtering the species pool</h3>
+          <p class="small">A species is kept only if it is native to the chosen ecoregion, its
+          hardiness range covers your zone, it tolerates your light level and it tolerates your soil
+          moisture. Height limit, deer pressure and the spreading-plants switch trim it further. Cold
+          hardiness is treated as a hard limit; the warm end is treated as a soft limit with one zone
+          of tolerance, because published upper zones are a rough proxy for heat tolerance rather than
+          a measurement. Any plant recommended above its published limit is flagged in that bed's
+          notes.</p>
+
+          <h3 style="font-size:1.05rem;margin-top:22px">Step 3 &mdash; layered design templates</h3>
+          <p class="small">Each combination comes from a design template built on the layered
+          plant-community model set out by Thomas Rainer and Claudia West in
+          <em>Planting in a Post-Wild World</em>. Every bed gets four functional layers, which is the
+          difference between a designed bed and a pile of plants:</p>
+          <ul class="small">
+            <li><strong>Structural</strong> (roughly 10&ndash;25% of area) &mdash; the tall, legible
+              forms that hold the composition together in every season.</li>
+            <li><strong>Seasonal theme</strong> (25&ndash;40%) &mdash; the flowering display, sequenced
+              so something is always coming into bloom.</li>
+            <li><strong>Groundcover matrix</strong> (up to 55%) &mdash; a continuous living carpet of
+              sedges, grasses and low perennials. This is the layer amateur beds omit, and it is what
+              suppresses weeds and replaces annual mulching.</li>
+            <li><strong>Dynamic filler</strong> (2&ndash;10%) &mdash; short-lived self-sowers that knit
+              a young planting together while the rest establishes.</li>
+          </ul>
+          <p class="small">Within a layer, species are chosen by a weighted draw that favours high
+          ecological value, never repeats a genus, honours the template's colour discipline and, where
+          the template demands it, guarantees continuous bloom or a minimum number of host plants. A
+          usage penalty across the whole result set stops the twelve designs converging on the same
+          six plants. The number of species is scaled to the size of the bed, because a small bed
+          planted with a dozen species becomes a row of single specimens rather than a composition.
+          Quantities come from each layer's share of your bed area divided by the species' spacing,
+          assuming triangular spacing, and nudged to odd numbers because odd-numbered drifts read
+          better.</p>
+
+          <h3 style="font-size:1.05rem;margin-top:22px">Step 4 &mdash; drawing the plan</h3>
+          <p class="small">The plan is not decoration; it is the planting instruction. The bed is
+          divided into a fine grid and <strong>every single cell is assigned to a species</strong>, so
+          there is never unexplained empty space on the drawing &mdash; the groundcover layer is shown
+          genuinely filling the gaps between the taller drifts, which is exactly how it has to be
+          planted. Each species grows outward from a few seed points, cheapest cell first, until it has
+          claimed precisely its designed share of the area, which guarantees that no species is ever
+          squeezed out of the drawing.</p>
+          <p class="small"><strong>Colour on the plan encodes what a plant is for</strong>, using the
+          same palette as the Layer column in the plant table &mdash; slate blue for structural
+          plants, amber for the seasonal display, green for groundcover, olive for matrix grasses,
+          teal for ferns, violet for shrubs, rose for fillers. Species sharing a layer share a hue and
+          are separated along a lightness ramp, so a layer reads as one family while its members stay
+          tellable apart. The numbers, not the colours, identify an individual species, and they are
+          held at a legible size even in the smallest patch rather than being scaled down with it.</p>
+          <p class="small">Placement is governed by <strong>mature height</strong>. Each species is
+          given a preferred depth &mdash; tallest against the back edge, shortest at the front &mdash;
+          and a band around it that widens with the area it has to cover. Straying outside that band
+          costs so much that a large drift spreads sideways along the bed instead of bleeding forward
+          out of its tier, and the front few inches are reserved for genuinely low plants so nothing
+          short ends up hidden behind something tall. Within those constraints the shapes are
+          deliberately irregular, because drifts that look surveyed look wrong.</p>
+
+          <h3 style="font-size:1.05rem;margin-top:22px">Step 5 &mdash; instructions for your bed</h3>
+          <p class="small">The layout steps and the maintenance schedule are written from the plants
+          actually chosen, not copied from the template. That includes <strong>when to plant</strong>
+          &mdash; resolved from your zone and ecoregion, because the right answer genuinely differs
+          (autumn nearly everywhere, but spring in the coldest zones where frost heave lifts unrooted
+          plants, and strictly autumn in California and the Pacific Northwest where a spring planting
+          commits you to irrigating all summer) &mdash; and <strong>how much to water</strong>, in
+          gallons for your actual bed area, with a schedule that steps down over three years and names
+          the species that must never be watered in summer.</p>
+          <p class="small"><strong>To show what a plant looks like</strong> the site stores no images
+          at all, which keeps the whole page under 400&nbsp;KB and means it loads instantly on a phone
+          in a garden centre. Instead each species carries a generated one-line description of habit,
+          height, flower colour and season, plus two outbound links: one to the Lady Bird Johnson
+          Wildflower Center for curated photographs and a full profile, and one to iNaturalist for
+          photographs of the plant growing in the wild, which is a more honest guide to how it will
+          actually look than a catalogue photograph.</p>
+        </div>
+        <div>
+          <div class="score">
+            <h4>What the habitat scorecard measures</h4>
+            <table class="ref small" style="margin-top:8px">
+              <tr><th>Caterpillar capacity</th><td>Lepidoptera species supported by the genera in the
+                bed, from the National Wildlife Federation and Tallamy host dataset, summed per genus
+                so three asters do not count three times. Caterpillars are the primary food of most
+                North American terrestrial birds &mdash; a single chickadee brood needs somewhere
+                between 6,000 and 9,000 of them.</td></tr>
+              <tr><th>Specialist bees</th><td>Species documented by Fowler and Droege as pollen hosts
+                for oligolectic native bees, which cannot substitute another plant.</td></tr>
+              <tr><th>Bloom continuity</th><td>Months with at least one species in flower, plus the
+                count of months with three or more &mdash; the measure that matters for sustaining a
+                pollinator community rather than merely attracting visitors.</td></tr>
+              <tr><th>Ground coverage</th><td>Share of the bed held by the living groundcover layer.
+                Above roughly 50% you can stop mulching.</td></tr>
+              <tr><th>Winter habitat</th><td>Species with standing stems or persistent seedheads, which
+                shelter overwintering bees and moth pupae and feed finches and juncos.</td></tr>
+            </table>
+          </div>
+          <div class="callout">
+            <strong>Deliberate omissions.</strong> No double-flowered cultivars, which are often
+            sterile or nectarless; no dark-foliage nativars where anthocyanin load is associated with
+            reduced caterpillar survival; and no species listed as invasive anywhere in the range it is
+            recommended for. Where a named cultivar genuinely outperforms the species &mdash; sturdier
+            stems, better mildew resistance &mdash; it is named in the plant notes instead.
+          </div>
+        </div>
       </div>
-      <div class="scroller"><table class="ref" id="browseTable"></table></div>
     </div>
   </section>
 
-  <section class="block" id="refs">
-    <h2>Data sources</h2>
-    <p class="muted" style="max-width:78ch">Every figure in this tool traces to one of the following.
-    Nomenclature follows USDA PLANTS cross-checked against Plants of the World Online; native ranges
-    follow BONAP and USDA PLANTS; ecological attributes follow the NWF and Tallamy host dataset, the
-    Fowler and Droege specialist-bee compilations and the Xerces Society regional lists; cultural
-    requirements follow the Lady Bird Johnson Wildflower Center.</p>
-    <div class="cards" id="srcCards"></div>
+  <!-- ==================== TAB 3: PLANT DATABASE ==================== -->
+  <section class="panel-tab" id="panel-plants" role="tabpanel" aria-labelledby="tab-plants" hidden>
+    <div class="block">
+      <div class="panel">
+        <h2>Plant database</h2>
+        <p class="muted" style="margin-top:-.3em" id="browseCount"></p>
+        <div class="browse-filters">
+          <div><label class="f" for="bq">Search</label>
+            <input type="text" id="bq" placeholder="name, family, host, note"></div>
+          <div><label class="f" for="breg">Region</label><select id="breg"></select></div>
+          <div><label class="f" for="blay">Layer</label><select id="blay"></select></div>
+          <div><label class="f" for="blight">Light</label><select id="blight">
+            <option value="">Any</option><option value="S">Full sun</option>
+            <option value="P">Part shade</option><option value="H">Full shade</option></select></div>
+          <div><label class="f" for="bsort">Sort by</label><select id="bsort">
+            <option value="eco">Ecological value</option><option value="lep">Caterpillars hosted</option>
+            <option value="name">Scientific name</option><option value="h">Height</option></select></div>
+        </div>
+        <div class="scroller"><table class="ref" id="browseTable"></table></div>
+      </div>
+    </div>
   </section>
 
-  <section class="block" id="caveats">
-    <div class="panel">
-      <h2>Before you plant</h2>
-      <ol class="steps">
-        <li><strong>Check nativity at the county level, not the state level.</strong> This tool works
-          at ecoregion resolution. Look each species up on
-          <a href="http://bonap.net/napa" target="_blank" rel="noopener">BONAP's North American Plant
-          Atlas</a> and confirm your county is shaded. A plant native 300 miles away is still an
-          introduction.</li>
-        <li><strong>Buy from a genuine native nursery and ask about neonicotinoids.</strong> Systemic
-          insecticides applied in production persist in nectar and pollen for a season or more and
-          will poison exactly the insects the bed is meant to support. Audubon's
-          <a href="https://www.audubon.org/native-plants" target="_blank" rel="noopener">native
-          plants directory</a> lists local suppliers by ZIP code.</li>
-        <li><strong>Prefer local ecotypes and seed-grown plants.</strong> Local genotypes are adapted
-          to your photoperiod and frost dates and preserve regional genetic diversity. Avoid single
-          clones mass-propagated from one parent.</li>
-        <li><strong>Do not amend, and do not use rich mulch on lean-soil designs.</strong> Most of
-          the drought-adapted species here fail in improved soil. Gravel gardens and hellstrips want
-          lean mineral ground.</li>
-        <li><strong>Plant at the quoted density, or closer.</strong> Sparse planting with wide mulched
-          gaps is the single most common failure: weeds fill whatever you leave empty. Aim for full
-          ground coverage within two seasons.</li>
-        <li><strong>Leave the bed standing over winter and cut back late.</strong> Stems and seedheads
-          are habitat, not mess. Cut in two passes in spring, a fortnight apart.</li>
-        <li><strong>Check local rules.</strong> Some municipalities have height or setback ordinances
-          and some homeowners' associations restrict meadow-style planting. A crisp edge, a mown
-          border strip and a small sign do a great deal of political work.</li>
-      </ol>
-      <div class="callout red">
-        <strong>Accuracy notice.</strong> Lepidoptera host counts are approximate values at the level
-        of the plant <em>genus</em> and vary substantially by county; treat them as a way to rank
-        plants against each other, not as a measurement. Hardiness zones, native ranges and
-        specialist-bee associations should be verified against the primary sources above for any
-        species you are about to buy in quantity. Cold hardiness is a necessary but not sufficient
-        condition &mdash; heat, humidity, soil pH and summer rainfall pattern all matter as much.
+  <!-- ==================== TAB 4: DATA SOURCES ==================== -->
+  <section class="panel-tab" id="panel-sources" role="tabpanel" aria-labelledby="tab-sources" hidden>
+    <div class="block">
+      <h2>Data sources</h2>
+      <p class="muted" style="max-width:78ch">Every figure in this tool traces to one of the following.
+      Nomenclature follows USDA PLANTS cross-checked against Plants of the World Online; native ranges
+      follow BONAP and USDA PLANTS; ecological attributes follow the NWF and Tallamy host dataset, the
+      Fowler and Droege specialist-bee compilations and the Xerces Society regional lists; cultural
+      requirements follow the Lady Bird Johnson Wildflower Center.</p>
+      <div class="cards" id="srcCards"></div>
+    </div>
+  </section>
+
+  <!-- ==================== TAB 5: BEFORE YOU PLANT ==================== -->
+  <section class="panel-tab" id="panel-before" role="tabpanel" aria-labelledby="tab-before" hidden>
+    <div class="block">
+      <div class="panel">
+        <h2>Before you plant</h2>
+        <ol class="steps">
+          <li><strong>Check nativity at the county level, not the state level.</strong> This tool works
+            at ecoregion resolution. Look each species up on
+            <a href="http://bonap.net/napa" target="_blank" rel="noopener">BONAP's North American Plant
+            Atlas</a> and confirm your county is shaded. A plant native 300 miles away is still an
+            introduction.</li>
+          <li><strong>Buy from a genuine native nursery and ask about neonicotinoids.</strong> Systemic
+            insecticides applied in production persist in nectar and pollen for a season or more and
+            will poison exactly the insects the bed is meant to support. Audubon's
+            <a href="https://www.audubon.org/native-plants" target="_blank" rel="noopener">native
+            plants directory</a> lists local suppliers by ZIP code.</li>
+          <li><strong>Prefer local ecotypes and seed-grown plants.</strong> Local genotypes are adapted
+            to your photoperiod and frost dates and preserve regional genetic diversity. Avoid single
+            clones mass-propagated from one parent.</li>
+          <li><strong>Do not amend, and do not use rich mulch on lean-soil designs.</strong> Most of
+            the drought-adapted species here fail in improved soil. Gravel gardens and hellstrips want
+            lean mineral ground.</li>
+          <li><strong>Plant at the quoted density, or closer.</strong> Sparse planting with wide mulched
+            gaps is the single most common failure: weeds fill whatever you leave empty. Aim for full
+            ground coverage within two seasons.</li>
+          <li><strong>Leave the bed standing over winter and cut back late.</strong> Stems and seedheads
+            are habitat, not mess. Cut in two passes in spring, a fortnight apart.</li>
+          <li><strong>Check local rules.</strong> Some municipalities have height or setback ordinances
+            and some homeowners' associations restrict meadow-style planting. A crisp edge, a mown
+            border strip and a small sign do a great deal of political work.</li>
+        </ol>
+        <div class="callout red">
+          <strong>Accuracy notice.</strong> Lepidoptera host counts are approximate values at the level
+          of the plant <em>genus</em> and vary substantially by county; treat them as a way to rank
+          plants against each other, not as a measurement. Hardiness zones, native ranges and
+          specialist-bee associations should be verified against the primary sources for any species
+          you are about to buy in quantity. Cold hardiness is a necessary but not sufficient
+          condition &mdash; heat, humidity, soil pH and summer rainfall pattern all matter as much.
+        </div>
       </div>
     </div>
   </section>

@@ -25,6 +25,29 @@ function ser(e){
   const inner = e._html || ((e._text?esc(e._text):'') + e.children.map(ser).join(''));
   return '<'+tag+a+'>'+inner+'</'+tag+'>';
 }
+/* The live page shows the tab bar and one combination inside the carousel chrome, so the
+   snapshot reproduces that shell. Each scenario below is rendered as it appears on screen:
+   navigation bar, one combination, navigation bar again at the foot. */
+function tabBar(active){
+  const T=[['build','Build a Bed'],['how','How it works'],['plants','Plant Database'],
+           ['sources','Data Sources'],['before','Before you plant']];
+  return '<div class="tabbar"><div class="wrap"><div class="tabs" role="tablist">'+
+    T.map(([id,label])=>'<button type="button" class="tab" role="tab" aria-selected="'+
+      (id===active?'true':'false')+'">'+label+'</button>').join('')+
+    '</div></div></div>';
+}
+function comboNav(i,n,name,foot){
+  return '<div class="combo-nav'+(foot?' foot':'')+'">'+
+    '<button type="button" class="btn nav"><span class="arw">&#8592;</span>Previous Combination</button>'+
+    '<div class="combo-pos"><div class="cp-count">Combination <b>'+(i+1)+'</b> of '+n+
+      '<span class="cp-name">'+name+'</span></div>'+
+      (foot?'':'<label class="cp-jump"><span class="cp-jl">Jump to</span>'+
+        '<select><option>Combination '+(i+1)+' \u2014 '+name+'</option></select></label>')+
+    '</div>'+
+    '<button type="button" class="btn nav">Next Combination<span class="arw">&#8594;</span></button>'+
+    '</div>';
+}
+
 const cases=[
  ['Madison, Wisconsin \u2014 full sun, average soil, 8 \u00d7 20 ft','53703','S','M',8,20,3],
  ['Atlanta, Georgia \u2014 full shade, average soil, 6 \u00d7 14 ft','30306','H','M',6,14,2],
@@ -35,18 +58,27 @@ const cases=[
 let body='';
 for(const [label,zip,light,soil,w,l,take] of cases){
   setup(zip,light,soil,{w,l});
+  const all = cards();                      // pages the real carousel
+  const n = all.length;
   body+='<section class="block"><div class="panel"><h2>'+esc(label)+'</h2>'+
         '<div class="show" id="zipOut" style="display:block">'+byId.zipOut.innerHTML+'</div>'+
-        '<p class="muted" style="margin-top:12px">'+byId.resultsSummary.innerHTML+'</p></div></section>'+
-        '<section class="block">'+cards().slice(0,take).map(ser).join('')+'</section>';
+        '<p class="muted" style="margin-top:12px">'+byId.resultsSummary.innerHTML+'</p></div></section>';
+  all.slice(0,take).forEach((card,i)=>{
+    // already-escaped HTML text: do not run it through esc() again
+    const name = (H.cardTitle ? H.cardTitle(card) : '').replace(/^\d+/,'').trim();
+    body+='<section class="block">'+comboNav(i,n,name,false)+ser(card)+
+          comboNav(i,n,name,true)+'</section>';
+  });
 }
 const html='<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">'+
  '<meta name="viewport" content="width=device-width,initial-scale=1">'+
  '<title>Botanical Bed Builder \u2014 rendered output snapshot</title>'+
  '<link rel="stylesheet" href="style.css"></head><body>'+
  '<header class="site"><div class="wrap"><h1>Botanical Bed Builder</h1>'+
- '<p class="lede">Rendered-output snapshot for inspection: five real queries, showing the '+
- 'combination cards exactly as the live site builds them.</p></div></header>'+
+ '<p class="lede">Rendered-output snapshot for inspection. The live site shows five tabs and '+
+ 'one combination at a time; this file reproduces that chrome and then lays several '+
+ 'combinations out in sequence so they can all be inspected on one page.</p></div></header>'+
+ tabBar('build')+
  '<main><div class="wrap">'+body+'</div></main></body></html>';
 fs.writeFileSync(path.join(__dirname,'rendered-output-snapshot.html'), html);
 console.log('wrote rendered-output-snapshot.html ('+(html.length/1024).toFixed(0)+' KB)');

@@ -201,11 +201,124 @@ for i, c in enumerate(cards, 1):
     for bad in ("undefined", "NaN", "[object", "&amp;amp;", "&lt;span", "None", "null<"):
         ck(bad not in c, tag+": output contains %r" % bad)
 
+# =============================================================================
+# index.html: the tabbed shell and the one-at-a-time carousel are static markup,
+# so they are validated directly rather than through the rendered snapshot.
+# =============================================================================
+shell = open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()
+
+TAB_LABELS = ["Build a Bed", "How it works", "Plant Database",
+              "Data Sources", "Before you plant"]
+tabs   = re.findall(r'<button[^>]*id="tab-(\w+)"[^>]*role="tab"(.*?)>(.*?)</button>', shell, re.S)
+panels = re.findall(r'<section[^>]*id="panel-(\w+)"[^>]*role="tabpanel"([^>]*)>', shell)
+
+print("tabs in index.html: %d, panels: %d" % (len(tabs), len(panels)))
+ck(len(tabs) == 5,   "expected exactly 5 tabs, found %d" % len(tabs))
+ck(len(panels) == 5, "expected exactly 5 tab panels, found %d" % len(panels))
+
+tab_ids   = [t[0] for t in tabs]
+panel_ids = [p[0] for p in panels]
+ck(tab_ids == panel_ids,
+   "tab order %s does not match panel order %s" % (tab_ids, panel_ids))
+ck(tab_ids[0] == "build", "the first tab must be the builder, found %r" % tab_ids[0])
+
+labels = [re.sub(r"<[^>]*>", "", t[2]).strip() for t in tabs]
+ck(labels == TAB_LABELS, "tab labels are %s, expected %s" % (labels, TAB_LABELS))
+
+# aria wiring: each tab controls its panel, each panel is labelled by its tab
+for tid, attrs, _ in tabs:
+    ck('aria-controls="panel-%s"' % tid in attrs,
+       "tab %r does not declare aria-controls" % tid)
+for pid, attrs in panels:
+    ck('aria-labelledby="tab-%s"' % pid in attrs,
+       "panel %r does not declare aria-labelledby" % pid)
+
+# exactly one tab selected and one panel visible in the shipped markup
+selected = [t[0] for t in tabs if 'aria-selected="true"' in t[1]]
+ck(selected == ["build"],
+   "expected only the build tab selected on load, got %s" % selected)
+visible = [p[0] for p in panels if "hidden" not in p[1]]
+ck(visible == ["build"],
+   "expected only the build panel visible on load, got %s" % visible)
+
+# roving tabindex: unselected tabs must be removed from the tab order
+roving = [t[0] for t in tabs if 'tabindex="-1"' in t[1]]
+ck(sorted(roving) == sorted([t for t in tab_ids if t != "build"]),
+   "unselected tabs must carry tabindex=-1, got %s" % roving)
+
+# the builder and the combinations must both live in the first panel
+build_panel = shell[shell.index('id="panel-build"'):shell.index('id="panel-how"')]
+ck('id="bed"' in build_panel,        "the form is not inside the Build a Bed panel")
+ck('id="comboHost"' in build_panel,  "the combinations are not inside the Build a Bed panel")
+ck('id="results"' in build_panel,    "the results block is not inside the Build a Bed panel")
+for other in ("panel-how", "panel-plants", "panel-sources", "panel-before"):
+    ck(other not in build_panel, "%s is nested inside the build panel" % other)
+
+# the other four panels must hold their own content and nothing else
+for pid, marker, what in (("plants",  'id="browseTable"', "plant database table"),
+                          ("sources", 'id="srcCards"',    "source cards"),
+                          ("before",  "Accuracy notice",  "accuracy notice"),
+                          ("how",     "habitat scorecard", "scorecard explanation")):
+    i = shell.index('id="panel-%s"' % pid)
+    j = shell.find("</section>", i)
+    ck(marker in shell[i:j], "the %s is not inside the %s panel" % (what, pid))
+
+# ---- carousel controls ----
+ck('id="comboNav"' in shell,     "no combination navigation bar")
+ck('id="comboNavFoot"' in shell, "no second navigation bar at the foot of the card")
+for bid in ("prevCombo", "nextCombo", "prevCombo2", "nextCombo2"):
+    ck('id="%s"' % bid in shell, "missing carousel button %r" % bid)
+prev_n = len(re.findall(r"Previous Combination", shell))
+next_n = len(re.findall(r"Next Combination", shell))
+ck(prev_n >= 2, 'expected "Previous Combination" buttons, found %d' % prev_n)
+ck(next_n >= 2, 'expected "Next Combination" buttons, found %d' % next_n)
+ck('id="comboJump"' in shell, "no jump-to-combination control")
+ck('id="comboCount"' in shell, "no combination counter")
+# the navigation must sit above the card, which is what the brief asked for
+ck(shell.index('id="comboNav"') < shell.index('id="comboHost"'),
+   "the navigation buttons must appear above the combination, not below it")
+# nav and counter start hidden until there are results
+navtag = shell[shell.index('<div class="combo-nav" id="comboNav"'):]
+navtag = navtag[:navtag.index(">")+1]
+ck("hidden" in navtag, "the navigation bar should start hidden until a bed is generated")
+
+# the old anchor-link navigation must be gone, or it will scroll instead of switching tabs
+ck("nav.top" not in shell and 'class="top"' not in shell,
+   "the old in-header anchor navigation is still present")
+
+print("index.html shell: 5 tabs, aria wiring, one visible panel, carousel controls all present")
+
 used = collections.Counter()
 for attr in re.findall(r'class="([^"]+)"', html):
     for cl in attr.split(): used[cl] += 1
+for attr in re.findall(r'class="([^"]+)"', shell):
+    for cl in attr.split(): used[cl] += 1
 defined = set(re.findall(r"\.([A-Za-z][\w-]*)", css))
 missing = sorted(cl for cl in used if cl not in defined)
+
+# A class can be "defined" yet never match, if every rule for it is qualified by a
+# different element type -- for example "section.block" will not style <div class="block">.
+# That produced a real layout bug, so it is checked rather than trusted.
+# Limitation: this only catches a class styled EXCLUSIVELY through the wrong element. A class
+# that has one bare rule plus a second, element-qualified rule will pass here even though the
+# qualified declarations are silently dropped.
+pairs = set()
+for tag, attr in re.findall(r"<(\w+)[^>]*class=\"([^\"]+)\"", shell):
+    for cl in attr.split(): pairs.add((tag.lower(), cl))
+qualified = collections.defaultdict(set)
+for tag, cl in re.findall(r"(?:^|[\s,>+~{}])([a-z]+)\.([A-Za-z][\w-]*)", css):
+    qualified[cl].add(tag)
+bare = set()
+for cl in set(c for _, c in pairs):
+    # an unqualified rule is any ".cls" not immediately preceded by a tag name
+    if re.search(r"(?:^|[\s,>+~{}(])\.%s\b" % re.escape(cl), css):
+        bare.add(cl)
+unreachable = sorted(
+    "%s used on <%s> but only styled as %s" % (cl, tag, sorted(qualified[cl]))
+    for tag, cl in pairs
+    if cl in qualified and cl not in bare and tag not in qualified[cl]
+)
+ck(not unreachable, "element-qualified CSS cannot match: " + "; ".join(unreachable))
 print("distinct CSS classes emitted: %d" % len(used))
 wn(not missing, "classes with no stylesheet rule: %s" % missing)
 
