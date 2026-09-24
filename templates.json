@@ -49,8 +49,8 @@
   },
   "max_height": 84,
   "palette": "warm",
-  "design": "Plant one dominant grass as a continuous matrix at 18 in centres, then interrupt it with long tapering drifts of five to nine plants of each flowering species. Repeat two structural species at least three times each across the bed to create rhythm.",
-  "care": "Cut or mow the whole bed to 4 in once a year in late March, after overwintering insects have emerged. No staking, no deadheading, no fertiliser.",
+  "design": "Plant one dominant grass as a continuous matrix 18 inches apart, then interrupt it with long tapering drifts of five to nine plants of each flowering species. Repeat two structural species at least three times each across the bed to create rhythm.",
+  "care": "One cut a year, in early spring, after overwintering insects have emerged. No staking, no deadheading and no fertiliser: this planting is meant to hold itself up.",
   "eco": "Warm-season bunchgrasses give skipper larvae host material, overwintering stems for cavity-nesting bees, and winter seed for sparrows."
  },
  {
@@ -105,7 +105,7 @@
  {
   "id": "gravel_jewels",
   "name": "Gravel Garden Jewels",
-  "tagline": "Lean soil, sharp drainage and a 3 in mineral mulch: low, jewel-like plants that never need irrigation once rooted.",
+  "tagline": "Lean soil, sharp drainage and a 3-inch mineral mulch: low, jewel-like plants that never need irrigation once rooted.",
   "light": [
    "S"
   ],
@@ -144,7 +144,7 @@
   },
   "max_height": 42,
   "palette": "cool",
-  "design": "Excavate 4 in and backfill with clean 3/8 in crushed gravel, planting into the gravel with roots in the soil beneath. Keep everything low and let two or three spiky or rosette forms stand as punctuation.",
+  "design": "Excavate 4 inches and backfill with clean 3/8-inch crushed gravel, planting into the gravel with roots in the soil beneath. Keep everything low and let two or three spiky or rosette forms stand as punctuation.",
   "care": "Water only to establish, then stop entirely. Never mulch with compost or bark, which destroys the effect and rots the crowns.",
   "eco": "Bare mineral ground between plants is prime nesting habitat for the roughly 70 percent of native bee species that nest in the soil."
  },
@@ -191,7 +191,7 @@
   },
   "max_height": 84,
   "palette": "any",
-  "design": "Set the basin 6 to 9 in below grade with a level bottom and a stone-armoured inlet. Put the wettest-tolerant species in the bottom, mid-moisture species on the side slopes, and drought-tolerant species on the rim.",
+  "design": "Set the basin 6 to 9 inches below grade with a level bottom and a stone-armoured inlet. Put the wettest-tolerant species in the bottom, mid-moisture species on the side slopes, and drought-tolerant species on the rim.",
   "care": "The basin should drain within 24 to 48 hours. Pull silt and debris off the inlet each spring and cut the planting back in late winter.",
   "eco": "Intercepts the first flush of stormwater, cools and filters it, and supplies the moist-soil nectar plants that many wetland specialist bees and flies require."
  },
@@ -280,8 +280,8 @@
   },
   "max_height": 60,
   "palette": "cool",
-  "design": "Choose one sedge as a unifying carpet and plant it at 10 in centres across the whole bed, then set ferns in loose groups of three to seven and drop clumps of shade perennials into the gaps. Texture does the work that flower colour does in sun.",
-  "care": "No mulch and no leaf removal. Cut deciduous ferns down in late winter; shear evergreen sedges to 3 in in early spring every second or third year.",
+  "design": "Choose one sedge as a unifying carpet and plant it 10 inches apart across the whole bed, then set ferns in loose groups of three to seven and drop clumps of shade perennials into the gaps. Texture does the work that flower colour does in sun.",
+  "care": "No mulch and no leaf removal. Cut deciduous ferns down in late winter; shear evergreen sedges to 3 inches in early spring every second or third year.",
   "eco": "Carex is among the most important larval host genera for skippers and satyrs, and a dense sedge carpet outcompetes garlic mustard and stiltgrass."
  },
  {
@@ -422,7 +422,7 @@
   "palette": "hot",
   "require_tag": "hummingbird",
   "min_tag_species": 4,
-  "design": "Plant in vertical layers with clear flight lines between clumps, and give the birds a perch: a bare twiggy branch or shrub top within 10 ft. Long narrow beds along a fence read as a corridor and get defended as territory.",
+  "design": "Plant in vertical layers with clear flight lines between clumps, and give the birds a perch: a bare twiggy branch or shrub top within 10 feet. Long narrow beds along a fence read as a corridor and get defended as territory.",
   "care": "Never use pesticides, which remove the small insects that make up most of a hummingbird's diet. Deadhead salvias to extend bloom.",
   "eco": "Bridges the nectar gap in late summer, when migrating hummingbirds need the most fuel and most garden flowers have finished."
  },
@@ -556,7 +556,7 @@
   },
   "max_height": 30,
   "palette": "any",
-  "design": "Keep everything under 30 in for sight lines and to survive being stepped on. Leave an 18 in gravel or paved landing strip along the kerb where people get out of cars.",
+  "design": "Keep everything under 30 inches tall for sight lines and to survive being stepped on. Leave an 18-inch gravel or paved landing strip along the kerb where people get out of cars.",
   "care": "Establish in autumn if you can. Shear the whole strip once in early spring. Expect to replace a few plants along the kerb each year.",
   "eco": "Turns a sterile mown verge into connective habitat, and hot lean verges are exceptionally good ground-nesting bee habitat."
  },
@@ -882,8 +882,8 @@
   },
   "max_height": 96,
   "palette": "any",
-  "design": "Work with the height rather than against it: put the 6 to 8 ft species in a solid mass at the back or in the middle of an island bed, and use tussock-forming sedges to hold the transition to open water or lawn.",
-  "care": "Cut in late winter and remove the material, since wet meadows build thatch fast. Watch for cattail and reed canary grass invading from outside.",
+  "design": "Work with the height rather than against it: put the 6 to 8 foot species in a solid mass at the back or in the middle of an island bed, and use tussock-forming sedges to hold the transition to open water or lawn.",
+  "care": "Cut in late winter and rake the material off, because wet meadows build thatch fast. Watch for cattail and reed canary grass invading from outside.",
   "eco": "Wet meadows carry the highest insect biomass of any temperate planting and are primary habitat for the Baltimore checkerspot, bog fritillaries and many specialist bees."
  },
  {

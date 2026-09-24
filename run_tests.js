@@ -70,10 +70,21 @@ list.forEach((card,i)=>{
   ok(card.children.length>=3, tag+': missing head/body/foot');
   ok(/Structural|Seasonal|Groundcover|Grass|Fern|Shrub|Filler/.test(txt), tag+': no layer tags');
   ok(/caterpillar/.test(txt), tag+': no scorecard');
-  ok(/o\.c\./.test(txt), tag+': no spacing column');
-  ok(/Schematic plan/.test(txt), tag+': no plan');
+  ok(/Spacing \(centre to centre\)/.test(txt), tag+': no spacing column');
+  ok(/Planting plan/.test(txt), tag+': no planting plan');
   ok(/Bloom sequence/.test(txt), tag+': no bloom calendar');
   ok(/Plant-by-plant notes/.test(txt), tag+': no per-plant notes');
+  // layout and maintenance must be generated for this specific bed
+  ok(/Step by step/.test(txt), tag+': no step-by-step layout');
+  ok(/centre to centre/.test(txt), tag+': spacing convention not explained');
+  ok(/no bare soil is left anywhere/.test(txt), tag+': groundcover step does not say to fill all gaps');
+  ok(/Your calendar/.test(txt), tag+': no zone calendar');
+  ok(/Main cut-back window/.test(txt), tag+': no cut-back window');
+  ok(/frost/.test(txt), tag+': no frost-date guidance');
+  ok(/FRONT EDGE/.test(txt), tag+': plan does not label the front edge');
+  // the brief called these out specifically: no abbreviated units anywhere
+  var abbr = txt.match(/\d+\s?(?:in|ft)\b|\bo\.c\./g);
+  ok(!abbr, tag+': abbreviated units in output ('+(abbr?abbr.slice(0,3).join(','):'')+')');
   const bad = txt.match(/undefined|NaN|\[object \w+/);
   ok(!bad, tag+': output contains '+(bad?bad[0]:''));
   const rows = plantTable(card).children.length-1;

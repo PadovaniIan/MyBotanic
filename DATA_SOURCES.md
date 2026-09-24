@@ -57,6 +57,39 @@ writes `zip_regions.json`. The site detects that file on load, switches to it au
 reports "exact ZIP lookup" in the interface. Records whose zone had to fall back to the estimate are
 flagged `zone_estimated`.
 
+## Derived maintenance classes
+
+`build_data.py` assigns every species a maintenance class and a set of care flags. These are
+**derived**, not entered by hand, from the layer, family, genus, bloom span, evergreen status and the
+notes text. They exist so the generated schedule can be correct per plant rather than generic:
+
+| Class | Applied to | Instruction given |
+|---|---|---|
+| `rosette` | *Agave, Yucca, Hesperaloe, Nolina, Dasylirion* | never cut back; remove dry lower leaves and the spent stalk only |
+| `palm` | *Serenoa, Sabal, Zamia* (Arecaceae, Zamiaceae) | remove fully dead fronds only; never cut into the crown |
+| `shrub_spring` | shrubs flowering early on old wood | prune within weeks of flowering, or not at all |
+| `shrub_summer` | later bloomers and long-blooming subshrubs on new wood | shape in late winter before growth |
+| `subshrub` | *Eriogonum, Chrysactinia, Monardella, Melampodium, Tetraneuris, Zinnia,* plus *Penstemon pinifolius/baccharifolius, Dalea greggii, Phlox subulata, Glandularia gooddingii* | shorten by a third, never cut into old wood |
+| `fern_evergreen` / `fern_deciduous` | ferns, split on evergreen status | remove only dead fronds / cut to the base before the fiddleheads unroll |
+| `sedge` | Cyperaceae | leave alone; shear to 3 inches every second or third year at most |
+| `grass_warm` / `grass_cool` | Poaceae, split by genus | cut to 4–6 inches in early spring / comb out, never shear hard |
+| `evergreen_perennial` | evergreen-tagged perennials | tidy dead leaves only, do not cut to the ground |
+| `perennial` | herbaceous perennials 24 inches and over | cut to 8–12 inches in spring, leaving stubs for stem-nesting bees |
+| `perennial_low` | herbaceous perennials under 24 inches | light shear to 2–3 inches; no tall stems to leave |
+| `ephemeral` | species whose notes record summer or seasonal dormancy | mark the position and leave undisturbed |
+| `selfsower` | the dynamic filler layer | shake seed where wanted, then cut; thin seedlings |
+
+Care flags (`chelsea`, `pinch`, `deadhead`, `shear`, `coppice`, `taproot`, `late_emerger`,
+`cut_after_flower`, `no_summer_water`, `acid_soil`, `aggressive`, `reseeds`) are matched out of the
+notes text and surfaced as named, species-specific jobs.
+
+The frost dates and cut-back windows in the per-zone calendar are broad regional averages used only
+to give a starting month. The interface always links the user to
+[frost dates by ZIP code](https://www.almanac.com/gardening/frostdates),
+[NOAA climate normals](https://www.ncei.noaa.gov/products/land-based-station/us-climate-normals)
+and their state Cooperative Extension, and states that the Extension calendar is the most locally
+accurate of the three.
+
 ## What is deliberately excluded
 
 - Double-flowered and sterile cultivars, which offer little or no accessible pollen and nectar. This

@@ -22,6 +22,67 @@ VALID_WILD   = {"hummingbird","birdseed","deer_resistant","evergreen","winter_se
                 "winter_structure","nfix","nest_stems","nest_cover","fall_color"}
 GROUND = {"MATRIX","GRASS","FERN"}
 
+# ---------------------------------------------------------------------------
+# Maintenance classification. The site groups the plants in a bed by these
+# classes and writes a specific schedule for each, so it never tells you to
+# "mow" an agave or "cut back" a shrub. Order of the tests below matters.
+ROSETTE_GENERA = {"Agave", "Yucca", "Hesperaloe", "Nolina", "Dasylirion"}
+PALM_GENERA    = {"Serenoa", "Sabal", "Zamia"}
+COOL_GRASSES   = {"Festuca", "Deschampsia", "Stipa", "Hesperostipa", "Poa", "Koeleria"}
+# Woody-based subshrubs. These look like perennials but must never be cut hard:
+# they regrow from woody stems, not from the crown, and cutting into old wood kills them.
+SUBSHRUB_GENERA  = {"Eriogonum", "Chrysactinia", "Monardella", "Melampodium",
+                    "Tetraneuris", "Zinnia"}
+SUBSHRUB_SPECIES = {"Penstemon pinifolius", "Penstemon baccharifolius", "Dalea greggii",
+                    "Phlox subulata", "Glandularia gooddingii"}
+
+def care_class(p):
+    """-> one of the maintenance classes used by app.js."""
+    gen   = p["sci"].split()[0]
+    fam   = p["family"]
+    layer = p["layer"]
+    ever  = "evergreen" in p["wildlife"]
+    n     = p["notes"].lower()
+
+    if gen in ROSETTE_GENERA:              return "rosette"
+    if gen in PALM_GENERA or fam in ("Arecaceae", "Zamiaceae"): return "palm"
+    if layer == "FERN":                    return "fern_evergreen" if ever else "fern_deciduous"
+    if layer == "SHRUB":
+        # Shrubs flowering once on old wood are pruned straight after flowering.
+        # Later bloomers, and long-blooming subshrubs that flower continuously on
+        # new wood (Salvia greggii, Hamelia, Malvaviscus), are cut before growth starts.
+        span = len(p["bloom_months"])
+        early = (p["bloom_start"] or 6) <= 5
+        return "shrub_spring" if (early and span < 5) else "shrub_summer"
+    if gen in SUBSHRUB_GENERA or p["sci"] in SUBSHRUB_SPECIES: return "subshrub"
+    if fam == "Cyperaceae":                return "sedge"
+    if fam == "Poaceae":                   return "grass_cool" if gen in COOL_GRASSES else "grass_warm"
+    if "dormant" in n or "ephemeral" in n: return "ephemeral"
+    if layer == "FILLER":                  return "selfsower"
+    if ever:                               return "evergreen_perennial"
+    return "perennial"
+
+# Species-specific jobs, lifted out of the notes so the site can list them by name.
+CARE_FLAG_PATTERNS = [
+    ("chelsea",     r"cut back by half in (?:early )?june"),
+    ("pinch",       r"\bpinch\b"),
+    ("deadhead",    r"deadhead"),
+    ("shear",       r"\bshear\b"),
+    ("coppice",     r"coppice"),
+    ("taproot",     r"taproot|place it once|never move it"),
+    ("late_emerger",r"emerges late"),
+    ("cut_after_flower", r"cut back after flowering"),
+    ("no_summer_water",  r"no summer (?:water|irrigation)|no overhead irrigation"),
+    ("acid_soil",   r"acid soil"),
+    ("aggressive",  r"rhizomatous|suckers|spreads|coloni|runner|aggressiv|freely"),
+    ("reseeds",     r"self-sow|reseed|seeds? into|sows"),
+]
+
+def care_flags(p):
+    n = p["notes"].lower()
+    return [name for name, pat in CARE_FLAG_PATTERNS if re.search(pat, n)]
+
+
 def parse():
     rows, header, errors = [], None, []
     with open(SRC, encoding="utf-8") as fh:
@@ -98,6 +159,8 @@ def build():
                        "winter_seedhead","winter_structure","nfix")])
         eco += min(8, len(p["bloom_months"]))
         p["eco_score"] = round(min(100, eco))
+        p["care"] = care_class(p)
+        p["care_flags"] = care_flags(p)
         plants.append(p)
 
     if errors:
@@ -110,7 +173,7 @@ def build():
 
     cols = ["id","sci","common","family","regions","zmin","zmax","light","moist","hmin","hmax",
             "spread","spacing","bloom_start","bloom_end","colors","layer","form","lep","sb",
-            "hosts","wildlife","eco_score","density_per_10sqft","notes"]
+            "hosts","wildlife","eco_score","density_per_10sqft","care","care_flags","notes"]
     with open(os.path.join(ROOT,"plants.csv"), "w", encoding="utf-8", newline="") as fh:
         w = csv.writer(fh); w.writerow(cols)
         for p in plants:
@@ -141,6 +204,9 @@ def build():
     lay = {}
     for p in plants: lay[p["layer"]] = lay.get(p["layer"],0)+1
     print("    layers: " + ", ".join("%s %d" % kv for kv in sorted(lay.items())))
+    care = {}
+    for p in plants: care[p["care"]] = care.get(p["care"],0)+1
+    print("    maintenance classes: " + ", ".join("%s %d" % kv for kv in sorted(care.items())))
     print("    specialist-bee hosts %d | named larval hosts %d | keystone genera (lep>=80) %d"
           % (len([p for p in plants if p["sb"]]),
              len([p for p in plants if p["hosts"]]),

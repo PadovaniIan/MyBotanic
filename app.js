@@ -220,9 +220,27 @@ function buildCombo(t, c, L, seed, variant, usage){
   }
   function minSq(sq,p){ return Math.max(sq, (p.spacing*p.spacing*0.866)/144); }
 
+  /* How many species the bed can carry. A small bed planted with a dozen species
+     ends up as a row of single specimens, which reads as scattered rather than
+     designed; a large one can hold more without losing its rhythm. Roughly one
+     species per 13 square feet, so every species still gets a real drift. */
+  var want = {}, wantSum = 0;
   Object.keys(t.counts).forEach(function(lay){
     var rangeN = t.counts[lay];
-    var n = rangeN[0] + Math.floor(rnd()*(rangeN[1]-rangeN[0]+1));
+    want[lay] = rangeN[0] + Math.floor(rnd()*(rangeN[1]-rangeN[0]+1));
+    wantSum += want[lay];
+  });
+  var budget = Math.max(5, Math.min(15, Math.round(area/13)));
+  while(wantSum > budget){
+    var biggest = null;
+    Object.keys(want).forEach(function(l){
+      if(want[l] > 1 && (biggest===null || want[l] > want[biggest])) biggest = l; });
+    if(biggest === null) break;
+    want[biggest]--; wantSum--;
+  }
+
+  Object.keys(t.counts).forEach(function(lay){
+    var n = want[lay];
     var cands = (L[lay]||[]).slice();
     (FALLBACK[lay]||[]).forEach(function(f){
       if(cands.length < n) cands = cands.concat((L[f]||[]).filter(function(p){
@@ -371,88 +389,834 @@ function renderScore(combo){
   }
   return s;
 }
-function renderPlan(combo, c){
-  var W=900, scale=W/c.l, H=Math.max(120, Math.round(c.w*scale));
-  if(H>420){ H=420; scale=H/c.w; W=Math.round(c.l*scale); }
-  var NS="http://www.w3.org/2000/svg";
-  function n(tag,attrs){ var e=document.createElementNS(NS,tag);
-    for(var k in attrs) e.setAttribute(k,attrs[k]); return e; }
-  var svg=n("svg",{viewBox:"0 0 "+(W+2)+" "+(H+2), role:"img",
-    "aria-label":"Schematic plan view of the bed, "+c.l+" by "+c.w+" feet"});
+/* =========================================================================
+   BED LAYOUT
+   A capacity-constrained, height-aware tiling of the entire bed.
 
-  var matrixRows = combo.rows.filter(function(r){ return GROUND_LAYERS[r.layer]; });
-  var base = matrixRows.length ? matrixRows[0].p.chex : "#e9ece1";
-  svg.appendChild(n("rect",{x:1,y:1,width:W,height:H,fill:base,"fill-opacity":.30,
-    stroke:"#9aa48f","stroke-width":1.5,rx:4}));
-  var rnd = rngFrom(combo.t.id+combo.variant+"stipple");
-  var stipple = Math.round(W*H/1400);
-  for(var i=0;i<stipple;i++){
-    svg.appendChild(n("circle",{cx:(2+rnd()*(W-4)).toFixed(1), cy:(2+rnd()*(H-4)).toFixed(1),
-      r:(1.1+rnd()*1.2).toFixed(1),
-      fill: matrixRows.length? matrixRows[Math.floor(rnd()*matrixRows.length)].p.chex : "#9aa48f",
-      "fill-opacity":.42}));
+   Every square foot is assigned to exactly one species, so there is no
+   unexplained empty space: the groundcover layer genuinely fills the gaps
+   between everything else, which is how these plantings actually work.
+   Seeds are placed by mature height -- tallest toward the back edge, shortest
+   at the front -- so a short plant is never buried behind a tall one.
+
+   The algorithm is a weighted Voronoi diagram whose weights are iterated until
+   each species occupies close to its designed share of the area (a
+   capacity-constrained Voronoi tessellation). Vertical distance is scaled up
+   so drifts elongate along the length of the bed, as drawn drifts should.
+   ========================================================================= */
+function layoutBed(combo, c){
+  var L = c.l, Wd = c.w, aspect = L/Wd;
+  var rows = Math.max(7,  Math.round(Math.sqrt(2200/aspect)));
+  var cols = Math.max(12, Math.round(rows*aspect));
+  while(cols*rows > 3000){ cols = Math.round(cols*0.9); rows = Math.max(6, Math.round(rows*0.9)); }
+  var n = cols*rows, cellW = L/cols, cellH = Wd/rows, sqftPerCell = cellW*cellH;
+
+  var minH = 1e9, maxH = 0;
+  combo.rows.forEach(function(r){
+    if(r.p.hmax < minH) minH = r.p.hmax;
+    if(r.p.hmax > maxH) maxH = r.p.hmax; });
+  var span = Math.max(6, maxH-minH);
+
+  var ent = combo.rows.map(function(r,i){
+    var ground   = !!GROUND_LAYERS[r.layer];
+    var tallness = (r.p.hmax-minH)/span;                  /* 0 shortest .. 1 tallest */
+    return {i:i, num:i+1, row:r, p:r.p, ground:ground, tallness:tallness,
+            /* preferred depth: 0 = back edge, 1 = front edge */
+            /* A tall matrix grass belongs mid-bed, a low sedge at the front, so the
+               groundcover layer is graded by height as well, just more loosely. */
+            pref: ground ? 0.78 - 0.48*tallness : 0.90 - 0.78*tallness,
+            share: Math.max(0.6, r.sqft/sqftPerCell), quota:0, area:0, seeds:[]};
+  });
+
+  /* ---- quotas: whole cells summing to exactly n, so the bed is fully covered
+          and every species is guaranteed a visible patch ---- */
+  var tot = 0; ent.forEach(function(e){ tot += e.share; });
+  var MINQ = Math.max(4, Math.round(n*0.004));
+  ent.forEach(function(e){ e.quota = Math.max(MINQ, Math.floor(e.share*n/tot)); });
+  var used = 0; ent.forEach(function(e){ used += e.quota; });
+  /* settle the difference against the largest quotas, never dropping below MINQ */
+  var guard = 0;
+  while(used !== n && guard++ < 20000){
+    var pickE = null;
+    if(used < n){
+      ent.forEach(function(e){ if(!pickE || e.quota > pickE.quota) pickE = e; });
+      pickE.quota++; used++;
+    } else {
+      ent.forEach(function(e){ if(e.quota > MINQ && (!pickE || e.quota > pickE.quota)) pickE = e; });
+      if(!pickE) break;
+      pickE.quota--; used--;
+    }
   }
-  var drifts=[];
-  combo.rows.forEach(function(r,idx){
-    if(GROUND_LAYERS[r.layer] && r===matrixRows[0]) return;
-    var reps = Math.min(r.layer==="FILLER"?4:3, Math.max(2, r.qty));
-    var rad = Math.sqrt((r.sqft/reps)*scale*scale/Math.PI);
-    for(var k=0;k<reps;k++)
-      drifts.push({r:r, rad:Math.max(9, Math.min(rad, H*0.40, W*0.18)), i:idx});
-  });
-  drifts.sort(function(a,b){ return b.rad-a.rad; });
-  var placed=[];
-  drifts.forEach(function(d){
-    var best=null,bestD=-1e9;
-    for(var tries=0;tries<70;tries++){
-      var x=d.rad*1.30+rnd()*Math.max(1,(W-d.rad*2.60)),
-          y=d.rad*0.90+rnd()*Math.max(1,(H-d.rad*1.80));
-      var md=1e9;
-      placed.forEach(function(q){
-        var dd=Math.sqrt((x-q.x)*(x-q.x)+(y-q.y)*(y-q.y))-(q.rad+d.rad)*0.55;
-        if(dd<md) md=dd; });
-      if(!placed.length){ best={x:x,y:y}; break; }
-      if(md>bestD){ bestD=md; best={x:x,y:y}; }
-      if(md>6) break;
+
+  ent.forEach(function(e){ e.share01 = e.quota/n; });      /* fraction of the bed it must cover */
+
+  var rnd = rngFrom(combo.t.id+"|"+combo.variant+"|"+c.key+"|layout");
+
+  /* ---- drift seeds, spread along the length so repeats do not line up ---- */
+  ent.forEach(function(e){
+    var want = Math.round(Math.sqrt(e.quota) / (e.ground ? 2.0 : 2.7));
+    want = Math.max(1, Math.min(e.ground ? 6 : 4, want));
+    if(!e.ground && e.p.hmax >= 60) want = Math.min(want, 3);   /* big plants read best in few masses */
+    var phase = rnd();
+    for(var j=0;j<want;j++){
+      var fx = (j + 0.5 + (rnd()-0.5)*0.55 + phase)/want;  fx -= Math.floor(fx);
+      var fy = e.pref + (rnd()-0.5)*(e.ground ? 0.5 : 0.2);
+      e.seeds.push({x: fx*cols, y: Math.max(0.06, Math.min(0.94, fy))*rows});
     }
-    placed.push({x:best.x,y:best.y,rad:d.rad});
-    var pts=[], nseg=9;
-    for(var s=0;s<nseg;s++){
-      var ang=s/nseg*Math.PI*2, rr=d.rad*(0.72+rnd()*0.5);
-      pts.push([best.x+Math.cos(ang)*rr*1.22, best.y+Math.sin(ang)*rr*0.85]);
-    }
-    var path="M"+pts[0][0].toFixed(1)+","+pts[0][1].toFixed(1);
-    for(var s2=0;s2<pts.length;s2++){
-      var a=pts[s2], b=pts[(s2+1)%pts.length];
-      path+=" Q"+((a[0]+b[0])/2+(rnd()-0.5)*d.rad*0.35).toFixed(1)+","+
-        ((a[1]+b[1])/2+(rnd()-0.5)*d.rad*0.35).toFixed(1)+" "+
-        b[0].toFixed(1)+","+b[1].toFixed(1);
-    }
-    svg.appendChild(n("path",{d:path+"Z", fill:d.r.p.chex, "fill-opacity":.78,
-      stroke:"#5d6b55","stroke-width":.7,"stroke-opacity":.5}));
-    var lab=n("text",{x:best.x.toFixed(1), y:(best.y+3.5).toFixed(1), "text-anchor":"middle",
-      "font-size":Math.max(9,Math.min(13,d.rad*0.55)).toFixed(1), "font-weight":"700",
-      "font-family":"sans-serif", fill:"#20261c","fill-opacity":.85});
-    lab.textContent=String(d.i+1);
-    svg.appendChild(lab);
   });
 
-  var wrap=mk("div","plan");
-  wrap.appendChild(mk("h4",null,"Schematic plan \u2014 "+c.l+" ft \u00d7 "+c.w+" ft"));
+  /* ---- cost of a cell to a species: distance to its nearest drift seed, plus a
+          penalty for sitting at the wrong depth. Vertical distance counts for more,
+          so drifts stretch along the length of the bed the way drawn drifts should. ---- */
+  function cellCost(e, cx, cy){
+    var best = 1e18, yS = e.ground ? 1.5 : 2.2;
+    for(var s=0; s<e.seeds.length; s++){
+      var dx = cx+0.5-e.seeds[s].x, dy = (cy+0.5-e.seeds[s].y)*yS;
+      var d2 = dx*dx + dy*dy;
+      if(d2 < best) best = d2;
+    }
+    var depth = (cy+0.5)/rows, err = depth - e.pref, aerr = Math.abs(err);
+    /* A tall species creeping toward the front is penalised hard: that is what stops
+       short plants being washed out behind tall ones. */
+    var pen = e.ground ? (err > 0 ? 1.6 + 2.0*e.tallness : 0.6)
+                       : (err > 0 ? 4.0 + 5.0*e.tallness : 1.8);
+    var cost = Math.sqrt(best) + pen*aerr*rows*0.75;
+    /* Outside its depth band the cost becomes prohibitive, so a species with a large
+       quota spreads sideways along the bed instead of bleeding forward out of its tier.
+       The band widens with the species' share, because a plant covering a third of the
+       bed genuinely needs more depth than one covering a twentieth. */
+    var halfBand = (e.ground ? 0.24 : 0.15) + (e.ground ? 0.45 : 0.5)*e.share01;
+    if(e.ground && halfBand > 0.38) halfBand = 0.38;
+    if(aerr > halfBand) cost += 600*(aerr-halfBand)*rows;
+    /* The front few inches of the bed are reserved for genuinely low plants. Anything
+       taller than about 18 inches pays to stand there, so the low edging species win it
+       and nothing short ends up hidden behind something tall. */
+    if(depth > 0.86){
+      var over = (e.p.hmax - 18)/12;
+      if(over > 0) cost += over*rows*1.1*(depth-0.86)/0.14;
+    }
+    return cost;
+  }
+
+  /* ---- grow every species outward from its seeds, cheapest cell first, until it
+          has exactly its quota. Guarantees exact areas and no species squeezed out. ---- */
+  var heap = [];                                     /* binary min-heap of {c,cell,e} */
+  function hpush(c0, cell, ei){
+    heap.push({c:c0, cell:cell, e:ei});
+    var i = heap.length-1;
+    while(i > 0){
+      var par = (i-1)>>1;
+      if(heap[par].c <= heap[i].c) break;
+      var t = heap[par]; heap[par] = heap[i]; heap[i] = t; i = par;
+    }
+  }
+  function hpop(){
+    if(!heap.length) return null;
+    var top = heap[0], last = heap.pop();
+    if(heap.length){
+      heap[0] = last;
+      var i = 0;
+      for(;;){
+        var l = 2*i+1, r = l+1, m = i;
+        if(l < heap.length && heap[l].c < heap[m].c) m = l;
+        if(r < heap.length && heap[r].c < heap[m].c) m = r;
+        if(m === i) break;
+        var t = heap[m]; heap[m] = heap[i]; heap[i] = t; i = m;
+      }
+    }
+    return top;
+  }
+
+  var owner = new Int16Array(n);
+  for(var z=0; z<n; z++) owner[z] = -1;
+  var claimed = 0;
+
+  function frontier(e, cell){
+    var cx = cell%cols, cy = (cell-cx)/cols;
+    if(cx > 0)      { var a=cell-1;    if(owner[a]===-1) hpush(cellCost(e,cx-1,cy), a, e.i); }
+    if(cx < cols-1) { var b=cell+1;    if(owner[b]===-1) hpush(cellCost(e,cx+1,cy), b, e.i); }
+    if(cy > 0)      { var d=cell-cols; if(owner[d]===-1) hpush(cellCost(e,cx,cy-1), d, e.i); }
+    if(cy < rows-1) { var f=cell+cols; if(owner[f]===-1) hpush(cellCost(e,cx,cy+1), f, e.i); }
+  }
+  function cheapestFree(e){
+    var bc = -1, bcost = 1e18;
+    for(var k=0; k<n; k++){
+      if(owner[k] !== -1) continue;
+      var kx = k%cols, cst = cellCost(e, kx, (k-kx)/cols);
+      if(cst < bcost){ bcost = cst; bc = k; }
+    }
+    return bc;
+  }
+
+  /* Every species is given a guaranteed foothold before general growth starts.
+     Without this, a species whose seed cell is taken by a cheaper neighbour can
+     drop out of the frontier altogether and never appear in the plan at all. */
+  ent.slice().sort(function(a,b){ return b.quota-a.quota; }).forEach(function(e){
+    var cell = cheapestFree(e);
+    if(cell < 0) return;
+    owner[cell] = e.i; e.area++; claimed++;
+    frontier(e, cell);
+  });
+  /* remaining seeds simply join the frontier */
+  ent.forEach(function(e){
+    e.seeds.forEach(function(sd){
+      var cx = Math.max(0, Math.min(cols-1, Math.floor(sd.x)));
+      var cy = Math.max(0, Math.min(rows-1, Math.floor(sd.y)));
+      var cell = cy*cols+cx;
+      if(owner[cell] === -1) hpush(cellCost(e, cx, cy), cell, e.i);
+    });
+  });
+
+  var item;
+  while(claimed < n && (item = hpop())){
+    var cell = item.cell, e = ent[item.e];
+    if(owner[cell] !== -1 || e.area >= e.quota) continue;
+    owner[cell] = e.i; e.area++; claimed++;
+    frontier(e, cell);
+
+    /* a species boxed in before reaching its quota is re-seeded at the cheapest
+       cell still free, so it can never be squeezed out of the plan */
+    if(!heap.length && claimed < n){
+      var need = null;
+      ent.forEach(function(q){
+        if(q.area < q.quota && (!need || q.quota-q.area > need.quota-need.area)) need = q; });
+      if(need){
+        var bc = cheapestFree(need);
+        if(bc >= 0) hpush(cellCost(need, bc%cols, (bc-bc%cols)/cols), bc, need.i);
+      }
+    }
+  }
+
+  /* Any cell still unclaimed goes to whichever neighbouring species is furthest
+     below its quota, so rounding never inflates one species at another's expense. */
+  var pass = 0;
+  while(claimed < n && pass++ < 40){
+    var moved = false;
+    for(var u=0; u<n; u++){
+      if(owner[u] !== -1) continue;
+      var ux = u%cols, uy = (u-ux)/cols, cands = [];
+      if(ux > 0        && owner[u-1]    >= 0) cands.push(owner[u-1]);
+      if(ux < cols-1   && owner[u+1]    >= 0) cands.push(owner[u+1]);
+      if(uy > 0        && owner[u-cols] >= 0) cands.push(owner[u-cols]);
+      if(uy < rows-1   && owner[u+cols] >= 0) cands.push(owner[u+cols]);
+      if(!cands.length) continue;
+      var pickI = cands[0];
+      cands.forEach(function(ci){
+        var a = ent[ci], b = ent[pickI];
+        if((a.quota-a.area) > (b.quota-b.area)) pickI = ci; });
+      owner[u] = pickI; ent[pickI].area++; claimed++; moved = true;
+    }
+    if(!moved) break;
+  }
+  for(var u2=0; u2<n; u2++) if(owner[u2] === -1){ owner[u2] = 0; ent[0].area++; }
+
+  /* ---- connected components, so each separate drift can carry its number ---- */
+  var seen = new Uint8Array(n), comps = [], stack = [];
+  for(var i0=0;i0<n;i0++){
+    if(seen[i0]) continue;
+    var o = owner[i0], cells = [];
+    stack.length = 0; stack.push(i0); seen[i0] = 1;
+    while(stack.length){
+      var q2 = stack.pop(); cells.push(q2);
+      var qx = q2%cols, qy = (q2-qx)/cols;
+      if(qx>0      && !seen[q2-1]    && owner[q2-1]===o)    { seen[q2-1]=1;    stack.push(q2-1); }
+      if(qx<cols-1 && !seen[q2+1]    && owner[q2+1]===o)    { seen[q2+1]=1;    stack.push(q2+1); }
+      if(qy>0      && !seen[q2-cols] && owner[q2-cols]===o) { seen[q2-cols]=1; stack.push(q2-cols); }
+      if(qy<rows-1 && !seen[q2+cols] && owner[q2+cols]===o) { seen[q2+cols]=1; stack.push(q2+cols); }
+    }
+    var sx=0, sy=0;
+    cells.forEach(function(q3){ var x=q3%cols; sx+=x+0.5; sy+=(q3-x)/cols+0.5; });
+    var gx = sx/cells.length, gy = sy/cells.length, pick = cells[0], pd = 1e18;
+    cells.forEach(function(q4){          /* the label must sit inside the shape, not on its hull */
+      var x=q4%cols, y=(q4-x)/cols, dd=(x+0.5-gx)*(x+0.5-gx)+(y+0.5-gy)*(y+0.5-gy);
+      if(dd<pd){ pd=dd; pick=q4; }
+    });
+    comps.push({owner:o, size:cells.length, cx:(pick%cols)+0.5, cy:((pick-pick%cols)/cols)+0.5});
+  }
+  comps.sort(function(a,b){ return b.size-a.size; });
+
+  /* label every drift above a size floor, and always at least one per species */
+  var floor = Math.max(5, n*0.012), labelled = {}, labels = [];
+  comps.forEach(function(cp){
+    if(cp.size >= floor){ labels.push(cp); labelled[cp.owner] = 1; }
+  });
+  ent.forEach(function(e){
+    if(!labelled[e.i]){
+      for(var j=0;j<comps.length;j++) if(comps[j].owner===e.i){ labels.push(comps[j]); break; }
+    }
+  });
+
+  return {cols:cols, rows:rows, n:n, owner:owner, ent:ent, labels:labels,
+          cellW:cellW, cellH:cellH, rnd:rnd};
+}
+
+/* individual plant positions on a triangular lattice at the species' own spacing */
+function plantDots(e, geo){
+  var stepX = (e.p.spacing/12)/geo.cellW;
+  var stepY = stepX*0.866*(geo.cellW/geo.cellH);
+  if(!(stepX > 0.9) || !(stepY > 0.9)) return [];     /* too fine to read: omit rather than clutter */
+  var out = [], jitter = geo.rnd()*stepX, r = 0;
+  for(var gy = stepY*0.5; gy < geo.rows; gy += stepY, r++){
+    var x0 = jitter + (r%2 ? stepX*0.5 : 0);
+    for(var gx = x0; gx < geo.cols; gx += stepX){
+      var cx = Math.floor(gx), cy = Math.floor(gy);
+      if(cx < 0 || cy < 0 || cx >= geo.cols || cy >= geo.rows) continue;
+      if(geo.owner[cy*geo.cols+cx] === e.i) out.push([gx, gy]);
+    }
+  }
+  if(out.length > e.row.qty*2) out.length = e.row.qty*2;
+  return out;
+}
+
+function shade(hex, amt){
+  var m = /^#?([0-9a-f]{6})$/i.exec(hex); if(!m) return "#4a5545";
+  var v = parseInt(m[1],16), r=(v>>16)&255, g=(v>>8)&255, b=v&255;
+  r = Math.round(r*(1-amt)); g = Math.round(g*(1-amt)); b = Math.round(b*(1-amt));
+  return "#"+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);
+}
+
+function renderPlan(combo, c){
+  var geo = layoutBed(combo, c);
+  var NS = "http://www.w3.org/2000/svg";
+  function n(tag, attrs){ var e = document.createElementNS(NS, tag);
+    for(var k in attrs) e.setAttribute(k, attrs[k]); return e; }
+
+  var PX = 920, pxPerFt = PX/c.l, Hpx = c.w*pxPerFt;
+  if(Hpx > 400){ pxPerFt = 400/c.w; Hpx = 400; PX = c.l*pxPerFt; }
+  if(Hpx < 130){ Hpx = 130; }
+  var PAD_L = 46, PAD_B = 34, PAD_T = 6, PAD_R = 6;
+  var cw = PX/geo.cols, ch = Hpx/geo.rows;
+  var svg = n("svg", {viewBox:"0 0 "+(PX+PAD_L+PAD_R)+" "+(Hpx+PAD_T+PAD_B),
+    role:"img", "aria-label":"Planting plan for a "+c.l+" by "+c.w+" foot bed. "+
+      "Tallest species are placed along the back edge and the groundcover layer fills all "+
+      "remaining ground. Each numbered area matches the plant table."});
+  var g = n("g", {transform:"translate("+PAD_L+","+PAD_T+")"});
+  svg.appendChild(g);
+
+  /* ---- fills: run-length merged cells, one path per species ---- */
+  geo.ent.forEach(function(e){
+    var d = "";
+    for(var cy=0; cy<geo.rows; cy++){
+      var run = -1;
+      for(var cx=0; cx<=geo.cols; cx++){
+        var own = cx<geo.cols ? geo.owner[cy*geo.cols+cx] : -99;
+        if(own === e.i && run < 0) run = cx;
+        if(own !== e.i && run >= 0){
+          d += "M"+(run*cw).toFixed(1)+","+(cy*ch).toFixed(1)+
+               "h"+((cx-run)*cw).toFixed(1)+"v"+ch.toFixed(1)+
+               "h"+(-(cx-run)*cw).toFixed(1)+"Z";
+          run = -1;
+        }
+      }
+    }
+    if(d) g.appendChild(n("path", {d:d, fill:e.p.chex, "fill-opacity":.80,
+      "data-sp":e.num, "data-hmax":e.p.hmax, "data-cells":e.area,
+      "data-ground":e.ground?1:0}));
+  });
+
+  /* ---- seams between different species ---- */
+  var seams = "";
+  for(var cy2=0; cy2<geo.rows; cy2++){
+    for(var cx2=0; cx2<geo.cols; cx2++){
+      var o = geo.owner[cy2*geo.cols+cx2];
+      if(cx2 < geo.cols-1 && geo.owner[cy2*geo.cols+cx2+1] !== o)
+        seams += "M"+((cx2+1)*cw).toFixed(1)+","+(cy2*ch).toFixed(1)+"v"+ch.toFixed(1);
+      if(cy2 < geo.rows-1 && geo.owner[(cy2+1)*geo.cols+cx2] !== o)
+        seams += "M"+(cx2*cw).toFixed(1)+","+((cy2+1)*ch).toFixed(1)+"h"+cw.toFixed(1);
+    }
+  }
+  if(seams) g.appendChild(n("path", {d:seams, fill:"none", stroke:"#5f6b58",
+    "stroke-width":.9, "stroke-opacity":.42}));
+
+  /* ---- individual plants ---- */
+  var dotTotal = 0;
+  geo.ent.forEach(function(e){
+    var dots = plantDots(e, geo);
+    if(!dots.length) return;
+    var col = shade(e.p.chex, .42), d = "";
+    dots.forEach(function(pt){
+      var x = pt[0]*cw, y = pt[1]*ch;
+      d += "M"+x.toFixed(1)+","+y.toFixed(1)+"m-1.9,0a1.9,1.9 0 1,0 3.8,0a1.9,1.9 0 1,0 -3.8,0";
+    });
+    dotTotal += dots.length;
+    g.appendChild(n("path", {d:d, fill:col, "fill-opacity":.72,
+      stroke:"#fff", "stroke-width":.5, "stroke-opacity":.5}));
+  });
+
+  /* ---- depth guides and the all-important front edge ---- */
+  [[1/3,"MIDDLE"],[2/3,"FRONT"]].forEach(function(gd){
+    g.appendChild(n("line", {x1:0, y1:(Hpx*gd[0]).toFixed(1), x2:PX, y2:(Hpx*gd[0]).toFixed(1),
+      stroke:"#3d4838", "stroke-width":.7, "stroke-opacity":.22, "stroke-dasharray":"5 5"}));
+  });
+  [["BACK",1/6],["MIDDLE",1/2],["FRONT",5/6]].forEach(function(b){
+    var t = n("text", {x:-8, y:(Hpx*b[1]+3).toFixed(1), "text-anchor":"end",
+      "font-size":8.5, "font-family":"sans-serif", "letter-spacing":".08em",
+      fill:"#6b7566"}); t.textContent = b[0]; g.appendChild(t);
+  });
+  g.appendChild(n("rect", {x:0, y:0, width:PX, height:Hpx, fill:"none",
+    stroke:"#8d9685", "stroke-width":1.6, rx:3}));
+
+  /* ---- numbers ---- */
+  geo.labels.forEach(function(cp){
+    var e = geo.ent[cp.owner], x = cp.cx*cw, y = cp.cy*ch;
+    var big = cp.size >= geo.n*0.03;
+    var r = big ? 9 : 7.5;
+    g.appendChild(n("circle", {cx:x.toFixed(1), cy:y.toFixed(1), r:r,
+      fill:"#fffdf7", "fill-opacity":.86, stroke:shade(e.p.chex,.35), "stroke-width":.9}));
+    var t = n("text", {x:x.toFixed(1), y:(y+3.2).toFixed(1), "text-anchor":"middle",
+      "font-size": big ? 10.5 : 9, "font-weight":"700", "font-family":"sans-serif",
+      fill:"#23291f"});
+    t.textContent = String(e.num);
+    g.appendChild(t);
+  });
+
+  /* ---- front-edge caption, scale bar ---- */
+  var fy = Hpx + 15;
+  var arrow = n("path", {d:"M0,"+fy+"h"+(PX*0.30).toFixed(1), stroke:"#6b7566",
+    "stroke-width":1, fill:"none"});
+  g.appendChild(arrow);
+  var ft = n("text", {x:(PX*0.31).toFixed(1), y:fy+3.5, "font-size":9.5,
+    "font-family":"sans-serif", fill:"#4a5545", "font-weight":"600"});
+  ft.textContent = "FRONT EDGE \u2014 the side you stand on to look at the bed";
+  g.appendChild(ft);
+
+  var barFt = c.l >= 24 ? 5 : (c.l >= 10 ? 2 : 1);
+  var bx = PX - barFt*pxPerFt, by = Hpx + 27;
+  g.appendChild(n("path", {d:"M"+bx.toFixed(1)+","+by+"h"+(barFt*pxPerFt).toFixed(1),
+    stroke:"#4a5545", "stroke-width":1.6, fill:"none"}));
+  g.appendChild(n("path", {d:"M"+bx.toFixed(1)+","+(by-3)+"v6M"+PX+","+(by-3)+"v6",
+    stroke:"#4a5545", "stroke-width":1.2, fill:"none"}));
+  var st = n("text", {x:(bx-6).toFixed(1), y:by+3.5, "text-anchor":"end",
+    "font-size":9, "font-family":"sans-serif", fill:"#4a5545"});
+  st.textContent = barFt+" "+(barFt===1?"foot":"feet");
+  g.appendChild(st);
+
+  /* ---- wrapper, legend ordered back to front ---- */
+  var wrap = mk("div","plan");
+  wrap.appendChild(mk("h4", null, "Planting plan \u2014 "+c.l+" feet \u00d7 "+c.w+
+    " feet ("+(c.l*c.w)+" square feet)"));
   wrap.appendChild(svg);
-  var lg=mk("div","legend");
-  combo.rows.forEach(function(r,idx){
-    var sp=mk("span");
-    sp.innerHTML="<i style='background:"+r.p.chex+"'></i>"+(idx+1)+". "+esc(r.p.common);
+
+  var lg = mk("div","legend");
+  geo.ent.slice().sort(function(a,b){ return b.p.hmax-a.p.hmax; }).forEach(function(e){
+    var sp = mk("span");
+    sp.innerHTML = "<i style='background:"+e.p.chex+"'></i><b>"+e.num+".</b> "+
+      esc(e.p.common)+" <span class='lh'>"+heightPhrase(e.p)+"</span>";
     lg.appendChild(sp);
   });
   wrap.appendChild(lg);
-  var note=mk("div","muted small","Numbers match the plant table. Blobs are drifts rather than "+
-    "exact outlines, and the stippled background is the groundcover matrix, which runs "+
-    "continuously beneath everything else.");
-  note.style.marginTop="6px"; wrap.appendChild(note);
+
+  var note = mk("div","muted small");
+  note.innerHTML = "Every part of the bed is assigned to a species, so there is no bare ground to "+
+    "account for: the groundcover layer is drawn filling the gaps between the taller plants, which "+
+    "is exactly how it should be planted. Tallest species sit along the back edge and the shortest "+
+    "along the front. Numbers match the plant table"+
+    (dotTotal ? ", and each dot is one plant at its recommended spacing" : "")+
+    ". Treat the shapes as drifts to copy freehand, not as a survey.";
+  note.style.marginTop = "7px";
+  wrap.appendChild(note);
   return wrap;
 }
+
+/* Heights, always with the unit spelled out. Small plants stay in inches;
+   anything reaching 2 feet or more is quoted in feet, which is how people think. */
+function heightPhrase(p){
+  function feet(inch){ var v = Math.round(inch/12*2)/2; return (v%1 ? v.toFixed(1) : v.toFixed(0)); }
+  if(p.hmax < 24)
+    return p.hmin===p.hmax ? p.hmax+" inches" : p.hmin+"\u2013"+p.hmax+" inches";
+  if(p.hmin < 12)
+    return p.hmin+" inches to "+feet(p.hmax)+" feet";
+  return (feet(p.hmin)===feet(p.hmax) ? feet(p.hmax) : feet(p.hmin)+"\u2013"+feet(p.hmax))+" feet";
+}
+
+/* Spacing in plain language: inches, plus the feet equivalent once it gets large. */
+function spacingPhrase(p){
+  var s = p.spacing;
+  if(s < 24) return s+" inches apart";
+  var ft = Math.round(s/12*2)/2;
+  return s+" inches apart (about "+(ft%1 ? ft.toFixed(1) : ft.toFixed(0))+" feet)";
+}
+
+/* =========================================================================
+   ZONE CALENDAR
+   Typical frost dates and the spring cut-back window, by USDA zone. These are
+   broad regional averages: the interface always sends the user to a real
+   frost-date lookup for their own ZIP code rather than relying on these.
+   ========================================================================= */
+var ZONE_CAL = {
+ 2:{cut:"early to mid May",          last:"late May to early June", first:"early September"},
+ 3:{cut:"late April to mid May",     last:"mid to late May",        first:"mid September"},
+ 4:{cut:"mid to late April",         last:"mid May",                first:"late September"},
+ 5:{cut:"early to mid April",        last:"early May",              first:"early October"},
+ 6:{cut:"late March to mid April",   last:"late April",             first:"mid October"},
+ 7:{cut:"mid to late March",         last:"mid April",              first:"late October"},
+ 8:{cut:"early to mid March",        last:"late March",             first:"mid November"},
+ 9:{cut:"late February to early March", last:"late February",       first:"early December"},
+10:{cut:"February",                  last:"frost is rare",          first:"frost is rare"},
+11:{cut:"January to February",       last:"essentially frost-free", first:"essentially frost-free"},
+12:{cut:"January",                   last:"frost-free",             first:"frost-free"},
+13:{cut:"January",                   last:"frost-free",             first:"frost-free"}
+};
+function zoneCal(z){ return ZONE_CAL[Math.max(2, Math.min(13, z||6))]; }
+
+/* --------------------------------------------------------------------------
+   MAINTENANCE CLASSES
+   Each class gets its own instruction, so the site never tells you to cut back
+   a shrub or mow an agave. p.care is assigned in build_data.py.
+   -------------------------------------------------------------------------- */
+var CARE_TEXT = {
+  perennial: function(cal){ return {
+    title:"Herbaceous perennials \u2014 cut back in spring, never in autumn",
+    body:"Leave every stem standing all winter. In "+cal.cut+", cut the dead stems down to "+
+         "8\u201312 inches and leave those stubs in place: native bees nest inside hollow stems, "+
+         "and the new growth hides them within a month. Rake the cut material into a loose pile "+
+         "in a corner for a few weeks so anything still inside can get out, then compost it."}; },
+  evergreen_perennial: function(cal){ return {
+    title:"Evergreen perennials \u2014 tidy only, do not cut to the ground",
+    body:"These hold living leaves through winter and will be slow to recover if sheared hard. "+
+         "In "+cal.cut+", pull or snip out only the dead and blackened leaves. Cut the spent "+
+         "flower stems off at the base. Every third year you can shear the top third to force "+
+         "fresh growth from the crown."}; },
+  grass_warm: function(cal){ return {
+    title:"Warm-season grasses \u2014 one hard cut a year",
+    body:"These are the plants the phrase \u201ccut the bed back\u201d really applies to. Leave "+
+         "them standing all winter for structure and seed, then in "+cal.cut+", before the new "+
+         "shoots are more than an inch or two high, cut the whole clump to 4\u20136 inches. "+
+         "Hedge shears or a string trimmer are fine. Cutting after growth starts leaves the "+
+         "clump with brown tips all season."}; },
+  grass_cool: function(cal){ return {
+    title:"Cool-season grasses \u2014 comb, do not cut hard",
+    body:"These start growing while it is still cold and resent hard cutting. Do not shear them "+
+         "to the ground. In late winter, rake your fingers up through the clump to comb out the "+
+         "dead blades, and cut off the old flower stems. If a clump looks tired, take no more "+
+         "than the top third."}; },
+  sedge: function(cal){ return {
+    title:"Sedges \u2014 leave alone most years",
+    body:"The sedge carpet is the part of this planting that replaces mulch, so disturb it as "+
+         "little as possible. Most years it needs nothing at all. If it accumulates brown "+
+         "thatch, shear it to 3 inches in "+cal.cut+", or mow it on the highest mower setting, "+
+         "once every second or third year only."}; },
+  fern_deciduous: function(cal){ return {
+    title:"Deciduous ferns \u2014 remove old fronds before the new ones uncurl",
+    body:"The fronds collapse over winter and protect the crown, so leave them. Cut them off at "+
+         "the base in "+cal.cut+", before the new fiddleheads unroll. Once the fiddleheads are "+
+         "up, cutting anywhere near them damages the whole season's growth."}; },
+  fern_evergreen: function(cal){ return {
+    title:"Evergreen ferns \u2014 remove only the fronds that have actually died",
+    body:"Do not cut these to the ground; the old fronds are still feeding the plant. When the "+
+         "new fiddleheads appear in "+cal.cut+", snip off just the fronds that are flattened, "+
+         "brown or broken, cutting each one at the base."}; },
+  shrub_spring: function(cal){ return {
+    title:"Spring-flowering shrubs \u2014 prune right after they bloom, or not at all",
+    body:"Never cut these back with the perennials: the flower buds for next spring form on this "+
+         "year's wood over summer, so a late-winter cut removes the entire display. Most need no "+
+         "pruning at all. When one outgrows its space, prune within a few weeks of the flowers "+
+         "fading: remove whole stems at the base rather than shearing the outline."}; },
+  shrub_summer: function(cal){ return {
+    title:"Summer and autumn-flowering shrubs \u2014 prune in late winter if at all",
+    body:"These flower on growth they make in the same season, so any shaping is done in "+
+         cal.cut+", before the buds break. Long-blooming subshrubs such as autumn sage can be "+
+         "cut back by a third to a half then to keep them dense rather than woody and open. "+
+         "Take out dead wood at the base whenever you see it."}; },
+  rosette: function(cal){ return {
+    title:"Agaves, yuccas and other rosettes \u2014 never cut back",
+    body:"There is no cutting back, ever. Cutting the leaves destroys the shape permanently, "+
+         "because each rosette grows from a single central point. Pull off only the dry, papery "+
+         "lower leaves, and saw the spent flower stalk off near the base once it has dried. Keep "+
+         "mulch and groundcover pulled back from the crown so water drains away from it."}; },
+  palm: function(cal){ return {
+    title:"Palms and cycads \u2014 remove dead fronds only",
+    body:"Never cut into the crown or remove green fronds; the plant cannot regrow a damaged "+
+         "growing point. Cut off fully brown fronds close to the trunk at any time of year. Leave "+
+         "the fruit for wildlife."}; },
+  ephemeral: function(cal){ return {
+    title:"Plants that go dormant \u2014 leave them alone and mark where they are",
+    body:"These disappear completely for part of the year. That is normal and does not mean they "+
+         "have died. Push a labelled stake in beside each one before it fades, so you do not "+
+         "weed, dig or plant into the crown while it is invisible. Never water a summer-dormant "+
+         "plant to try to revive it."}; },
+  subshrub: function(cal){ return {
+    title:"Woody-based subshrubs \u2014 trim, never cut into the old wood",
+    body:"These look like perennials but are built like tiny shrubs, and they regrow from their "+
+         "woody stems rather than from the crown. Cutting them to the ground usually kills them. "+
+         "In "+cal.cut+", shorten the previous year's growth by about a third, always leaving "+
+         "green growth or live buds below your cut. Replace them every five to eight years as "+
+         "they go woody and open at the base."}; },
+  perennial_low: function(cal){ return {
+    title:"Low perennials and mats \u2014 a light shear, not a cut-back",
+    body:"These are too short to have stems worth leaving, so the stem-nesting advice does not "+
+         "apply. In "+cal.cut+", run hand shears over them to take off the dead top growth, down "+
+         "to roughly 2\u20133 inches, and pull out any flattened brown leaves by hand. Never cut "+
+         "into the woody centre of a mat-former, and never bury the crown in mulch."}; },
+  selfsower: function(cal){ return {
+    title:"Self-sowing fillers \u2014 decide where the seedlings go",
+    body:"These are short-lived by design and carry the bed while the slower plants fill in. Let "+
+         "the seedheads stand through winter for the birds. In "+cal.cut+", shake the stems over "+
+         "any gap you want colonised, then cut them down. Through the season, pull seedlings out "+
+         "of the places you do not want them while they are still small."}; }
+};
+var CARE_ORDER = ["rosette","palm","shrub_spring","shrub_summer","subshrub","fern_evergreen",
+  "fern_deciduous","sedge","grass_cool","grass_warm","evergreen_perennial","perennial",
+  "perennial_low","ephemeral","selfsower"];
+
+/* one-line jobs pulled from the notes, keyed by the flags build_data.py extracted */
+var FLAG_JOBS = {
+  chelsea: function(list){ return "<b>Cut by half in early June:</b> "+list+". This is the one "+
+    "summer job that matters. Shortening these before they flower keeps them self-supporting, so "+
+    "you never need stakes."; },
+  pinch: function(list){ return "<b>Pinch out the growing tips twice before July:</b> "+list+
+    ". Without this they grow tall and lean over by late summer."; },
+  deadhead: function(list){ return "<b>Deadhead through the season to extend flowering:</b> "+list+
+    ". Stop in late summer and let the last flush set seed for the birds."; },
+  shear: function(list){ return "<b>Shear lightly after the first flush of flower:</b> "+list+
+    ". Taking off the top few inches usually brings a second bloom."; },
+  coppice: function(list){ return "<b>Cut a third of the oldest stems to the ground each spring:</b> "+
+    list+". Only new wood colours well, so this is what keeps the winter stems bright."; },
+  taproot: function(list){ return "<b>Plant once and never move:</b> "+list+". These make a deep "+
+    "taproot and rarely survive being dug up and relocated. Buy them small."; },
+  late_emerger: function(list){ return "<b>Slow to appear in spring:</b> "+list+". Mark the "+
+    "position with a stake so the bare patch is not weeded, dug or replanted before it wakes up."; },
+  cut_after_flower: function(list){ return "<b>Cut back to the basal leaves after flowering:</b> "+
+    list+". The foliage goes shabby once the flowers finish, and it regrows cleanly."; },
+  no_summer_water: function(list){ return "<b>Do not water in summer once established:</b> "+list+
+    ". Summer irrigation causes root rot in these species. This is the single most common way "+
+    "they are killed in gardens."; },
+  acid_soil: function(list){ return "<b>Needs acid soil:</b> "+list+". Test the bed first. If "+
+    "your pH is above about 6.0, substitute something else rather than fighting the soil."; },
+  aggressive: function(list){ return "<b>Spreads and will need editing:</b> "+list+". Walk the "+
+    "edges once each spring and pull back anything that has moved further than you want. This is "+
+    "five minutes of work if done annually, and a rescue job if left for three years."; }
+};
+
+/* --------------------------------------------------------------------------
+   STEP-BY-STEP LAYOUT
+   -------------------------------------------------------------------------- */
+function renderLayout(combo, c){
+  var wrap = mk("div");
+  var area = c.l*c.w, total = 0, byLayerMap = {};
+  combo.rows.forEach(function(r){
+    total += r.qty;
+    (byLayerMap[r.layer] = byLayerMap[r.layer] || []).push(r);
+  });
+
+  wrap.appendChild(mk("h5", null, "Design intent"));
+  wrap.appendChild(mk("p", null, combo.t.design));
+
+  wrap.appendChild(mk("h5", null, "Step by step"));
+  var ol = mk("ol","steps"); ol.style.paddingLeft = "20px";
+  function step(html){ var li = mk("li"); li.innerHTML = html; ol.appendChild(li); }
+
+  var lean = (combo.t.id === "gravel_jewels" || combo.t.id === "hellstrip");
+  var density = (total/area >= 1)
+    ? "about "+(total/area).toFixed(1)+" plants per square foot"
+    : "about one plant for every "+(area/total).toFixed(1)+" square feet";
+
+  step("<b>Clear the ground and leave the soil alone.</b> Kill or strip the existing turf and "+
+    "weeds completely \u2014 smother it under cardboard for a season, or lift the sod. Loosen only "+
+    "the top 2\u20133 inches so you can get a trowel in. "+
+    (lean ? "<b>Do not add compost, topsoil or fertiliser.</b> Every plant in this design needs "+
+            "lean, sharp-draining ground, and enriching the soil is what kills them."
+          : "Do not add fertiliser, and do not dig in compost deeper than a couple of inches. "+
+            "These are species adapted to ordinary unimproved soil; rich beds make them grow soft "+
+            "and flop.")+
+    " This bed is "+c.l+" feet by "+c.w+" feet, which is "+area+" square feet and takes <b>"+
+    total+" plants</b> of "+combo.rows.length+" species, "+density+".");
+
+  step("<b>Mark the front edge.</b> Everything below depends on knowing which side you look at "+
+    "the bed from. Lay a hose or string along that edge; the plan above is drawn with the front "+
+    "edge along the bottom. If the bed is an island you can walk all the way around, treat the "+
+    "long centre line as the \u201cback\u201d and mirror the tall plants out toward both faces.");
+
+  step("<b>Mark out the drifts before you plant anything.</b> Copy the shapes from the plan onto "+
+    "the ground freehand with a line of flour, sand or marking paint. Do not measure them: they "+
+    "are meant to be irregular. Stand back and look from the front edge, and from a window if the "+
+    "bed is seen from indoors, before you commit. <b>Every spacing given below is centre to "+
+    "centre</b> \u2014 measured from the middle of one plant to the middle of the next, not from "+
+    "leaf to leaf, and not the width of the gap between them.");
+
+  var ORDER = [["STRUCT","the tall structure"],["SHRUB","the shrub backbone"],
+               ["SEASONAL","the flowering drifts"],["FERN","the ferns"],
+               ["GRASS","the matrix grass"],["MATRIX","the groundcover carpet"],
+               ["FILLER","the self-sowing fillers"]];
+  var placed = 0;
+  ORDER.forEach(function(pair){
+    var lay = pair[0], rowsIn = byLayerMap[lay];
+    if(!rowsIn || !rowsIn.length) return;
+    var ground = !!GROUND_LAYERS[lay];
+    var items = rowsIn.map(function(r){
+      var how;
+      if(ground){
+        how = ", planted continuously across the ground rather than in clumps";
+      } else if(r.qty >= 5){
+        var drifts = Math.max(1, Math.min(5, Math.round(r.qty/6)));
+        var per = Math.max(1, Math.round(r.qty/drifts));
+        how = drifts === 1 ? ", as one drift of about "+per+" plants"
+                           : ", in "+drifts+" separate drifts of about "+per+" plants each";
+      } else if(r.qty === 1){
+        how = ", as a single specimen";
+      } else {
+        how = ", as "+r.qty+" individual plants, set well apart rather than in a clump";
+      }
+      return "<li style='margin:3px 0'><b>"+r.qty+" \u00d7 "+esc(r.p.common)+"</b> "+
+        "<span class='muted'>(<em>"+esc(r.p.sci)+"</em>, "+heightPhrase(r.p)+")</span> \u2014 "+
+        spacingPhrase(r.p)+how+".</li>";
+    }).join("");
+
+    var lead;
+    if(lay === "STRUCT" || lay === "SHRUB"){
+      lead = "<b>Set out "+pair[1]+" first, along the back third.</b> These are the biggest plants "+
+        "and everything else is arranged around them, so position them before anything goes in the "+
+        "ground. Space them so that at maturity their canopies just touch. Stand each pot in place, "+
+        "look from the front, and adjust before you dig.";
+    } else if(lay === "SEASONAL"){
+      lead = "<b>Now place "+pair[1]+", working from tallest to shortest.</b> Each species goes in "+
+        "as a long tapering drift rather than a round blob or a single dot, and the drift should "+
+        "run along the length of the bed. Keep the shorter species toward the front so nothing is "+
+        "hidden. Repeat at least one species in two or three separate places \u2014 that repetition "+
+        "is what makes a planting read as deliberate.";
+    } else if(lay === "FERN"){
+      lead = "<b>Place "+pair[1]+" in loose groups of three to seven.</b> Tuck them where they will "+
+        "be shaded in the afternoon, and against the base of taller plants rather than out in the "+
+        "open.";
+    } else if(lay === "GRASS"){
+      lead = "<b>Plant "+pair[1]+" through and between everything you have already set out.</b> "+
+        "This is the connective tissue of the planting: it should weave past the flowering drifts "+
+        "rather than sit in a separate block of its own.";
+    } else if(lay === "MATRIX"){
+      lead = "<b>Carpet the remaining ground with "+pair[1]+" \u2014 this is the step that gets "+
+        "skipped, and the one that decides whether the bed succeeds.</b> Plant it across the whole "+
+        "bed, right up to the crowns of everything already planted and all the way to the front "+
+        "edge, so that <b>no bare soil is left anywhere</b>. On the plan this is the layer filling "+
+        "every gap between the taller drifts. A closed green carpet is what suppresses weeds and "+
+        "means you never have to buy mulch again.";
+    } else {
+      lead = "<b>Finally, scatter "+pair[1]+" into the gaps.</b> Tuck them wherever there is still "+
+        "a hole. They are short-lived on purpose: they cover bare ground for the first two seasons "+
+        "while the permanent plants knit together, then fade out as the bed closes.";
+    }
+    rowsIn.forEach(function(r){ placed += r.qty; });
+    step(lead + "<ul style='margin:7px 0 0;padding-left:18px;list-style:disc'>"+items+"</ul>");
+  });
+
+  step("<b>Plant, then water in hard.</b> Set every plant at exactly the depth it was in its pot "+
+    "\u2014 burying the crown is the most common cause of losses. Firm the soil around each one and "+
+    "water immediately and generously, enough to settle the soil right down through the root ball. "+
+    "Autumn planting establishes better than spring almost everywhere, because the roots grow while "+
+    "the top is dormant.");
+
+  step("<b>Mulch thinly, once, and only this year.</b> "+
+    (lean ? "Top the whole bed with 2\u20133 inches of clean gravel or coarse grit, keeping it "+
+            "clear of the plant crowns. Never use bark or compost on this design."
+          : "Put down no more than 1\u20132 inches of leaf mould or fine bark, only in the gaps "+
+            "between the plants, and keep it off the crowns. This is a one-off to get you through "+
+            "the first year; from the second year the groundcover layer is your mulch.")+
+    " After that, resist the annual urge to re-mulch: a fresh layer every spring smothers the "+
+    "self-sowers and the groundcover, and it is the reason many native beds never fill in.");
+
+  wrap.appendChild(ol);
+  return wrap;
+}
+
+/* --------------------------------------------------------------------------
+   MAINTENANCE, GENERATED FROM WHAT IS ACTUALLY IN THE BED
+   -------------------------------------------------------------------------- */
+function renderCare(combo, c){
+  var wrap = mk("div"), cal = zoneCal(c.zone);
+
+  wrap.appendChild(mk("h5", null, "Maintenance philosophy"));
+  wrap.appendChild(mk("p", null, combo.t.care));
+
+  wrap.appendChild(mk("h5", null, "Your calendar \u2014 zone "+c.zone));
+  var calBox = mk("div","calendarbox");
+  calBox.innerHTML =
+    "<ul style='margin:0;padding-left:18px'>"+
+    "<li><b>Main cut-back window: "+cal.cut+".</b> Wait as late as you can bear. The signal is "+
+      "several consecutive days near 50\u00b0F, when insects are leaving the old stems and the "+
+      "first new shoots show at the base.</li>"+
+    "<li>Typical last spring frost here: <b>"+cal.last+"</b>. Typical first autumn frost: <b>"+
+      cal.first+"</b>.</li>"+
+    "<li><b>Cut nothing in autumn.</b> The dead stems and seedheads are the winter habitat and "+
+      "the bird food, and they are most of what this planting is for.</li>"+
+    "<li>These are regional averages for zone "+c.zone+". Look up your own dates: "+
+      "<a href='https://www.almanac.com/gardening/frostdates' target='_blank' rel='noopener'>"+
+      "frost dates by ZIP code</a> \u00b7 "+
+      "<a href='https://www.ncei.noaa.gov/products/land-based-station/us-climate-normals' "+
+      "target='_blank' rel='noopener'>NOAA climate normals</a> \u00b7 or search for your state's "+
+      "Cooperative Extension planting calendar, which is the most locally accurate of the three.</li>"+
+    "</ul>";
+  wrap.appendChild(calBox);
+
+  /* --- group the actual plants by maintenance class --- */
+  var groups = {};
+  combo.rows.forEach(function(r){
+    /* "cut to 8-12 inches" is nonsense for a plant that is only 6 inches tall, so
+       short herbaceous perennials get their own, shorter instruction */
+    var key = (r.p.care === "perennial" && r.p.hmax < 24) ? "perennial_low" : r.p.care;
+    (groups[key] = groups[key] || []).push(r.p); });
+
+  wrap.appendChild(mk("h5", null, "What to do with each kind of plant in this bed"));
+  var dl = mk("div","caregroups");
+  CARE_ORDER.forEach(function(cls){
+    if(!groups[cls] || !CARE_TEXT[cls]) return;
+    var t = CARE_TEXT[cls](cal), box = mk("div","caregroup");
+    var names = groups[cls].map(function(p){ return esc(p.common); }).join(", ");
+    box.innerHTML = "<div class='ct'>"+t.title+"</div>"+
+      "<div class='cs'>"+names+"</div><p>"+t.body+"</p>";
+    dl.appendChild(box);
+  });
+  wrap.appendChild(dl);
+
+  /* --- species-specific jobs --- */
+  var flagMap = {};
+  combo.rows.forEach(function(r){
+    r.p.care_flags.forEach(function(f){
+      if(!FLAG_JOBS[f]) return;
+      (flagMap[f] = flagMap[f] || []).push(r.p.common);
+    });
+  });
+  var flagKeys = Object.keys(FLAG_JOBS).filter(function(f){ return flagMap[f]; });
+  if(flagKeys.length){
+    wrap.appendChild(mk("h5", null, "Jobs that apply only to particular species here"));
+    var ul = mk("ul"); ul.style.paddingLeft = "20px";
+    flagKeys.forEach(function(f){
+      var li = mk("li"); li.style.marginBottom = "5px";
+      li.innerHTML = FLAG_JOBS[f](flagMap[f].map(esc).join(", "));
+      ul.appendChild(li);
+    });
+    wrap.appendChild(ul);
+  }
+
+  /* --- establishment and long run --- */
+  wrap.appendChild(mk("h5", null, "The first three years"));
+  var ul2 = mk("ul"); ul2.style.paddingLeft = "20px";
+  var waterLine = (c.soil === "D")
+    ? "Water deeply once a week for the first summer only, then stop. These species fail from too "+
+      "much water far more often than too little."
+    : (c.soil === "W")
+      ? "Water only if the low spot dries out in the first summer. From the second year the site "+
+        "should look after itself."
+      : "Water deeply once or twice a week through the first growing season, then taper off. "+
+        "A long soak twice a week beats a daily sprinkle: it drives roots downward.";
+  [ "<b>Year 1 \u2014 water and weed.</b> "+waterLine+" Weed every two or three weeks; the bed is "+
+      "open now and weeds will out-run your plants if you let them seed.",
+    "<b>Year 1 \u2014 expect it to look sparse.</b> It is supposed to. The plants are spaced to "+
+      "close up, not to look finished on day one. Do not fill the gaps with extra plants, and do "+
+      "not widen the spacing to make it look full sooner.",
+    "<b>Year 2 \u2014 the groundcover closes.</b> Weeding drops sharply once the carpet knits. "+
+      "Keep going round the edges, which is where new weeds arrive.",
+    "<b>Year 3 and on \u2014 edit rather than maintain.</b> Move or remove what has overstepped, "+
+      "shift seedlings you like into gaps, replace anything that died. Divide clump-forming grasses "+
+      "every four or five years, in "+cal.cut+", once the centre of the clump goes hollow.",
+    "<b>Never fertilise.</b> It produces soft, floppy growth, shortens the life of most of these "+
+      "species, and feeds weeds more than plants.",
+    "<b>Never use insecticide, including organic ones.</b> Bt and spinosad kill caterpillars, which "+
+      "are the point of the bed. Chewed leaves are the planting working, not failing."
+  ].forEach(function(h){ var li = mk("li"); li.style.marginBottom="5px"; li.innerHTML=h; ul2.appendChild(li); });
+  wrap.appendChild(ul2);
+
+  return wrap;
+}
+
 function renderCombo(combo, idx, c){
   var card=mk("div","combo"), head=mk("div","head"), h3=mk("h3");
   h3.innerHTML="<span class='num'>"+("0"+(idx+1)).slice(-2)+"</span>"+esc(combo.t.name)+
@@ -475,8 +1239,8 @@ function renderCombo(combo, idx, c){
 
   var body=mk("div","body"), cols=mk("div","cols"), left=mk("div"), right=mk("div");
   var tbl=mk("table","plants"), tr=mk("tr");
-  ["#","Layer","Plant","Bloom","Height","Qty","Spacing"].forEach(function(x){
-    tr.appendChild(mk("th",null,x)); });
+  ["#","Layer","Plant","Bloom","Mature height","Qty","Spacing (centre to centre)"]
+    .forEach(function(x){ tr.appendChild(mk("th",null,x)); });
   tbl.appendChild(tr);
   combo.rows.forEach(function(r,i){
     var p=r.p, row=mk("tr"), c0=mk("td");
@@ -489,9 +1253,9 @@ function renderCombo(combo, idx, c){
       esc(p.sci)+"</span><div class='why'>"+esc(whyText(p))+"</div>";
     row.appendChild(c2);
     row.appendChild(mk("td",null,bloomStr(p)));
-    row.appendChild(mk("td",null,(p.hmin===p.hmax? p.hmax : p.hmin+"\u2013"+p.hmax)+'"'));
+    row.appendChild(mk("td",null,heightPhrase(p)));
     var c5=mk("td"); c5.innerHTML="<span class='qty'>"+r.qty+"</span>"; row.appendChild(c5);
-    row.appendChild(mk("td",null,p.spacing+'" o.c.'));
+    row.appendChild(mk("td",null,p.spacing+" inches"));
     tbl.appendChild(row);
   });
   left.appendChild(tbl);
@@ -501,12 +1265,13 @@ function renderCombo(combo, idx, c){
   cols.appendChild(left); cols.appendChild(right); body.appendChild(cols);
 
   var det=mk("details","notes");
-  det.appendChild(mk("summary",null,"Layout, establishment and maintenance for this design"));
+  det.appendChild(mk("summary",null,
+    "How to lay this bed out, plant it and look after it \u2014 step by step"));
   var inner=mk("div","inner");
-  function para(label,txt){ inner.appendChild(mk("h5",null,label)); inner.appendChild(mk("p",null,txt)); }
-  para("How to lay it out", combo.t.design);
-  para("Maintenance", combo.t.care);
-  para("Why it works ecologically", combo.t.eco);
+  inner.appendChild(renderLayout(combo, c));
+  inner.appendChild(renderCare(combo, c));
+  inner.appendChild(mk("h5",null,"Why it works ecologically"));
+  inner.appendChild(mk("p",null,combo.t.eco));
   inner.appendChild(mk("h5",null,"Plant-by-plant notes"));
   var ul=mk("ul"); ul.style.paddingLeft="20px";
   combo.rows.forEach(function(r){
@@ -737,7 +1502,7 @@ el("csvAll").addEventListener("click",function(){
       " species shown. Every entry is native to at least one United States ecoregion.";
     var t=el("browseTable"); t.innerHTML="";
     var hr=mk("tr");
-    ["Plant","Family","Regions","Zones","Light","Soil","Height","Bloom","Caterpillars","Value"]
+    ["Plant","Family","Regions","Zones","Light","Soil","Mature height","Bloom","Caterpillars","Value"]
       .forEach(function(h){ hr.appendChild(mk("th",null,h)); });
     t.appendChild(hr);
     rows.slice(0,400).forEach(function(p){
@@ -750,7 +1515,7 @@ el("csvAll").addEventListener("click",function(){
       tr.appendChild(mk("td",null,p.zmin+"\u2013"+p.zmax));
       tr.appendChild(mk("td",null,p.light.join("")));
       tr.appendChild(mk("td",null,p.moist.join("")));
-      tr.appendChild(mk("td",null,p.hmax+'"'));
+      tr.appendChild(mk("td",null,heightPhrase(p)));
       tr.appendChild(mk("td",null,bloomStr(p)));
       tr.appendChild(mk("td",null,p.lep? "~"+p.lep : "\u2014"));
       var c2=mk("td","small",whyText(p)||"\u2014"); tr.appendChild(c2);

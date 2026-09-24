@@ -11,6 +11,7 @@ model, so the results read like a botanical garden bed rather than a collection 
 every species is chosen for documented ecological function in the user's own ecoregion.
 
 - **295 species**, each native to at least one of ten US ecoregions
+- **295 species classified into 15 maintenance groups**, so the advice fits the plant
 - **20 design templates** — prairie matrix, gravel garden, rain garden, dry shade, fern-and-sedge
   carpet, monarch waystation, hummingbird corridor, four-season structural border, wet meadow,
   spring-ephemeral woodland, hellstrip, coastal, and more
@@ -73,6 +74,8 @@ serves without any configuration.
 | `zip_regions.json` | optional output of the above; the site detects and uses it automatically |
 | `test_harness.js` | minimal DOM shim so `app.js` can run under Node |
 | `run_tests.js` | the test suite |
+| `geometry_check.js` | asserts plan coverage, height ordering and that every species is drawn |
+| `ascii_plan.js` | prints a planting plan as an ASCII map, to eyeball layouts without a browser |
 | `sample_output.js` | prints real generated beds as text |
 | `diversity_check.js` | reports how many distinct species the design set uses |
 | `snapshot.js` + `check_render.py` | serialise the rendered output and verify it structurally |
@@ -103,7 +106,12 @@ allowed. Columns:
 | `sb` | `Y` if a documented pollen-specialist bee host (Fowler & Droege) |
 | `hosts` | semicolon list of named larval hosts |
 | `wildlife` | semicolon list from `hummingbird birdseed deer_resistant evergreen winter_seedhead winter_structure nfix nest_stems nest_cover fall_color` |
-| `notes` | one or two sentences of real horticultural guidance — this is what the user actually reads |
+| `notes` | one or two sentences of real horticultural guidance — this is what the user actually reads, and the maintenance flags are extracted from it |
+
+`build_data.py` also derives a **maintenance class** and a set of **care flags** per species; you do
+not enter these. If you add a plant that needs different handling, extend `care_class()` and
+`CARE_FLAG_PATTERNS` in `build_data.py` and add matching prose to `CARE_TEXT` / `FLAG_JOBS` in
+`app.js`.
 
 Then:
 
@@ -145,12 +153,60 @@ raising it for a species makes it appear more often.
    converging on the same six plants.
 5. **Compute quantities.** Each layer's share of the bed area, divided among its species (the first
    groundcover species is deliberately dominant), converted to counts by spacing, nudged to odd
-   numbers because odd-numbered drifts read better.
-6. **Score and draw.** Lepidoptera totals are summed **per genus, not per species**, so three asters
-   do not count three times. The plan view places drifts as organic blobs over a stippled matrix.
+   numbers because odd-numbered drifts read better. The number of species is capped by bed area
+   (roughly one per 13 square feet) so a small bed is not reduced to a row of single specimens.
+6. **Draw the plan.** See below.
+7. **Write the instructions.** The step-by-step layout and the maintenance schedule are generated
+   from the actual contents of the bed, not taken from the template. See below.
+8. **Score.** Lepidoptera totals are summed **per genus, not per species**, so three asters do not
+   count three times.
 
 Results are deterministic: identical inputs always produce identical designs, and the permalink
 encodes every input plus the shuffle seed.
+
+### How the plan is drawn
+
+The plan is the planting instruction, so it has to be literal. The bed is divided into a grid of
+about 2,200 cells and **every cell is assigned to exactly one species**, which means there is no
+unexplained empty space: the groundcover layer is drawn genuinely filling the gaps between the
+taller drifts, which is how it must actually be planted.
+
+Each species is given a whole-number quota of cells summing exactly to the grid, then grows outward
+from a handful of seed points, cheapest cell first, until its quota is met (a priority-queue region
+growing pass). Every species is granted a foothold cell before general growth begins. Both of those
+details matter: an earlier implementation used a capacity-constrained weighted Voronoi diagram, and
+it failed to converge — in testing it left up to six species per plan with *no area at all*, which
+is precisely the bug where a plant appears in the legend with no zone on the drawing.
+
+Placement is governed by mature height. Each species gets a preferred depth (tallest at the back
+edge, shortest at the front) and a tolerance band that widens with the area it must cover; leaving
+that band is so expensive that a large drift spreads sideways along the bed rather than bleeding
+forward out of its tier. The front few inches are additionally reserved for plants under about 18
+inches, so nothing short ends up hidden. Vertical distance is scaled up so drifts elongate along the
+length of the bed. `geometry_check.js` asserts all of this: full coverage, one labelled region per
+species, and height ordering with no inversions between species differing by 12 inches or more.
+
+### How the instructions are generated
+
+Neither the layout steps nor the maintenance schedule is template boilerplate — both are written from
+the plants actually in the bed:
+
+- **Layout** is an ordered sequence that names every species with its quantity, its spacing in
+  inches (spelled out, and with the feet equivalent once it passes 24 inches), and whether it goes in
+  as a drift, as individual plants or as a continuous carpet. Spacing is explicitly defined as
+  centre-to-centre. The groundcover step states that no bare soil may be left anywhere, because
+  skipping that is the single most common cause of failure.
+- **Maintenance** groups the bed by *maintenance class*, a field `build_data.py` derives for every
+  species from its layer, family, genus, bloom span, evergreen status and notes. There are fifteen
+  classes, so the site tells you to cut warm-season grasses to 4–6 inches, shear evergreen ferns only
+  once the fiddleheads appear, prune spring-flowering shrubs straight after they bloom, trim
+  woody-based subshrubs by a third without cutting into old wood, and **never** cut back an agave or
+  a palm. A short herbaceous perennial is separated from a tall one, because "cut the stems to 8–12
+  inches" is nonsense advice for a plant that is 6 inches tall.
+- **Timing** comes from a per-zone calendar giving the cut-back window and typical frost dates, with
+  links to a ZIP-code frost-date lookup, NOAA climate normals and the user's Cooperative Extension.
+- **Species-specific jobs** (the June cut-back, pinching, coppicing, "never move this taproot",
+  "do not water this in summer") are extracted from the notes as flags and listed by plant name.
 
 ### A deliberate softness in the hardiness filter
 
@@ -169,6 +225,8 @@ shim and runs the real `app.js` inside it under Node.
 
 ```bash
 node run_tests.js                        # assertions; exits non-zero on failure
+node geometry_check.js                   # plan coverage + height ordering
+node ascii_plan.js                       # see a plan as an ASCII map
 node sample_output.js                    # print real generated beds
 node diversity_check.js                  # distinct species used across the design set
 node snapshot.js && python3 check_render.py   # verify the rendered markup

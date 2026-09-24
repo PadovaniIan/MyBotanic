@@ -80,7 +80,9 @@ Optional, if you have Python 3 and Node:
 ```bash
 python3 build_reference_data.py && python3 build_data.py   # revalidate and rebuild the data
 node run_tests.js                                          # engine test suite
+node geometry_check.js                                     # plan coverage and height ordering
 node snapshot.js && python3 check_render.py                # verify the rendered markup
+node ascii_plan.js                                         # see a planting plan as an ASCII map
 node sample_output.js                                      # print real beds as text
 ```
 

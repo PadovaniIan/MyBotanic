@@ -51,7 +51,12 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 5.1,
-  "eco_score": 34
+  "eco_score": 34,
+  "care": "perennial",
+  "care_flags": [
+   "taproot",
+   "late_emerger"
+  ]
  },
  {
   "id": "asclepias_incarnata",
@@ -104,7 +109,9 @@
   ],
   "height_ft": 5.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 30
+  "eco_score": 30,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "asclepias_verticillata",
@@ -154,7 +161,11 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 7.4,
-  "eco_score": 23
+  "eco_score": 23,
+  "care": "selfsower",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "asclepias_syriaca",
@@ -204,7 +215,11 @@
   ],
   "height_ft": 5.0,
   "density_per_10sqft": 1.8,
-  "eco_score": 30
+  "eco_score": 30,
+  "care": "selfsower",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "baptisia_australis",
@@ -256,7 +271,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 1.3,
-  "eco_score": 24
+  "eco_score": 24,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "baptisia_alba",
@@ -307,7 +324,9 @@
   ],
   "height_ft": 5.0,
   "density_per_10sqft": 1.3,
-  "eco_score": 20
+  "eco_score": 20,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "echinacea_purpurea",
@@ -361,7 +380,9 @@
   ],
   "height_ft": 3.3,
   "density_per_10sqft": 5.1,
-  "eco_score": 35
+  "eco_score": 35,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "echinacea_pallida",
@@ -410,7 +431,9 @@
   ],
   "height_ft": 3.3,
   "density_per_10sqft": 5.1,
-  "eco_score": 30
+  "eco_score": 30,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "rudbeckia_fulgida",
@@ -462,7 +485,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 37
+  "eco_score": 37,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "rudbeckia_hirta",
@@ -515,7 +540,11 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 7.4,
-  "eco_score": 33
+  "eco_score": 33,
+  "care": "selfsower",
+  "care_flags": [
+   "reseeds"
+  ]
  },
  {
   "id": "rudbeckia_maxima",
@@ -524,7 +553,7 @@
   "family": "Asteraceae",
   "layer": "STRUCT",
   "form": "bold",
-  "notes": "Huge blue-grey paddle leaves plus 7 ft flower stems. A signature botanical-garden plant.",
+  "notes": "Huge blue-grey paddle leaves plus 7-foot flower stems. A signature botanical-garden plant.",
   "zmin": 4,
   "zmax": 9,
   "hmin": 60,
@@ -560,7 +589,9 @@
   ],
   "height_ft": 7.0,
   "density_per_10sqft": 1.3,
-  "eco_score": 27
+  "eco_score": 27,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "rudbeckia_subtomentosa",
@@ -606,7 +637,9 @@
   ],
   "height_ft": 6.0,
   "density_per_10sqft": 1.8,
-  "eco_score": 28
+  "eco_score": 28,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "heliopsis_helianthoides",
@@ -656,7 +689,11 @@
   ],
   "height_ft": 5.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 26
+  "eco_score": 26,
+  "care": "perennial",
+  "care_flags": [
+   "chelsea"
+  ]
  },
  {
   "id": "helianthus_mollis",
@@ -705,7 +742,11 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 1.8,
-  "eco_score": 51
+  "eco_score": 51,
+  "care": "perennial",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "helianthus_angustifolius",
@@ -752,7 +793,11 @@
   ],
   "height_ft": 8.0,
   "density_per_10sqft": 1.3,
-  "eco_score": 44
+  "eco_score": 44,
+  "care": "perennial",
+  "care_flags": [
+   "pinch"
+  ]
  },
  {
   "id": "helianthus_divaricatus",
@@ -799,7 +844,9 @@
   ],
   "height_ft": 5.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 41
+  "eco_score": 41,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "silphium_terebinthinaceum",
@@ -808,7 +855,7 @@
   "family": "Asteraceae",
   "layer": "STRUCT",
   "form": "bold",
-  "notes": "Enormous basal leaves like elephant ears, with flowers on nearly leafless 8 ft stalks.",
+  "notes": "Enormous basal leaves like elephant ears, with flowers on nearly leafless 8-foot stalks.",
   "zmin": 4,
   "zmax": 8,
   "hmin": 72,
@@ -846,7 +893,9 @@
   ],
   "height_ft": 9.0,
   "density_per_10sqft": 1.3,
-  "eco_score": 28
+  "eco_score": 28,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "silphium_laciniatum",
@@ -855,7 +904,7 @@
   "family": "Asteraceae",
   "layer": "STRUCT",
   "form": "bold",
-  "notes": "Deeply cut leaves orient north-south. A taproot to 14 ft makes it extremely drought proof.",
+  "notes": "Deeply cut leaves orient north-south. A taproot to 14 feet deep makes it extremely drought proof.",
   "zmin": 4,
   "zmax": 9,
   "hmin": 72,
@@ -893,7 +942,11 @@
   ],
   "height_ft": 9.0,
   "density_per_10sqft": 1.3,
-  "eco_score": 28
+  "eco_score": 28,
+  "care": "perennial",
+  "care_flags": [
+   "taproot"
+  ]
  },
  {
   "id": "silphium_perfoliatum",
@@ -940,7 +993,13 @@
   ],
   "height_ft": 8.0,
   "density_per_10sqft": 0.9,
-  "eco_score": 25
+  "eco_score": 25,
+  "care": "perennial",
+  "care_flags": [
+   "deadhead",
+   "aggressive",
+   "reseeds"
+  ]
  },
  {
   "id": "ratibida_pinnata",
@@ -988,7 +1047,9 @@
   ],
   "height_ft": 5.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 26
+  "eco_score": 26,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "ratibida_columnifera",
@@ -1037,7 +1098,11 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 7.4,
-  "eco_score": 24
+  "eco_score": 24,
+  "care": "selfsower",
+  "care_flags": [
+   "reseeds"
+  ]
  },
  {
   "id": "liatris_spicata",
@@ -1086,7 +1151,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 11.5,
-  "eco_score": 26
+  "eco_score": 26,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "liatris_aspera",
@@ -1135,7 +1202,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 7.4,
-  "eco_score": 26
+  "eco_score": 26,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "liatris_punctata",
@@ -1144,7 +1213,7 @@
   "family": "Asteraceae",
   "layer": "SEASONAL",
   "form": "spike",
-  "notes": "Shortgrass-prairie species with a 15 ft taproot. Ideal for hot dry hellstrips.",
+  "notes": "Shortgrass-prairie species with a 15-foot taproot. Ideal for hot dry hellstrips.",
   "zmin": 3,
   "zmax": 9,
   "hmin": 12,
@@ -1181,7 +1250,11 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 11.5,
-  "eco_score": 18
+  "eco_score": 18,
+  "care": "perennial",
+  "care_flags": [
+   "taproot"
+  ]
  },
  {
   "id": "liatris_microcephala",
@@ -1223,7 +1296,9 @@
   ],
   "height_ft": 1.5,
   "density_per_10sqft": 11.5,
-  "eco_score": 18
+  "eco_score": 18,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "monarda_fistulosa",
@@ -1278,7 +1353,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 28
+  "eco_score": 28,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "monarda_didyma",
@@ -1327,7 +1404,11 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 24
+  "eco_score": 24,
+  "care": "perennial",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "monarda_bradburiana",
@@ -1372,7 +1453,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 16
+  "eco_score": 16,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "monarda_punctata",
@@ -1420,7 +1503,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 17
+  "eco_score": 17,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "pycnanthemum_muticum",
@@ -1469,7 +1554,11 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 9
+  "eco_score": 9,
+  "care": "perennial",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "pycnanthemum_tenuifolium",
@@ -1518,7 +1607,9 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 5.1,
-  "eco_score": 9
+  "eco_score": 9,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "penstemon_digitalis",
@@ -1567,7 +1658,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 24
+  "eco_score": 24,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "penstemon_hirsutus",
@@ -1611,7 +1704,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 11.5,
-  "eco_score": 17
+  "eco_score": 17,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "veronicastrum_virginicum",
@@ -1660,7 +1755,9 @@
   ],
   "height_ft": 5.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 8
+  "eco_score": 8,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "eutrochium_purpureum",
@@ -1709,7 +1806,9 @@
   ],
   "height_ft": 7.0,
   "density_per_10sqft": 1.3,
-  "eco_score": 40
+  "eco_score": 40,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "eutrochium_maculatum",
@@ -1718,7 +1817,7 @@
   "family": "Asteraceae",
   "layer": "STRUCT",
   "form": "bold",
-  "notes": "For rain gardens and pond edges. The cultivar Gateway is a sturdier 5 ft form.",
+  "notes": "For rain gardens and pond edges. The cultivar Gateway is a sturdier 5-foot form.",
   "zmin": 3,
   "zmax": 8,
   "hmin": 48,
@@ -1760,7 +1859,9 @@
   ],
   "height_ft": 7.0,
   "density_per_10sqft": 1.3,
-  "eco_score": 36
+  "eco_score": 36,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "vernonia_noveboracensis",
@@ -1805,7 +1906,9 @@
   ],
   "height_ft": 7.0,
   "density_per_10sqft": 1.3,
-  "eco_score": 24
+  "eco_score": 24,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "vernonia_lettermannii",
@@ -1851,7 +1954,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 22
+  "eco_score": 22,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "solidago_speciosa",
@@ -1902,7 +2007,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 68
+  "eco_score": 68,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "solidago_rugosa",
@@ -1952,7 +2059,9 @@
   ],
   "height_ft": 5.0,
   "density_per_10sqft": 1.8,
-  "eco_score": 64
+  "eco_score": 64,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "solidago_nemoralis",
@@ -1999,7 +2108,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 7.4,
-  "eco_score": 60
+  "eco_score": 60,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "solidago_caesia",
@@ -2046,7 +2157,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 56
+  "eco_score": 56,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "solidago_flexicaulis",
@@ -2092,7 +2205,11 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 56
+  "eco_score": 56,
+  "care": "perennial",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "oligoneuron_rigidum",
@@ -2140,7 +2257,9 @@
   ],
   "height_ft": 5.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 60
+  "eco_score": 60,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "symphyotrichum_novae_angliae",
@@ -2189,7 +2308,11 @@
   ],
   "height_ft": 6.0,
   "density_per_10sqft": 1.8,
-  "eco_score": 61
+  "eco_score": 61,
+  "care": "perennial",
+  "care_flags": [
+   "chelsea"
+  ]
  },
  {
   "id": "symphyotrichum_oblongifolium",
@@ -2240,7 +2363,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 57
+  "eco_score": 57,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "symphyotrichum_laeve",
@@ -2290,7 +2415,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 57
+  "eco_score": 57,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "symphyotrichum_cordifolium",
@@ -2338,7 +2465,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 56
+  "eco_score": 56,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "symphyotrichum_ericoides",
@@ -2386,7 +2515,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 56
+  "eco_score": 56,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "symphyotrichum_lateriflorum",
@@ -2433,7 +2564,9 @@
   ],
   "height_ft": 3.3,
   "density_per_10sqft": 2.9,
-  "eco_score": 56
+  "eco_score": 56,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "eurybia_divaricata",
@@ -2483,7 +2616,11 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 57
+  "eco_score": 57,
+  "care": "perennial",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "coreopsis_verticillata",
@@ -2530,7 +2667,11 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 5.1,
-  "eco_score": 20
+  "eco_score": 20,
+  "care": "perennial",
+  "care_flags": [
+   "shear"
+  ]
  },
  {
   "id": "coreopsis_lanceolata",
@@ -2577,7 +2718,9 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 7.4,
-  "eco_score": 22
+  "eco_score": 22,
+  "care": "selfsower",
+  "care_flags": []
  },
  {
   "id": "coreopsis_tripteris",
@@ -2624,7 +2767,9 @@
   ],
   "height_ft": 8.0,
   "density_per_10sqft": 1.8,
-  "eco_score": 22
+  "eco_score": 22,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "coreopsis_palmata",
@@ -2668,7 +2813,11 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 5.1,
-  "eco_score": 18
+  "eco_score": 18,
+  "care": "perennial",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "dalea_purpurea",
@@ -2720,7 +2869,9 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 7.4,
-  "eco_score": 28
+  "eco_score": 28,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "dalea_candida",
@@ -2769,7 +2920,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 7.4,
-  "eco_score": 24
+  "eco_score": 24,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "amorpha_canescens",
@@ -2818,7 +2971,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 1.8,
-  "eco_score": 24
+  "eco_score": 24,
+  "care": "shrub_summer",
+  "care_flags": []
  },
  {
   "id": "astragalus_canadensis",
@@ -2867,7 +3022,11 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 13
+  "eco_score": 13,
+  "care": "perennial",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "lespedeza_capitata",
@@ -2918,7 +3077,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 30
+  "eco_score": 30,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "baptisia_bracteata",
@@ -2966,7 +3127,9 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 1.8,
-  "eco_score": 12
+  "eco_score": 12,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "eryngium_yuccifolium",
@@ -3016,7 +3179,9 @@
   ],
   "height_ft": 5.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 8
+  "eco_score": 8,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "parthenium_integrifolium",
@@ -3066,7 +3231,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 9
+  "eco_score": 9,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "allium_cernuum",
@@ -3117,7 +3284,9 @@
   ],
   "height_ft": 1.5,
   "density_per_10sqft": 20.5,
-  "eco_score": 20
+  "eco_score": 20,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "allium_stellatum",
@@ -3162,7 +3331,9 @@
   ],
   "height_ft": 1.5,
   "density_per_10sqft": 20.5,
-  "eco_score": 20
+  "eco_score": 20,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "zizia_aurea",
@@ -3213,7 +3384,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 25
+  "eco_score": 25,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "phlox_paniculata",
@@ -3263,7 +3436,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 18
+  "eco_score": 18,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "phlox_pilosa",
@@ -3314,7 +3489,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 7.4,
-  "eco_score": 10
+  "eco_score": 10,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "phlox_subulata",
@@ -3362,7 +3539,9 @@
   ],
   "height_ft": 0.7,
   "density_per_10sqft": 7.4,
-  "eco_score": 10
+  "eco_score": 10,
+  "care": "subshrub",
+  "care_flags": []
  },
  {
   "id": "physostegia_virginiana",
@@ -3410,7 +3589,11 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 8
+  "eco_score": 8,
+  "care": "perennial",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "salvia_azurea",
@@ -3459,7 +3642,11 @@
   ],
   "height_ft": 5.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 11
+  "eco_score": 11,
+  "care": "perennial",
+  "care_flags": [
+   "pinch"
+  ]
  },
  {
   "id": "tradescantia_ohiensis",
@@ -3508,7 +3695,11 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 16
+  "eco_score": 16,
+  "care": "selfsower",
+  "care_flags": [
+   "cut_after_flower"
+  ]
  },
  {
   "id": "sisyrinchium_angustifolium",
@@ -3556,7 +3747,9 @@
   ],
   "height_ft": 1.5,
   "density_per_10sqft": 20.5,
-  "eco_score": 17
+  "eco_score": 17,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "callirhoe_involucrata",
@@ -3605,7 +3798,11 @@
   ],
   "height_ft": 1.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 24
+  "eco_score": 24,
+  "care": "perennial",
+  "care_flags": [
+   "taproot"
+  ]
  },
  {
   "id": "oenothera_macrocarpa",
@@ -3654,7 +3851,9 @@
   ],
   "height_ft": 1.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 24
+  "eco_score": 24,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "penstemon_grandiflorus",
@@ -3697,7 +3896,9 @@
   ],
   "height_ft": 3.3,
   "density_per_10sqft": 5.1,
-  "eco_score": 17
+  "eco_score": 17,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "chelone_glabra",
@@ -3745,7 +3946,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 11
+  "eco_score": 11,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "chelone_lyonii",
@@ -3792,7 +3995,9 @@
   ],
   "height_ft": 3.3,
   "density_per_10sqft": 5.1,
-  "eco_score": 11
+  "eco_score": 11,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "lobelia_cardinalis",
@@ -3845,7 +4050,11 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 7.4,
-  "eco_score": 11
+  "eco_score": 11,
+  "care": "perennial",
+  "care_flags": [
+   "reseeds"
+  ]
  },
  {
   "id": "lobelia_siphilitica",
@@ -3892,7 +4101,11 @@
   ],
   "height_ft": 3.3,
   "density_per_10sqft": 7.4,
-  "eco_score": 6
+  "eco_score": 6,
+  "care": "perennial",
+  "care_flags": [
+   "reseeds"
+  ]
  },
  {
   "id": "iris_versicolor",
@@ -3938,7 +4151,11 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 7
+  "eco_score": 7,
+  "care": "perennial",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "actaea_racemosa",
@@ -3947,7 +4164,7 @@
   "family": "Ranunculaceae",
   "layer": "STRUCT",
   "form": "spire",
-  "notes": "Architectural 5 ft white bottlebrushes lighting up deep shade. Slow but permanent.",
+  "notes": "Architectural 5-foot white bottlebrushes lighting up deep shade. Slow but permanent.",
   "zmin": 3,
   "zmax": 8,
   "hmin": 36,
@@ -3983,7 +4200,9 @@
   ],
   "height_ft": 6.0,
   "density_per_10sqft": 1.8,
-  "eco_score": 4
+  "eco_score": 4,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "aquilegia_canadensis",
@@ -4034,7 +4253,11 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 11.5,
-  "eco_score": 24
+  "eco_score": 24,
+  "care": "selfsower",
+  "care_flags": [
+   "reseeds"
+  ]
  },
  {
   "id": "geranium_maculatum",
@@ -4081,7 +4304,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 22
+  "eco_score": 22,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "phlox_divaricata",
@@ -4128,7 +4353,9 @@
   ],
   "height_ft": 1.2,
   "density_per_10sqft": 7.4,
-  "eco_score": 10
+  "eco_score": 10,
+  "care": "ephemeral",
+  "care_flags": []
  },
  {
   "id": "phlox_stolonifera",
@@ -4175,7 +4402,9 @@
   ],
   "height_ft": 0.8,
   "density_per_10sqft": 11.5,
-  "eco_score": 10
+  "eco_score": 10,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "tiarella_cordifolia",
@@ -4221,7 +4450,9 @@
   ],
   "height_ft": 1.0,
   "density_per_10sqft": 11.5,
-  "eco_score": 4
+  "eco_score": 4,
+  "care": "evergreen_perennial",
+  "care_flags": []
  },
  {
   "id": "heuchera_villosa",
@@ -4268,7 +4499,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 7.4,
-  "eco_score": 5
+  "eco_score": 5,
+  "care": "evergreen_perennial",
+  "care_flags": []
  },
  {
   "id": "heuchera_americana",
@@ -4315,7 +4548,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 7.4,
-  "eco_score": 4
+  "eco_score": 4,
+  "care": "evergreen_perennial",
+  "care_flags": []
  },
  {
   "id": "polemonium_reptans",
@@ -4360,7 +4595,9 @@
   ],
   "height_ft": 1.5,
   "density_per_10sqft": 7.4,
-  "eco_score": 4
+  "eco_score": 4,
+  "care": "ephemeral",
+  "care_flags": []
  },
  {
   "id": "packera_aurea",
@@ -4408,7 +4645,9 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 7.4,
-  "eco_score": 17
+  "eco_score": 17,
+  "care": "evergreen_perennial",
+  "care_flags": []
  },
  {
   "id": "asarum_canadense",
@@ -4453,7 +4692,9 @@
   ],
   "height_ft": 0.7,
   "density_per_10sqft": 11.5,
-  "eco_score": 3
+  "eco_score": 3,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "iris_cristata",
@@ -4498,7 +4739,9 @@
   ],
   "height_ft": 0.7,
   "density_per_10sqft": 16.6,
-  "eco_score": 4
+  "eco_score": 4,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "spigelia_marilandica",
@@ -4545,7 +4788,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 7
+  "eco_score": 7,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "mertensia_virginica",
@@ -4590,7 +4835,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 7.4,
-  "eco_score": 16
+  "eco_score": 16,
+  "care": "ephemeral",
+  "care_flags": []
  },
  {
   "id": "podophyllum_peltatum",
@@ -4633,7 +4880,11 @@
   ],
   "height_ft": 1.5,
   "density_per_10sqft": 5.1,
-  "eco_score": 3
+  "eco_score": 3,
+  "care": "ephemeral",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "uvularia_grandiflora",
@@ -4676,7 +4927,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 7.4,
-  "eco_score": 3
+  "eco_score": 3,
+  "care": "selfsower",
+  "care_flags": []
  },
  {
   "id": "maianthemum_racemosum",
@@ -4723,7 +4976,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 7
+  "eco_score": 7,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "eurybia_macrophylla",
@@ -4770,7 +5025,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 56
+  "eco_score": 56,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "polystichum_acrostichoides",
@@ -4814,7 +5071,9 @@
   "bloom_months": [],
   "height_ft": 2.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 0
+  "eco_score": 0,
+  "care": "fern_evergreen",
+  "care_flags": []
  },
  {
   "id": "dryopteris_marginalis",
@@ -4858,7 +5117,9 @@
   "bloom_months": [],
   "height_ft": 2.5,
   "density_per_10sqft": 2.9,
-  "eco_score": 0
+  "eco_score": 0,
+  "care": "fern_evergreen",
+  "care_flags": []
  },
  {
   "id": "athyrium_asplenioides",
@@ -4900,7 +5161,9 @@
   "bloom_months": [],
   "height_ft": 3.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 0
+  "eco_score": 0,
+  "care": "fern_deciduous",
+  "care_flags": []
  },
  {
   "id": "adiantum_pedatum",
@@ -4943,7 +5206,9 @@
   "bloom_months": [],
   "height_ft": 2.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 0
+  "eco_score": 0,
+  "care": "fern_deciduous",
+  "care_flags": []
  },
  {
   "id": "osmundastrum_cinnamomeum",
@@ -4986,7 +5251,9 @@
   "bloom_months": [],
   "height_ft": 5.0,
   "density_per_10sqft": 1.3,
-  "eco_score": 0
+  "eco_score": 0,
+  "care": "fern_deciduous",
+  "care_flags": []
  },
  {
   "id": "onoclea_sensibilis",
@@ -5029,7 +5296,11 @@
   "bloom_months": [],
   "height_ft": 2.5,
   "density_per_10sqft": 2.9,
-  "eco_score": 0
+  "eco_score": 0,
+  "care": "fern_deciduous",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "polystichum_munitum",
@@ -5072,7 +5343,9 @@
   "bloom_months": [],
   "height_ft": 4.0,
   "density_per_10sqft": 1.8,
-  "eco_score": 0
+  "eco_score": 0,
+  "care": "fern_evergreen",
+  "care_flags": []
  },
  {
   "id": "struthiopteris_spicant",
@@ -5112,7 +5385,9 @@
   "bloom_months": [],
   "height_ft": 2.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 0
+  "eco_score": 0,
+  "care": "fern_evergreen",
+  "care_flags": []
  },
  {
   "id": "thelypteris_kunthii",
@@ -5154,7 +5429,9 @@
   "bloom_months": [],
   "height_ft": 3.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 0
+  "eco_score": 0,
+  "care": "fern_deciduous",
+  "care_flags": []
  },
  {
   "id": "woodwardia_areolata",
@@ -5197,7 +5474,9 @@
   "bloom_months": [],
   "height_ft": 2.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 0
+  "eco_score": 0,
+  "care": "fern_deciduous",
+  "care_flags": []
  },
  {
   "id": "astrolepis_sinuata",
@@ -5239,7 +5518,9 @@
   "bloom_months": [],
   "height_ft": 1.3,
   "density_per_10sqft": 11.5,
-  "eco_score": 0
+  "eco_score": 0,
+  "care": "fern_evergreen",
+  "care_flags": []
  },
  {
   "id": "myriopteris_lindheimeri",
@@ -5280,7 +5561,9 @@
   "bloom_months": [],
   "height_ft": 1.0,
   "density_per_10sqft": 11.5,
-  "eco_score": 0
+  "eco_score": 0,
+  "care": "fern_evergreen",
+  "care_flags": []
  },
  {
   "id": "blechnum_serrulatum",
@@ -5321,7 +5604,9 @@
   "bloom_months": [],
   "height_ft": 3.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 0
+  "eco_score": 0,
+  "care": "fern_evergreen",
+  "care_flags": []
  },
  {
   "id": "schizachyrium_scoparium",
@@ -5376,7 +5661,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 26
+  "eco_score": 26,
+  "care": "grass_warm",
+  "care_flags": []
  },
  {
   "id": "sporobolus_heterolepis",
@@ -5425,7 +5712,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 14
+  "eco_score": 14,
+  "care": "grass_warm",
+  "care_flags": []
  },
  {
   "id": "bouteloua_curtipendula",
@@ -5479,7 +5768,9 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 7.4,
-  "eco_score": 20
+  "eco_score": 20,
+  "care": "grass_warm",
+  "care_flags": []
  },
  {
   "id": "bouteloua_gracilis",
@@ -5527,7 +5818,9 @@
   ],
   "height_ft": 1.5,
   "density_per_10sqft": 11.5,
-  "eco_score": 13
+  "eco_score": 13,
+  "care": "grass_warm",
+  "care_flags": []
  },
  {
   "id": "andropogon_gerardii",
@@ -5536,7 +5829,7 @@
   "family": "Poaceae",
   "layer": "STRUCT",
   "form": "upright",
-  "notes": "Turkey-foot seedheads at 6 ft with wine-red autumn colour. Use compact selections in beds.",
+  "notes": "Turkey-foot seedheads at 6 feet tall with wine-red autumn colour. Use compact selections in beds.",
   "zmin": 3,
   "zmax": 9,
   "hmin": 48,
@@ -5580,7 +5873,9 @@
   ],
   "height_ft": 7.0,
   "density_per_10sqft": 1.8,
-  "eco_score": 22
+  "eco_score": 22,
+  "care": "grass_warm",
+  "care_flags": []
  },
  {
   "id": "sorghastrum_nutans",
@@ -5630,7 +5925,9 @@
   ],
   "height_ft": 6.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 16
+  "eco_score": 16,
+  "care": "grass_warm",
+  "care_flags": []
  },
  {
   "id": "panicum_virgatum",
@@ -5686,7 +5983,9 @@
   ],
   "height_ft": 6.0,
   "density_per_10sqft": 1.8,
-  "eco_score": 23
+  "eco_score": 23,
+  "care": "grass_warm",
+  "care_flags": []
  },
  {
   "id": "muhlenbergia_capillaris",
@@ -5732,7 +6031,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 10
+  "eco_score": 10,
+  "care": "grass_warm",
+  "care_flags": []
  },
  {
   "id": "muhlenbergia_reverchonii",
@@ -5777,7 +6078,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 7
+  "eco_score": 7,
+  "care": "grass_warm",
+  "care_flags": []
  },
  {
   "id": "muhlenbergia_rigens",
@@ -5824,7 +6127,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 1.3,
-  "eco_score": 8
+  "eco_score": 8,
+  "care": "grass_warm",
+  "care_flags": []
  },
  {
   "id": "muhlenbergia_emersleyi",
@@ -5871,7 +6176,9 @@
   ],
   "height_ft": 3.3,
   "density_per_10sqft": 1.8,
-  "eco_score": 8
+  "eco_score": 8,
+  "care": "grass_warm",
+  "care_flags": []
  },
  {
   "id": "muhlenbergia_dubia",
@@ -5916,7 +6223,9 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 5.1,
-  "eco_score": 8
+  "eco_score": 8,
+  "care": "grass_warm",
+  "care_flags": []
  },
  {
   "id": "chasmanthium_latifolium",
@@ -5967,7 +6276,11 @@
   ],
   "height_ft": 3.3,
   "density_per_10sqft": 2.9,
-  "eco_score": 16
+  "eco_score": 16,
+  "care": "grass_warm",
+  "care_flags": [
+   "reseeds"
+  ]
  },
  {
   "id": "eragrostis_spectabilis",
@@ -6013,7 +6326,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 7
+  "eco_score": 7,
+  "care": "grass_warm",
+  "care_flags": []
  },
  {
   "id": "carex_pensylvanica",
@@ -6059,7 +6374,11 @@
   ],
   "height_ft": 0.8,
   "density_per_10sqft": 16.6,
-  "eco_score": 19
+  "eco_score": 19,
+  "care": "sedge",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "carex_appalachica",
@@ -6105,7 +6424,9 @@
   ],
   "height_ft": 1.2,
   "density_per_10sqft": 11.5,
-  "eco_score": 19
+  "eco_score": 19,
+  "care": "sedge",
+  "care_flags": []
  },
  {
   "id": "carex_plantaginea",
@@ -6151,7 +6472,9 @@
   ],
   "height_ft": 1.2,
   "density_per_10sqft": 11.5,
-  "eco_score": 16
+  "eco_score": 16,
+  "care": "sedge",
+  "care_flags": []
  },
  {
   "id": "carex_eburnea",
@@ -6195,7 +6518,9 @@
   ],
   "height_ft": 0.7,
   "density_per_10sqft": 26.0,
-  "eco_score": 16
+  "eco_score": 16,
+  "care": "sedge",
+  "care_flags": []
  },
  {
   "id": "carex_flaccosperma",
@@ -6241,7 +6566,9 @@
   ],
   "height_ft": 1.0,
   "density_per_10sqft": 11.5,
-  "eco_score": 16
+  "eco_score": 16,
+  "care": "sedge",
+  "care_flags": []
  },
  {
   "id": "carex_stricta",
@@ -6286,7 +6613,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 19
+  "eco_score": 19,
+  "care": "sedge",
+  "care_flags": []
  },
  {
   "id": "carex_albicans",
@@ -6329,7 +6658,9 @@
   ],
   "height_ft": 1.0,
   "density_per_10sqft": 16.6,
-  "eco_score": 16
+  "eco_score": 16,
+  "care": "sedge",
+  "care_flags": []
  },
  {
   "id": "carex_pansa",
@@ -6374,7 +6705,11 @@
   ],
   "height_ft": 1.0,
   "density_per_10sqft": 16.6,
-  "eco_score": 16
+  "eco_score": 16,
+  "care": "sedge",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "carex_obnupta",
@@ -6419,7 +6754,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 1.8,
-  "eco_score": 20
+  "eco_score": 20,
+  "care": "sedge",
+  "care_flags": []
  },
  {
   "id": "carex_sprengelii",
@@ -6464,7 +6801,9 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 5.1,
-  "eco_score": 19
+  "eco_score": 19,
+  "care": "sedge",
+  "care_flags": []
  },
  {
   "id": "carex_brevior",
@@ -6510,7 +6849,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 7.4,
-  "eco_score": 19
+  "eco_score": 19,
+  "care": "sedge",
+  "care_flags": []
  },
  {
   "id": "carex_planostachys",
@@ -6555,7 +6896,9 @@
   ],
   "height_ft": 0.8,
   "density_per_10sqft": 16.6,
-  "eco_score": 20
+  "eco_score": 20,
+  "care": "sedge",
+  "care_flags": []
  },
  {
   "id": "festuca_idahoensis",
@@ -6600,7 +6943,9 @@
   ],
   "height_ft": 1.5,
   "density_per_10sqft": 11.5,
-  "eco_score": 7
+  "eco_score": 7,
+  "care": "grass_cool",
+  "care_flags": []
  },
  {
   "id": "festuca_californica",
@@ -6647,7 +6992,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 8
+  "eco_score": 8,
+  "care": "grass_cool",
+  "care_flags": []
  },
  {
   "id": "stipa_pulchra",
@@ -6691,7 +7038,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 8
+  "eco_score": 8,
+  "care": "grass_cool",
+  "care_flags": []
  },
  {
   "id": "deschampsia_cespitosa",
@@ -6739,7 +7088,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 8
+  "eco_score": 8,
+  "care": "grass_cool",
+  "care_flags": []
  },
  {
   "id": "hesperostipa_comata",
@@ -6784,7 +7135,9 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 5.1,
-  "eco_score": 8
+  "eco_score": 8,
+  "care": "grass_cool",
+  "care_flags": []
  },
  {
   "id": "aristida_purpurea",
@@ -6832,7 +7185,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 7.4,
-  "eco_score": 10
+  "eco_score": 10,
+  "care": "grass_warm",
+  "care_flags": []
  },
  {
   "id": "panicum_amarum",
@@ -6879,7 +7234,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 16
+  "eco_score": 16,
+  "care": "grass_warm",
+  "care_flags": []
  },
  {
   "id": "eragrostis_elliottii",
@@ -6927,7 +7284,9 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 5.1,
-  "eco_score": 9
+  "eco_score": 9,
+  "care": "grass_warm",
+  "care_flags": []
  },
  {
   "id": "tripsacum_floridanum",
@@ -6976,7 +7335,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 1.8,
-  "eco_score": 14
+  "eco_score": 14,
+  "care": "grass_warm",
+  "care_flags": []
  },
  {
   "id": "rhynchospora_colorata",
@@ -7025,7 +7386,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 11.5,
-  "eco_score": 21
+  "eco_score": 21,
+  "care": "sedge",
+  "care_flags": []
  },
  {
   "id": "itea_virginica",
@@ -7073,7 +7436,11 @@
   ],
   "height_ft": 5.0,
   "density_per_10sqft": 0.7,
-  "eco_score": 6
+  "eco_score": 6,
+  "care": "shrub_spring",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "hydrangea_arborescens",
@@ -7119,7 +7486,9 @@
   ],
   "height_ft": 5.0,
   "density_per_10sqft": 0.7,
-  "eco_score": 8
+  "eco_score": 8,
+  "care": "shrub_summer",
+  "care_flags": []
  },
  {
   "id": "hydrangea_quercifolia",
@@ -7166,7 +7535,9 @@
   ],
   "height_ft": 8.0,
   "density_per_10sqft": 0.5,
-  "eco_score": 8
+  "eco_score": 8,
+  "care": "shrub_spring",
+  "care_flags": []
  },
  {
   "id": "clethra_alnifolia",
@@ -7213,7 +7584,9 @@
   ],
   "height_ft": 6.0,
   "density_per_10sqft": 0.7,
-  "eco_score": 4
+  "eco_score": 4,
+  "care": "shrub_summer",
+  "care_flags": []
  },
  {
   "id": "fothergilla_gardenii",
@@ -7257,7 +7630,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 1.3,
-  "eco_score": 4
+  "eco_score": 4,
+  "care": "shrub_spring",
+  "care_flags": []
  },
  {
   "id": "ceanothus_americanus",
@@ -7308,7 +7683,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 1.3,
-  "eco_score": 39
+  "eco_score": 39,
+  "care": "shrub_summer",
+  "care_flags": []
  },
  {
   "id": "rhus_aromatica",
@@ -7317,7 +7694,7 @@
   "family": "Anacardiaceae",
   "layer": "SHRUB",
   "form": "spreading",
-  "notes": "Gro-Low is a 2 ft by 8 ft bank cover with scarlet fall colour and fruit for birds.",
+  "notes": "Gro-Low is a 2 feet tall by 8 feet wide bank cover with scarlet fall colour and fruit for birds.",
   "zmin": 3,
   "zmax": 9,
   "hmin": 24,
@@ -7356,7 +7733,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 0.7,
-  "eco_score": 34
+  "eco_score": 34,
+  "care": "shrub_spring",
+  "care_flags": []
  },
  {
   "id": "vaccinium_angustifolium",
@@ -7405,7 +7784,11 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 1.8,
-  "eco_score": 65
+  "eco_score": 65,
+  "care": "shrub_spring",
+  "care_flags": [
+   "acid_soil"
+  ]
  },
  {
   "id": "aronia_melanocarpa",
@@ -7451,7 +7834,9 @@
   ],
   "height_ft": 6.0,
   "density_per_10sqft": 0.7,
-  "eco_score": 26
+  "eco_score": 26,
+  "care": "shrub_spring",
+  "care_flags": []
  },
  {
   "id": "physocarpus_opulifolius",
@@ -7499,7 +7884,9 @@
   ],
   "height_ft": 8.0,
   "density_per_10sqft": 0.5,
-  "eco_score": 19
+  "eco_score": 19,
+  "care": "shrub_spring",
+  "care_flags": []
  },
  {
   "id": "diervilla_lonicera",
@@ -7547,7 +7934,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 0.9,
-  "eco_score": 10
+  "eco_score": 10,
+  "care": "shrub_summer",
+  "care_flags": []
  },
  {
   "id": "lindera_benzoin",
@@ -7596,7 +7985,9 @@
   ],
   "height_ft": 10.0,
   "density_per_10sqft": 0.3,
-  "eco_score": 16
+  "eco_score": 16,
+  "care": "shrub_spring",
+  "care_flags": []
  },
  {
   "id": "callicarpa_americana",
@@ -7644,7 +8035,9 @@
   ],
   "height_ft": 6.0,
   "density_per_10sqft": 0.5,
-  "eco_score": 8
+  "eco_score": 8,
+  "care": "shrub_summer",
+  "care_flags": []
  },
  {
   "id": "ilex_glabra",
@@ -7691,7 +8084,9 @@
   ],
   "height_ft": 6.0,
   "density_per_10sqft": 0.7,
-  "eco_score": 31
+  "eco_score": 31,
+  "care": "shrub_spring",
+  "care_flags": []
  },
  {
   "id": "amorpha_nana",
@@ -7736,7 +8131,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 20
+  "eco_score": 20,
+  "care": "shrub_summer",
+  "care_flags": []
  },
  {
   "id": "symphoricarpos_orbiculatus",
@@ -7785,7 +8182,11 @@
   ],
   "height_ft": 5.0,
   "density_per_10sqft": 0.7,
-  "eco_score": 12
+  "eco_score": 12,
+  "care": "shrub_summer",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "symphoricarpos_albus",
@@ -7835,7 +8236,9 @@
   ],
   "height_ft": 5.0,
   "density_per_10sqft": 0.7,
-  "eco_score": 16
+  "eco_score": 16,
+  "care": "shrub_summer",
+  "care_flags": []
  },
  {
   "id": "morella_caroliniensis",
@@ -7884,7 +8287,9 @@
   ],
   "height_ft": 8.0,
   "density_per_10sqft": 0.5,
-  "eco_score": 12
+  "eco_score": 12,
+  "care": "shrub_spring",
+  "care_flags": []
  },
  {
   "id": "cornus_sericea",
@@ -7936,7 +8341,11 @@
   ],
   "height_ft": 9.0,
   "density_per_10sqft": 0.5,
-  "eco_score": 62
+  "eco_score": 62,
+  "care": "shrub_spring",
+  "care_flags": [
+   "coppice"
+  ]
  },
  {
   "id": "sabal_minor",
@@ -7985,7 +8394,9 @@
   ],
   "height_ft": 6.0,
   "density_per_10sqft": 0.5,
-  "eco_score": 10
+  "eco_score": 10,
+  "care": "palm",
+  "care_flags": []
  },
  {
   "id": "serenoa_repens",
@@ -8033,7 +8444,9 @@
   ],
   "height_ft": 6.0,
   "density_per_10sqft": 0.5,
-  "eco_score": 23
+  "eco_score": 23,
+  "care": "palm",
+  "care_flags": []
  },
  {
   "id": "zamia_integrifolia",
@@ -8078,7 +8491,9 @@
   "bloom_months": [],
   "height_ft": 3.0,
   "density_per_10sqft": 1.8,
-  "eco_score": 7
+  "eco_score": 7,
+  "care": "palm",
+  "care_flags": []
  },
  {
   "id": "hamelia_patens",
@@ -8130,7 +8545,9 @@
   ],
   "height_ft": 8.0,
   "density_per_10sqft": 0.5,
-  "eco_score": 16
+  "eco_score": 16,
+  "care": "shrub_summer",
+  "care_flags": []
  },
  {
   "id": "chrysobalanus_icaco",
@@ -8178,7 +8595,9 @@
   ],
   "height_ft": 10.0,
   "density_per_10sqft": 0.5,
-  "eco_score": 11
+  "eco_score": 11,
+  "care": "shrub_summer",
+  "care_flags": []
  },
  {
   "id": "psychotria_nervosa",
@@ -8225,7 +8644,9 @@
   ],
   "height_ft": 6.0,
   "density_per_10sqft": 0.7,
-  "eco_score": 10
+  "eco_score": 10,
+  "care": "shrub_summer",
+  "care_flags": []
  },
  {
   "id": "penstemon_strictus",
@@ -8271,7 +8692,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 21
+  "eco_score": 21,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "penstemon_pinifolius",
@@ -8319,7 +8742,9 @@
   ],
   "height_ft": 1.5,
   "density_per_10sqft": 7.4,
-  "eco_score": 22
+  "eco_score": 22,
+  "care": "subshrub",
+  "care_flags": []
  },
  {
   "id": "penstemon_eatonii",
@@ -8365,7 +8790,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 21
+  "eco_score": 21,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "penstemon_palmeri",
@@ -8374,7 +8801,7 @@
   "family": "Plantaginaceae",
   "layer": "STRUCT",
   "form": "spike",
-  "notes": "The only fragrant penstemon: 5 ft spires of pink snapdragons over blue-grey leaves.",
+  "notes": "The only fragrant penstemon: 5-foot spires of pink snapdragons over blue-grey leaves.",
   "zmin": 4,
   "zmax": 9,
   "hmin": 36,
@@ -8410,7 +8837,9 @@
   ],
   "height_ft": 5.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 21
+  "eco_score": 21,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "gaillardia_aristata",
@@ -8458,7 +8887,12 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 5.1,
-  "eco_score": 22
+  "eco_score": 22,
+  "care": "perennial",
+  "care_flags": [
+   "deadhead",
+   "reseeds"
+  ]
  },
  {
   "id": "agastache_rupestris",
@@ -8505,7 +8939,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 9
+  "eco_score": 9,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "agastache_foeniculum",
@@ -8556,7 +8992,11 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 21
+  "eco_score": 21,
+  "care": "perennial",
+  "care_flags": [
+   "reseeds"
+  ]
  },
  {
   "id": "erigeron_speciosus",
@@ -8603,7 +9043,9 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 5.1,
-  "eco_score": 22
+  "eco_score": 22,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "eriogonum_umbellatum",
@@ -8653,7 +9095,9 @@
   ],
   "height_ft": 1.5,
   "density_per_10sqft": 5.1,
-  "eco_score": 30
+  "eco_score": 30,
+  "care": "subshrub",
+  "care_flags": []
  },
  {
   "id": "linum_lewisii",
@@ -8700,7 +9144,11 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 11.5,
-  "eco_score": 4
+  "eco_score": 4,
+  "care": "selfsower",
+  "care_flags": [
+   "reseeds"
+  ]
  },
  {
   "id": "heterotheca_villosa",
@@ -8747,7 +9195,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 23
+  "eco_score": 23,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "geranium_viscosissimum",
@@ -8793,7 +9243,9 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 2.9,
-  "eco_score": 22
+  "eco_score": 22,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "ericameria_nauseosa",
@@ -8840,7 +9292,9 @@
   ],
   "height_ft": 5.0,
   "density_per_10sqft": 0.9,
-  "eco_score": 28
+  "eco_score": 28,
+  "care": "shrub_summer",
+  "care_flags": []
  },
  {
   "id": "fallugia_paradoxa",
@@ -8889,7 +9343,9 @@
   ],
   "height_ft": 6.0,
   "density_per_10sqft": 0.7,
-  "eco_score": 49
+  "eco_score": 49,
+  "care": "shrub_summer",
+  "care_flags": []
  },
  {
   "id": "amelanchier_alnifolia",
@@ -8940,7 +9396,9 @@
   ],
   "height_ft": 12.0,
   "density_per_10sqft": 0.3,
-  "eco_score": 64
+  "eco_score": 64,
+  "care": "shrub_spring",
+  "care_flags": []
  },
  {
   "id": "berberis_repens",
@@ -8987,7 +9445,9 @@
   ],
   "height_ft": 1.5,
   "density_per_10sqft": 2.9,
-  "eco_score": 8
+  "eco_score": 8,
+  "care": "evergreen_perennial",
+  "care_flags": []
  },
  {
   "id": "aquilegia_caerulea",
@@ -9032,7 +9492,9 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 7.4,
-  "eco_score": 20
+  "eco_score": 20,
+  "care": "selfsower",
+  "care_flags": []
  },
  {
   "id": "ribes_aureum",
@@ -9084,7 +9546,9 @@
   ],
   "height_ft": 6.0,
   "density_per_10sqft": 0.7,
-  "eco_score": 59
+  "eco_score": 59,
+  "care": "shrub_spring",
+  "care_flags": []
  },
  {
   "id": "thalictrum_fendleri",
@@ -9127,7 +9591,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 5
+  "eco_score": 5,
+  "care": "selfsower",
+  "care_flags": []
  },
  {
   "id": "sphaeralcea_ambigua",
@@ -9180,7 +9646,9 @@
   ],
   "height_ft": 3.3,
   "density_per_10sqft": 1.8,
-  "eco_score": 32
+  "eco_score": 32,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "baileya_multiradiata",
@@ -9230,7 +9698,11 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 7.4,
-  "eco_score": 12
+  "eco_score": 12,
+  "care": "selfsower",
+  "care_flags": [
+   "reseeds"
+  ]
  },
  {
   "id": "encelia_farinosa",
@@ -9275,7 +9747,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 0.9,
-  "eco_score": 20
+  "eco_score": 20,
+  "care": "shrub_spring",
+  "care_flags": []
  },
  {
   "id": "larrea_tridentata",
@@ -9322,7 +9796,9 @@
   ],
   "height_ft": 9.0,
   "density_per_10sqft": 0.3,
-  "eco_score": 24
+  "eco_score": 24,
+  "care": "shrub_summer",
+  "care_flags": []
  },
  {
   "id": "dalea_greggii",
@@ -9367,7 +9843,9 @@
   ],
   "height_ft": 1.5,
   "density_per_10sqft": 1.3,
-  "eco_score": 20
+  "eco_score": 20,
+  "care": "subshrub",
+  "care_flags": []
  },
  {
   "id": "dalea_frutescens",
@@ -9411,7 +9889,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 1.3,
-  "eco_score": 19
+  "eco_score": 19,
+  "care": "shrub_summer",
+  "care_flags": []
  },
  {
   "id": "melampodium_leucanthum",
@@ -9461,7 +9941,9 @@
   ],
   "height_ft": 1.2,
   "density_per_10sqft": 7.4,
-  "eco_score": 12
+  "eco_score": 12,
+  "care": "subshrub",
+  "care_flags": []
  },
  {
   "id": "zinnia_grandiflora",
@@ -9470,7 +9952,7 @@
   "family": "Asteraceae",
   "layer": "MATRIX",
   "form": "mat",
-  "notes": "A rhizomatous 6 inch mat solid with papery gold flowers. Thrives on pure neglect.",
+  "notes": "A rhizomatous six-inch mat solid with papery gold flowers. Thrives on pure neglect.",
   "zmin": 4,
   "zmax": 9,
   "hmin": 4,
@@ -9507,7 +9989,11 @@
   ],
   "height_ft": 0.7,
   "density_per_10sqft": 11.5,
-  "eco_score": 8
+  "eco_score": 8,
+  "care": "subshrub",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "eriogonum_wrightii",
@@ -9556,7 +10042,9 @@
   ],
   "height_ft": 1.5,
   "density_per_10sqft": 5.1,
-  "eco_score": 30
+  "eco_score": 30,
+  "care": "subshrub",
+  "care_flags": []
  },
  {
   "id": "chrysactinia_mexicana",
@@ -9605,7 +10093,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 10
+  "eco_score": 10,
+  "care": "subshrub",
+  "care_flags": []
  },
  {
   "id": "hesperaloe_parviflora",
@@ -9614,7 +10104,7 @@
   "family": "Asparagaceae",
   "layer": "STRUCT",
   "form": "spiky",
-  "notes": "An evergreen strappy fountain with 5 ft coral spikes. A hummingbird magnet all summer.",
+  "notes": "An evergreen strappy fountain with 5-foot coral spikes. A hummingbird magnet all summer.",
   "zmin": 5,
   "zmax": 11,
   "hmin": 24,
@@ -9654,7 +10144,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 1.3,
-  "eco_score": 12
+  "eco_score": 12,
+  "care": "rosette",
+  "care_flags": []
  },
  {
   "id": "agave_parryi",
@@ -9695,7 +10187,9 @@
   "bloom_months": [],
   "height_ft": 2.5,
   "density_per_10sqft": 1.8,
-  "eco_score": 3
+  "eco_score": 3,
+  "care": "rosette",
+  "care_flags": []
  },
  {
   "id": "yucca_rostrata",
@@ -9739,7 +10233,9 @@
   ],
   "height_ft": 8.0,
   "density_per_10sqft": 0.7,
-  "eco_score": 7
+  "eco_score": 7,
+  "care": "rosette",
+  "care_flags": []
  },
  {
   "id": "nolina_texana",
@@ -9785,7 +10281,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 0.9,
-  "eco_score": 6
+  "eco_score": 6,
+  "care": "rosette",
+  "care_flags": []
  },
  {
   "id": "asclepias_asperula",
@@ -9836,7 +10334,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 28
+  "eco_score": 28,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "berlandiera_lyrata",
@@ -9885,7 +10385,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 10
+  "eco_score": 10,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "glandularia_gooddingii",
@@ -9937,7 +10439,11 @@
   ],
   "height_ft": 1.5,
   "density_per_10sqft": 5.1,
-  "eco_score": 16
+  "eco_score": 16,
+  "care": "subshrub",
+  "care_flags": [
+   "shear"
+  ]
  },
  {
   "id": "salvia_greggii",
@@ -9989,7 +10495,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 12
+  "eco_score": 12,
+  "care": "shrub_summer",
+  "care_flags": []
  },
  {
   "id": "salvia_farinacea",
@@ -10040,7 +10548,11 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 8
+  "eco_score": 8,
+  "care": "perennial",
+  "care_flags": [
+   "reseeds"
+  ]
  },
  {
   "id": "oenothera_lindheimeri",
@@ -10092,7 +10604,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 26
+  "eco_score": 26,
+  "care": "selfsower",
+  "care_flags": []
  },
  {
   "id": "tetraneuris_scaposa",
@@ -10144,7 +10658,9 @@
   ],
   "height_ft": 1.0,
   "density_per_10sqft": 16.6,
-  "eco_score": 12
+  "eco_score": 12,
+  "care": "subshrub",
+  "care_flags": []
  },
  {
   "id": "penstemon_baccharifolius",
@@ -10192,7 +10708,9 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 5.1,
-  "eco_score": 23
+  "eco_score": 23,
+  "care": "subshrub",
+  "care_flags": []
  },
  {
   "id": "anisacanthus_quadrifidus",
@@ -10244,7 +10762,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 1.3,
-  "eco_score": 18
+  "eco_score": 18,
+  "care": "shrub_summer",
+  "care_flags": []
  },
  {
   "id": "bouvardia_ternifolia",
@@ -10292,7 +10812,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 10
+  "eco_score": 10,
+  "care": "shrub_summer",
+  "care_flags": []
  },
  {
   "id": "berberis_trifoliolata",
@@ -10339,7 +10861,9 @@
   ],
   "height_ft": 6.0,
   "density_per_10sqft": 0.5,
-  "eco_score": 10
+  "eco_score": 10,
+  "care": "shrub_spring",
+  "care_flags": []
  },
  {
   "id": "wedelia_texana",
@@ -10392,7 +10916,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 16
+  "eco_score": 16,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "rivina_humilis",
@@ -10445,7 +10971,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 12
+  "eco_score": 12,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "malvaviscus_drummondii",
@@ -10499,7 +11027,9 @@
   ],
   "height_ft": 5.0,
   "density_per_10sqft": 0.9,
-  "eco_score": 32
+  "eco_score": 32,
+  "care": "shrub_summer",
+  "care_flags": []
  },
  {
   "id": "salvia_roemeriana",
@@ -10544,7 +11074,12 @@
   ],
   "height_ft": 1.5,
   "density_per_10sqft": 7.4,
-  "eco_score": 7
+  "eco_score": 7,
+  "care": "perennial",
+  "care_flags": [
+   "aggressive",
+   "reseeds"
+  ]
  },
  {
   "id": "capsicum_annuum_glabriusculum",
@@ -10595,7 +11130,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 1.8,
-  "eco_score": 12
+  "eco_score": 12,
+  "care": "shrub_summer",
+  "care_flags": []
  },
  {
   "id": "aquilegia_chrysantha",
@@ -10643,7 +11180,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 22
+  "eco_score": 22,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "heuchera_sanguinea",
@@ -10692,7 +11231,9 @@
   ],
   "height_ft": 1.5,
   "density_per_10sqft": 11.5,
-  "eco_score": 10
+  "eco_score": 10,
+  "care": "evergreen_perennial",
+  "care_flags": []
  },
  {
   "id": "eschscholzia_californica",
@@ -10739,7 +11280,11 @@
   ],
   "height_ft": 1.5,
   "density_per_10sqft": 16.6,
-  "eco_score": 7
+  "eco_score": 7,
+  "care": "selfsower",
+  "care_flags": [
+   "reseeds"
+  ]
  },
  {
   "id": "salvia_clevelandii",
@@ -10784,7 +11329,9 @@
   ],
   "height_ft": 5.0,
   "density_per_10sqft": 0.7,
-  "eco_score": 19
+  "eco_score": 19,
+  "care": "shrub_spring",
+  "care_flags": []
  },
  {
   "id": "salvia_spathacea",
@@ -10832,7 +11379,11 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 2.9,
-  "eco_score": 8
+  "eco_score": 8,
+  "care": "evergreen_perennial",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "salvia_apiana",
@@ -10877,7 +11428,11 @@
   ],
   "height_ft": 5.0,
   "density_per_10sqft": 0.7,
-  "eco_score": 17
+  "eco_score": 17,
+  "care": "shrub_spring",
+  "care_flags": [
+   "no_summer_water"
+  ]
  },
  {
   "id": "epilobium_canum",
@@ -10923,7 +11478,11 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 10
+  "eco_score": 10,
+  "care": "perennial",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "eriogonum_fasciculatum",
@@ -10973,7 +11532,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 0.9,
-  "eco_score": 32
+  "eco_score": 32,
+  "care": "shrub_summer",
+  "care_flags": []
  },
  {
   "id": "eriogonum_grande_rubescens",
@@ -11020,7 +11581,9 @@
   ],
   "height_ft": 1.5,
   "density_per_10sqft": 7.4,
-  "eco_score": 30
+  "eco_score": 30,
+  "care": "subshrub",
+  "care_flags": []
  },
  {
   "id": "diplacus_aurantiacus",
@@ -11072,7 +11635,11 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 1.8,
-  "eco_score": 20
+  "eco_score": 20,
+  "care": "shrub_summer",
+  "care_flags": [
+   "no_summer_water"
+  ]
  },
  {
   "id": "ceanothus_griseus",
@@ -11121,7 +11688,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 0.3,
-  "eco_score": 40
+  "eco_score": 40,
+  "care": "shrub_spring",
+  "care_flags": []
  },
  {
   "id": "arctostaphylos_hookeri",
@@ -11169,7 +11738,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 0.7,
-  "eco_score": 62
+  "eco_score": 62,
+  "care": "shrub_spring",
+  "care_flags": []
  },
  {
   "id": "heteromeles_arbutifolia",
@@ -11213,7 +11784,9 @@
   ],
   "height_ft": 12.0,
   "density_per_10sqft": 0.2,
-  "eco_score": 56
+  "eco_score": 56,
+  "care": "shrub_summer",
+  "care_flags": []
  },
  {
   "id": "iris_douglasiana",
@@ -11260,7 +11833,11 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 5
+  "eco_score": 5,
+  "care": "evergreen_perennial",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "heuchera_maxima",
@@ -11308,7 +11885,9 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 5.1,
-  "eco_score": 6
+  "eco_score": 6,
+  "care": "evergreen_perennial",
+  "care_flags": []
  },
  {
   "id": "ribes_viburnifolium",
@@ -11355,7 +11934,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 0.5,
-  "eco_score": 57
+  "eco_score": 57,
+  "care": "shrub_spring",
+  "care_flags": []
  },
  {
   "id": "ribes_sanguineum",
@@ -11405,7 +11986,9 @@
   ],
   "height_ft": 9.0,
   "density_per_10sqft": 0.5,
-  "eco_score": 60
+  "eco_score": 60,
+  "care": "shrub_spring",
+  "care_flags": []
  },
  {
   "id": "monardella_villosa",
@@ -11449,7 +12032,9 @@
   ],
   "height_ft": 1.5,
   "density_per_10sqft": 7.4,
-  "eco_score": 17
+  "eco_score": 17,
+  "care": "subshrub",
+  "care_flags": []
  },
  {
   "id": "erigeron_glaucus",
@@ -11498,7 +12083,9 @@
   ],
   "height_ft": 1.2,
   "density_per_10sqft": 5.1,
-  "eco_score": 24
+  "eco_score": 24,
+  "care": "evergreen_perennial",
+  "care_flags": []
  },
  {
   "id": "symphyotrichum_chilense",
@@ -11547,7 +12134,11 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 2.9,
-  "eco_score": 58
+  "eco_score": 58,
+  "care": "perennial",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "asclepias_fascicularis",
@@ -11596,7 +12187,11 @@
   ],
   "height_ft": 3.3,
   "density_per_10sqft": 2.9,
-  "eco_score": 23
+  "eco_score": 23,
+  "care": "perennial",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "asclepias_speciosa",
@@ -11647,7 +12242,11 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 1.8,
-  "eco_score": 27
+  "eco_score": 27,
+  "care": "perennial",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "lupinus_albifrons",
@@ -11694,7 +12293,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 1.3,
-  "eco_score": 36
+  "eco_score": 36,
+  "care": "shrub_spring",
+  "care_flags": []
  },
  {
   "id": "achillea_millefolium",
@@ -11746,7 +12347,9 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 5.1,
-  "eco_score": 20
+  "eco_score": 20,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "sisyrinchium_bellum",
@@ -11792,7 +12395,9 @@
   ],
   "height_ft": 1.3,
   "density_per_10sqft": 16.6,
-  "eco_score": 6
+  "eco_score": 6,
+  "care": "ephemeral",
+  "care_flags": []
  },
  {
   "id": "baccharis_pilularis",
@@ -11839,7 +12444,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 0.5,
-  "eco_score": 32
+  "eco_score": 32,
+  "care": "shrub_summer",
+  "care_flags": []
  },
  {
   "id": "erythranthe_cardinalis",
@@ -11890,7 +12497,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 11
+  "eco_score": 11,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "berberis_aquifolium",
@@ -11939,7 +12548,9 @@
   ],
   "height_ft": 7.0,
   "density_per_10sqft": 0.7,
-  "eco_score": 22
+  "eco_score": 22,
+  "care": "shrub_spring",
+  "care_flags": []
  },
  {
   "id": "berberis_nervosa",
@@ -11985,7 +12596,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 22
+  "eco_score": 22,
+  "care": "evergreen_perennial",
+  "care_flags": []
  },
  {
   "id": "gaultheria_shallon",
@@ -12035,7 +12648,9 @@
   ],
   "height_ft": 5.0,
   "density_per_10sqft": 1.3,
-  "eco_score": 62
+  "eco_score": 62,
+  "care": "shrub_spring",
+  "care_flags": []
  },
  {
   "id": "vaccinium_ovatum",
@@ -12083,7 +12698,9 @@
   ],
   "height_ft": 7.0,
   "density_per_10sqft": 0.7,
-  "eco_score": 61
+  "eco_score": 61,
+  "care": "shrub_spring",
+  "care_flags": []
  },
  {
   "id": "holodiscus_discolor",
@@ -12132,7 +12749,9 @@
   ],
   "height_ft": 12.0,
   "density_per_10sqft": 0.3,
-  "eco_score": 44
+  "eco_score": 44,
+  "care": "shrub_summer",
+  "care_flags": []
  },
  {
   "id": "spiraea_douglasii",
@@ -12179,7 +12798,11 @@
   ],
   "height_ft": 7.0,
   "density_per_10sqft": 0.5,
-  "eco_score": 34
+  "eco_score": 34,
+  "care": "shrub_summer",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "aquilegia_formosa",
@@ -12227,7 +12850,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 7.4,
-  "eco_score": 21
+  "eco_score": 21,
+  "care": "selfsower",
+  "care_flags": []
  },
  {
   "id": "dicentra_formosa",
@@ -12272,7 +12897,11 @@
   ],
   "height_ft": 1.5,
   "density_per_10sqft": 5.1,
-  "eco_score": 4
+  "eco_score": 4,
+  "care": "ephemeral",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "tellima_grandiflora",
@@ -12319,7 +12948,9 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 7.4,
-  "eco_score": 5
+  "eco_score": 5,
+  "care": "evergreen_perennial",
+  "care_flags": []
  },
  {
   "id": "oxalis_oregana",
@@ -12362,7 +12993,9 @@
   ],
   "height_ft": 0.8,
   "density_per_10sqft": 11.5,
-  "eco_score": 4
+  "eco_score": 4,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "asarum_caudatum",
@@ -12407,7 +13040,9 @@
   ],
   "height_ft": 0.7,
   "density_per_10sqft": 11.5,
-  "eco_score": 4
+  "eco_score": 4,
+  "care": "evergreen_perennial",
+  "care_flags": []
  },
  {
   "id": "vancouveria_hexandra",
@@ -12452,7 +13087,9 @@
   ],
   "height_ft": 1.3,
   "density_per_10sqft": 7.4,
-  "eco_score": 3
+  "eco_score": 3,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "camassia_leichtlinii",
@@ -12498,7 +13135,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 16.6,
-  "eco_score": 16
+  "eco_score": 16,
+  "care": "selfsower",
+  "care_flags": []
  },
  {
   "id": "eriophyllum_lanatum",
@@ -12544,7 +13183,11 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 20
+  "eco_score": 20,
+  "care": "perennial",
+  "care_flags": [
+   "no_summer_water"
+  ]
  },
  {
   "id": "sidalcea_malviflora",
@@ -12593,7 +13236,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 7.4,
-  "eco_score": 24
+  "eco_score": 24,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "penstemon_serrulatus",
@@ -12638,7 +13283,9 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 5.1,
-  "eco_score": 21
+  "eco_score": 21,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "fragaria_chiloensis",
@@ -12687,7 +13334,11 @@
   ],
   "height_ft": 0.7,
   "density_per_10sqft": 7.4,
-  "eco_score": 46
+  "eco_score": 46,
+  "care": "evergreen_perennial",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "armeria_maritima",
@@ -12735,7 +13386,9 @@
   ],
   "height_ft": 1.0,
   "density_per_10sqft": 16.6,
-  "eco_score": 6
+  "eco_score": 6,
+  "care": "evergreen_perennial",
+  "care_flags": []
  },
  {
   "id": "conoclinium_coelestinum",
@@ -12783,7 +13436,11 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 32
+  "eco_score": 32,
+  "care": "perennial",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "salvia_coccinea",
@@ -12837,7 +13494,11 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 12
+  "eco_score": 12,
+  "care": "perennial",
+  "care_flags": [
+   "reseeds"
+  ]
  },
  {
   "id": "coreopsis_leavenworthii",
@@ -12888,7 +13549,11 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 11.5,
-  "eco_score": 26
+  "eco_score": 26,
+  "care": "selfsower",
+  "care_flags": [
+   "reseeds"
+  ]
  },
  {
   "id": "pityopsis_graminifolia",
@@ -12934,7 +13599,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 7.4,
-  "eco_score": 22
+  "eco_score": 22,
+  "care": "evergreen_perennial",
+  "care_flags": []
  },
  {
   "id": "gaillardia_pulchella",
@@ -12987,7 +13654,11 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 7.4,
-  "eco_score": 24
+  "eco_score": 24,
+  "care": "selfsower",
+  "care_flags": [
+   "reseeds"
+  ]
  },
  {
   "id": "asclepias_perennis",
@@ -13041,7 +13712,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 7.4,
-  "eco_score": 31
+  "eco_score": 31,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "dyschoriste_oblongifolia",
@@ -13093,7 +13766,9 @@
   ],
   "height_ft": 1.0,
   "density_per_10sqft": 11.5,
-  "eco_score": 13
+  "eco_score": 13,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "ruellia_caroliniensis",
@@ -13147,7 +13822,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 7.4,
-  "eco_score": 17
+  "eco_score": 17,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "stokesia_laevis",
@@ -13194,7 +13871,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 5.1,
-  "eco_score": 23
+  "eco_score": 23,
+  "care": "evergreen_perennial",
+  "care_flags": []
  },
  {
   "id": "liatris_gracilis",
@@ -13238,7 +13917,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 11.5,
-  "eco_score": 18
+  "eco_score": 18,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "helianthus_debilis",
@@ -13292,7 +13973,9 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 1.8,
-  "eco_score": 46
+  "eco_score": 46,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "solidago_sempervirens",
@@ -13342,7 +14025,9 @@
   ],
   "height_ft": 6.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 64
+  "eco_score": 64,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "heuchera_richardsonii",
@@ -13388,7 +14073,9 @@
   ],
   "height_ft": 2.5,
   "density_per_10sqft": 7.4,
-  "eco_score": 4
+  "eco_score": 4,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "polygonatum_biflorum",
@@ -13435,7 +14122,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 7
+  "eco_score": 7,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "symphyotrichum_shortii",
@@ -13484,7 +14173,9 @@
   ],
   "height_ft": 3.3,
   "density_per_10sqft": 2.9,
-  "eco_score": 56
+  "eco_score": 56,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "anemone_canadensis",
@@ -13532,7 +14223,11 @@
   ],
   "height_ft": 2.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 5
+  "eco_score": 5,
+  "care": "perennial",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "geum_triflorum",
@@ -13583,7 +14278,9 @@
   ],
   "height_ft": 1.5,
   "density_per_10sqft": 11.5,
-  "eco_score": 22
+  "eco_score": 22,
+  "care": "evergreen_perennial",
+  "care_flags": []
  },
  {
   "id": "viola_sororia",
@@ -13636,7 +14333,11 @@
   ],
   "height_ft": 0.7,
   "density_per_10sqft": 26.0,
-  "eco_score": 34
+  "eco_score": 34,
+  "care": "perennial",
+  "care_flags": [
+   "aggressive"
+  ]
  },
  {
   "id": "fragaria_virginiana",
@@ -13688,7 +14389,9 @@
   ],
   "height_ft": 0.7,
   "density_per_10sqft": 11.5,
-  "eco_score": 46
+  "eco_score": 46,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "antennaria_plantaginifolia",
@@ -13740,7 +14443,9 @@
   ],
   "height_ft": 0.7,
   "density_per_10sqft": 11.5,
-  "eco_score": 18
+  "eco_score": 18,
+  "care": "evergreen_perennial",
+  "care_flags": []
  },
  {
   "id": "sedum_ternatum",
@@ -13784,7 +14489,9 @@
   ],
   "height_ft": 0.7,
   "density_per_10sqft": 11.5,
-  "eco_score": 4
+  "eco_score": 4,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "mitchella_repens",
@@ -13833,7 +14540,9 @@
   ],
   "height_ft": 0.3,
   "density_per_10sqft": 16.6,
-  "eco_score": 7
+  "eco_score": 7,
+  "care": "evergreen_perennial",
+  "care_flags": []
  },
  {
   "id": "amsonia_hubrichtii",
@@ -13880,7 +14589,9 @@
   ],
   "height_ft": 3.3,
   "density_per_10sqft": 1.8,
-  "eco_score": 4
+  "eco_score": 4,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "amsonia_tabernaemontana",
@@ -13927,7 +14638,9 @@
   ],
   "height_ft": 3.0,
   "density_per_10sqft": 1.8,
-  "eco_score": 4
+  "eco_score": 4,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "hibiscus_moscheutos",
@@ -13980,7 +14693,9 @@
   ],
   "height_ft": 6.0,
   "density_per_10sqft": 0.9,
-  "eco_score": 30
+  "eco_score": 30,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "pontederia_cordata",
@@ -13989,7 +14704,7 @@
   "family": "Pontederiaceae",
   "layer": "STRUCT",
   "form": "strappy",
-  "notes": "For standing water to 12 in deep. Host of specialist Melissodes bees; glossy arrow-shaped leaves.",
+  "notes": "For standing water to 12 inches deep. Host of specialist Melissodes bees; glossy arrow-shaped leaves.",
   "zmin": 3,
   "zmax": 10,
   "hmin": 24,
@@ -14030,7 +14745,9 @@
   ],
   "height_ft": 4.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 21
+  "eco_score": 21,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "verbena_hastata",
@@ -14084,7 +14801,9 @@
   ],
   "height_ft": 5.0,
   "density_per_10sqft": 2.9,
-  "eco_score": 27
+  "eco_score": 27,
+  "care": "perennial",
+  "care_flags": []
  },
  {
   "id": "rudbeckia_laciniata",
@@ -14134,6 +14853,8 @@
   ],
   "height_ft": 8.0,
   "density_per_10sqft": 1.3,
-  "eco_score": 29
+  "eco_score": 29,
+  "care": "perennial",
+  "care_flags": []
  }
 ]

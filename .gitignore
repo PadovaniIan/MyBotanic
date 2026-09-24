@@ -1,0 +1,13 @@
+# Download cache for fetch_authoritative.py (~250 MB, never commit)
+cache/
+
+# Python
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
