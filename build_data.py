@@ -28,13 +28,24 @@ GROUND = {"MATRIX","GRASS","FERN"}
 # "mow" an agave or "cut back" a shrub. Order of the tests below matters.
 ROSETTE_GENERA = {"Agave", "Yucca", "Hesperaloe", "Nolina", "Dasylirion"}
 PALM_GENERA    = {"Serenoa", "Sabal", "Zamia"}
-COOL_GRASSES   = {"Festuca", "Deschampsia", "Stipa", "Hesperostipa", "Poa", "Koeleria"}
+COOL_GRASSES   = {"Festuca", "Deschampsia", "Stipa", "Hesperostipa", "Poa", "Koeleria",
+                  "Elymus", "Leymus", "Pseudoroegneria", "Danthonia", "Dichanthelium",
+                  "Calamagrostis", "Melica", "Diarrhena", "Eriocoma"}
+# Woody groundcovers and low conifers. They are woody throughout, so neither the
+# perennial cut-back nor the evergreen-perennial "shear the top third" advice is safe:
+# most never resprout from bare wood.
+WOODY_MAT_GENERA = {"Juniperus", "Arctostaphylos", "Ceanothus", "Prunus", "Ernodea",
+                    "Licania", "Linnaea", "Gaultheria", "Mitchella", "Comptonia"}
 # Woody-based subshrubs. These look like perennials but must never be cut hard:
 # they regrow from woody stems, not from the crown, and cutting into old wood kills them.
 SUBSHRUB_GENERA  = {"Eriogonum", "Chrysactinia", "Monardella", "Melampodium",
-                    "Tetraneuris", "Zinnia"}
+                    "Tetraneuris", "Zinnia", "Thymophylla", "Psilostrophe", "Sibbaldia"}
 SUBSHRUB_SPECIES = {"Penstemon pinifolius", "Penstemon baccharifolius", "Dalea greggii",
-                    "Phlox subulata", "Glandularia gooddingii"}
+                    "Phlox subulata", "Glandularia gooddingii",
+                    "Artemisia frigida", "Artemisia pycnocephala", "Oenothera hartwegii",
+                    "Oenothera serrulata", "Scutellaria wrightii", "Penstemon fruticosus",
+                    "Penstemon rupicola", "Penstemon ambiguus", "Phlox diffusa", "Phlox hoodii",
+                    "Lessingia filaginifolia"}
 
 def care_class(p):
     """-> one of the maintenance classes used by app.js."""
@@ -47,6 +58,8 @@ def care_class(p):
     if gen in ROSETTE_GENERA:              return "rosette"
     if gen in PALM_GENERA or fam in ("Arecaceae", "Zamiaceae"): return "palm"
     if layer == "FERN":                    return "fern_evergreen" if ever else "fern_deciduous"
+    if fam == "Cupressaceae" or (layer == "MATRIX" and gen in WOODY_MAT_GENERA):
+        return "woody_mat"
     if layer == "SHRUB":
         # Shrubs flowering once on old wood are pruned straight after flowering.
         # Later bloomers, and long-blooming subshrubs that flower continuously on
@@ -55,7 +68,7 @@ def care_class(p):
         early = (p["bloom_start"] or 6) <= 5
         return "shrub_spring" if (early and span < 5) else "shrub_summer"
     if gen in SUBSHRUB_GENERA or p["sci"] in SUBSHRUB_SPECIES: return "subshrub"
-    if fam == "Cyperaceae":                return "sedge"
+    if fam in ("Cyperaceae", "Juncaceae"): return "sedge"
     if fam == "Poaceae":                   return "grass_cool" if gen in COOL_GRASSES else "grass_warm"
     if "dormant" in n or "ephemeral" in n: return "ephemeral"
     if layer == "FILLER":                  return "selfsower"

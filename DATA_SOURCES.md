@@ -69,6 +69,7 @@ notes text. They exist so the generated schedule can be correct per plant rather
 | `palm` | *Serenoa, Sabal, Zamia* (Arecaceae, Zamiaceae) | remove fully dead fronds only; never cut into the crown |
 | `shrub_spring` | shrubs flowering early on old wood | prune within weeks of flowering, or not at all |
 | `shrub_summer` | later bloomers and long-blooming subshrubs on new wood | shape in late winter before growth |
+| `woody_mat` | woody groundcovers and low conifers: *Juniperus*, mat-forming *Arctostaphylos*, *Ceanothus*, *Prunus* and similar | never shear or cut back; remove dead branches to a live shoot only |
 | `subshrub` | *Eriogonum, Chrysactinia, Monardella, Melampodium, Tetraneuris, Zinnia,* plus *Penstemon pinifolius/baccharifolius, Dalea greggii, Phlox subulata, Glandularia gooddingii* | shorten by a third, never cut into old wood |
 | `fern_evergreen` / `fern_deciduous` | ferns, split on evergreen status | remove only dead fronds / cut to the base before the fiddleheads unroll |
 | `sedge` | Cyperaceae | leave alone; shear to 3 inches every second or third year at most |

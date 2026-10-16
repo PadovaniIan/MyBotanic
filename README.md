@@ -10,8 +10,8 @@ The point of difference is that it does not hand back an alphabetical plant list
 model, so the results read like a botanical garden bed rather than a collection of specimens, while
 every species is chosen for documented ecological function in the user's own ecoregion.
 
-- **295 species**, each native to at least one of ten US ecoregions
-- **295 species classified into 15 maintenance groups**, so the advice fits the plant
+- **824 species**, each native to at least one of ten US ecoregions
+- **824 species classified into 16 maintenance groups**, so the advice fits the plant
 - **Zone- and region-aware planting season, and watering in gallons for your bed**
 - **No stored images** &mdash; appearance comes from generated text plus outbound photo links
 - **20 design templates** — prairie matrix, gravel garden, rain garden, dry shade, fern-and-sedge
@@ -69,7 +69,7 @@ Five tabs, with the builder and its results on the first one:
 | **Build a Bed** | the site form and the generated combinations |
 | **Help My Plant Keeps Dying** | 43 diagnostic tests, ranked for the species that died |
 | **How it works** | the method, from ZIP resolution through to how the plan is drawn |
-| **Plant Database** | all 295 species, searchable and filterable |
+| **Plant Database** | all 824 species, searchable and filterable |
 | **Data Sources** | every cited source, with direct download links |
 | **Before you plant** | county-level verification, nurseries, neonicotinoids, local ordinances |
 
@@ -283,7 +283,7 @@ the plants actually in the bed:
   centre-to-centre. The groundcover step states that no bare soil may be left anywhere, because
   skipping that is the single most common cause of failure.
 - **Maintenance** groups the bed by *maintenance class*, a field `build_data.py` derives for every
-  species from its layer, family, genus, bloom span, evergreen status and notes. There are fifteen
+  species from its layer, family, genus, bloom span, evergreen status and notes. There are sixteen
   classes, so the site tells you to cut warm-season grasses to 4–6 inches, shear evergreen ferns only
   once the fiddleheads appear, prune spring-flowering shrubs straight after they bloom, trim
   woody-based subshrubs by a third without cutting into old wood, and **never** cut back an agave or
@@ -388,7 +388,7 @@ progress bars stay within 0–100%, and that every CSS class the app emits actua
   [BONAP](http://bonap.net/napa) for your own county before buying.
 - **Lepidoptera counts are genus-level approximations** that vary substantially by county. They rank
   plants against each other; they are not measurements.
-- **The database is curated, not exhaustive.** 295 species is enough to compose good beds across ten
+- **The database is curated, not exhaustive.** 824 species is enough to compose good beds across ten
   regions, not to represent regional floras. Contributions are the whole point of the plain-text
   source format.
 - **Soil pH, summer rainfall pattern and fire regime are not modelled**, though they matter as much

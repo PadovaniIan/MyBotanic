@@ -1167,6 +1167,16 @@ var CARE_TEXT = {
     water:"Only while they are visibly in growth. Once the leaves yellow and the plant goes dormant, "+
            "stop completely, because watering a dormant crown rots it. This is why everything planted "+
            "around them has to tolerate the same dry rest."}; },
+  woody_mat: function(cal){ return {
+    title:"Woody groundcovers and low junipers \u2014 never shear, never cut to the ground",
+    body:"These are woody all the way through, and most will not resprout from bare wood, so "+
+         "a cut-back or a hard shear leaves a permanent dead patch. They need no routine pruning. "+
+         "In "+cal.cut+", snip out any dead or broken branches back to a live side shoot, and "+
+         "lift the edges off a path rather than shortening them. Rake fallen leaves off the mat "+
+         "rather than over it.",
+    water:"Low once established. Soak deeply once a week through the first summer so roots follow "+
+           "the stems outward, then water only in a long drought. Most of these are killed by constant "+
+           "moisture around the woody base, not by dryness."}; },
   subshrub: function(cal){ return {
     title:"Woody-based subshrubs \u2014 trim, never cut into the old wood",
     body:"These look like perennials but are built like tiny shrubs, and they regrow from their "+
@@ -1195,7 +1205,7 @@ var CARE_TEXT = {
     water:"Low. Water enough in the first few weeks to get them going, then leave them alone. Plants "+
            "kept slightly lean set more seed, which for this layer is the whole point."}; }
 };
-var CARE_ORDER = ["rosette","palm","shrub_spring","shrub_summer","subshrub","fern_evergreen",
+var CARE_ORDER = ["rosette","palm","shrub_spring","shrub_summer","woody_mat","subshrub","fern_evergreen",
   "fern_deciduous","sedge","grass_cool","grass_warm","evergreen_perennial","perennial",
   "perennial_low","ephemeral","selfsower"];
 
@@ -1856,7 +1866,7 @@ function dxSearch(){
 
   if(!hits.length){
     host.appendChild(mk("p","muted small",
-      "No plant in the database matches that. The database holds 295 species, so it will not "+
+      "No plant in the database matches that. The database holds "+PLANTS.length+" species, so it will not "+
       "have everything \u2014 but the tests themselves apply to any plant, so pick the closest "+
       "relative you can find, or scroll down and work through the general list."));
     var b = mk("button","btn ghost sm","Show the general tests anyway");
