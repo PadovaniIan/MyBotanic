@@ -435,6 +435,9 @@ if si >= 0:
     ck('class="swappanel"' in sw, "swapped card should show the open chooser")
     ck(len(re.findall(r'class="sw-opt"', sw)) == 4, "chooser should list 4 options in the snapshot")
     ck(len(re.findall(r'class="btn sm sw-use"', sw)) == 4, "every option needs a Use this plant button")
+    opts_html = re.findall(r'<div class="sw-opt">(.*?)<button', sw, re.S)
+    ck(len(opts_html) == 4 and all('<div class=\'look\'>' in o and ' tall, ' in o for o in opts_html),
+       "every swap option should carry an appearance description")
     ck('class="sw-search"' in sw, "chooser should have a filter box")
     ck(">Undo all swaps<" in sw, "swapped card should offer Undo all swaps")
     ck(len(re.findall(r'aria-expanded="true"', sw)) == 1, "exactly one row should be expanded")

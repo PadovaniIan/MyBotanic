@@ -1892,6 +1892,7 @@ function renderSwapPanel(combo, idx, c, card){
       var p = o.p, opt = mk("div","sw-opt"), info = mk("div","sw-info");
       info.innerHTML = "<span class='cn'>"+esc(p.common)+"</span> <span class='sci muted'>"+
         esc(p.sci)+"</span> <span class='layerTag "+p.layer+"'>"+LAYER_SHORT[p.layer]+"</span>"+
+        "<div class='look'>"+esc(appearance(p))+"</div>"+
         "<div class='sw-facts'>"+esc(heightPhrase(p))+" · "+esc(bloomStr(p))+" · "+
         p.spacing+" inches apart · about "+qtyFor(p, minSqFor(row.sqft, p))+" plants</div>"+
         (o.why.length ? "<div class='sw-why'>"+esc(o.why.join(" · "))+"</div>" : "")+
@@ -2747,7 +2748,7 @@ window.__BB = {
   swapCandidates:swapCandidates, roleMatch:roleMatch, applySwap:applySwap, resetSwaps:resetSwaps,
   swapWarnings:swapWarnings, swapParam:swapParam, applySwapParam:applySwapParam,
   refreshCard:refreshCard, showCombo:showCombo, comboMetrics:comboMetrics, comboText:comboText,
-  comboCSV:comboCSV, qtyFor:qtyFor, minSqFor:minSqFor, rngFrom:rngFrom
+  comboCSV:comboCSV, appearance:appearance, qtyFor:qtyFor, minSqFor:minSqFor, rngFrom:rngFrom
 };
 
 })();

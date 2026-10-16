@@ -477,6 +477,13 @@ console.log('\n=== swapping plants ===');
   ok(/Close/.test(swapBtn(card, ri).textContent), 'the open row button should read Close');
   let opts = byClass(panel, 'sw-opt');
   ok(opts.length === 8, 'the panel should show 8 options at first, got '+opts.length);
+  // every option carries the same appearance description used in the plant table
+  const esc = s => String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  const top = S.swapCandidates(combo, ri, S.LAST).slice(0, opts.length);
+  const lookOk = opts.length > 0 && opts.every((o, k) => {
+    return o.children[0]._html.indexOf("<div class='look'>"+esc(S.appearance(top[k].p))+"</div>") >= 0;
+  });
+  ok(lookOk, 'every swap option should show the plant\'s appearance description');
   byClass(panel, 'sw-more')[0].click();
   opts = byClass(panel, 'sw-opt');
   ok(opts.length > 8, 'Show more should add options');
