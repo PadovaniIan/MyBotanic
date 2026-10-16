@@ -164,6 +164,32 @@ details.notes summary{cursor:pointer;font-weight:600;font-size:.88rem;color:var(
 details.notes .inner{margin-top:10px;font-size:.87rem}
 details.notes h5{margin:14px 0 3px;font:700 .74rem var(--sans);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft)}
 details.notes p{margin:0}
+/* ---- plant swapping ---- */
+.btn.xs{padding:4px 9px;font-size:.74rem;line-height:1.2}
+.swapcell{white-space:nowrap;text-align:right}
+.swapbtn{min-width:58px}
+table.plants tr.swapping td{background:#fbf6e8}
+.swaptag{display:inline-block;margin-top:4px;font-size:.72rem;font-weight:600;color:#7a5a12;
+  background:#fbf0d5;border:1px solid #ecd9a6;border-radius:4px;padding:1px 6px}
+.chip.s{background:#fbf0d5;color:#7a5a12;border-color:#ecd9a6}
+.swapwarn{margin-top:10px;font-size:.84rem;background:#fdecea;border:1px solid #f1c3bc;color:#7d2a1e;
+  border-radius:6px;padding:7px 10px}
+.swappanel{margin:12px 0 4px;border:1px solid #ecd9a6;background:#fffcf3;border-radius:10px;padding:12px 14px}
+.swappanel .sw-hd{display:flex;align-items:center;gap:8px;justify-content:space-between;flex-wrap:wrap}
+.swappanel .sw-intro{font-size:.8rem;color:var(--ink-soft);margin:6px 0 9px}
+.swappanel .sw-search{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:6px;
+  font:inherit;font-size:.86rem;margin:8px 0 6px;background:#fff}
+.sw-list{display:flex;flex-direction:column;gap:6px;max-height:460px;overflow:auto}
+.sw-opt{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;background:#fff;
+  border:1px solid #eee6cf;border-radius:8px;padding:8px 10px}
+.sw-info{font-size:.84rem;min-width:0}
+.sw-facts{font-size:.76rem;color:var(--ink-soft);margin-top:2px}
+.sw-why{font-size:.76rem;color:#6b5414;margin-top:2px}
+.sw-use{flex:none}
+.sw-more{margin-top:8px}
+@media(max-width:620px){.sw-opt{flex-direction:column}.swapcell{text-align:left}}
+@media print{.swapcell,.swappanel,table.plants th:last-child{display:none!important}}
+
 .combo .foot{padding:13px 22px;background:#f8f8f2;border-top:1px solid var(--line);display:flex;gap:9px;flex-wrap:wrap}
 
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:16px}

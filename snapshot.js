@@ -70,6 +70,25 @@ for(const [label,zip,light,soil,w,l,take] of cases){
           comboNav(i,n,name,true)+'</section>';
   });
 }
+/* The swap feature: one combination after two user swaps (one cross-role), with the
+   replacement chooser open on a third row, exactly as the live page renders it. */
+(function(){
+  const S = H.sandbox.window.__BB;
+  setup('53703','S','M',{w:8,l:20});
+  const cb = S.LAST.res.combos[0];
+  const st = cb.rows.findIndex(r => r.layer==='STRUCT');
+  const shrub = S.swapCandidates(cb, st, S.LAST).find(o => o.p.layer==='SHRUB');
+  if(shrub) S.applySwap(cb, st, shrub.p);
+  const se = cb.rows.findIndex(r => r.layer==='SEASONAL');
+  S.applySwap(cb, se, S.swapCandidates(cb, se, S.LAST)[0].p);
+  cb.swapOpen = cb.rows.findIndex(r => r.layer==='MATRIX'); cb.swapShow = 4;
+  S.refreshCard(0);
+  const card = H.currentCard(), name = H.cardTitle(card).replace(/^\d+/,'').trim();
+  body+='<section class="block"><div class="panel"><h2>Swapping plants \u2014 Madison, after two '+
+        'swaps, with the chooser open</h2></div></section>'+
+        '<section class="block">'+comboNav(0,S.LAST.res.combos.length,name,false)+ser(card)+
+        comboNav(0,S.LAST.res.combos.length,name,true)+'</section>';
+})();
 /* A real rendered diagnosis, so the new tab can be inspected rather than guessed at.
    Five cases with deliberately different needs, to show the ranking actually changes. */
 function diagnosisSections(){

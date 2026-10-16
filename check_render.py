@@ -39,12 +39,14 @@ for i, c in enumerate(cards, 1):
 
     tm = re.search(r'<table class="plants">(.*?)</table>', c, re.S)
     ck(bool(tm), tag+": missing plant table")
-    body_rows = re.findall(r"<tr>(.*?)</tr>", tm.group(1), re.S)[1:] if tm else []
+    body_rows = re.findall(r"<tr[^>]*>(.*?)</tr>", tm.group(1), re.S)[1:] if tm else []
     ck(len(body_rows) >= 5, tag+": only %d plant rows" % len(body_rows))
     for r in body_rows:
         cells = re.findall(r"<td[^>]*>(.*?)</td>", r, re.S)
-        ck(len(cells) == 7, tag+": row has %d cells, expected 7" % len(cells))
-        if len(cells) == 7:
+        ck(len(cells) == 8, tag+": row has %d cells, expected 8" % len(cells))
+        if len(cells) == 8:
+            ck(re.search(r'class="btn ghost xs swapbtn"[^>]*>(Swap|Close)<', cells[7]) is not None,
+               tag+": row has no Swap button")
             ck(bool(re.search(r"[A-Za-z]", cells[2])), tag+": row with no plant name")
             ck(bool(re.search(r"\d", cells[5])), tag+": row with no quantity")
             ck("inches" in cells[6], tag+": row missing spacing in inches")
@@ -420,6 +422,23 @@ ck(html.count("<table") == html.count("</table>"), "unbalanced table tags")
 ck(html.count("<details") == html.count("</details>"), "unbalanced details tags")
 wn(html.count("<div") == html.count("</div>"),
    "div open/close mismatch: %d open, %d close" % (html.count("<div"), html.count("</div>")))
+
+# ---- plant swapping: the snapshot carries one card after two swaps, chooser open ----
+si = html.find("Swapping plants")
+ck(si >= 0, "snapshot is missing the swapped-combination section")
+if si >= 0:
+    sw = html[si:]
+    sw = sw[:sw.find('<div class="combo-nav foot">')]
+    ck(len(re.findall(r"<div class='swaptag'>Your swap", sw)) == 2, "swapped card should mark exactly 2 swapped rows")
+    ck(re.search(r'<span class="chip s">2 plants swapped by you</span>', sw) is not None,
+       "swapped card should carry the swap-count chip")
+    ck('class="swappanel"' in sw, "swapped card should show the open chooser")
+    ck(len(re.findall(r'class="sw-opt"', sw)) == 4, "chooser should list 4 options in the snapshot")
+    ck(len(re.findall(r'class="btn sm sw-use"', sw)) == 4, "every option needs a Use this plant button")
+    ck('class="sw-search"' in sw, "chooser should have a filter box")
+    ck(">Undo all swaps<" in sw, "swapped card should offer Undo all swaps")
+    ck(len(re.findall(r'aria-expanded="true"', sw)) == 1, "exactly one row should be expanded")
+    print("swap snapshot: 2 swapped rows marked, chooser open with options, undo offered")
 
 print()
 for w in warns: print("  warn  " + w)

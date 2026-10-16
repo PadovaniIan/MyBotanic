@@ -322,6 +322,16 @@ function buildCombo(t, c, L, seed, variant, usage){
   });
   if(rows.length < 5) return null;
 
+  var ORD={STRUCT:0,SHRUB:1,SEASONAL:2,FERN:3,GRASS:4,MATRIX:5,FILLER:6};
+  rows.sort(function(a,b){
+    if(ORD[a.layer]!==ORD[b.layer]) return ORD[a.layer]-ORD[b.layer];
+    return b.p.hmax-a.p.hmax;
+  });
+  return {t:t, rows:rows, area:area, variant:variant, m:comboMetrics(rows, area)};
+}
+/* The scorecard, chips and bloom totals for a set of rows. Kept separate from
+   buildCombo so a combination can be recomputed after the user swaps a plant. */
+function comboMetrics(rows, area){
   var months={}, monthCount={}, lepByGenus={}, sb=0, hosts={}, winter=0, ground=0, plants=0;
   rows.forEach(function(r){
     var p=r.p;
@@ -334,17 +344,137 @@ function buildCombo(t, c, L, seed, variant, usage){
     plants += r.qty;
   });
   var lepTotal = Object.keys(lepByGenus).reduce(function(a,k){ return a+lepByGenus[k]; },0);
-  var ORD={STRUCT:0,SHRUB:1,SEASONAL:2,FERN:3,GRASS:4,MATRIX:5,FILLER:6};
-  rows.sort(function(a,b){
-    if(ORD[a.layer]!==ORD[b.layer]) return ORD[a.layer]-ORD[b.layer];
-    return b.p.hmax-a.p.hmax;
-  });
-  return {t:t, rows:rows, area:area, variant:variant, m:{
+  return {
     lep:lepTotal, sb:sb, hosts:Object.keys(hosts).sort(), winter:winter,
     bloomMonths:Object.keys(months).length,
     strongMonths:Object.keys(monthCount).filter(function(m){ return monthCount[m]>=3; }).length,
     groundPct:Math.round(100*ground/area), species:rows.length, plants:plants,
-    monthCount:monthCount}};
+    monthCount:monthCount};
+}
+function minSqFor(sq,p){ return Math.max(sq, (p.spacing*p.spacing*0.866)/144); }
+
+/* =========================================================================
+   PLANT SWAPPING
+   Every row in a combination fills a slot with a design role (its layer). A
+   replacement does not have to come from the same layer, only from one that can
+   do the same job: a shrub can carry the structural role, a tall grass can be
+   structural, a flowering mat can stand in for a seasonal perennial, a sedge can
+   be the matrix, and so on. The slot keeps its role and its share of the bed;
+   the quantity is recalculated from the new plant's spacing, and the whole card
+   (scorecard, plan, calendar, layout steps, care and exports) is rebuilt.
+   ========================================================================= */
+var SWAP_ROLES = {
+  STRUCT:   [{layer:"STRUCT"}, {layer:"SHRUB"},
+             {layer:"SEASONAL", minH:48, why:"tall enough to carry the structure"},
+             {layer:"GRASS",    minH:48, why:"a big grass that holds its shape all winter"}],
+  SHRUB:    [{layer:"SHRUB"}, {layer:"STRUCT", why:"a shrub-sized perennial for the same role"}],
+  SEASONAL: [{layer:"SEASONAL"}, {layer:"FILLER"},
+             {layer:"STRUCT", maxH:60, why:"a structural plant short enough for the middle"},
+             {layer:"MATRIX", minH:12, flowers:true, why:"a flowering groundcover tall enough to show"}],
+  FILLER:   [{layer:"FILLER"}, {layer:"SEASONAL"}],
+  MATRIX:   [{layer:"MATRIX"}, {layer:"GRASS", maxH:36, why:"a low grass or sedge that knits the ground"},
+             {layer:"FERN", why:"a fern that carpets shade"}],
+  GRASS:    [{layer:"GRASS"}, {layer:"MATRIX", grassy:true, why:"a grass-like groundcover"},
+             {layer:"STRUCT", grassy:true, why:"a large grass"}],
+  FERN:     [{layer:"FERN"}, {layer:"MATRIX", why:"a shade groundcover"}]
+};
+var ROLE_PHRASE = {STRUCT:"a structural plant", SHRUB:"a shrub", SEASONAL:"a seasonal flowering plant",
+  FILLER:"a self-sowing filler", MATRIX:"a groundcover", GRASS:"a matrix grass", FERN:"a fern"};
+function isGrassy(p){ return p.family==="Poaceae" || p.family==="Cyperaceae" || p.family==="Juncaceae"; }
+function roleMatch(slot, p){
+  var rules = SWAP_ROLES[slot] || [{layer:slot}];
+  for(var i=0;i<rules.length;i++){
+    var r = rules[i];
+    if(p.layer !== r.layer) continue;
+    if(r.minH && p.hmax < r.minH) continue;
+    if(r.maxH && p.hmax > r.maxH) continue;
+    if(r.flowers && !p.bloom_months.length) continue;
+    if(r.grassy && !isGrassy(p)) continue;
+    return r;
+  }
+  return null;
+}
+/* Ranked replacements for row `ri` of a combination. Candidates come from the same
+   site-filtered pool the generator uses (region, zone, light, soil, height cap, deer
+   and spreading settings), so nothing offered here breaks the user's constraints. */
+function swapCandidates(combo, ri, c){
+  if(!c.pool) c.pool = buildPool(c);
+  var row = combo.rows[ri], cur = row.p, t = combo.t;
+  var inBed = {}, genera = {};
+  combo.rows.forEach(function(r, j){
+    inBed[r.p.id] = 1;
+    if(j !== ri) genera[genus(r.p)] = 1;
+  });
+  /* bloom months the rest of the bed already covers */
+  var covered = {};
+  combo.rows.forEach(function(r, j){ if(j !== ri) r.p.bloom_months.forEach(function(m){ covered[m]=1; }); });
+  var out = [];
+  c.pool.forEach(function(p){
+    if(inBed[p.id]) return;
+    var rule = roleMatch(row.layer, p);
+    if(!rule) return;
+    var s = p.eco_score*0.6, why = [];
+    /* Same role first. Cross-role plants are offered, but rank higher when the design
+       already uses that kind of plant (a shrub in a woodland edge, not in a prairie). */
+    if(p.layer === row.layer) s += 16;
+    else if(p.layer === cur.layer) s += 10;
+    else s += (t.counts && t.counts[p.layer]) ? 3 : -5;
+    if(p.layer !== row.layer)
+      why.push(rule.why || ("a "+LAYER_SHORT[p.layer].toLowerCase()+" that can fill this role"));
+    /* similar size keeps the plan readable: back stays back, front stays front */
+    var dh = Math.abs(p.hmax - cur.hmax);
+    s -= dh/4;
+    if(dh <= 12) why.push("similar height");
+    var newMonths = p.bloom_months.filter(function(m){ return !covered[m]; });
+    s += newMonths.length*3;
+    if(newMonths.length) why.push("adds bloom in "+newMonths.map(function(m){
+      return MONTHNAMES[m-1]; }).join(", "));
+    s += paletteBonus(p, t.palette)*0.6;
+    if(t.require_host && p.hosts.join(";").indexOf(t.require_host)>=0){
+      s += 20; why.push(t.require_host.toLowerCase()+" host");
+    }
+    if(t.require_tag && t.require_tag!=="winter_structure_or_seedhead" &&
+       p.wildlife.indexOf(t.require_tag)>=0){ s += 12; }
+    if(t.max_height && p.hmax > t.max_height) s -= 25;
+    if(genera[genus(p)]){ s -= 18; why.push("same genus as another plant in the bed"); }
+    if(c.zone > p.zmax) s -= 6;
+    out.push({p:p, score:s, why:why});
+  });
+  out.sort(function(a,b){ return b.score-a.score || a.p.common.localeCompare(b.p.common); });
+  return out;
+}
+/* Put plant `p` into row `ri`. The slot's role and area are kept. */
+function applySwap(combo, ri, p){
+  var r = combo.rows[ri];
+  if(!r || !p || r.p === p) return false;
+  if(!r.orig) r.orig = r.p;
+  if(r.orig === p) delete r.orig;          /* swapping back to the original clears the mark */
+  r.p = p;
+  r.qty = qtyFor(p, minSqFor(r.sqft, p));
+  combo.m = comboMetrics(combo.rows, combo.area);
+  return true;
+}
+function swapCount(combo){
+  return combo.rows.filter(function(r){ return r.orig; }).length;
+}
+function resetSwaps(combo){
+  combo.rows.forEach(function(r){ if(r.orig){ applySwap(combo, combo.rows.indexOf(r), r.orig); } });
+}
+/* A design built around a requirement (monarch host, hummingbird plants, evergreen
+   cover) should say so if swaps have removed every plant that met it. */
+function swapWarnings(combo){
+  var t = combo.t, w = [];
+  if(!swapCount(combo)) return w;
+  if(t.require_host && !combo.rows.some(function(r){
+      return r.p.hosts.join(";").indexOf(t.require_host)>=0; }))
+    w.push("This design is built around "+t.require_host+" caterpillars, and after your swaps none "+
+           "of the plants left can host them. Swap at least one back, or choose a host plant.");
+  var TAGW = {hummingbird:"hummingbird flowers", evergreen:"evergreen cover"};
+  if(t.require_tag && TAGW[t.require_tag] && !combo.rows.some(function(r){
+      return r.p.wildlife.indexOf(t.require_tag)>=0; }))
+    w.push("This design depends on "+TAGW[t.require_tag]+", and after your swaps none of the "+
+           "plants left provide it.");
+  return w;
 }
 function generate(c){
   var pool = buildPool(c), L = byLayer(pool), out = [], usage = {};
@@ -1594,11 +1724,16 @@ function renderCombo(combo, idx, c){
   chip("~"+combo.m.lep+" caterpillar spp.","g");
   if(combo.m.sb) chip(combo.m.sb+" specialist-bee hosts","b");
   chip(combo.m.bloomMonths+" months of bloom","o");
-  head.appendChild(chips); card.appendChild(head);
+  var nsw = swapCount(combo);
+  if(nsw) chip(nsw+" plant"+(nsw===1?"":"s")+" swapped by you","s");
+  head.appendChild(chips);
+  swapWarnings(combo).forEach(function(w){ head.appendChild(mk("div","swapwarn",w)); });
+  card.appendChild(head);
+  card._swapBtns = [];
 
   var body=mk("div","body"), cols=mk("div","cols"), left=mk("div"), right=mk("div");
   var tbl=mk("table","plants"), tr=mk("tr");
-  ["#","Layer","Plant","Bloom","Mature height","Qty","Spacing (centre to centre)"]
+  ["#","Layer","Plant","Bloom","Mature height","Qty","Spacing (centre to centre)",""]
     .forEach(function(x){ tr.appendChild(mk("th",null,x)); });
   tbl.appendChild(tr);
   combo.rows.forEach(function(r,i){
@@ -1611,15 +1746,33 @@ function renderCombo(combo, idx, c){
     c2.innerHTML="<span class='cn'>"+esc(p.common)+"</span><br><span class='sci muted'>"+
       esc(p.sci)+"</span> <span class='plinks'>"+photoLinks(p)+"</span>"+
       "<div class='look'>"+esc(appearance(p))+"</div>"+
-      "<div class='why'>"+esc(whyText(p))+"</div>";
+      "<div class='why'>"+esc(whyText(p))+"</div>"+
+      (r.orig ? "<div class='swaptag'>Your swap — replaced "+esc(r.orig.common)+"</div>" : "");
     row.appendChild(c2);
     row.appendChild(mk("td",null,bloomStr(p)));
     row.appendChild(mk("td",null,heightPhrase(p)));
     var c5=mk("td"); c5.innerHTML="<span class='qty'>"+r.qty+"</span>"; row.appendChild(c5);
     row.appendChild(mk("td",null,p.spacing+" inches"));
+    var c7=mk("td","swapcell"), sb=mk("button","btn ghost xs swapbtn",
+      combo.swapOpen===i ? "Close" : "Swap");
+    sb.type="button";
+    sb.setAttribute("aria-expanded", combo.swapOpen===i ? "true" : "false");
+    sb.setAttribute("aria-label", (combo.swapOpen===i ? "Close the replacement list for " :
+      "Swap ")+p.common+" for a different plant");
+    sb.title = "Replace "+p.common+" with another plant that can do the same job";
+    sb.onclick = function(){
+      combo.swapOpen = (combo.swapOpen===i) ? null : i;
+      combo.swapQuery = ""; combo.swapShow = 8;
+      refreshCard(idx, combo.swapOpen===i ? "search" : i);
+    };
+    card._swapBtns[i] = sb;
+    c7.appendChild(sb); row.appendChild(c7);
+    if(combo.swapOpen===i) row.className = "swapping";
     tbl.appendChild(row);
   });
   left.appendChild(tbl);
+  if(combo.swapOpen!=null && combo.rows[combo.swapOpen])
+    left.appendChild(renderSwapPanel(combo, idx, c, card));
   left.appendChild(renderPlan(combo,c));
   right.appendChild(renderScore(combo));
   right.appendChild(renderCalendar(combo));
@@ -1646,6 +1799,7 @@ function renderCombo(combo, idx, c){
     ul.appendChild(li);
   });
   inner.appendChild(ul); det.appendChild(inner); body.appendChild(det);
+  card._det = det;
   card.appendChild(body);
 
   var foot=mk("div","foot");
@@ -1656,8 +1810,114 @@ function renderCombo(combo, idx, c){
   var b3=mk("button","btn ghost sm","Verify these species at BONAP");
   b3.onclick=function(){ window.open("http://bonap.net/napa","_blank","noopener"); };
   foot.appendChild(b1); foot.appendChild(b2); foot.appendChild(b3);
+  if(swapCount(combo)){
+    var b4=mk("button","btn ghost sm","Undo all swaps");
+    b4.type="button";
+    b4.onclick=function(){ resetSwaps(combo); combo.swapOpen=null; refreshCard(idx); };
+    foot.appendChild(b4);
+  }
   card.appendChild(foot);
   return card;
+}
+
+/* Rebuild one card in place after a swap, keeping the notes panel open if it was. */
+function refreshCard(i, focus){
+  if(!LAST || !LAST.res || !LAST.res.combos[i]) return;
+  var old = CARDS[i], notesOpen = !!(old && old._det && old._det.open);
+  var card = renderCombo(LAST.res.combos[i], i, LAST);
+  if(notesOpen) card._det.open = true;
+  CARDS[i] = card;
+  if(i === CUR){
+    var host = el("comboHost"); host.innerHTML = ""; host.appendChild(card);
+  }
+  var target = (focus === "search") ? card._swapSearch :
+               (typeof focus === "number") ? card._swapBtns[focus] : null;
+  if(target && target.focus){ try{ target.focus(); }catch(e){} }
+}
+
+function renderSwapPanel(combo, idx, c, card){
+  var ri = combo.swapOpen, row = combo.rows[ri], cur = row.p;
+  var all = swapCandidates(combo, ri, c);
+  var box = mk("div","swappanel");
+  box.setAttribute("role","region");
+  box.setAttribute("aria-label","Replacements for "+cur.common);
+  var hd = mk("div","sw-hd");
+  hd.innerHTML = "<b>Replace #"+(ri+1)+" "+esc(cur.common)+"</b> <span class='layerTag "+row.layer+
+    "'>"+LAYER_SHORT[row.layer]+"</span>";
+  var close = mk("button","btn ghost xs","Close"); close.type="button";
+  close.onclick = function(){ combo.swapOpen = null; refreshCard(idx, ri); };
+  hd.appendChild(close);
+  box.appendChild(hd);
+  box.appendChild(mk("p","sw-intro",
+    all.length+" plants can do the job of "+ROLE_PHRASE[row.layer]+" in this bed. All are native to "+
+    REGIONS[c.region].name+" and suit your light, soil, zone and other settings. They are ranked by "+
+    "how well they fit the rest of this combination; the quantity and every other part of the card "+
+    "update when you choose one."));
+
+  if(row.orig){
+    var back = mk("button","btn ghost sm","Put back the original: "+row.orig.common);
+    back.type="button";
+    back.onclick = function(){ applySwap(combo, ri, row.orig); combo.swapOpen=null; refreshCard(idx, ri); };
+    box.appendChild(back);
+  }
+
+  var search = mk("input","sw-search");
+  search.type = "search";
+  search.value = combo.swapQuery || "";
+  search.setAttribute("placeholder","Filter by name or family — for example a plant your nursery stocks");
+  search.setAttribute("aria-label","Filter replacement plants");
+  card._swapSearch = search;
+  box.appendChild(search);
+
+  var list = mk("div","sw-list");
+  box.appendChild(list);
+  var more = mk("button","btn ghost sm sw-more","Show more");
+  more.type = "button";
+  box.appendChild(more);
+
+  function draw(){
+    var q = (combo.swapQuery||"").toLowerCase().trim();
+    var hits = q ? all.filter(function(o){
+      return (o.p.common+" "+o.p.sci+" "+o.p.family).toLowerCase().indexOf(q) >= 0; }) : all;
+    var n = combo.swapShow || 8;
+    list.innerHTML = "";
+    if(!hits.length){
+      list.appendChild(mk("p","muted small", q ?
+        "No suitable plant matches that. The list only offers plants that suit this site and this "+
+        "role; try part of the name, or clear the filter." :
+        "No other plant in the database can fill this role on your site. Loosening the height "+
+        "limit, deer or spreading settings above will widen the choice."));
+    }
+    hits.slice(0, n).forEach(function(o){
+      var p = o.p, opt = mk("div","sw-opt"), info = mk("div","sw-info");
+      info.innerHTML = "<span class='cn'>"+esc(p.common)+"</span> <span class='sci muted'>"+
+        esc(p.sci)+"</span> <span class='layerTag "+p.layer+"'>"+LAYER_SHORT[p.layer]+"</span>"+
+        "<div class='sw-facts'>"+esc(heightPhrase(p))+" · "+esc(bloomStr(p))+" · "+
+        p.spacing+" inches apart · about "+qtyFor(p, minSqFor(row.sqft, p))+" plants</div>"+
+        (o.why.length ? "<div class='sw-why'>"+esc(o.why.join(" · "))+"</div>" : "")+
+        "<div class='why'>"+esc(whyText(p))+"</div>"+
+        "<span class='plinks'>"+photoLinks(p)+"</span>";
+      var use = mk("button","btn sm sw-use","Use this plant");
+      use.type = "button";
+      use.setAttribute("aria-label","Use "+p.common+" instead of "+cur.common);
+      use.onclick = function(){
+        applySwap(combo, ri, p); combo.swapOpen = null; refreshCard(idx, ri);
+      };
+      opt.appendChild(info); opt.appendChild(use);
+      list.appendChild(opt);
+    });
+    more.hidden = hits.length <= n;
+    more.textContent = "Show more ("+(hits.length - Math.min(n, hits.length))+" left)";
+  }
+  search.addEventListener("input", function(){
+    combo.swapQuery = search.value; combo.swapShow = 8; draw(); });
+  more.onclick = function(){ combo.swapShow = (combo.swapShow||8) + 8; draw(); };
+  search.addEventListener("keydown", function(ev){
+    if(ev.key === "Escape"){ combo.swapOpen = null; refreshCard(idx, ri); }
+    if(ev.key === "Enter" && ev.preventDefault) ev.preventDefault();
+  });
+  draw();
+  return box;
 }
 
 /* ------------------------------------------------ export */
@@ -1669,7 +1929,8 @@ function comboText(combo,c){
     c.l+" x "+c.w+" ft ("+combo.area+" sq ft)\n\n";
   combo.rows.forEach(function(r,i){
     out += (i+1)+". "+r.qty+" x "+r.p.sci+" ("+r.p.common+") - "+LAYER_NAME[r.layer]+
-      ", "+r.p.spacing+'" o.c., '+bloomStr(r.p)+"\n";
+      ", "+r.p.spacing+'" o.c., '+bloomStr(r.p)+
+      (r.orig ? " [your swap, replacing "+r.orig.common+"]" : "")+"\n";
   });
   out += "\nTotals: "+combo.m.species+" species, "+combo.m.plants+" plants. ~"+combo.m.lep+
     " Lepidoptera species supported; "+combo.m.sb+" specialist-bee host species; bloom in "+
@@ -1679,13 +1940,14 @@ function comboText(combo,c){
 function comboCSV(combo,c){
   var rows=[["design","layer","qty","scientific_name","common_name","family","spacing_in",
     "height_in_min","height_in_max","bloom_start","bloom_end","flower_color","usda_zones",
-    "lepidoptera_genus_approx","specialist_bee_host","larval_hosts","wildlife_value","notes"]];
+    "lepidoptera_genus_approx","specialist_bee_host","larval_hosts","wildlife_value","notes",
+    "swapped_in_for"]];
   combo.rows.forEach(function(r){
     var p=r.p;
     rows.push([combo.t.name, LAYER_NAME[r.layer], r.qty, p.sci, p.common, p.family, p.spacing,
       p.hmin, p.hmax, p.bloom_start||"", p.bloom_end||"", p.colors.join(" "),
       p.zmin+"-"+p.zmax, p.lep||"", p.sb?"yes":"", p.hosts.join("; "),
-      p.wildlife.join("; "), p.notes]);
+      p.wildlife.join("; "), p.notes, r.orig ? r.orig.sci+" ("+r.orig.common+")" : ""]);
   });
   return rows;
 }
@@ -2142,6 +2404,31 @@ function showCombo(i, opts){
 }
 function stepCombo(d){ showCombo(CUR + d); }
 
+/* Swaps travel in the shared link as combo.row.plantId triples, e.g. sw=2.4.asclepias_tuberosa */
+function swapParam(){
+  if(!LAST || !LAST.res) return "";
+  var bits = [];
+  LAST.res.combos.forEach(function(cb, ci){
+    cb.rows.forEach(function(r, ri){ if(r.orig) bits.push((ci+1)+"."+(ri+1)+"."+r.p.id); });
+  });
+  return bits.length ? "&sw="+bits.join("~") : "";
+}
+function applySwapParam(str){
+  if(!str || !LAST || !LAST.res) return 0;
+  var byId = {}, n = 0;
+  PLANTS.forEach(function(p){ byId[p.id] = p; });
+  str.split("~").forEach(function(tok){
+    var m = /^(\d+)\.(\d+)\.([a-z0-9_]+)$/.exec(tok);
+    if(!m) return;
+    var cb = LAST.res.combos[+m[1]-1], p = byId[m[3]];
+    if(!cb || !p || !cb.rows[+m[2]-1]) return;
+    /* only honour swaps that still fit the role and the site */
+    if(!roleMatch(cb.rows[+m[2]-1].layer, p) || LAST.res.pool.indexOf(p) < 0) return;
+    if(applySwap(cb, +m[2]-1, p)){ CARDS[+m[1]-1] = null; n++; }
+  });
+  return n;
+}
+
 ["prevCombo","prevCombo2"].forEach(function(id){
   var b = el(id); if(b) b.addEventListener("click", function(){ stepCombo(-1); });
 });
@@ -2230,6 +2517,7 @@ function run(){
   c.key=[c.zip,c.region,c.zone,c.soil,c.light,c.w,c.l,c.maxh,c.deer,c.spread].join("~");
   LAST=c;
   var res=generate(c), host=el("comboHost");
+  c.pool = res.pool;
   host.innerHTML="";
   CARDS = []; CUR = 0;
   LAST.res = res;                 /* set before anything can try to render a card */
@@ -2252,7 +2540,8 @@ function run(){
     {S:"full sun",P:"part shade",H:"full shade"}[c.light]+" and "+
     {D:"dry",M:"average",W:"moist to wet"}[c.soil]+" soil in zone "+c.zone+
     ". Bed area "+(c.w*c.l)+" square feet. They are shown one at a time \u2014 use the buttons "+
-    "to page through them.";
+    "to page through them. Press <b>Swap</b> beside any plant you do not like or cannot buy to "+
+    "choose a replacement; the whole combination updates to match.";
 
   var jump = el("comboJump");
   jump.innerHTML = "";
@@ -2269,7 +2558,7 @@ function run(){
     "&seed="+c.seed;
   var pl=el("permalink"); pl.href=q+"#build"; el("permalinkWrap").hidden=false;
   pl.onclick=function(e){ e.preventDefault();
-    copyText(location.origin+location.pathname+q+"&combo="+(CUR+1)+"#build", pl); };
+    copyText(location.origin+location.pathname+q+"&combo="+(CUR+1)+swapParam()+"#build", pl); };
   if(el("results").scrollIntoView) el("results").scrollIntoView({behavior:"smooth",block:"start"});
 }
 el("zip").addEventListener("input",function(){ updateZip(); });
@@ -2433,6 +2722,7 @@ function applyQuery(){
   LAST={seed:parseInt(p.get("seed"),10)||1};
   run();
   var want = parseInt(p.get("combo"),10);
+  if(applySwapParam(p.get("sw"))) showCombo(CUR, {scroll:false});
   if(want && LAST.res && LAST.res.combos.length) showCombo(want-1, {scroll:false});
 }
 if(typeof fetch === "function"){
@@ -2450,5 +2740,14 @@ if(typeof fetch === "function"){
     .catch(function(){})
     .then(applyQuery, applyQuery);
 } else { applyQuery(); }
+
+/* Read-only hook for the Node test suite (run_tests.js). Nothing in the page uses it. */
+window.__BB = {
+  get LAST(){ return LAST; }, get CUR(){ return CUR; },
+  swapCandidates:swapCandidates, roleMatch:roleMatch, applySwap:applySwap, resetSwaps:resetSwaps,
+  swapWarnings:swapWarnings, swapParam:swapParam, applySwapParam:applySwapParam,
+  refreshCard:refreshCard, showCombo:showCombo, comboMetrics:comboMetrics, comboText:comboText,
+  comboCSV:comboCSV, qtyFor:qtyFor, minSqFor:minSqFor, rngFrom:rngFrom
+};
 
 })();

@@ -18,6 +18,8 @@ every species is chosen for documented ecological function in the user's own eco
   carpet, monarch waystation, hummingbird corridor, four-season structural border, wet meadow,
   spring-ephemeral woodland, hellstrip, coastal, and more
 - **Up to 12 distinct combinations** per query, deterministic and shareable by URL
+- **Swap any plant** in a combination for another that can fill the same role on your site; the
+  quantity, plan, scorecard, calendar, instructions and exports all update
 - **43 sourced diagnostic tests** for plants that have died, ranked for the individual species
 - **Five tabs, one combination at a time** &mdash; no long scroll, and the first result is on
   screen in about 25&nbsp;ms because cards are built on demand
@@ -66,7 +68,7 @@ Five tabs, with the builder and its results on the first one:
 
 | Tab | Contents |
 |---|---|
-| **Build a Bed** | the site form and the generated combinations |
+| **Build a Bed** | the site form and the generated combinations, with a Swap button on every plant |
 | **Help My Plant Keeps Dying** | 43 diagnostic tests, ranked for the species that died |
 | **How it works** | the method, from ZIP resolution through to how the plan is drawn |
 | **Plant Database** | all 824 species, searchable and filterable |
@@ -242,6 +244,34 @@ raising it for a species makes it appear more often.
 Results are deterministic: identical inputs always produce identical designs, and the permalink
 encodes every input plus the shuffle seed.
 
+### Swapping plants
+
+Twelve combinations can only show a fraction of an 824-species database, so every plant row has a
+**Swap** button. `swapCandidates()` in `app.js` ranks replacements from the same site-filtered pool
+the generator used, so nothing offered breaks the user's region, zone, light, soil, height, deer or
+spreading settings. Which plants may fill a slot is set by `SWAP_ROLES`:
+
+| Slot | Accepts |
+|---|---|
+| Structural | structural, shrubs, seasonal plants 4 feet and over, grasses 4 feet and over |
+| Shrub | shrubs, structural perennials |
+| Seasonal | seasonal, fillers, structural plants up to 5 feet, flowering groundcovers 1 foot and over |
+| Filler | fillers, seasonal |
+| Groundcover | groundcovers, grasses and sedges up to 3 feet, ferns |
+| Grass | grasses, grass-like groundcovers (sedges, rushes), large grasses from the structural layer |
+| Fern | ferns, groundcovers |
+
+Ranking favours the slot's own layer, then similar height, months the rest of the bed leaves
+without bloom, the template's palette and purpose (a monarch host in a waystation), and plants of
+another genus. Plants from a layer the template does not use at all rank lower, so a prairie bed
+leads with prairie plants rather than shrubs.
+
+`applySwap()` keeps the slot's layer and area, recomputes the quantity from the new spacing, and
+reruns `comboMetrics()`; `refreshCard()` then rebuilds the whole card, so the plan, calendar,
+instructions, care groups and exports follow automatically. Each swapped row remembers its original,
+which powers *Put back the original* and *Undo all swaps*. The share link carries swaps as
+`sw=combo.row.plantId` triples, and a link is only honoured if the plant still fits that role and site.
+
 ### How the plan is drawn
 
 The plan is the planting instruction, so it has to be literal. The bed is divided into a grid of
@@ -356,7 +386,15 @@ twelve combinations are reachable and distinct), ZIP resolution for 18 locations
 out-of-scope and malformed cases), bed generation for 19 city / light / soil scenarios and 5
 hard-filter stress cases, and structural invariants on the rendered cards: layer tags present, spacing present, scorecard
 present, plan present, calendar present, quantities within range, determinism, shuffle actually
-changing the result, and no `undefined` or `NaN` anywhere in the output.
+changing the result, and no `undefined` or `NaN` anywhere in the output. It also covers **swapping**:
+every replacement offered across seven sites is checked against the slot's role and the site
+filters (about 39,000 offers, roughly half of them cross-role, such as a shrub offered for a
+structural slot); the real Swap button opens the chooser, the filter and *Show more* work, and
+choosing a plant updates the quantity, chips, scorecard, plan, calendar, instructions, plain-text list
+and CSV while leaving no trace of the old plant; swaps survive paging and round-trip through the share
+link, which refuses plants that do not suit the site; *Put back the original* and *Undo all swaps*
+restore the card byte-for-byte; a waystation warns when its last monarch host is swapped out; and
+100 random swaps across four sites never produce a broken card.
 
 `check_render.py` also confirms the build is **reproducible**: it re-runs all three generators and asserts every generated file is byte-identical, and that none of them mixes line endings. That caught `plants.csv` being written with CRLF while everything else used LF, which would have made the CI staleness warning fire on every single run and masked real drift.
 

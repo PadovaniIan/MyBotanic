@@ -417,6 +417,185 @@ byId.blight.value=''; byId.breg.value='SW'; byId.breg.dispatch('change');
 console.log('  region = Southwest -> '+(byId.browseTable.children.length-1)+' rows');
 byId.breg.value='';
 
+
+console.log('\n=== swapping plants ===');
+(function(){
+  const S = H.sandbox.window.__BB;
+  function walk(e, fn){ fn(e); (e.children||[]).forEach(c=>walk(c, fn)); }
+  function findAll(root, pred){ const o=[]; walk(root, e=>{ if(pred(e)) o.push(e); }); return o; }
+  const byClass = (root, cls) => findAll(root, e => (' '+(e.className||'')+' ').indexOf(' '+cls+' ')>=0);
+  const allText = root => { let t=''; walk(root, e=>{ t += (e._text||'')+' '+(e._html||'')+' '; }); return t; };
+  const rowsOf = card => plantTable(card).children.slice(1);
+  const swapBtn = (card, i) => rowsOf(card)[i].children[7].children[0];
+
+  setup('53703','S','M',{w:8,l:20});
+  let card = H.currentCard(), combo = S.LAST.res.combos[S.CUR];
+  const before = allText(card);
+  ok(rowsOf(card).every(tr => tr.children[7] && /Swap/.test(tr.children[7].textContent)),
+     'every plant row should carry a Swap button');
+
+  // every candidate offered anywhere must respect the role and the site
+  let bad = 0, offered = 0, crossRole = 0;
+  [['53703','S','M'],['85719','S','D'],['97214','H','M'],['33139','P','M'],['78704','S','D'],
+   ['94110','S','D'],['30306','H','M']].forEach(([zip,l,soil])=>{
+    setup(zip,l,soil,{w:8,l:20});
+    const c = S.LAST;
+    S.LAST.res.combos.forEach(cb => cb.rows.forEach((r, ri) => {
+      const inBed = new Set(cb.rows.map(x=>x.p.id));
+      S.swapCandidates(cb, ri, c).forEach(o => {
+        offered++;
+        const p = o.p;
+        if(!S.roleMatch(r.layer, p)) bad++;
+        if(inBed.has(p.id)) bad++;
+        if(p.regions.indexOf(c.region)<0 || c.zone < p.zmin || c.zone > p.zmax+1 ||
+           p.light.indexOf(c.light)<0 || p.moist.indexOf(c.soil)<0 || p.hmax > c.maxh) bad++;
+        if(p.layer !== r.layer) crossRole++;
+      });
+    }));
+  });
+  console.log('  '+offered+' replacement offers checked across 7 sites, '+crossRole+' of them cross-role');
+  ok(bad === 0, bad+' offered replacements break the role or the site constraints');
+  ok(crossRole > 0, 'no cross-role replacements are ever offered');
+
+  // the user's example: a shrub offered for a structural slot
+  setup('53703','P','M',{w:8,l:20});
+  let shrubForStruct = 0;
+  S.LAST.res.combos.forEach(cb => cb.rows.forEach((r, ri) => {
+    if(r.layer==='STRUCT' && S.swapCandidates(cb, ri, S.LAST).some(o=>o.p.layer==='SHRUB')) shrubForStruct++;
+  }));
+  ok(shrubForStruct > 0, 'a shrub should be offered for a structural slot');
+
+  // open the chooser through the real button
+  setup('53703','S','M',{w:8,l:20});
+  card = H.currentCard(); combo = S.LAST.res.combos[S.CUR];
+  const ri = combo.rows.findIndex(r => r.layer==='SEASONAL');
+  const oldP = combo.rows[ri].p;
+  swapBtn(card, ri).click();
+  card = H.currentCard();
+  const panel = byClass(card, 'swappanel')[0];
+  ok(!!panel, 'clicking Swap should open the replacement panel');
+  ok(/Close/.test(swapBtn(card, ri).textContent), 'the open row button should read Close');
+  let opts = byClass(panel, 'sw-opt');
+  ok(opts.length === 8, 'the panel should show 8 options at first, got '+opts.length);
+  byClass(panel, 'sw-more')[0].click();
+  opts = byClass(panel, 'sw-opt');
+  ok(opts.length > 8, 'Show more should add options');
+
+  // filter by name
+  const all = S.swapCandidates(combo, ri, S.LAST);
+  const target = all[all.length-1].p;                       // the lowest-ranked one
+  const search = byClass(panel, 'sw-search')[0];
+  search.value = target.common.slice(0, 6); search.dispatch('input');
+  opts = byClass(panel, 'sw-opt');
+  ok(opts.length >= 1 && opts.every(o => allText(o).toLowerCase().indexOf(target.common.slice(0,6).toLowerCase())>=0),
+     'the filter should narrow the list to matching plants');
+
+  // choose it
+  const use = byClass(opts.find(o => allText(o).indexOf(target.common)>=0), 'sw-use')[0];
+  use.click();
+  card = H.currentCard(); combo = S.LAST.res.combos[S.CUR];
+  const after = allText(card);
+  ok(combo.rows[ri].p === target, 'the chosen plant should replace the row');
+  ok(!byClass(card, 'swappanel').length, 'choosing should close the panel');
+  ok(combo.rows[ri].qty === S.qtyFor(target, S.minSqFor(combo.rows[ri].sqft, target)),
+     'quantity should be recalculated for the new spacing');
+  const cardTxt = card.textContent;
+  ['Planting plan','Bloom sequence','Step by step','Plant-by-plant notes','Your calendar']
+    .forEach(sec => ok(cardTxt.indexOf(sec)>=0, 'section missing after swap: '+sec));
+  // the new plant appears everywhere the old one did; the old one is gone
+  const occ = (txt, name) => txt.split(name).length-1;
+  const leg = byClass(card, 'legend')[0];
+  ok(allText(leg).indexOf(target.common)>=0, 'plan legend should name the new plant');
+  ok(findAll(card, e=>e.className==='cal').some(e=>allText(e).indexOf(target.common)>=0),
+     'bloom calendar should include the new plant');
+  ok(allText(card._det).indexOf(target.sci)>=0, 'layout and care notes should name the new plant');
+  ok(occ(after, oldP.sci) === 0, 'the old plant still appears '+occ(after, oldP.sci)+' times');
+  ok(after.indexOf('replaced '+oldP.common)>=0, 'the row should say which plant it replaced');
+  ok(/1 plant swapped by you/.test(cardTxt), 'the chips should count the swap');
+  // metrics are consistent with the rows
+  const m = S.comboMetrics(combo.rows, combo.area);
+  ok(JSON.stringify(m) === JSON.stringify(combo.m), 'metrics should be recomputed after a swap');
+  const qtySum = rowsOf(card).reduce((a,tr)=>a+parseInt(tr.children[5].textContent,10),0);
+  ok(cardTxt.indexOf(qtySum+' plants')>=0, 'plant total chip should match the table ('+qtySum+')');
+  ok(!/undefined|NaN|\[object \w+/.test(after), 'swapped card contains undefined/NaN');
+  const spPaths = findAll(card, e=>e.tag==='path' && e.attrs && e.attrs['data-sp']).length;
+  ok(spPaths === combo.rows.length, 'plan should draw every species after the swap ('+spPaths+')');
+  // exports follow
+  ok(S.comboText(combo, S.LAST).indexOf(target.sci)>=0 &&
+     /your swap, replacing/.test(S.comboText(combo, S.LAST)), 'plant list text should reflect the swap');
+  const csv = S.comboCSV(combo, S.LAST);
+  ok(csv[0][csv[0].length-1]==='swapped_in_for' && csv.some(r=>r[3]===target.sci && r[r.length-1].indexOf(oldP.sci)>=0),
+     'CSV should carry the new plant and what it replaced');
+
+  // paging away and back keeps the swap
+  H.gotoCombo(1); H.gotoCombo(0);
+  ok(S.LAST.res.combos[0].rows[ri].p === target, 'swap should survive paging');
+
+  // shareable link round trip
+  const sw = S.swapParam();
+  ok(/^&sw=1\.\d+\.[a-z0-9_]+$/.test(sw), 'swap parameter looks wrong: '+sw);
+  setup('53703','S','M',{w:8,l:20});
+  ok(S.LAST.res.combos[0].rows[ri].p === oldP, 'regenerating should start from the original design');
+  S.applySwapParam(sw.slice(4));
+  ok(S.LAST.res.combos[0].rows[ri].p === target, 'the link should restore the swap');
+  S.applySwapParam('9.9.not_a_plant~1.1.agave_parryi');      // junk and a wrong-site plant are ignored
+  ok(S.LAST.res.combos[0].rows[0].p.id !== 'agave_parryi', 'a link must not inject an unsuitable plant');
+
+  // Put back the original, then Undo all
+  S.showCombo(0, {scroll:false});
+  card = H.currentCard();
+  swapBtn(card, ri).click(); card = H.currentCard();
+  const back = findAll(card, e => /Put back the original/.test(e._text||''))[0];
+  ok(!!back, 'a swapped row should offer to put the original back');
+  back.click(); card = H.currentCard();
+  ok(S.LAST.res.combos[0].rows[ri].p === oldP && !S.LAST.res.combos[0].rows[ri].orig,
+     'putting back the original should clear the swap');
+  ok(allText(card) === before, 'after putting the original back the card should match the original exactly');
+  // several swaps, then Undo all
+  combo = S.LAST.res.combos[0];
+  [0,2,4].forEach(i => { const c = S.swapCandidates(combo, i, S.LAST); if(c.length) S.applySwap(combo, i, c[0].p); });
+  S.refreshCard(0); card = H.currentCard();
+  ok(/3 plants swapped by you/.test(card.textContent), 'three swaps should be counted');
+  const undo = findAll(card, e => e._text === 'Undo all swaps')[0];
+  ok(!!undo, 'an Undo all swaps button should appear');
+  undo.click(); card = H.currentCard();
+  ok(allText(card) === before, 'Undo all swaps should restore the original card exactly');
+
+  // a host-dependent design warns when its hosts are all swapped out
+  const wi = S.LAST.res.combos.findIndex(cb => cb.t.require_host === 'Monarch');
+  if(wi >= 0){
+    const cb = S.LAST.res.combos[wi];
+    cb.rows.forEach((r, i) => {
+      if(r.p.hosts.join(';').indexOf('Monarch')>=0){
+        const alt = S.swapCandidates(cb, i, S.LAST).find(o => o.p.hosts.join(';').indexOf('Monarch')<0);
+        if(alt) S.applySwap(cb, i, alt.p);
+      }
+    });
+    ok(S.swapWarnings(cb).length === 1, 'removing every monarch host should raise a warning');
+    S.resetSwaps(cb);
+    ok(S.swapWarnings(cb).length === 0, 'undoing the swaps should clear the warning');
+  }
+
+  // stress: many random swaps across sites never break a card
+  let broken = 0, done = 0;
+  const rnd = S.rngFrom('swap-stress');
+  [['53703','H','M'],['85719','S','D'],['33139','P','M'],['59801','S','M']].forEach(([zip,l,soil])=>{
+    setup(zip,l,soil,{w:6,l:14});
+    for(let k=0;k<25;k++){
+      const ci = Math.floor(rnd()*S.LAST.res.combos.length), cb = S.LAST.res.combos[ci];
+      const i = Math.floor(rnd()*cb.rows.length), c = S.swapCandidates(cb, i, S.LAST);
+      if(!c.length) continue;
+      S.applySwap(cb, i, c[Math.floor(rnd()*Math.min(c.length, 20))].p); done++;
+      S.showCombo(ci, {scroll:false}); S.refreshCard(ci);
+      const t = allText(H.currentCard());
+      const paths = findAll(H.currentCard(), e=>e.tag==='path' && e.attrs && e.attrs['data-sp']).length;
+      if(/undefined|NaN|\[object \w+/.test(t) || paths !== cb.rows.length) broken++;
+    }
+  });
+  console.log('  '+done+' random swaps, broken cards: '+broken);
+  ok(broken === 0, broken+' cards broke under random swapping');
+})();
+
 console.log('\n'+(fails? 'FAILURES: '+fails : 'ALL CHECKS PASSED')+
             (warns? '   warnings: '+warns : ''));
 process.exit(fails?1:0);
